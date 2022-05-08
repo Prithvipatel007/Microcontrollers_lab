@@ -1,0 +1,273 @@
+&44EC6,,Menu,0,entry,Tick  : REM Menu_SetTick
+&44EC6,,Menu,1,entry TO Tick  : REM Menu_GetTick
+&44EC6,,Menu,2,entry,Fade  : REM Menu_SetFade
+&44EC6,,Menu,3,entry TO Fade  : REM Menu_GetFade
+&44EC6,,Menu,4,entry,Text$  : REM Menu_SetEntryText
+&44EC6,,Menu,5,entry,buffer,buffersize  : REM Menu_GetEntryText
+&44EC6,,Menu,6,entry,Sprite$  : REM Menu_SetEntrySprite
+&44EC6,,Menu,7,entry,buffer,buffersize  : REM Menu_GetEntrySprite
+&44EC6,,Menu,8,entry,subshow_id  : REM Menu_SetSubmenuShow
+&44EC6,,Menu,9,entry TO subshow_id : REM Menu_GetSubmenuShow
+&44EC6,,Menu,10,entry,event  : REM Menu_SetSubMenuEvent
+&44EC6,,Menu,11,entry TO ,,,,event  : REM Menu_GetSubMenuEvent
+&44EC6,,Menu,12,entry,object  : REM Menu_SetClickShow
+&44EC6,,Menu,13,entry TO object  : REM Menu_GetClickShow
+&44EC6,,Menu,14,entry,event  : REM Menu_SetClickEvent
+&44EC6,,Menu,15,entry TO ,,,,event   : REM Menu_GetClickEvent
+&44EC6,,Menu,18,entry,Text$  : REM Menu_SetEntryHelpMessage
+&44EC6,,Menu,19,entry,buffer,buffersize  : REM Menu_GetEntryHelpMessage
+&44EC6,,Menu,16,Text$  : REM Menu_SetHelpMessage
+&44EC6,,Menu,17,buffer,buffersize  : REM Menu_GetHelpMessage
+&44EC6,,Menu,20,entry,template  : REM Menu_AddEntry
+&44EC6,,Menu,21,entry  : REM Menu_RemoveEntry
+&44EC6,,Menu,22 TO Height  : REM Menu_GetHeight
+&44EC6,,Menu,23 TO Width  : REM Menu_GetWidth
+&44EC6,,Menu,24,Title$  : REM Menu_SetTitle
+&44EC6,,Menu,25,buffer,buffersize  : REM Menu_GetTitle
+&44EC6,,window_id,128,gadget_id,Text$ : REM ActionButton_SetText
+&44EC6,,window_id,129,gadget_id,buffer,buffersize : REM ActionButton_GetText
+&44EC6,,window_id,130,gadget_id,event : REM ActionButton_SetEvent
+&44EC6,,window_id,131,gadget_id TO event : REM ActionButton_GetEvent
+&44EC6,,window_id,132,gadget_id,object_id,showflags : REM ActionButton_SetClickShow
+&44EC6,,window_id,133,gadget_id TO object,showflags : REM ActionButton_GetClickShow
+&44EC6,,window_id,961,gadget_id,clearword,setword : REM Button_SetFlags
+&44EC6,,window_id,960,gadget_id TO flags : REM Button_GetFlags
+&44EC6,,window_id,962,gadget_id,value$ : REM Button_SetValue
+&44EC6,,window_id,963,gadget_id,buffer,buffersize : REM Button_GetValue
+&44EC6,buffer,window_id,964,gadget_id,Valid$ TO ;`f%: REM Button_SetValidation
+&44EC6,,window_id,965,gadget_id,buffer,buffersize : REM Button_GetValidation
+&44EC6,,window_id,966,gadget_id,fontname$,width<<4,height<<4 : REM Button_SetFont
+&44EC6,,ColourDbox,0 TO WimpHandle : REM ColourDbox_GetWimpHandle
+&44EC6,,ColourDbox,1 TO DialogueHandle : REM ColourDbox_GetDialogueHandle
+&44EC6,,ColourDbox,2,buffer : REM ColourDbox_SetColour
+&44EC6,1,ColourDbox,2,buffer : REM ColourDbox_SetColour
+&64EC6,,ColourDbox,3,buffer,buffersize TO none   : REM ColourDbox_GetColour
+&44EC6,,ColourDbox,4,buffer  : REM ColourDbox_SetColourModel
+&44EC6,,ColourDbox,5,buffer,buffersize  : REM ColourDbox_GetColourModel
+&44EC6,,ColourDbox,6,none  : REM ColourDbox_SetNoneAvailable
+&44EC6,,ColourDbox,7 TO none : REM ColourDbox_GetNoneAvailable
+&44EC6,,ColourMenu,0,Colour  : REM ColourMenu_SetColour
+&44EC6,,ColourMenu,1 TO Colour  : REM ColourMenu_GetColour
+&44EC6,,ColourMenu,2,none : REM ColourMenu_SetNoneAvailable
+&44EC6,,ColourMenu,3 TO none : REM ColourMenu_GetNoneAvailable
+&44EC6,,ColourMenu,4,Title$  : REM ColourMenu_SetTitle
+&44EC6,,ColourMenu,5,buffer,buffersize : REM ColourMenu_GetTitle
+&44EC6,,DCS_ID,0 TO WindowID  : REM DCS_GetWindowID
+&44EC6,,DCS_ID,1,Message$ : REM DCS_SetMessage
+&44EC6,,DCS_ID,2,buffer,buffersize  : REM DCS_GetMessage
+&44EC6,,DCS_ID,3,Title$ : REM DCS_SetTitle
+&44EC6,,DCS_ID,4,buffer,buffersize : REM DCS_GetTitle
+&44EC6,,window_id,448,gadget_id,Text$ : REM DisplayField_SetValue
+&44EC6,,window_id,449,gadget_id,buffer,buffersize : REM DisplayField_GetValue
+&44EC6,,window_id,450,gadget_id,fontname$,width<<4,height<<4 : REM DisplayField_SetFont
+&44EC6,,window_id,640,gadget_id,Sprite$ : REM Draggable_SetSprite
+&44EC6,,window_id,641,gadget_id,buffer,buffersize : REM Draggable_GetSprite
+&44EC6,,window_id,642,gadget_id,Text$ : REM Draggable_SetText
+&44EC6,,window_id,643,gadget_id,buffer,buffersize : REM Draggable_GetText
+&44EC6,,window_id,644,gadget_id,state : REM Draggable_SetState
+&44EC6,,window_id,645,gadget_id TO state : REM Draggable_GetState
+&44EC6,,FileInfo,0 TO WindowID : REM FileInfo_GetWindowID
+&44EC6,,FileInfo,1,Modified  : REM FileInfo_SetModified
+&44EC6,,FileInfo,2 TO Modified  : REM FileInfo_GetModified
+&44EC6,,FileInfo,3,FileType  : REM FileInfo_SetFileType
+&44EC6,,FileInfo,4 TO FileType  : REM FileInfo_GetFileType
+&44EC6,,FileInfo,5,FileName$  : REM FileInfo_SetFileName
+&44EC6,,FileInfo,6,buffer,buffersize : REM FileInfo_GetFileName
+&44EC6,,FileInfo,7,FileSize  : REM FileInfo_SetFileSize
+&44EC6,,FileInfo,8 TO FileSize  : REM FileInfo_GetFileSize
+&44EC6,,FileInfo,9,Date  : REM FileInfo_SetDate
+&44EC6,,FileInfo,10,Date  : REM FileInfo_GetDate
+&44EC6,,FileInfo,11,Title$  : REM FileInfo_SetTitle
+&44EC6,,FileInfo,12,buffer,buffersize : REM FileInfo_GetTitle
+&44EC6,,FontDbox,0 TO WindowID  : REM FontDbox_GetWindowID
+&44EC6,,FontDbox,1,Font$  : REM FontDbox_SetFont
+&44EC6,,FontDbox,2,buffer,buffersize : REM FontDbox_GetFont
+&44EC6,3,FontDbox,3,height,aspect  : REM FontDbox_SetSize
+&44EC6,,FontDbox,4 TO height,aspect  : REM FontDbox_GetSize
+&44EC6,,FontDbox,5,TryString$  : REM FontDbox_SetTryString
+&44EC6,,FontDbox,6,buffer,buffersize  : REM FontDbox_GetTryString
+&44EC6,,FontDbox,7,Title$  : REM FontDbox_SetTitle
+&44EC6,,FontDbox,8,buffer,buffersize : REM FontDbox_GetTitle
+&44EC6,,FontMenu,0,Font$  : REM FontMenu_SetFont
+&44EC6,,FontMenu,1,buffer,buffersize : REM FontMenu_GetFont
+&44EC6,,window_id,65,gadget_id,state : REM Gadget_SetFlags/Gadget_SetFade
+&44EC6,,window_id,64,gadget_id TO state: REM Gadget_GetFlags/Gadget_GetFade
+&44EC6,,window_id,66,gadget_id,Text$ : REM Gadget_SetHelpMessage
+&44EC6,,window_id,67,gadget_id,WIMP+256,256 : REM Gadget_GetHelpMessage
+&44EC6,,window_id,68,gadget_id,WIMP+256,256 : REM Gadget_GetIconList
+&44EC6,,window_id,69,gadget_id : REM Gadget_SetFocus
+&44EC6,,window_id,70,gadget_id TO type : REM Gadget_GetType
+&44EC6,,window_id,71,gadget_id,WIMP+256 : REM Gadget_MoveGadget
+&44EC6,,window_id,72,gadget_id,WIMP+256 : REM Gadget_GetBBox
+&44EC6,,Iconbar,0 TO IconHandle  : REM Iconbar_GetIconHandle
+&44EC6,,Iconbar,1,Menu  : REM Iconbar_SetMenu
+&44EC6,,Iconbar,2 TO Menu  : REM Iconbar_GetMenu
+&44EC6,`f%,Iconbar,3,Select_Event,Adjust_Event  : REM Iconbar_SetEvent
+&44EC6,3,Iconbar,4 TO Select,Adjust  : REM Iconbar_GetEvent
+&44EC6,`f%,Iconbar,5,Select,Adjust  : REM Iconbar_SetShow
+&44EC6,3,Iconbar,6 TO Select,Adjust  : REM Iconbar_GetShow
+&44EC6,,Iconbar,7,HelpMessage$  : REM Iconbar_SetHelpMessage
+&44EC6,,Iconbar,8,buffer,buffersize  : REM Iconbar_GetHelpMessage
+&44EC6,,Iconbar,9,Text$  : REM Iconbar_SetText
+&44EC6,,Iconbar,10,buffer,buffersize  : REM Iconbar_GetText
+&44EC6,,Iconbar,11,Sprite$  : REM Iconbar_SetSprite
+&44EC6,,Iconbar,12,buffer,buffersize : REM Iconbar_GetSprite
+
+&44EC6,8,window_id,835,gadget_id TO ,,,precision
+&44EC6,,window_id,832,gadget_id,value : REM NumberRange_SetValue
+&44EC6,8,window_id,835,gadget_id TO ,,,precision
+&44EC6,,window_id,833,gadget_id TO value : REM NumberRange_GetValue
+&44EC6,15,window_id,834,gadget_id,lower,upper,stepsize,precision : REM NumberRange_SetBounds
+&44EC6,15,window_id,835,gadget_id TO lower,upper,stepsize,precision : REM NumberRange_GetBounds
+&44EC6,15,window_id,836,gadget_id TO numeric,left,right,slider : REM NumberRange_GetComponents
+&44EC6,,window_id,192,gadget_id,Text$ : REM OptionButton_SetLabel
+&44EC6,,window_id,193,gadget_id,buffer,buffersize : REM OptionButton_GetLabel
+&44EC6,,window_id,194,gadget_id,event : REM OptionButton_SetEvent
+&44EC6,,window_id,195,gadget_id TO event : REM OptionButton_GetEvent
+&44EC6,,window_id,196,gadget_id,state : REM OptionButton_SetState
+&44EC6,,window_id,197,gadget_id TO state : REM OptionButton_GetState
+&44EC6,,window_id,704,gadget_id,menu_id : REM Popup_SetMenu
+&44EC6,,window_id,705,gadget_id TO menu_id : REM Popup_GetMenu
+&44EC6,,PrintDbox,0 TO WindowID  : REM PrintDbox_GetWindowID
+&44EC6,,PrintDbox,1,start,end   : REM PrintDbox_SetPageRange
+&44EC6,,PrintDbox,2 TO start,end : REM PrintDbox_GetPageRange
+&44EC6,,PrintDbox,3,Copies  : REM PrintDbox_SetCopies
+&44EC6,,PrintDbox,4 TO Copies  : REM PrintDbox_GetCopies
+&44EC6,,PrintDbox,5,Scale  : REM PrintDbox_SetScale
+&44EC6,,PrintDbox,6 TO Scale  : REM PrintDbox_GetScale
+&44EC6,,PrintDbox,7,Orientation  : REM PrintDbox_SetOrientation
+&44EC6,,PrintDbox,8 TO Orientation  : REM PrintDbox_GetOrientation
+&44EC6,,PrintDbox,9,buffer,buffersize  : REM PrintDbox_GetTitle
+&44EC6,,PrintDbox,10,Draft  : REM PrintDbox_SetDraft
+&44EC6,,PrintDbox,11 TO Draft : REM PrintDbox_GetDraft
+&44EC6,,ProgInfoID,0 TO WindowID : REM ProgInfo_GetWindowID
+&44EC6,,ProgInfoID,1,Version$ : REM ProgInfo_SetVersion
+&44EC6,,ProgInfoID,2,buffer,buffersize : REM ProgInfo_GetVersion
+&44EC6,,ProgInfoID,3,LicenceType : REM ProgInfo_SetLicenceType
+&44EC6,,ProgInfoID,4 TO LicenceType : REM ProgInfo_GetLicenceType
+&44EC6,,ProgInfoID,5,Title$ : REM ProgInfo_SetTitle
+&44EC6,,ProgInfoID,6,buffer,buffersize : REM ProgInfo_GetTitle
+&44EC6,,ProgInfoID,7,uri$ : REM ProgInfo_SetUri
+&44EC6,,ProgInfoID,8,buffer,buffersize : REM ProgInfo_GetUri
+&44EC6,,Quit_ID,0 TO WindowID : REM Quit_GetWindowID
+&44EC6,,Quit_ID,1,Message$ : REM Quit_SetMessage
+&44EC6,,Quit_ID,2,buffer,buffersize : REM Quit_GetMessage
+&44EC6,,Quit_ID,3,Title$ : REM Quit_SetTitle
+&44EC6,,Quit_ID,4,buffer,buffersize : REM Quit_GetTitle
+&44EC6,,window_id,384,gadget_id,Text$ : REM RadioButton_SetLabel
+&44EC6,,window_id,385,gadget_id,buffer,buffersize : REM RadioButton_GetLabel
+&44EC6,,window_id,386,gadget_id,event : REM RadioButton_SetEvent
+&44EC6,,window_id,387,gadget_id TO event : REM RadioButton_GetEvent
+&44EC6,,window_id,388,gadget_id,state : REM RadioButton_SetState
+&44EC6,,window_id,389,gadget_id TO state,on_button : REM RadioButton_GetState
+&44EC6,,SaveAs,0 TO WindowID : REM SaveAs_GetWindowID
+&44EC6,,SaveAs,1,Title$ : REM SaveAs_SetTitle
+&44EC6,,SaveAs,2,buffer,buffersize : REM SaveAs_GetTitle
+&44EC6,,SaveAs,3,FileName$ : REM SaveAs_SetFileName
+&44EC6,,SaveAs,4,buffer,buffersize : REM SaveAs_GetFileName
+&44EC6,,SaveAs,5,FileType : REM SaveAs_SetFileType
+&44EC6,,SaveAs,6 TO FileType : REM SaveAs_GetFileType
+&44EC6,,SaveAs,7,FileSize : REM SaveAs_SetFileSize
+&44EC6,,SaveAs,8 TO FileSize : REM SaveAs_GetFileSize
+&44EC6,,SaveAs,9,selection : REM SaveAs_SelectionAvailable
+&44EC6,,SaveAs,10,data,size : REM SaveAs_SetDataAddress
+&44EC6,,SaveAs,11,buffer,size : REM SaveAs_BufferFilled
+&44EC6,1,SaveAs,12,filename$ : REM SaveAs_FileSaveCompleted
+&44EC6,,Scale,0 TO WindowID : REM Scale_GetWindowID
+&44EC6,,Scale,1,Value : REM Scale_SetValue
+&44EC6,,Scale,2 TO Value : REM Scale_GetValue
+&44EC6,7,Scale,3,lower_bound,upper_bound,stepsize : REM Scale_SetBounds
+&44EC6,7,Scale,4 TO lower_bound,upper_bound,stepsize : REM Scale_GetBounds
+&44EC6,,Scale,5,Title$ : REM Scale_SetTitle
+&44EC6,,Scale,6,buffer,buffersize : REM Scale_GetTitle
+&44EC6,,window_id,16410,gadget_id TO state : REM ScrollList_GetState
+&44EC6,,window_id,16411,gadget_id,state : REM ScrollList_SetState
+&44EC6,,window_id,16421,gadget_id,buffer,buffer_size : REM ScrollList_GetItemText
+&44EC6,,window_id,16142,text,sprite_area,sprite_name,index : REM ScrollList_AddItem
+&44EC6,,window_id,16413,gadget_id,start,end : REM ScrollList_DeleteItems
+&44EC6,1,window_id,16416,gadget_id,offset TO offset : REM ScrollList_GetSelected
+&44EC6,,window_id,16414,gadget_id,index : REM ScrollList_SelectItem
+&44EC6,,window_id,16415,gadget_id,index : REM ScrollList_DeselectItem
+&44EC6,,window_id,16417,gadget_id,index : REM ScrollList_MakeVisible
+&44EC6,,window_id,16420,gadget_id,font,width*16,height*16 : REM ScrollList_SetFont
+&44EC6,,window_id,16418,gadget_id,colour,bgcolour : REM ScrollList_SetColour
+&44EC6,,window_id,16419,gadget_id TO colour,bgcolour : REM ScrollList_GetColour
+&44EC6,,window_id,576,gadget_id,value : REM Slider_SetValue
+&44EC6,,window_id,577,gadget_id TO value : REM Slider_GetValue
+&44EC6,7,window_id,578,gadget_id,min,max,stepsize : REM Slider_SetBounds
+&44EC6,7,window_id,579,gadget_id TO min,max,stepsize : REM Slider_GetBounds
+&44EC6,,window_id,580,gadget_id,barcolour,bgcolour : REM Slider_SetColour
+&44EC6,,window_id,581,gadget_id TO barcolour,bgcolour : REM Slider_GetColour
+&44EC6,,window_id,896,gadget,stringblock$ : REM StringSet_SetAvailable
+&44EC6,,window_id,898,gadget,string$ : REM StringSet_SetSelected
+&44EC6,1,window_id,898,gadget,index% : REM StringSet_SetSelected/StringSet_SetIndexSelected
+&44EC6,,window_id,899,gadget,buffer,buffersize : REM StringSet_GetSelected
+&44EC6,1,window_id,899,gadget TO index% : REM StringSet_GetSelected/StringSet_GetIndexSelected
+&44EC6,,window_id,900,gadget,allowable$ : REM StringSet_SetAllowable
+&44EC6,,window_id,902,gadget TO alpha,popup : REM StringSet_GetComponents
+&44EC6,,window_id,&4018,gadget_id TO ,state : REM TextArea_GetState
+&44EC6,,window_id,&4019,gadget_id,state : REM TextArea_SetState
+&44EC6,,window_id,&401A,gadget_id,text : REM TextArea_SetText
+&44EC6,,window_id,&401B,gadget_id TO ,,,,,size
+&44EC6,,window_id,&401B,gadget_id,buffer,size : REM TextArea_GetText
+&44EC6,,window_id,&401C,gadget_id,index,text : REM TextArea_InsertText
+&44EC6,,window_id,&401D,gadget_id,start,end,text : REM TextArea_ReplaceText
+&44EC6,,window_id,&401E,gadget_id TO ,,,,start,end : REM TextArea_GetSelection
+&44EC6,,window_id,&401F,gadget_id,start,end : REM TextArea_SetSelection
+&44EC6,,window_id,&4020,gadget_id,font$,width%,height% : REM TextArea_SetFont
+&44EC6,,window_id,&4021,gadget_id,colour,bgcolour : REM TextArea_SetColour
+&44EC6,,window_id,&4022,gadget_id TO colour,bgcolour : REM TextArea_GetColour
+&44EC6,,window_id,1311040,gadget_id,Text$ : REM ToolAction_SetIdent
+&44EC6,,window_id,1311041,gadget_id,buffer,buffersize : REM ToolAction_GetIdent
+&44EC6,,window_id,1311042,gadget_id,select_event,adjust_event : REM ToolAction_SetAction
+&44EC6,,window_id,1311043,gadget_id TO  select_event,adjust_event : REM ToolAction_GetAction
+&44EC6,,window_id,1311044,gadget_id,select_id,adjust_id : REM ToolAction_SetClickShow
+&44EC6,,window_id,1311045,gadget_id TO select_id,adjust_id : REM ToolAction_GetClickShow
+&44EC6,,window_id,1311046,gadget_id,state : REM ToolAction_SetState
+&44EC6,,window_id,1311047,gadget_id TO state : REM ToolAction_GetState
+&44EC0,,object$ TO object_id : REM Toolbox_CreateObject
+&44EC1,,object_id : REM Toolbox_DeleteObject
+&44EC3,,object_id,showtype : REM Toolbox_ShowObject
+&44EC4,,object_id : REM Toolbox_HideObject
+&44ECA,,object_id TO parent,component : REM Toolbox_GetParent
+&44ECB,,object_id TO ancestor,component : REM Toolbox_GetAncestor
+&44EC9,,object_id TO class : REM Toolbox_GetObjectClass
+&44ECC,,object_id,buffer,buffersize : REM Toolbox_GetTemplateName
+&44EC5,,object_id TO state : REM Toolbox_GetObjectInfo
+&44EC7,,object_id,handle : REM Toolbox_SetClientHandle
+&44EC8,,object_id TO handle : REM Toolbox_GetClientHandle
+&44ED0,,pathname$ : REM Toolbox_LoadResources
+&44ECD,,object_id,component,events : REM Toolbox_RaiseToolboxEvent
+&44ECE,,buffer,buffersize : REM Toolbox_GetSysInfo
+&44ECE,1,buffer%  : REM Toolbox_GetSysInfo (Toolbox_MessagesDescGetSysInfo)
+&44ECE,,buffer,buffersize  : REM Toolbox_GetSysInfo (Toolbox_TaskNameGetSysInfo)
+&44ECE,2,buffer,buffersize  : REM Toolbox_GetSysInfo (Toolbox_TaskDirectoryGetSysInfo)
+&44ECE,3 TO taskhandle% : REM Toolbox_GetSysInfo (Toolbox_TaskHandleGetSysInfo)
+&44ECE,4 TO spritearea% : REM Toolbox_GetSysInfo (Toolbox_SpritesAreaGetSysInfo)
+&44EC6,,Window,0 TO WimpHandle : REM Window_GetWimpHandle
+&44EC6,,Window,1,gadget TO component : REM Window_AddGadget
+&44EC6,,Window,2,gadget  : REM Window_RemoveGadget
+&44EC6,,Window,3,Menu : REM Window_SetMenu
+&44EC6,,Window,4 TO Menu : REM Window_GetMenu
+&44EC6,,Window,5,Sprite$  : REM Window_SetPointer
+&44EC6,,Window,6,buffer,buffersize : REM Window_GetPointer
+&44EC6,,Window,7,HelpMessage$ : REM Window_SetHelpMessage
+&44EC6,,Window,8,buffer,buffersize : REM Window_GetHelpMessage
+&44EC6,,Window,9,number,block : REM Window_AddKeyboardShortcuts
+&44EC6,,Window,10,number,block : REM Window_RemoveKeyboardShortcuts
+&44EC6,,Window,11,Title$ : REM Window_SetTitle
+&44EC6,,Window,12,buffer,buffersize : REM Window_GetTitle
+&44EC6,,Window,13,gadget_id : REM Window_SetDefaultFocus
+&44EC6,,Window,14 TO gadget_id : REM Window_GetDefaultFocus
+&44EC6,,Window,15,buffer : REM Window_SetExtent
+&44EC6,,Window,16,buffer : REM Window_GetExtent
+&44EC6,,Window,17,buffer  : REM Window_ForceRedraw
+&44EC6,`f%,Window,18,bl_int,tl_int,bl_ext,tl_ext  : REM Window_SetToolbars
+&44EC6,,Window,19 TO bl_int,tl_int,bl_ext,tl_ext : REM Window_GetToolbars
+&82883 TO x,y,buttons,window,component : REM Window_GetPointerInfo
+&82884,,window,icon TO window,icon : REM Window_WimpToToolbox
+&828BE,window,component TO gadget,size : REM Window_ExtractGadgetInfo
+&44EC6,,window_id,512,gadget_id,Text$ : REM WritableField_SetValue
+&44EC6,,window_id,513,gadget_id,buffer,buffersize : REM WritableField_GetValue
+&44EC6,,window_id,514,gadget_id,String$ : REM WritableField_SetAllowable
+&44EC6,,window_id,516,gadget_id,fontname$,width<<4,height<<4 : REM WritableField_SetFont

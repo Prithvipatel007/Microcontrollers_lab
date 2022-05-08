@@ -1,0 +1,19 @@
+DIM CODE% (&100)
+P% = CODE%
+[
+.string
+  EQUS  "Hello"
+  EQUB  0        ; string terminator NULL
+  ALIGN          ; fill up last word (= 4 bytes)
+
+.main
+  ADR   R0, string    ; string address
+  SWI   "OS_Write0"   ; print NULL terminated string
+  SWI   "OS_NewLine"
+
+  SWI   "OS_ReadEscapeState"  ; if ESC pressed break
+  BCC   main
+
+  MOV   PC, LR  ; return
+]
+CALL main

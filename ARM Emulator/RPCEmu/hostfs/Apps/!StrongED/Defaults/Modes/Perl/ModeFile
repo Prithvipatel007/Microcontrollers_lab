@@ -1,0 +1,194 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : Perl
+#	Purpose : StrongED mode file for Perl source files
+#	Author  : © Paul Bell
+#	Licence : Freeware
+#	Version : 1.02, 22-12-2011
+#
+#-------------------------------------------------------------------------------
+# 22-09-00 PB First incarnation.
+# 11-02-02 PB Requested by Fred for 4.65's new config!
+# 22-12-11 FG Replaced old Tmp$* variables with StrongED$Tmp_* ones
+#          FG Replaced <Wimp$ScrapDir> with <StrongED$ScrapDir>
+#          FG Changed 'Type' to 'CommentType' in SyntaxComment
+#          FG Moved Help in Functions section in front of Select line
+#          FG Tabified this ModeFile so it's in line with other modes
+#-------------------------------------------------------------------------------
+#
+#   Tested version 5.005 of Perl for RISC OS
+#
+#   Please let me know of any anomolies or additions needed,
+#   Paul Bell <dpb@chimeland.co.uk>.
+#
+#   Based on the original Perl ModeFile by Andrew Black.
+#
+#-------------------------------------------------------------------------------
+
+HelpPath	Perl,
+
+# IDs not used for colouring but for SyntaxWords char matching ...
+ID_FirstChar	A-Za-z_0-9@%$
+ID_Middle	A-Za-z_0-9#
+
+#-------------------------------------------------------------------------------
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	No
+	QuoteQuote	Yes
+	SplitString	Yes
+	QuoteChar	\
+	HexPrefix	0x
+End
+
+#-------------------------------------------------------------------------------
+
+SyntaxComment 1
+	CommentType	Oneline
+	StartWith	#
+End
+
+#-------------------------------------------------------------------------------
+
+# conditionals, control flow ...
+SyntaxWords Group1 case EndNonId
+	default unless for while break if else elsif foreach && || or and not
+	caller continue dump eval goto last next redo xor wantarray until do
+End
+
+# variables ...
+SyntaxWords Group2 case EndOfId
+	$ @ %
+End
+
+# subroutine, other ...
+SyntaxWords Group3 case StartOfLine startspace EndOfId
+	sub return
+End
+
+# subroutine calls ...
+SyntaxWords Group4 EndOfId
+	&
+End
+
+# functions, regex/pattern matching, scoping  ...
+SyntaxWords Group5 case EndNonId
+	-B -e -f -o -O -R -r -T -W -w -X -x abs accept alarm atan2 bind
+	binmode bless chdir chmod chomp chop chown chr chroot close closedir
+	cmp connect cos crypt dbmclose dbmopen defined delete each endhostent
+	endnetent endpwent endservent eof eq exec exists exp fcntl fileno
+	flock fork format formline ge getc getgrent getgrgid getgrnam our
+	gethostbyaddr gethostbyname gethostent getlogin getnetbyaddr
+	getnetbyname getnetent getpeername getpgrp getppid getpriority
+	getprotobyname getprotobynumber getprotoent getpwent getpwnam getpwuid
+	getservbyname getservbyport getservent getsockname getsockopt glob
+	grep gt hex index int ioctl join keys kill lc lcfirst le length
+	link listen local localtime log lstat lt map mkdir msgctl msgget
+	msgrcv msgsnd my ne oct open opendir ord pack pipe pop pos print
+	printf push quotemeta rand read readdir readline readlink readpipe
+	recv ref rename reset reverse rewinddir rindex rmdir scalar seek
+	seekdir select semctl semget semop send setgrent sethostent setnetent
+	setpgrp setpriority setprotoent setpwentendprotoent setservent
+	setsockopt shift shmctl shmget shmread shmwriteendgrent shutdown sin
+	sleep socket socketpair sort splice split sprintf sqrt srand stat
+	study substr symlink syscall sysopen sysread sysseek system syswrite
+	tell telldir tie tied time times truncate uc ucfirst undef unlink
+	unmask unpack unshift untie utime values vec wait waitpid warn write
+	qw qq qr tr
+End
+
+# highlight some others ...
+SyntaxWords Group6 case EndNonId
+	exit no die package require use import END
+End
+
+#!
+SyntaxWords Group7 case EndOfLine
+	#!
+End
+
+#-------------------------------------------------------------------------------
+
+Search
+	_Indent2	{' '} [ (("#\t") | ("# ") | ("#")) {" "} ]
+	_perlsub	"sub" _spct   @0 { AD | "_" }+ @9
+	_pod		"=" @0 {AD}+ @9
+	_sub_or_head	_perlsub | _pod
+	_MarkWord	{' \'\(\{'}+ | { AD | '&_\.$%@\[\]!\-' }+
+End
+
+#-------------------------------------------------------------------------------
+
+KeyList
+	Return		NewLine(indent,_Indent2)
+	^Return		NewLine(noindent)
+End
+
+#-------------------------------------------------------------------------------
+
+Functions
+	Key	‹F2
+	Menu	List of Functions ‹F2
+	Icon	LoF
+	Help	Click to generate a list of all the 'sub' functions.
+	Select	ListOfFound (_sub_or_head,Text,Align,Line,Case)
+
+	Adjust	ListOfWord (Text,Whole,NoLine,NoCase)
+
+	Key	PgUp
+	Icon	up
+	Help	Click to go to the previous function (Adjust for next).
+	Select	GotoPrev (_sub_or_head ,Text,Line,Case)
+
+	Adjust	GotoNext (_sub_or_head ,Text,Line,Case)
+
+	Key	PgDown
+	Icon	down
+	Help	Click to go to the next function (Adjust for back).
+	Select	GotoNext (_sub_or_head ,Text,Line,Case)
+
+	Adjust	GotoPrev (_sub_or_head ,Text,Line,Case)
+
+	Key	‹F10
+	Menu	Compile ‹F10
+	Icon	sedplcam
+	Help	Click to run the text (Adjust will also save first).
+	Select	Process(Text,"Filer_Run <StrongED$ScrapDir>.out",,"<StrongED$ScrapDir>.out")
+
+	Key	^‹F10
+	Adjust	SetTmp() SaveDClick ("<StrongED$Tmp_FileName>")
+
+	Key	F11
+	Menu	Edit ModeFile F11
+	Icon	sedpledit
+	Help	Click to edit the !Perl Modefile (Adjust to edit the Sprites22 file).
+	Select	SetTmp() DClick ("<StrongED$Tmp_ModePath>.ModeFile")
+
+	Key	‹F11
+	Adjust	SetTmp() DClick ("<StrongED$Tmp_ModePath>.Sprites22")
+End
+
+#-------------------------------------------------------------------------------
+
+Shortcuts
+	===	=>
+	''el	}\n\ielse {\n\i  \@
+	''ei	}\n\ielsif {\n\i  \@
+	''fa	foreach $\@ (@\@) {\n\i  \@
+	''fh	foreach ($\@{$\@}) {\n\i  \@
+	''ir	if ($\@ =~ /\@/) {\n\i  \@
+	''ie	if (($\@ = $\@) =~ /\@/) {\n\i  \@
+	''w	while (\@)
+	''fo	for (\@;\@;\@)
+	''i	if (\@) \n\i{\n\i  \@\n\i}\n\i\@
+	''k	while ( ($key , $value ) = each (%\@) )\n\i{\n\i  \@\n\i}
+	''p	print "\@\\n";
+	''sd	&\@("\@");
+	''ss	&\@('\@');
+	''oa	open ( \@ , ">>\@" ) || die  "Cant open \@ file";
+	''or	open ( \@ , "<\@" ) || die  "Cant open \@ file";
+	''ow	open ( \@ , ">\@" ) || die  "Cant open \@ file";
+End
+
+#-------------------------------------------------------------------------------

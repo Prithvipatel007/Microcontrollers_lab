@@ -1,0 +1,4 @@
+#! awk
+#remove linefeeds from paragraphs
+BEGIN { RS = "" ; ORS = "\n\n" }
+{ gsub("\n"," ") ; print }

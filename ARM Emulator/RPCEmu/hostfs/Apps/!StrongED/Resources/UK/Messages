@@ -1,0 +1,1142 @@
+# Messages file for StrongED
+# StrongED$Wrapwidth = 256
+
+# Default filenames..
+DefName_BaseModeFFF:Textfile
+DefName_BaseModeFEB:Obeyfile
+DefName_BaseModeFFE:Command
+DefName_:Newfile
+
+# Interactive help on menus :
+# Iconbar:
+
+MIconbar:StrongED
+#	Info			\Rget information about this version of StrongED.
+#	Help...			\Sopen the StrongED manual. (Requires !StrongHlp.)
+#	Choices...		\Sopen a Dialogue with all global choices.|MNote that there is a similar box available from the Mode menu, which is used to set mode-dependent options.
+#	Rescan			\Ropen a submenu from which some of StrongED's resources can be rescanned.
+#	Create			\Screate an empty textfile.|M\Rcreate other filetypes.
+#	History			\Ropen a list of files that have been loaded previously.
+#	WindowList   ^L		\Sopen a window continually showing all views.
+#	Purge Undo		\Sremove all undo info and thus free some memory.
+#	Quit			\Squit StrongED.
+
+# Iconbar:Rescan->
+
+MRescan:Rescan
+#	Bitmaps			\Sforce a rescan of the Bitmaps directories.|MUse this when new bitmap fonts have been added.
+#	Modes			\Sforce a rescan of the Modes directories.|MUse this when new modes have been added or created.
+
+# Iconbar:Create->
+
+MCreate:Filetype
+#	Text			\Screate an empty textfile.
+#	Obey			\Screate an empty Obey file.
+#	Exec			\Screate an empty Exec file.
+#	    			\Screate an empty file of given type.
+
+# View:
+
+MView:StrongED
+#	Misc			\Rset various options.
+#	Save			\Rsave text or block.|MClick here to save text directly.
+#	Block			\R
+#	Edit			\Rset edit related options, or to perform edit operations.
+#	Display			\Rset various display related options.
+#	Mode			\R
+
+# View:Misc>
+
+MMisc:Misc
+#	Help       ãF1		Click to get help on StrongED.
+#	Print			\Rprint text or marked block.
+#	File info  ^I		\Ropen the fileinfo box.
+#	Filetype		\Rset the filetype for this text.|M(This can also be done in the savebox)
+#	Chars     ^ãF9		Click to open the character selection box.
+#	Spelling		\Rset spell related options, or to spell-check the text.
+#	Locked			This is ticked if the file is write protected. Click to temporarily override this.
+
+MFTyp:Filetype
+#	          		Type filetype and press RETURN.
+
+MSpell:Spelling
+#	Open spell dialogue				Click to open the spell dialogue box.
+#	Spell check entire text				Click to generate a 'list of found' over all misspelled words in the text.
+#	Spell check as you type				When this is ticked StrongED will beep and mark a misspelled word after you've typed it, or moved to it.
+#	Spell dialogue opens on misspelling		When this is ticked (together with 'check as you type') StrongED will open the spell dialogue when a misspelled word is typed.
+#	Spell dialogue gains focus on misspelling	When this is ticked the spell dialogue will be given the input focus when a misspelled word has been typed.
+
+# View:Block->
+
+MBlock:Block
+#	Mark			\Ropen a menu with options to mark a block.
+#	Clear mark ^Z		\Sclear the currently marked block.
+#	Process			\Ropen a menu with options to process the block.
+#	Clipboard		\Ropen a menu with options to manage the clipboard.
+#	Send to caret		\Ssend the selected text to the caret.
+
+# View:Block->Mark->
+
+MMark:Mark
+#	Start/End F6		Click to set start or end of block.
+#	Word      ^A		Click to mark the word at the cursor.
+#	Line      ^A *2		Click to mark the line at the cursor.
+#	Text      ^A *3		Click to mark the entire text.
+
+# View:Block->Clipboard->
+
+MClip:Clipboard
+#	Copy to clipboard ^ãC	Click to copy the current block to the clipboard.
+#	Cut to clipboard  ^ãX	Click to move the current block to the clipboard.
+#	Paste to text     ^ãV	Click to insert the contents of the clipboard into the text.
+#	Purge clipboard   ^ãZ	Click to remove current contents from clipboard.
+
+# View:Block->Process->
+
+MProcess:Process
+#	Copy            ^C	Click to copy block to where cursor is now.
+#	Move            ^V	Click to move block to where cursor is now.
+#	Delete          ^X	Click to delete block.
+#	Uppercase       ^U	Click to force text in block to uppercase. Key shortcut only applies when you're inside block.
+#	Lowercase       ^J	Click to force text in block to lowercase. Key shortcut only applies when you're inside block.
+#	Swap case       ^S	Click to swap case on text in block. Key shortcut only applies when you're inside block.
+#	Indent			\Rindent marked block.
+#	Tabs to spaces		Click to replace all tabs with spaces.
+#	Spaces to Tabs		Click to replace spaces at start of the lines with tabs
+#	Rot13			Click to "encrypt"/"decrypt" block.|M(It adds 13 to the ascii value of each letter)
+
+# View:Block->Process->Indent->
+
+MIndent:Indent
+#				Type a positive number to indent each line in block with that many spaces. Type a negative number to remove characters.|MAnything else will be inserted as written (but \\t will be converted to TAB)
+
+# View:Edit->
+
+MEdit:Edit
+#	Insert			Click to toggle between insert and overwrite mode.
+#	After Block		Click to toggle After Block on/off.|MWhen on, the cursor will be placed at the end of the block when you move or copy it.
+#	Tabkey			\Rspecify how the TAB-key should work.
+#	Sort			\Ropen the sort dialoguebox.
+#	Search       F4		\Ropen the search dialoguebox.
+#	Replace     ãF4		\Ropen the replace dialoguebox.
+#	ListOfFound  F2		\Ropen the LoF dialoguebox.
+#	Goto line    F5		\Ropen the goto dialoguebox.
+#	Goto block  ãF5		Click here to move cursor to start/end of marked block.
+#	Undo         F8		Click here to undo the last change done to the text.
+#	Redo        ^F8		Click here to redo the last change that was undone.
+#	Change \n		\Rchange physical line ending.
+#	Unwrap			Click here to insert newlines where lines wrap.
+
+# View:Edit->Tabkey->
+
+MTabkey:Tabkey
+#	'Truetab'		Click here to make the TAB key insert a TAB character.
+#	Nearest			Click here to make the TAB key insert enough spaces to position cursor under/over start of word on line above/below.
+#	Tabstops		Click here to make the TAB key insert enough spaces to move caret to the next position indicated by the tabstops definition.
+
+# View:Edit->Change \n->
+
+MNewline:Newlines
+#	LF (UNIX/RISC OS)	This is the standard line ending under RISC OS and UNIX.
+#	CR (Mac)		I *think* this is the standard line ending on Apple Macintosh
+#	LF+CR			This is what you get when you store output from the VDU|M*Modules { > ModList }      The file ModList will have this line ending.
+#	CR+LF (msdos)		This is the standard line ending on MSDOS machines.
+
+# View:Display->
+
+MDisplay:Display
+#	New view    ^WC		Click here to create a new view for the text.
+#	Wrapwidth		\Rset the wrapwidth used for the text.
+#	ShowTab			\Rset how Tab characters are displayed.
+#	ShowCtrl		\Rset how Ctrl characters are displayed.
+#	\n type			\Rset the newline type for this text.
+#	Infobar			\Rset which information the Infobar displays.
+
+# View:Display->New view->
+
+MNewView:New View
+#	Split Vertically   ^WV	Click to split current view in two
+#	Split horizontally ^WH	Click to split current view in two
+
+# View:Display->Wrapwidth->
+
+MWrapW:Wrapwidth
+#	Automatic		Click here to set wrapwidth to automatic.|MWhen this is on, the width of the text will always be the same as the visible width of the window.
+#	Longest line		Click here to set wrapwidth to the length of the longest line.|MThis can limited to the min/max values in Mode choices -> Wrapping.
+#	80			Click here to set wrapwidth to 80 chars.
+#	132			Click here to set wrapwidth to 132 chars.
+#	256			Click here to set wrapwidth to 256 chars.
+#	1024			Click here to set wrapwidth to 1024 chars.
+#				Click here to set wrapwidth to the given value.
+
+# View:Display->ShowTab->
+
+MShowTab:ShowTab
+#	As Ctrl			If this is on, TAB characters will be displayed in the same way as other control characters.
+#	As spaces		If this is on, TAB characters will be displayed as spaces.
+#	As dotted line		If this is on, TAB characters will be visible as a dotted line.
+#	Tab to 4 column		If this is on, TAB characters will force a jump to the next column divisible by 4.|MThis option will be shaded when Tabs are displayed as Ctrl.
+#	Tab to 8 column		If this is on, TAB characters will force a jump to the next column divisible by 8.|MThis option will be shaded when Tabs are displayed as Ctrl.
+
+# View:Display->ShowCtrl->
+
+MShowCtrl:ShowCtrl
+#	[hex]			If this is on, control characters will be displayed with its hexadecimal value.
+#	.			If this is on, control characters will be displayed as a "."
+
+# View:Display->Infobar->
+
+MInfobar:Filepos
+#	ASCII code		Click here if you want the infobar to show the ASCII code of the character under the cursor.
+#	File offset		Click here if you want the infobar to show the caret's decimal offset from start of text.
+#	Column,Line		Click here if you want the infobar to show the caret's Column,Line position in the text.
+#	Line,Column		Click here if you want the infobar to show the caret's Line,Column position in the text.
+
+# View:Mode->
+MModeFN:Mode
+#	Change mode		\Rselect which mode to use for this text.
+#	Choices...		Click to open the configure box for this mode.
+#	Base functions
+
+MModeCol:Colour schemes
+#	Black on White		This sets a colour scheme with a white background
+#	White on Black		This sets a colour scheme with a black background
+
+MChangeNL:Newlines
+#	Change NL type		\Rreplace all NLs of the currently assumed type with NLs of another type.
+#	Assume NL type		\Rchange which type of NL StrongED should assume the text uses.|M(This does not physically alter the text)
+
+MThB:Throwback
+#	Save			\Ropen savebox for this list.
+
+# ListOfFound:
+MLoF:ListOfFound
+#	Save			\Ropen savebox for this list.
+#	Sort LoF		Click to sort entries.
+#	Mark text		When this is on, the LoF entries will be marked in the text.
+#	Line numbers		When this is on, the LoF entries will be prefixed with the line number of the match.
+#	All matches		When this is on, all matches will be displayed.|MWhen this is off, only the first match on each line will be shown.
+#	Filename		When this is on, the LoF will show the full pathname instead of only directory-name.leafname.
+#	Whole line		When this is on, the entire line will be shown.
+#	From found		When this is on, the line will be shown from match onwards.
+#	After found		When this is on, the line will be shown from after the match.
+#	Align found		When this is on, the matches will be aligned.
+#	Match only		When this is on, only the matched text will be shown.
+
+MRScope:Scope
+#	Block			Replace all occurrences inside marked block.
+#	Backward		Replace all occurrences before caret.
+#	Forward			Replace all occurrences after caret.
+#	This text		Replace all occurrences in this text.
+#	All Texts		Replace all occurrences in all texts.
+
+MEngine:Engine
+#	Simple			\Suse simple search expressions.|MSimple search matches the search string literally, ie no characters have special meaning.
+#	Advanced		\Suse advanced search expressions.|MAdvanced search matches using patterns which may include wildcards, see the manual for more info.
+#	Regex			\Suse regular expressions.|MThis requires the regex module to be loaded.
+
+MLoW:List of Windows
+#	Save LoW		\Ropen savebox for this list.
+#	New view		\Screate a new view for this text.
+#	Save 			\Ssave selected views.|M\Ropen a submenu with other scopes.
+#	Kill 			\Skill selected views.|M\Ropen a submenu with other scopes.
+#	Hide 			\Shide selected views.|M\Ropen a submenu with other scopes.
+#	Icon 			\Sicon selected views.|M\Ropen a submenu with other scopes.
+#	Show 			\Sshow selected views.|M\Ropen a submenu with other scopes.
+#	Close 			\Sclose selected views.|M\Ropen a submenu with other scopes.
+#	Process...		\Sopen the LoW process window.
+
+MLoWDomain:Scope
+#	Selection		\Sact on all views that are selected.
+#	Unchanged		\Sact on all views that are unchanged.
+#	Changed			\Sact on all views that are changed.
+#	All			\Sact on all views.
+
+MLoWActions:Actions
+#	Select			\Sselect views based on scope and/or pattern.|MSelected views that don't match will be de-selected.
+#	Extend selection	\Sselect views based on scope and/or pattern.|MSelected views that don't match will remain selected.
+#	Save LoW		\Ssave an LoW file with views that match on scope and/or pattern.
+#	New view		\Screate a new view for views that match on scope and/or pattern.
+#	Save			\Ssave views that match on scope and/or pattern.|MActually the text a view belongs to is saved.
+#	Kill			\Skill views that match on scope and/or pattern.|MIf this the only view on a text then the text will be removed outright.|MEven when the text has been altered!
+#	Hide			\Shide views that match on scope and/or pattern.
+#	Iconise			\Siconise views that match on scope and/or pattern.
+#	Show			\Sshow views that match on scope and/or pattern.
+#	Close			\Sclose views that match on scope and/or pattern.|MThe text will be saved when it has been altered and this is the last/only view.|MThis only works for texts that already have a valid path.
+
+MLoWScopes:Scopes
+#	Selected views		\Sact on views that have been selected.
+#	Unchanged views		\Sact on views that have not been edited.
+#	Changed views		\Sact on views that have been edited.
+#	All views		\Sact on all views (regardless of state).
+
+MLoWPattern:Pattern
+#	AND pattern		\Sact on views that are in the selected scope AND that match the given pattern.
+#	EOR pattern		\Sact on views that are in the selected scope OR match the given pattern, but not both.
+#	NOT pattern		\Sact on views that are in the selected scope but that don't match the given pattern.
+#	OR pattern		\Sact on views that are in the selected scope OR that match the given pattern.
+
+MFType:Filetypes
+#	Text			\Sset the text's filetype to Text (&FFF).
+#	BASIC			\Sset the text's filetype to BASIC (&FFB).
+#	Obey			\Sset the text's filetype to Obey (&FEB).
+#	Data			\Sset the text's filetype to Data (&FFD).
+#	All types		\Ropen a submenu with all known filetypes.
+
+MGColWin:Windows
+#	List of Found		\Sset the colours for ListOfFound windows.
+#	List of Windows		\Sset the colours for the ListOfWindows window.
+#	Throwback		\Sset the colours for Throwback windows.
+
+MGColLoF:Elements
+#	Filename		Select the element whose colours you want to configure
+#	Text			Select the element whose colours you want to configure
+#	Match			Select the element whose colours you want to configure
+#	Closest			Select the element whose colours you want to configure
+
+MGColLoW:Elements
+#	Filetype		Select the element whose colours you want to configure
+#	Filename		Select the element whose colours you want to configure
+#	Filestate		Select the element whose colours you want to configure
+#	Caretview		Select the element whose colours you want to configure
+#	Selectview		Select the element whose colours you want to configure
+
+MGColThb:Elements
+#	Processing file		Select the element whose colours you want to configure
+#	Errors in file		Select the element whose colours you want to configure
+#	Error details		Select the element whose colours you want to configure
+#	Info for file		Select the element whose colours you want to configure
+#	Info details		Select the element whose colours you want to configure
+
+# Help for dynamically generated menus
+HistoryMenu:This is a history menu showing previously used strings.|MClick on an item to insert its text into the writable icon.
+FileTypeMenu:Use this menu to select a different file type.
+BitmapMenu:Use this menu to select a different font
+StyleMenu:Use this menu to select a different font style
+
+# Misc
+Web:http://www.stronged.iconbar.com/
+Learn:Learning..
+Tab0:TrueTab
+Tab1:Nearest
+Tab2:Tabstops
+ExtraMode:Move pointer right to open a submenu with more modes.
+BaseMode:Click to create an empty file in BaseMode.|MMove pointer right to create an empty file of a specific filetype.
+Create:Click to create an empty file in %s mode.
+Change:Click to change to the given mode.
+DLoF0:Whole
+DLoF1:From
+DLoF2:After
+DLoF3:Align
+Rp0:Block
+Rp1:Backward
+Rp2:Forward
+Rp3:Text
+Rp4:All
+SOpt0:Interactive Search options
+SOpt1:List of Found options
+SOpt2:Search & Replace options
+SOpt3:List of Spell options
+Pad0:None
+Pad1:Spaces
+Pad2:Zeros
+Eng0:Simple
+Eng1:Advanced
+Eng2:Regex
+GotoP:Goto physical line
+GotoL:Goto logical line
+GotoA:Goto address/offset
+Ins0:Insert
+Ins1:Overwr
+N0:LF
+N1:CR
+N2:LF+CR
+N3:CR+LF
+Sav0:Save text
+Sav1:Unchanged text
+Sav2:Save block
+#Sav3:Save viewers
+Sav4:Save LoF
+Sav5:block
+Sav6:ListOFound
+Sav7:Dump
+Sav8:Throwback
+Sav9:LoW
+Th0:Processing:†
+Th1:Errors in :†
+Th2:Info for  :†
+XDefName:Unnamed
+Chs:?@[\]^_`{|}~ÄÅÇÉÑÖÜáàâäãåçéèêëíìîïñóòôöõúùûü†°¢£§•¶ß®©™´¨≠ÆØ∞±≤≥¥µ∂∑∏π∫ªºΩæø¿¡¬√ƒ≈∆«»… ÀÃÕŒœ–—“”‘’÷◊ÿŸ⁄€‹›ﬁﬂ‡·‚„‰ÂÊÁËÈÍÎÏÌÓÔÒÚÛÙıˆ˜¯˘˙˚¸˝˛ˇ
+ChW:20
+TMModes:Modes
+TEModes:Extra modes
+TBFun:Functions
+PrTx:Print Text
+PrBl:Print Block
+PrLo:<No driver>
+THist:History
+TFiles:File menu
+TGrab:Grab
+GRPG0:Lower 32K
+GRCMOS:CMOS RAM
+NoFileHist:<No file history>
+HeaderML:# ModeLock|J# Version = 101|J# StrongED$WrapWidth = 96|J# Do not alter this header manually!|J#|J#ModeName|IExtramode|IModeInit|IOnLoad|I|IProcess|I|IRun|J|J
+
+# Spell checking
+SpellNone:<No matching words>
+SpellOK:<Word OK>
+SpellTitle:Select userdict
+SpellIgnore:IGNORE
+SpellAddTo:Add to
+SpellNew:New dict
+
+# Infobar block field
+BM0:-
+BM1:b
+BM2:B
+BM3:f
+BM4:F
+
+# Infobar clipboard field
+CM0:-
+CM1:c
+CM2:C
+
+# syntax colouring
+Text:Text
+Caret:Caret
+Block:Block
+Mark:Mark
+Ctrlchars:Ctrl chars
+Tabs:Tabs
+Border:Border
+Margins:Margins
+Brackets:Brackets
+Hardwrap:Hardwrap
+Linenumbers:Linenumbers
+Identifiers:Identifiers
+Functions:Functions
+Strings:Strings
+Comments:Comments
+Numbers:Numbers
+Punctuation:Punctuation
+Group1:Group 1
+Group2:Group 2
+Group3:Group 3
+Group4:Group 4
+Group5:Group 5
+Group6:Group 6
+Group7:Group 7
+Group8:Group 8
+Group9:Group 9
+Group10:Group 10
+Group11:Group 11
+Group12:Group 12
+Group13:Group 13
+Group14:Group 14
+Group15:Group 15
+Group16:Group 16
+
+Ioff:To see interactive help for StrongED, turn it on in the Global Configure, Save settings and start StrongED anew.
+
+# Interactive help..
+
+# Help for the iconbar icon
+Hib:\TStrongED text editor.|M\s creates a text in BaseMode.|M\a opens the modes menu.|MShift-\s opens !StrED_cfg.UserPrefs.|MShift-\a opens !StrongED.Defaults.|MCtrl-\s opens ModeLock file.|MCtrl-\a opens BaseMode ModeFile.
+
+Hwn05??:This is a StrongED view.|M\Sposition cursor (also sets focus).|M\Arestore cursor at its last position (if no focus).|M\Aselect text from cursor position to click point (if focus).|M\Dstart, \dresize a selection.|MSee manual for more.
+
+# Help for the Infobar
+Hwn0601:This shows information relating to the position of the caret in the text:|MPosition of caret as offset in bytes from start of text|MPosition of caret as x,y or y,x.|MASCII code of character at caret.
+Hwn0602:This shows whether the editor is in insert or overwrite mode.|MClick SELECT (or ADJUST) to toggle between the two.
+Hwn0603:This shows what will happen when you press the TAB key.|MClick SELECT to cycle the options, or press MENU to open a menu of them.
+Hwn0604:This shows whether there is a block marked or not.|M  - : No block marked.|M  b : Block marked in another text.|M  B : Block marked in this text.|M\Sgoto block start.|M\Agoto block end.|MMENU to open the block process menu.
+Hwn060D:This shows whether there is anything in the clipboard.|M - : Clipboard is owned by no-one.|M c : Clipboard is owned by another application.|M C : Clipboard is owned by StrongED and is non-empty.|MMENU opens the clipboard menu.
+Hwn0605
+Hwn0606
+Hwn0607
+Hwn0608:These are the bookmarks.|MIf white, no mark is set, if grey then mark is in another text, and if black then mark is in this text.|M\Sgoto mark. \Aset mark. Double-click to clear mark (best to use ADJUST).
+Hwn060F:This shows number of entries in the return stack.|MWhen the GotoFound function is used the old position gets placed on this stack.
+Hwn0609:This shows which mode the text is in.|MClick MENU to open the Mode menu, or click ADJUST to open the Change Mode menu.
+Hwn060A:This shows which wrap-type is selected for this view.|M  CW : Character wrap.|M  WW : Word wrap.|MIf small letters, then no lines are currently wrapped.|MClick SELECT (or ADJUST) to toggle the wrap-type.
+Hwn060B:This shows which newline type this text has.|MMENU opens the menu for changing NL type.
+Hwn060C:This shows the current wrapwidth. If autowrap is on, an "a" is appended, and if hardwrap is on, the hardwrap width is shown in parenthesis.|M\Stoggle autowrap on/off, and \Atoggle hardwrap.
+Hwn06??:This is the infobar.
+
+# Help for List-of-Windows
+Hwn07??:This is a list of all texts currently loaded into StrongED.|MThere is a menu.
+
+# Help for List-of-Found
+Hwn08??:This is a "list of found" (LoF) window.|M\Smove to a matching line.|M\Aclose the LoF as well.|MSee the manual for more click options.
+
+# Help for alert/message window
+Hwn09??:This is the alert/message window.
+
+# Help for throwback window
+Hwn0A??:This is a Throwback window.|MClick on a line and StrongED will load the file and move to the correct line.|MShift-click will delete line/section.
+
+# Help for character selector
+Hwn0C??:This is the character selector.|MClick to insert character where the caret was. Use Adjust to make box stay open.|MKey shortcuts: Arrow keys (also Ctrl) to move around, and Return to select.
+
+# Help for main Global and Mode choices windows
+Hwn0D03
+Hwn0F03:\Sapply & save the current choices.|M\Aleave the window open.
+Hwn0D04
+Hwn0F04:\Sclose the window without applying the current choices.
+Hwn0D05
+Hwn0F05:\Sapply the current choices.|M\Aleave the window open.
+Hwn0D??:In this dialogue box, you can configure global choices|MSelect a section in the left box, and edit its choices in the right box.
+Hwn0F??:In this dialogue box, you can configure choices for a particular StrongED Mode.|MSelect a section in the left box, and edit its choices in the right box.
+
+# Help for 'Quit' window
+Hwn1200:Click here to save all changed files and quit.
+Hwn1201:Click here to just quit without saving anything.
+Hwn1202:Click here to keep a list of all loaded files, keep all changed files in AutoSave, and load this back in the next time StrongED is started.
+Hwn1207:Click here if you're getting cold feet.
+Hwn1204:This shows a list of all changed files.|MClick on one to bring it to the front.
+
+# Help for 'Spell' dialogue box
+Hwn1300:This shows the word currently being checked.
+Hwn1301:Click here to look for the next suspicious word.
+Hwn1302:Click here to add the word to the current user dictionary.
+Hwn1303:Click here to select the current user dictionary.|MShift-Select on an entry to edit the dictionary.
+Hwn13??:This is the spell checker dialogue box. The frame shows a list of suggested replacements for the current word. Click on one to replace the word in text with this.
+
+# Help for 'Respond to' section in global choices
+Hwn4000:When this is off, StrongED will only load files dragged directly to it.
+Hwn4001:When this is on, StrongED will recursively load the contents of directories you drag to its iconbar icon.
+Hwn4002:When this is on, StrongED will allow drags to the toolbar.
+Hwn4003:When this is on, StrongED will respond to ExtEdit requests.
+Hwn4008:When this is on, StrongED will respond to OLE requests.
+Hwn4009:When this is on, StrongED will respond to ExecFile messages.
+Hwn4004:When this is off, StrongED won't respond to ctrl-F12 to open taskwindows.|MIf you want to disable this permanently, you should also edit the !StrongED.!Boot and !Run files.
+Hwn4005:When this is off, StrongED won't register itself as throwback server.
+Hwn4006:When this is off, each throwback session/compile will get its own window.
+Hwn4007:When this is on, StrongED will use a new window for each TaskWindow request.
+
+# Help for 'Edit' section in global choices
+Hwn4100:When this is on, the caret will move from the last char of a line, to the first char of the next line (and vice versa).
+Hwn4101:When this is on, you can't place the caret to the right of line end with the mouse; the caret will then just be placed on the line end.
+Hwn4102:When this is on, StrongED will compare the text you've just written with all shortcuts (defined in the modefiles), and if it finds a match the shortcut will be expanded.
+Hwn4103:When this is on, StrongED will save all changed files periodically, to the directory !StrongED.Autosave.|M
+Hwn4104
+Hwn4105:This tells how often Autosave, if activated, should save.
+Hwn4106:When this is on, changes you make to a modefile will take effect immediately when you save it.
+Hwn4107:When this is on, StrongED will click on 'Old' for you when you open one of these dialogue boxes.
+Hwn4108:When this is on, StrongED will remember the current state when you quit, and restore this the next time you start StrongED.
+Hwn4109:When this is on, StrongED will place the cursor at the end of a block after it's been copied/moved.|MNote this also applies when inserting a file.
+Hwn410A:When this is on, StrongED will move the old contents of a file to undo when the file is refreshed.|MWhen this is off, StrongED will discard the old contents including any changes made.
+
+# Help for 'Display' section in global choices
+Hwn4200:When this is on, StrongED will hide the mouse pointer when you start typing, and redisplay it when you move the mouse.
+Hwn4201:When this is on, StrongED flash the caret on/off so that it is easier to localise.
+Hwn4202:When this is on, StrongED will always make sure the caret is inside the visible area.|MWhen it's off, StrongED will leave the caret where it is, when the view is scrolled or resized (with the mouse).
+Hwn4203:When this is on, StrongED will use an alternative set of colours.
+
+# Help for 'Block' section in global choices
+Hwn4300:When this is on, then editing a line in a block will cause all other lines in the block to be edited in the same way.
+Hwn4301:When this is on, then the Scope in the LoF window will automatically be set to 'Block' when the caret is inside a block.
+Hwn4302:When this is on, then the Scope in the S&R window will automatically be set to 'Block' when the caret is inside a block.
+Hwn4304:When this is on, then Selection in the Save window will automatically be ticked when the caret is inside a block.
+Hwn4305:When this is on, then only the selection will be printed when the caret is inside a block.
+Hwn4306:When this is on, StrongED will allow you to save a block without opening a savebox. Just click on a marked block and drag it wherever.
+
+# Help for 'BASIC' section in global choices
+Hwn4400:Turn this off if you want to see the binary representation of a BASIC file.
+Hwn4401:When this is on, StrongED will not include line numbers when it converts from BASIC to text.|MIf you hold down the Ctrl key when loading, the opposite of this setting will be used.
+Hwn4402:When this is on, StrongED will insert spaces between certain tokens when converting to text, to make sure it can convert back to tokens later.|MThese spaces are only stripped off again if the tokenised line becomes too long.
+Hwn4404
+Hwn4406:These two are used when converting from text to tokens. All lines without a line number will get one based on these two values.
+
+# Help for 'Misc' section in global choices
+Hwn4500:When this is on, you won't see any help like this in StrongED. Doesn't really save you that much..
+Hwn4501:When this is on, StrongED won't load a file that is already loaded, but instead just move the old window to the top.|MTo force a file to be loaded, hold down shift, and drag to the iconbar.
+Hwn4502:When this is on, StrongED will beep when there is an error.
+Hwn4503:When this is on and StrongED crashes, it will try to write its entire memory to a file called "StrongDump".|MIn theory this file can help the developers find the cause of the crash, but only send when asked for it.
+Hwn4504:When this is on, StrongED will close a taskwindow immediately when you click in its close box, or press ctrl-Q.
+Hwn4505:When this is on, StrongED will use !Printers to do its printing.
+Hwn4506:When this is on, StrongED will replace any spaces you enter in the savebox with hard spaces.
+Hwn4507:When this is on, StrongED will pass on any keypresses it cannot handle to other applications.
+Hwn4508:When this is on, the colours section of the Mode choices will automatically be updated when the caret is moved around.
+Hwn4509:When this is on, a single Select click in the LoW window will select and open a view.|MWhen this is off, a single Select click only selects, double click to open.
+
+# Help for 'Windows' section in global choices
+Hwn4603
+Hwn4604
+Hwn4605
+Hwn4606
+Hwn460B:Open up the window you want to position.|MPlace the window where you want it.|MThen click the corresponding button†here.|MFinally click OK or Save.
+Hwn4608
+Hwn4609
+Hwn460A:Click to open the settings window for this dialogue box.|MSet whatever options you prefer and close the window.|MThen click OK or Save.
+
+# Help for 'Colours' section in global choices
+Hwn4706:This shows the currently selected window.|MUse the menu button to the right to select a different window.
+Hwn4707:Click to open a menu listing all windows.|MSelect one to show the colours for that window.
+Hwn470A:This shows the currently selected element.|MUse the menu button to the right to select a different element.|MThe element's colours can be changed in the colours section.
+Hwn470B:Click to open a menu listing all window elements.|MSelect one to show the colours for that element.|MUse the colours section to change them.
+Hwn470F:This shows the foreground colour used for the selected element.|MClick here to alter the colour using the Colour Picker.|MSelecting None means the colour will be transparent.
+Hwn4712:This shows the Background colour used for the selected element.|MClick here to alter the colour using the Colour Picker.|MSelecting None means the colour will be transparent.
+Hwn4710
+Hwn4713:If this is shaded, the colour is set to transparent.
+
+# Help for the 'Printing' section in global choices
+Hwn4902:When this is on, text will be printed in Text mode.|MNot all modern printers support this.
+Hwn4903:When this is on, text will be printed in Graphics mode.|MThe outline font used is the one defined in the Font section of the Mode Choices for the current mode.
+Hwn4907:This specifies the number of times that each page should be printed.
+Hwn490A:When this is on, printing multiple copies will repeat the document.|MWhen this is off, printing multiple copies will repeat each page.
+Hwn490D:When this is on, text will be printed in portrait (upright) mode.|MNote, this only applies to printing in Graphics mode.
+Hwn490E:When this is on, text will be printed in landscape (sideways) mode.|MNote, this only applies to printing in Graphics mode.
+Hwn4911:When this is on, header and footer lines will be added to the print-out.|MHeader and footer lines are defined in the ModeFile of the current mode.
+Hwn4912:When this is on, the print-out will have the same colours as on the screen.|MNote, this only applies to printing in Graphics mode.
+
+# Help for 'Edit' section in mode choices
+Hwn5000:When this is on, StrongED will show you the corresponding opening bracket when you type the closing one.
+Hwn5001:When this is on, StrongED will insert newly typed text.|MWhen this is off, typing will overwrite existing text.
+Hwn5002:When this is on, StrongED will copy the spaces/tabs from the start of the previous line, to the start of the new line.
+Hwn5003:When this is on, StrongED will refuse to delete newline characters when you press Delete.
+Hwn5004:When this is on, StrongED will remove any extra blanks from the end of a line when you move away from it.|M (To see this, turn on the "Visible EOL spaces" option in the Display section of mode choices.)
+Hwn5005:When this is on, StrongED will check if the copy on disc has been altered when you make the first change to the loaded copy.
+Hwn5006:When this is on, StrongED will check if the copy on disc has been altered each time the text gains the input focus.
+
+# Help for 'Display' section in mode choices
+Hwn5103:This is used to the left and right of the text to move it a bit out from the window border, giving it some air.
+Hwn5105:This is the gap between lines.
+Hwn510A:When this is on, the horizontal scrollbar will never be displayed.
+Hwn510B:When this is on, the horizontal scrollbar will always be displayed.
+Hwn510C:When this is on, the horizontal scrollbar will only be displayed if the view's width is smaller than the wrapwidth set.
+Hwn5112:When this is on, a bar caret will be displayed.
+Hwn5113:When this is on, a block caret will be displayed.
+Hwn5114:When this is on, a underscore caret will be displayed.
+Hwn510F:When this is on, the 'fold' function (see manual) will be executed when the text is loaded.
+Hwn5110:When this is on, spaces at the end of a line will be shown using the "mark" colour.
+Hwn5111:When this is on, ctrl characters will be displayed as [xx]|MWhen it is off, they will be displayed as just a dot, or an actual control character if Fastchars is used.
+Hwn5115:When this is on, newline characters will be shown as '∂'.|MThis only affects how newlines are displayed, not how they are stored.
+
+# Help for 'Colours' section in mode choices
+Hwn5208:This shows the currently selected element.|MUse the menu button to the right to select a different element.|MThe element's colours can be changed in the colours section.
+Hwn5209:Click to open a menu listing all syntax elements.|MSelect one to show the colours and style set for that element.|MUse the colour and style sections to change them.
+Hwn520C:This shows the style set for the currently selected element.|MIf it's shown in red then the style could not be found.|MUse the menu button on the right to select a different style.
+Hwn520D:Click to open a menu listing all available styles.|MSelect one to set a new style for the current element.
+Hwn5210:When this is on, the mode will have the same colours as the BaseMode has.
+Hwn5211:When this is on, StrongED uses information from the Modefile to colour certain words and elements with different colours.
+Hwn5214:This shows the foreground colour used for the selected element.|MClick here to alter the colour using the Colour Picker.|MSelecting None will mean the colour for text will be used instead.
+Hwn5217:This shows the Background colour used for the selected element.|MClick here to alter the colour using the Colour Picker.|MSelecting None will mean the colour for text will be used instead.
+Hwn5215
+Hwn5218:If this is shaded, the colour for 'Text' is used instead.
+
+# Help for 'Toolbars' section in mode choices
+Hwn5300:When this is on, each view will have a toolbar at the top of the window.|MNote: Only takes effect for *new* texts.
+Hwn5301:When this is on, each view will have a infobar at the bottom.|MNote: Only takes effect for *new* texts.
+Hwn5303:When this is on, the file position field will show the ASCII number of the character at the caret.
+Hwn5304:When this is on, the file position field will show the caret position as a decimal offset from start of file.
+Hwn5305:When this is on, the file position field will show the caret position as column, line.
+Hwn5306:When this is on, the file position field will show the caret position as line, column.
+
+# Help for 'Misc' section in mode choices
+Hwn5400
+Hwn5401:This is the filetype assigned to a text created from the iconbar 'create' menu.
+Hwn5403:The standard RISC OS and UNIX line separator.
+Hwn5406:The standard MS-Dos and Windows line separator.
+Hwn5407:When on, the 'Print headers and footers' toggle in the Print Dialogue will be on by default.
+Hwn5408:When this is on, StrongED will spell check each word as you type it. When a suspicious word is found, StrongED will beep and mark it.
+Hwn5409:When this is on together with 'check as you type', the spell window will be opened when a suspicious word is found.
+Hwn540A:When this is on, the spell dialogue will be given the input focus when a misspelled word has been typed.
+
+# Help for 'Tabs' section in mode choices
+Hwn5502:When this is on, StrongED will insert a Tab character (ASCII 09) when you press the Tab key.
+Hwn5503:When this is on, StrongED will insert spaces so that the cursor aligns with the first non-empty line above/below.
+Hwn5504:When this is on, StrongED will insert enough spaces to align with the next column in the Tabstops definition.
+Hwn5507:When this is on, TAB characters will be shown as all other control characters.
+Hwn5508:When this is on, TAB characters will be shown as spaces.
+Hwn5509:When this is on, TAB characters will be shown as a dotted line.
+Hwn550C:When this is on, a TAB character will be wide enough to align with the next column divisible by 4.|MIn my opinion, you shouldn't use this, as the only standard is tab-to-8.
+Hwn550D:When this is on, a TAB character will be wide enough to align with the next column divisible by 8.|MThis is the "standard" TAB width.
+
+# Help for 'Wrapping' section in mode choices
+Hwn5606:When this is on, the wrap width is continuously set to the width of the window.
+Hwn5607:When this is on, the wrap width will be set to the number specified.
+Hwn5608:When this is on, the width of the window will be determined by the longest line in the file.|MTo prevent a 'silly' width being used minimum and maximum values can be set.
+Hwn560A:This is the max length of a line before it is soft-wrapped.
+Hwn560C:This is the minimum width used when longest line is active.|MThe window won't be made smaller than this even when the longest line is shorter.
+Hwn560E:This is the maximum width used when longest line is active.|MThe window won't be made bigger than this even when the longest line is longer.
+Hwn560F:When this is on, StrongED will insert newlines as you type. This to ensure that lines don't get longer than the hardwrap width.
+Hwn5610:This is the hard wrapwidth, lines longer than the width specified here will be hard-wrapped.
+Hwn5611:When this is on, long lines will be soft-wrapped at the nearest word.|MWhen it's off, the lines are wrapped at the nearest character.
+Hwn5612:When this is on, there will be a marker in the right margin when a line is soft-wrapped to fit the window.
+Hwn5613:When this is on, hardwrap will only split the current line (if longer than the hardwrap width).|MWhen it's off, hardwrap will also pull up text from the next line when a line is shorter than the hardwrap width.
+Hwn5614:When this is on, hardwrap will reformat quoted text.|MWhen it's off, hardwrap will not change quoted text.
+Hwn5615:When this is on, all characters that are past the hardwrap width will be highlighted.
+
+# Help for 'LineNos' section in mode choices
+Hwn5702:When this is on, no line numbers will be displayed.
+Hwn5703:When this is on, each wrap-line will be numbered.|MWrap-lines are lines as they appear on the screen.
+Hwn5704:When this is on, each text-line will be numbered.|MText-lines are lines delimited by two newlines.
+Hwn5705:When this is on, the offset (from start of text) at which lines start will be shown.
+Hwn570F:This is the line number width, it specifies how many characters to use for line numbers.|MRange is from 1 to 9.
+Hwn5710:Click to decrease the line number width.
+Hwn5711:Click to increase the line number width.
+Hwn5714:When this is on, a colon (and space) will be displayed to separate the line number from the actual text.
+Hwn5715:When this is on, line numbers will be displayed in hexadecimal format.
+
+# Help for 'Font' section in mode choices
+Hwn5816:When this is on, the standard OS system font will be used to display text.
+Hwn5809:When this is on, the custom bitmap font shown in the field to the right will be used to display text.
+Hwn5808:When this is on, the outline font shown in the field to the right will be used to display text.
+Hwn5802:This shows the currently selected bitmap font.|MIf it's shown in red then the font could not be found.|MUse the menu button on the right to select a different bitmap font.
+Hwn5804:This shows the currently selected outline font.|MIf it's shown in red then the font could not be found.|MUse the menu button on the right to select a different outline font.
+Hwn5814:When this is on, the ViewFinder card, if present, will be used to display bitmap fonts.
+Hwn5815:When this is on, the small version of the current bitmap will be used.|MNote that for low resolutions the small version will always be used.
+Hwn5803:Click to open a menu listing all available bitmap fonts.
+Hwn5805:Click to open a menu listing all available outline fonts.
+Hwn580C:This shows the current width used for outline fonts.|MUse the arrows to the right to change this value.
+Hwn580D:This shows the current height used for outline fonts.|MUse the arrows to the right to change this value.
+
+# Help for syntax elements menu
+Hwn6000:This is the colour that plain text should have.|MIt is also the colours used for all the other elements that have shaded captions underneath their colour wells.
+Hwn6001:This is used for the caret. It only has one colour, so foreground and background will always be the same.
+Hwn6002:This is used for text marked as a block.
+Hwn6003:This is used for "marked" text. (Found text when you search, text inserted again with Undo, etc..)
+Hwn6004:This is used for control characters.
+Hwn6005:This is used for tab characters.
+Hwn6006:This is used for the left hand side border.|M(Only the background colour is used.)
+Hwn6007:This is used for left and right margins.|MThis will also include the fold arrows if used.|M(Only the background colour is used.)
+Hwn6008:This is used to highlight a pair of matching brackets.|M(For this to work the corresponding option must be on.)
+Hwn6009:This is used to colour text that exceeds the hardwrap width.|M(For this to work hardwrap must be turned on.)
+Hwn600A:This is used for the line numbers.|M(For this to work line numbers must be turned on.)
+Hwn600B:An ID is any sequence of letter + letters/numbers that is not otherwise defined as a Reserved word.|MWhat exactly is allowed in an ID is defined in the ModeFile.
+Hwn600C:A function is anything followed by an opening parenthesis.|MWhether the parenthesis may be preceded by whitespace is defined in the ModeFile.
+Hwn600D:A string is everything between two quotes.|MWhich quotes (single, double) are used to denoted strings is defined in the ModeFile.
+Hwn600E:Comments can also be coloured. The syntax of the comment is defined in the Modefile.|MNote that currently StrongED can't colour multi-line comments.
+Hwn600F:Numbers can be binary, hexadecimal and decimal. Strings looking like reals will also be coloured.|MPrefixes to indicate a base can be set in the ModeFile.
+Hwn6010:Punctuation are all characters not defined to be ctrl, number or ID
+Hwn60??:This group is not defined in the Modefile
+
+# Help for 'Search/Replace' dialogue box
+Hwn8100:Type string to search for here.|MKey shortcuts: Page Up/Down to fetch old search strings.
+Hwn8101:Type replace string here.|MKey shortcuts: Page Up/Down to fetch old strings.
+Hwn8102:Click to toggle case sensitive searching on/off.|MKey shortcut: ^C.
+Hwn8103:Click to toggle the 'Line' switch on/off.|MWhen it is on, StrongED will only look for search string at the start of lines.|MKey shortcut: ^L
+Hwn8105:Click to toggle 'advanced' search syntax on/off|MKey shortcut: ^A
+Hwn8109:Click to recall previously used search/replace strings.|MKey shortcut: Page Up/Down
+Hwn8107:Click to cycle between the different search-scopes.|MThis limits the area that will be searched.|MKey shortcut: ^S
+Hwn810B:Click to count occurrences of the search string.|MKey shortcut: ^N
+Hwn810A:Click to open the Counter dialogue box.|MIt allows you to generate a sequential number that is inserted into the replace string by using the 'Cnt' identifier.
+Hwn810C:Click to start replace.|MKey shortcut: Return
+Hwn81??:This is the Search/Replace dialogue box.
+
+# Help for 'Interactive Search' dialogue box
+Hwn8200:Type string to search for here.|MKey shortcuts: Page Up/Down to fetch old search strings.
+Hwn8201:Click to toggle case sensitive searching on/off.|MKey shortcut: ^C.
+Hwn8202:Click to recall previously used search strings.|MKey shortcut: Page Up/Down
+Hwn8203:Click to go to the next occurrence of the search string.|MKey shortcut: Down arrow
+Hwn8204:Click to go to the previous occurrence of the search string.|MKey shortcut: Up arrow
+Hwn82??:This is the Interactive Search dialogue box.
+
+# Help for 'Goto' dialogue box
+Hwn8300:Click to cycle between the different Goto types.|MPhysical lines. Moves caret to start of textlines.|MLogical line. Moves caret to start of wraplines.|MAddress/offset. Moves caret to address (Dump mode) or offset.
+Hwn8302:This field displays the minimum number possible.|MEither the first line number, lowest address or offset.
+Hwn8304:This field displays the current caret position.|MThe line number, address or offset that the caret is at.
+Hwn8306:This field displays the maximum number possible.|MEither the last line number, highest address or offset.
+Hwn8308:Enter here the line number, address or offset you want to move the caret to, then press Enter.|MUse Page-Up/PageDown to recall previously entered values.|MUse Ctrl-U to clear the field.
+Hwn83??:This is the Goto Line dialogue box.|MType a appropriate line number, address or offset and press Return.
+
+# Help for 'What now' dialogue box
+Hwn8400:Click to *not replace* this occurrence, but just find the next.|MKey shortcut: Down Arrow.
+Hwn8401:Click to replace this occurrence, and find the next.|MKey shortcut: Return.
+Hwn8402:Click to replace all remaining occurrences.|MKey shortcut: ^A
+Hwn8403:Click to undo the last replace.|MKey shortcut: F8
+Hwn8404:Click to redo the last undo.|MKey shortcut: ^F8
+Hwn84??:This is the "What now" dialogue box.
+
+# Help for 'Grab' dialogue box
+Hwn8500:Click here to create an empty text in dump mode.
+Hwn8501:Click here to create a menu of all rom modules.|MSelect the module you want to grab.
+Hwn8502:Click here to create a menu of all ram modules.|MSelect the module you want to grab.
+Hwn8503:Click here to create a menu of all rom modules.|MSelect the module whose workspace you want to grab.
+Hwn8504:Click here to create a menu of all ram modules.|MSelect the module whose workspace you want to grab.
+Hwn8505:Click here to create a menu of all applications.|MSelect the application you want to grab.
+Hwn8506:Click here to create a menu of all dynamic areas.|MSelect the dynamic area you want to grab.
+Hwn8508:Click here to grab the contents of the cmos ram.
+Hwn85??:This is the grab window.
+
+# Help for 'Search' dialogue box
+Hwn8900:Type string to search for here.|MKey shortcuts: Page Up/Down to fetch old search strings.
+Hwn8901:Click to toggle case sensitive searching on/off.|MKey shortcut: ^C.
+Hwn8902:Click to toggle the 'Line' switch on/off.|MWhen it is on, StrongED will only look for search string at the start of lines.|MKey shortcut: ^L
+Hwn8903:Click to cycle between the different search-scopes.|MThis limits the area that will be searched.|MKey shortcut: ^S
+Hwn8904:Click to cycle between the different search engines.|MKey shortcut: ^E
+Hwn8905:Click to open a subwindow allowing the LoF display settings to be altered.|MKeyboard shortcut: ^D
+Hwn8906:Click to recall previously used search strings.|MKey shortcut: Page Up/Down
+Hwn8907:Click to count occurrences of the search string.|MKey shortcut: ^N
+Hwn8908:Click to start searching.|MThe results will be displayed in a window.|MKey shortcut: Return
+Hwn89??:This is the List of Found dialogue box.
+
+# Help for 'Info' dialogue box
+Hwn8C1E:Click to count number of words in text.
+Hwn8C??:This shows information on the text.
+
+# Help for 'About' box
+Hwn8D00:Click to open the StrongED homepage. (Requires a web browser.)
+Hwn8D0A:Click to open the StrongED manual. (Requires !StrongHlp.)
+Hwn8D??:Just another 'About' box.
+
+# Help for print dialogue box
+Hwn9B02:This shows the name of the currently selected printer.
+Hwn9B06:When this is on, text will be printed in text mode.|MNot all modern printers support this.
+Hwn9B07:When this is on, text will be printed in graphics mode.|MThe outline font used is the one configured in the Font section of the Mode Choices.
+Hwn9B0B:Enter the number of copies to be printed here.|MThe option below controls how the pages will be ordered in the print-out.
+Hwn9B0E:This option controls how multiple copies are ordered.|MWhen on, the entire document will be repeated (p1,p2,p3,p1,p2,p3).|MWhen off, individual pages will be repeated (p1,p1,p2,p2,p3,p3).
+Hwn9B0F:When this is on, header and footer lines will be added to the print-out.|MThe contents of the header and footer lines are defined in the mode's ModeFile.
+Hwn9B10:When this is on, only the selected text will be printed.|MWhen this is off, the entire text will be printed.
+Hwn9B11:When this is on, printing will use the same colours as used on the screen.|MNB1 If you use a black background you end up using lots of ink.|MNB2 This only applies to printing in graphics mode.
+Hwn9B14:When this is on, the print-out will be in portrait (upright) format.|MThis only applies to printing in graphics mode. Text mode always prints in portrait format.
+Hwn9B15:When this is on, the print-out will be in landscape (sideways) format.|MThis only applies to printing in graphics mode. Text mode always prints in portrait format.
+Hwn9B21:Click to close the dialogue box without printing anything.
+Hwn9B22:Click to start printing the current document.
+Hwn9B??:This is the print dialogue box.
+
+# Help for 'New user dictionary' dialogue box
+HwnAC??:Create a new user dictionary.|MNote; There can be max 8 user dictionaries.
+
+# Help for 'Load' dialogue box
+HwnAD02:This shows the file currently selected from the history menu.|MUse the menu button to the right to select another file.
+HwnAD03:Click here to display a menu listing all previously loaded files (up to a maximum of 16).
+HwnAD05:Click here to close the window without loading a file.
+HwnAD06:Click here to load the currently selected file.
+HwnAD??:This is the load dialogue box.|MIt can be used to reload previously loaded files that have subsequently been closed.
+
+# Help for 'LoadDir' dialogue box
+HwnAE01:This displays the path of the directory dragged to the iconbar icon.
+HwnAE02:Click to close the dialogue box without loading any files.
+HwnAE03:Click to load all files in the directory that match the pattern set.
+HwnAE06:Enter a pattern that files must match to be loaded.|MThe pattern consists of |<Filetype list>, |<path list>.|MBoth lists are space separated.|MThe filetypes are in hexadecimal.|MThe path list uses * and ** as wildcards.
+HwnAE08:Enter a search expression that the file's contents must match to be loaded.
+HwnAE??:This is the load directory box.
+
+# Help for 'Tabstops' dialogue box
+HwnAF00:This icon displays the current tabstops string.|MStrongED will use this to determine where to place the caret when the TAB key is pressed.
+HwnAF01:Click here to remove tabstops for this text.|MThis will cause the tabstops set in the ModeFile to be used.|MIf there's no tabstops definition in the ModeFile then the definition from BaseMode will be used.
+HwnAF02:Click here to close the dialogue box without any changes being put into effect.
+HwnAF03:Click here to put the tabstops string displayed into effect.
+
+# Help for 'Snippets' dialogue box
+HwnB000:This shows the current snippet.|MTo add a snippet enter the text here and click Store.|MTo insert a snippet into the text select one from the menu and click Insert.
+HwnB001:Click here to obtain a menu listing previously stored snippets.
+HwnB002:Click here to store the current snippet.|MKey: c-S.
+HwnB003:Click here to close the window without any action being taken.|MKey: c-C or Esc.
+HwnB004:Click here to insert the current snippet into the text.|MKey: c-I or Return.
+HwnB0??:This is the Snippets window.
+
+# Help for 'Commands' dialogue box
+HwnB100:This shows the current set of commands.|MTo add a command-set enter the commands here and click Store.|MTo execute a command-set select one from the menu and click Execute.
+HwnB101:Click here to obtain a menu listing previously stored command-sets.
+HwnB102:Click here to store the current list of commands.|MKey: c-S.
+HwnB103:Click here to close the window without any action being taken.|MKey: c-C or Esc.
+HwnB104:Click here to execute the current list of commands.|MKey: c-E or Return.
+HwnB1??:This is the Commands window.
+
+# Help for 'Bookmarks' dialogue box
+HwnB200:This shows the title of the text the selected bookmark is defined in.
+HwnB201:This shows the line the selected bookmark is pointing to.
+HwnB204:This shows the number of the currently selected bookmark.|MUse the arrow icons to the right to select another bookmark.
+HwnB205:Click here to move to the previous bookmark.
+HwnB206:Click here to move to the next bookmark.
+HwnB209:Click here to move to the selected bookmark.
+HwnB20A:Click here to clear all bookmarks.
+HwnB20B:Click here to close the bookmarks window.
+HwnB20C:Click here to clear the selected bookmark.
+HwnB20D:Click here to set the selected bookmark to the caret position.
+HwnB2??:This is the Bookmarks window.
+
+# Help for 'Refresh' dialogue box
+HwnB301:This shows the path of the file.
+HwnB303:This shows the number of copies of the file are now loaded.|MUse the arrows to the right to select another loaded copy.
+HwnB304:Click here to check the details of the previous loaded copy.
+HwnB305:Click here to check the details of the next loaded copy.
+HwnB307:This shows the total number of loaded copies of this file.
+HwnB309:This shows the time stamp of the loaded copy.|MIt will be shown in green when the file is unaltered.|MIt will be shown in red when the file has been edited.
+HwnB30B:This shows the filetype sprite for the copy on disc.|MIt provides a quick way to check if the filetype has been altered.
+HwnB30D:This shows the time stamp of the copy on disc.|MIt will be shown in green when it has the same time stamp as the loaded copy.|MIt will be shown in red when the time stamp is different from the loaded copy.
+HwnB30F:Click here to refresh the content of the currently selected loaded copy.
+HwnB310:Click here to load the copy on disc into a new window.
+HwnB311:Click here to close the dialogue box without any action being taken.
+HwnB312:Click here to bring the window with the loaded copy to the front of the window stack.
+HwnB3??:This is the Refresh window.
+
+# Help for 'Display' dialogue box
+HwnB406:When this is on, the LoF will show the entire line.
+HwnB407:When this is on, the LoF will show the text from start of match to end of line
+HwnB405:When this is on, the LoF will show the text from end of match to end of line.
+HwnB404:When this is on, the LoF will vertically align the matches.
+HwnB41C:When this is on, the LoF will display the matched text only.
+HwnB408:When this is on, the LoF will be sorted in alphabetical order.|MWhen off, matches will be listed in the order in which they are found.
+HwnB409:When this is on, line numbers will be shown in the LoF.
+HwnB40A:When this is on, all matches will be shown, including multiple matches on the same line.|M When off, only the first match on a line will be shown.
+HwnB40B:When this is on, matches found will be highlighted in the text.
+HwnB40C:Click to close the window without applying the current settings.
+HwnB40D:Click to apply the current settings and close the window.
+HwnB41B:Click to reset the settings to their default values.|MThe default values are set in Global Choices -> Windows.
+HwnB41D:When this is on, the full filename is shown in the LoF.|MWhen off, only the leafname of the filename is shown.
+HwnB4??:This is the Display window.
+
+# Help for 'SearchCfg' dialogue box
+HwnB5??:This dialogue box allows you to set the default options for various search related dialogue boxes.|MOptions not relevant to a particular dialogue box will be shaded.
+
+# Help for 'Counter' dialogue box
+HwnB606:Enter the start value for the counter here.
+HwnB607:Enter the step size for the counter here.
+HwnB60A:Enter the number of digits to insert here.
+HwnB60B:This shows the current padding type.
+HwnB60C:Click to decrease the start value.
+HwnB60D:Click to increase the start value.
+HwnB60E:Click to decrease the step size.
+HwnB60F:Click to increase the step size.
+HwnB610:Click to decrease the number of digits.
+HwnB611:Click to increase the number of digits.
+HwnB612:Click to change the padding type.
+HwnB613:Click to change the padding type.
+HwnB616:When this is on, the number will be inserted in hex format.
+HwnB618:Click here to close the window without applying the (changed) settings.
+HwnB619:Click here to apply the (changed) settings and close the window.
+HwnB61A:When this is on, the counter will be reset when replace moves to a different file during a Replace All.
+HwnB6??:This is the Counter window.
+
+# Help for 'LoWActions' dialogue box
+HwnB700:Click here to perform the current action.
+HwnB701:Click here to open the list of actions.
+HwnB703:Click here to close the window without performing any action.
+HwnB706:Click here to open the list of scopes.
+HwnB70C:Click here to open the list of unions.
+HwnB707:This shows the currently selected action.|MUse the menu button on the right to select a different action.
+HwnB702:This shows the current scope.|MUse the menu button on the right to change the scope.
+HwnB70D:This tells how the pattern should be combined with the scope.|MUse the menu button on the right to select a different union.
+HwnB704:Enter the pattern to match here.|MThe patterns use the same syntax as the ModeWhen rules.
+HwnB7??:This is the LoWActions window.
+
+# Help for 'Sort' dialogue box
+HwnB802:When this is on, text will be sorted in ascending order (A-Z).
+HwnB803:When this is on, text will be sorted in descending order (Z-A).
+HwnB805:Click here to close the dialogue box without sorting the text.
+HwnB806:Click here to sort the text and close the dialogue box.
+HwnB80B:When this is on, the entire text will be sorted.
+HwnB80C:When this is on, the selected text will be sorted.
+HwnB80D:When this is on, duplicate lines will be removed after sorting.
+HwnB80E:When this is on, case of text will be taken into account.
+HwnB8??:This is the Sort window.
+
+# Help for 'Save' dialogue box
+HwnC000
+HwnC100
+HwnC200
+HwnC300
+HwnC400
+HwnC500:Type filename here.|MKey shortcuts: Page Up/Down to fetch old filenames. Return to Save.
+HwnC001
+HwnC101
+HwnC201
+HwnC301
+HwnC401
+HwnC501:Type filetype here.|MYou can enter either the name or number of the filetype.|MClick Menu to obtain a list of available filetypes|MKey shortcut: Return to Save.
+HwnC002
+HwnC102
+HwnC202
+HwnC302
+HwnC402
+HwnC502:Drag this icon to where you want the file to be saved.
+HwnC006
+HwnC106
+HwnC206
+HwnC306
+HwnC406:Click here to save the file, it must have a valid path for this to work.|MIf the file does have a valid path then you can also press the Return key.|MOtherwise drag the filetype icon to a filer window (or another application).
+HwnC506:Click here to save&kill, the file must have a valid path for this to work.|MIf the file does have a valid path you can also press Return.|MOtherwise drag the filetype icon to a filer window (or another application).
+HwnC009
+HwnC109
+HwnC209
+HwnC309
+HwnC409
+HwnC509:Click here to close the Save dialogue box without saving.
+HwnC403:Click here to discard the text without saving.
+
+HwnC0??:This is the Save text dialogue box.
+HwnC1??:This is the Save block dialogue box.
+HwnC2??:This is the Save viewers dialogue box.
+HwnC3??:This is the Save List of Found dialogue box.
+HwnC4??:This is the Save&kill text dialogue box.
+HwnC5??:This is the Save dump dialogue box.
+
+# in-line help for advanced search syntax
+# Max visible with system font:............|
+
+adv00:A predefined set = '0-9'
+adv01:A predefined set = 'A-Za-z'
+adv02:A predefined set = '0-9A-Za-z'
+adv03:A predefined set = all chars but newline
+adv04:A predefined set = all control chars
+adv05:A predefined set = all punctuation chars
+adv06:List of accepted chars, like '0-9' or '~A-Z'
+adv07:The TAB character ( = \x09 )
+adv08:The newline character
+adv09:The newline character
+adv0A:Control char X ( \cA = \x01 )
+adv0B:The char \ itself.
+adv0C:The char with hex code XX ( \x41 = A )
+adv0D:Actual text to look for.
+adv0E:An optional part of the expression
+adv0F:Repeat. Variants: {x} {x}+ {x}n:m
+adv10:OR. If x doesn't match, try y
+adv11:NOT. Note: The length of (~x) is zero!
+adv12:Wildcard. Scan forward in line for y.
+adv13:Wildcard. Scan forward in text for y.
+adv14:Are we at start of line?
+adv15:Are we at end of line?
+
+# Errors :
+
+Err00:%s
+Err01:Not enough memory.
+Err02:Too many windows. Can't create View.
+Err03:Cannot load here!
+Err04:File not found
+Err05:Can't load a directory.
+Err06:Load failed. Did sender die?
+Err07:Can't save text to itself.
+Err08:No help on that word.
+Err09:No block is marked.
+Err10:Block not in this Text.
+Err11:Can't copy block into itself.
+Err12:Can't have fastchars for this mode.
+Err13:Mark is undefined.
+Err14:Can't move block into itself.
+Err15:String contains unknown escape character.
+Err16:String not found.
+Err17:Couldn't replace more than %u4 occurrences
+Err18:Can't find !StrongHlp.
+Err19:Processed file not found.
+Err20:You must quit old print-job first.
+Err21:This is a null-string.
+Err22:Undo is turned off for this text.
+Err23:Nothing to Undo.
+Err24:Nothing to Redo.
+Err25:Unknown Undo/Redo code %u4.
+Err26:This entry does nothing.
+#Err27:Don't know where to save. Drag to directory.
+Err27:Don't know where to save. Click SELECT over the Save icon and drag to a directory.
+Err28:Oops.. Unknown internal error..!?! (%u4)
+Err29:Nothing to playback.
+Err30:The DDEUtils module is needed for throwback
+Err31:Learn buffer is full. Turned off.
+Err32:Unknown token '%s'.
+Err33:Unexpected end of file.
+Err34:Expected keyname.
+Err35:Only c-? supported.
+Err36:This character can't be used as a control key.
+Err37:Only 3 keys allowed per keystroke.
+Err38:Unknown function.
+Err39:Bad keylist name.
+Err40:Function doesn't take parameters.
+Err41:Function doesn't take numbers as parameter.
+Err42:Function doesn't take strings as parameter.
+Err43:This is not an 'ExternalEdit' text..
+Err44:"%s" not present.
+Err45:Menuline expected.
+Err46:Wimp$Scrap is not defined.
+Err47:Expression Error.
+Err48:Unknown identifier '%s'.
+Err49:No printer driver present.
+Err50:Missing "
+Err51:Missing left part of OR-expression
+Err52:Missing ' to end set
+Err53:Only strings, NL and @xx allowed in replace expression.
+Err54:Incorrect mark.
+Err55:Mark %u4 is not set.
+Err56:Replace string too large
+Err57:Expected "("
+Err58:This function has no more parameters.
+Err59:Required parameter is missing.
+Err60:Bad parameter type.
+Err61:Bad value.
+Err62:Expected ")" or ","
+Err63:Clipboard is empty.
+Err64:This doesn't apply to 'freeblock'
+Err65:This only applies to 'freeblock'
+Err66:Freeblock not in this view.
+Err67:Line %u4 too long to be tokenised
+Err68:Please open the window first.
+Err69:Escape.
+Err70:You must select a whole number of lines to sort.
+Err71:Nothing to sort.
+Err72:Function already defined for this group.
+Err73:Unknown option for SyntaxWords.
+Err74:This Syntax Group is already defined.
+Err75:Too many reserved words.
+Err76:Illegal set range (use '\-' if you want the char '-')
+Err77:Can't have case/nocase reserved words with same 1st letter.
+Err78:Shortcut too long (can max be 7 chars)
+Err79:Text is write protected.
+Err80:Unknown mode '%s'.
+Err81:No application configured for this URL type.
+Err82:Bad hex value.
+Err83:Unable to verify if modefile is correct (No memory)
+Err84:This ClickList is already defined.
+Err85:Not in a fold.
+Err86:Fold is already open.
+Err87:Fold is already closed.
+Err88:'%c' unexpected.
+Err89:No suitable jump table found.
+Err90:Can't decide which jump table to use.
+Err91:Can't call OS_HeapSort. Address too high.
+Err92:Duplicate reserved word '%s'.
+Err93:'EndOfExpr' must be followed by name of a search expression.
+Err94:No spelling mistakes found.
+Err95:This Rules group is already defined.
+Err96:Unknown option for Rules.
+Err97:Replace string contains too many elements.
+Err98:Missing Select/Adjust/Drag line.
+Err99:Unknown %s: '%s' in mode '%s'.
+Err100:OnLoad is already defined.
+Err101:Cannot save file. Line number too big. See Q&A section of manual.
+Err102:Text contains control codes and cannot be displayed or printed in an outline font.
+
+# Messages and warnings :
+
+Msg00:None found
+Msg01:One match found
+Msg02:%u4 matches found
+Msg03:StrongED is already running. To avoid conflict, this copy will not autosave.
+Msg04:ALT held down; AutoSave not checked.
+Msg07:%u4 occurrences replaced.
+Msg08:Not changed
+Msg09:Maybe changed
+Msg10:Changed
+Msg11:Created
+Msg12:Loaded
+Msg13:Last saved
+Msg14:%s less than a second ago.
+Msg15:%s just %u4 seconds ago.
+Msg16:%s 1 minute ago.
+Msg17:%s %u4 minutes ago.
+Msg18:%s 1 hour ago.
+Msg19:%s %u4 hours ago.
+Msg20:%u4 words counted.
+Msg21:<no block>
+Msg22:-
+Msg23:Ascii value %u1 (&%x2). Char '%c'
+Msg24:%u4 bytes of undo data removed.
+Msg25:Autosave directory contains backup files!
+Msg26:Warning: %u4 lines wider than %u4 chars!
+Msg27:Line numbers not stripped as program contains line references.
+Msg28: : %u4 hits on %u4 lines
+Msg29:Unauthorised action: *%s* in mode: *%s*.   Click one of buttons below to allow or deny it.   See the Security page in the Introduction section of the manual for details.
+Msg30:Save aborted.
+Msg31:The file '...%s' appears to have been altered on disc. Do you wish to refresh this file?
+Msg32:The file '...%s' appears to have been altered on disc. Do you wish to overwrite this file?
+Msg33:Unable to find AutoSave directory.
+Msg34:File ended prematurely. Line numbers too big? See Q&A section of manual.
+Msg35:Newline type cannot be altered in Dump mode.
+Msg36:You are about to overwrite one of StrongED's defaults files. Do you want the file to be saved to StrED_cfg?
+Msg37:Save to UserPrefs,Save to Defaults,Abort save
+Msg38:Refresh file,Ignore file
+Msg39:Overwrite file,Abort save
+Msg40:Deny action,Allow action,Deny always,Allow always
+Msg41:This bracket could not be matched.

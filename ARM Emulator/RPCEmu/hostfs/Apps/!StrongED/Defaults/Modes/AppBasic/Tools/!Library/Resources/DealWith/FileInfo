@@ -1,0 +1,6 @@
+DEF PROCDealWith_FileInfo(event,object,component)
+CASE event OF
+ WHEN FileInfo_AboutToBeShown
+ WHEN FileInfo_DialogueCompleted
+ENDCASE
+ENDPROC

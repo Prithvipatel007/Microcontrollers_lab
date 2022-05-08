@@ -1,0 +1,182 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : SQL
+#	Purpose :
+#	Author  : © StrongED Developers
+#	Licence : Freeware
+#	Version : 1.01, 01-10-2012
+#
+#-------------------------------------------------------------------------------
+# Changes:
+# 08.09.98 GV Created, using the C mode as a starting point
+# 29.01.99 GV Added '--' to _indent2, so now c-Return
+# 29.01.99 GV Changed all key bindings to the new preferred style; cs-X
+# 29.01.99 GV c-G now goes to function/procedure definition.
+# 22.12.11 FG Replaced old Tmp$* variables with new StrongED$Tmp_* ones
+#          FG Changed 'Type' to 'CommentType' in SyntaxComment
+#          FG Made up a version number to make it easier to signal changes
+# 01-10-12 FG Changed Author field to © StrongED Developers
+#-------------------------------------------------------------------------------
+
+HelpPath	StrongSQL,StrongHTML,ncdb,
+Foldparm1 ("/*{{{","/*}}}",startspace,case)
+
+#-------------------------------------------------------------------------------
+
+Search
+	include1	[_spct] "#include" _spct "<" [_spct] @0 * @9 ".H" [_spct] ">"
+	include2	[_spct] "#include" _spct '"' [_spct] @0 * @9 ".H" [_spct] '"'
+	iscomment	"/*"
+	wholecomment	"/*" ** "*/"
+	isblock		inblock .
+	_Indent2	{" "} [ "/*" | "--" ] {" "}
+	proc		{" "} "PROCEDURE" | "FUNCTION" {" "}+ @0 {'A-Za-z0-9_'}+
+	proc2		{" "} "PROCEDURE" | "FUNCTION" {" "}+ @0 CW ~'A-Za-z0-9_'
+End
+
+#-------------------------------------------------------------------------------
+
+ClickList
+	include1	LoadOne ("C:H.<StrongED$Tmp_MarkWord>")
+	include2	LoadOne ("<StrongED$Tmp_FilePath>.^.H.<StrongED$Tmp_MarkWord>")
+	iscomment	NoIndent MarkWord(WholeComment) GotoBlock_End CaretLeft CaretLeft DeleteRight DeleteRight GotoBlock_Start DeleteRight DeleteRight BlockClear
+	isblock		NoIndent GotoBlock_Start "/*" GotoBlock_End "*/"
+End
+
+#-------------------------------------------------------------------------------
+
+ID_FirstChar	A-Za-z_
+ID_Middle	A-Za-z_0-9.
+
+SyntaxOptions
+	SingleQuote	Yes
+	DoubleQuote	No
+	QuoteQuote	Yes
+	SplitString	No
+End
+
+SyntaxComment 1
+	CommentType	Multiline
+	StartWith	/*
+	EndWith		*/
+End
+
+SyntaxComment 2
+	CommentType	OneLine
+	StartWith	--
+End
+
+SyntaxWords Group1 nocase
+# Flow control
+	CREATE REPLACE
+	PACKAGE BODY
+	PROCEDURE IS AS
+	BEGIN EXCEPTION END
+	IF THEN ELSE ELSIF LOOP WHILE FOR IN EXIT WHEN
+	AND OR NOT EXISTS
+	GOTO NULL RAISE
+End
+
+SyntaxWords Group2 nocase
+# Types and type constructs
+	CURSOR TYPE SUBTYPE CONSTANT
+	RECORD VARRAY "VARYING ARRAY" "TABLE OF"
+	REF
+	BOOLEAN DATE
+	BINARY_INTEGER NATURAL NATURALN POSITIVE POSITIVEN SIGNTYPE
+	NUMBER DEC DECIMAL "DOUBLE PRECISION" FLOAT INT INTEGER NUMERIC REAL SMALLINT
+	PLS_INTEGER
+	CHAR CHARACTER
+	VARCHAR2 STRING VARCHAR
+	NCHAR NVARCHAR2
+	LONG RAW
+	ROWID
+	BFILE BLOB CLOB NCLOB
+End
+
+SyntaxWords Group3 nocase
+# sql statements
+	SELECT INTO FROM WHERE
+	DELETE
+	INSERT VALUES
+	UPDATE SET
+	"ORDER BY"
+	"START WITH"
+	"CONNECT BY"
+End
+
+SyntaxWords Group4 nocase
+# Other pl/sql statements
+	OPEN FETCH CLOSE
+	SAVEPOINT ROLLBACK COMMIT
+End
+
+#-------------------------------------------------------------------------------
+
+KeyList
+	cs-[		InsertStr("/*")
+	cs-]		InsertStr("*/")
+#	Return		Clicklist("indent")
+	c-Return	NewLine(indent,_Indent2)
+End
+
+#-------------------------------------------------------------------------------
+
+Functions
+	Key	s-F2
+	Menu	List of functions ‹F2
+	Icon	LoF
+	Select	ListOfFound(proc,text,Align,Line,NoCase,NoSort)
+	Help	Hsql_lof
+
+	Adjust	ListOfFound(proc,All,Align,Line,NoCase,NoSort)
+
+	Key 	s-PgUp
+	Icon	up
+	Select	GotoPrev(proc,text,Line,NoCase)
+	Help	Hsql_up
+
+	Key 	s-PgDown
+	Icon	down
+	Select	GotoNext(proc,text,Line,NoCase)
+	Help	Hsql_dn
+
+##	Key	c-H
+#	Menu	Load H.*
+#	Icon	save
+#	Help	Hsql_ld
+#	Select	SetTmp() LoadOne ("<StrongED$Tmp_FilePath>.^.H.<StrongED$Tmp_MarkWord>","C:H.<StrongED$Tmp_MarkWord>")
+
+#	Key	F10
+#	Menu	Save & Compile      F10
+#	Icon	Run
+#	Select	SaveDrag ("cc")
+#	Help	Hsql_run
+#
+#	Key	cs-F10
+#	Menu	Save & Make      ‹^F10
+#	Icon	brick
+#	Select	SetTmp() SaveDClick ("<StrongED$Tmp_FilePath>.^.Makefile")
+#	Help	Hsql_mak
+#
+	Key	c-G 1
+	Menu	Goto function definition
+	Icon	goto
+	Select	Push GotoFound (proc2,All,Whole,Line,nocase)
+	Help	Hsql_go
+
+	Key	c-G 2
+	‹Select	Pop
+End
+
+#-------------------------------------------------------------------------------
+
+Shortcuts
+	``P	PROCEDURE \@ () IS\n\iBEGIN\n\iEND ;
+	``p	htp.p('\@');
+	``i	IF \@ THEN\n\i  \@\n\iEND IF;
+	``-	/*----------------------------------------------------------------------------*/
+	``/	/*--- \@  */
+	``*	/* \@  */
+	 	&nbsp;
+End

@@ -1,0 +1,3 @@
+	Select	SetTmp() Run("<TMP$Mode>.Tools.!Popup")
+	
+	Adjust	GSTrans("<TMP$options>")  Run("Unset TMP$options")

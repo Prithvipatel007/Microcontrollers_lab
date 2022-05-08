@@ -1,0 +1,101 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : Charm
+#	Purpose : StrongED mode file for Charm files
+#	Author  : © Fred Graute
+#	Licence : Freeware
+#	Version : 1.00, 20-06-2011
+#
+#-------------------------------------------------------------------------------
+
+ID_FirstChar	A-Za-z_
+ID_Middle	A-Za-z0-9_
+
+#-------------------------------------------------------------------------------
+
+Search
+	Procs	< ["ent"] {" "} "proc" {" "} @0 {'A-Za-z0-9_'}+ @9
+End
+
+#-------------------------------------------------------------------------------
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteQuote	No
+	SplitString	No
+	Numbers		off
+	Functions	Spaces
+End
+
+#-------------------------------------------------------------------------------
+
+SyntaxComment 1
+	CommentType	OneLine
+	StartWhere	Anywhere
+	StartWith	|
+	EndWith		|
+End
+
+SyntaxWords Group1 EndAlways
+	case of otherwise end_case
+	for step while do end_for
+	if then else elseif end_if
+	module end_module
+	repeat end_repeat
+	while do end_while
+	end_record
+End
+
+SyntaxWords Group2 EndNonID
+	char int boolean real ref array declare
+End
+
+SyntaxWords Group3 EndAlways
+	address length union end_union
+End
+
+SyntaxWords Group4 EndAlways
+	dec inc nil
+	proc end_proc
+	false true not and or
+End
+
+SyntaxWords Group5 EndAlways
+	# = > >= < <= <>
+	:=: :#:
+End
+
+SyntaxWords Group6 EndAlways
+	ent ext include
+End
+
+# Assignment
+SyntaxWords Group7 EndAlways
+	:=
+End
+
+# Expressions
+SyntaxWords Group8 EndAlways
+	+ - * / mod
+	l_rr l_sl l_sr
+	l_and l_clr l_or l_xor
+End
+
+#-------------------------------------------------------------------------------
+
+Shortcuts
+	``c	case \@ of\n\t\@\nend_case ;
+	``f	for \@ step \@ while \@ do\n\t\@\nend_for ;
+	``i	if \@ then\n\t\@\nend_if ;
+	``r	repeat\n\t\@\nend_repeat \@ ;
+	``w	while \@ do\n\t\@\nend_while ;
+End
+
+#-------------------------------------------------------------------------------
+
+Functions
+	Icon	lof
+	Help	List procedures
+	Select	ListOfFound(Procs,Text,Whole,,,)
+End

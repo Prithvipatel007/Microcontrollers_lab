@@ -1,0 +1,52 @@
+C51 COMPILER V9.60.0.0   LED                                                               06/13/2020 02:32:57 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE LED
+OBJECT MODULE PLACED IN .\src\LED.OBJ
+COMPILER INVOKED BY: c:\SiliconLabs\SimplicityStudio\v4\developer\toolchains\keil_8051\9.60\BIN\C51.exe D:\ELearning\MC\
+                    -ELearning_MC_8051_LCK\LED_C\src\LED.c OMF2 SMALL DEBUG OBJECTEXTEND ROM(LARGE) WARNINGLEVEL(2) FLOATFUZZY(3) OPTIMIZE(8,
+                    -SPEED) INTVECTOR(0X0000) INTPROMOTE INCDIR(D:\ELearning\MC\ELearning_MC_8051_LCK\LED_C\inc;C:/SiliconLabs/SimplicityStud
+                    -io/v4/developer/sdks/8051/v4.1.7//Device/shared/si8051Base;C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7
+                    -//Device/EFM8BB1/inc) PRINT(.\src\LED.lst) COND PAGEWIDTH(120) PAGELENGTH(65) OBJECT(.\src\LED.OBJ)
+
+line level    source
+
+   1          #include <SI_EFM8BB1_Register_Enums.h>
+   2          
+   3          void delay(void)
+   4          {
+   5   1              volatile unsigned short n;      // prevent compiler omission
+   6   1      
+   7   1              for (n=0; n<0xFFFF; n++) {}
+   8   1      }
+   9          
+  10          sbit LED = P1^4;
+  11          
+  12          void main (void)
+  13          {
+  14   1              XBR2 |= (1 << 6);       // port power
+  15   1      
+  16   1              while (1)
+  17   1              {
+  18   2                      LED ^= 1;
+  19   2                      delay();
+  20   2              }
+  21   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     37    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,40 @@
+DIM CODE% (&100)
+P% = CODE%
+[
+  ; function delay (parameter passed in R0)
+.delay
+  STMDB SP!, {R1}
+  MOV   R1, #1
+  MOV   R1, R1, LSL R0  ; do x cycles
+.delay_loop
+  SUBS  R1, R1, #1
+  BNE   delay_loop
+  LDMIA SP!, {R1}
+  MOV   PC, LR          ; return
+
+.main
+  STMDB SP!, {LR}       ; push return address to stack
+.main_loop
+  MOV   R0, #&79        ; check key pressed
+  MOV   R1, #(1<<7)+25  ; key_left
+  SWI   "OS_Byte"       ; CAUTION - overwrites R2
+  CMPS  R1, #&FF        ; if pressed
+  MOV   R0, #ASC("<")
+  SWIEQ "OS_WriteC"     ; show
+
+  MOV   R0, #&79        ; check key pressed
+  MOV   R1, #(1<<7)+121 ; key_right
+  SWI   "OS_Byte"       ; CAUTION - overwrites R2
+  CMPS  R1, #&FF        ; if pressed
+  MOV   R0, #ASC(">")
+  SWIEQ "OS_WriteC"     ; show
+
+  MOV   R0, #25
+  BL    delay
+
+  SWI   "OS_ReadEscapeState"  ; if ESC pressed then break
+  BCC   main_loop
+
+  LDMIA SP!, {PC}       ; pop return address from stack (PC = LR return)
+]
+CALL main

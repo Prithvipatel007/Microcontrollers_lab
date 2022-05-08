@@ -1,0 +1,2 @@
+If "<StrongED$HTMLtag>"="" then Copy <StrongED$Tmp_ModePath>.Tools.!HTML%0.Resources.tag Pipe:tag ~C~VF
+Unset StrongED$HTMLtag

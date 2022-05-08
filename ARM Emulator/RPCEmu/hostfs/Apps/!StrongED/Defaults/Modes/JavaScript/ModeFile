@@ -1,0 +1,187 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : JavaScript
+#	Purpose : StrongED ModeFile for JavaScript files
+#	Author  : © StrongED Developers
+#	Licence : Freeware
+#	Version : 1.00, 25-07-2013
+#
+#-------------------------------------------------------------------------------
+
+HelpPath	OS,Wimp,MiscSWIs,InetSWIs,InetSocket,VDU,Toolbox,Desk,OSLib,UnixLib,
+
+Foldparm1	("/*{{{","/*}}}",StartSpace,Case)
+Foldparm2	(FoldStart,FoldStart,,)
+
+ID_FirstChar	A-Za-z_$
+ID_Middle	A-Za-z_$0-9
+
+#-------------------------------------------------------------------------------
+
+Search
+	Member		{AD}+
+#	RegExp		{~"/" .}+
+#	RegExp		{{~"\\/" ~"/" .} ~"/" ..} "/"
+#	RegExp		{{~("\\" | "/") .} "\\/" | (~"/" .)}+ "/"
+	RegExp		{(~~"\\/" ..) | (~"/" .)}+ "/"
+	RegExp2		"/" {(~~"\\/" ..) | (~"/" .)}+ "/"
+	Function	"function" {" "} @0 AD|"_" {'_A-Za-z0-9'} @9 "("
+	GoFunction	@0 CW {" "} "(" * ")" {\s} \{
+
+	Spaces		{' '}
+	Comments	{"//"}
+	_ParPrefix	< Spaces Comments @1 @2 Spaces
+	_Indent2	{" "} [ "/*" | "//" ] {" "}
+
+	FoldStart	@0 "function" {" "} AD|"_" {'_A-Za-z0-9'} \( {\s} \{ @9
+
+	isblock		inblock .
+	iscomment	"/*"
+	wholecomment	"/*" ** "*/"
+
+# Expressions for smart indent
+# Taken from C mode, not sure if they're right for JavaScript
+	If		("if" {" "} "(" * ")" >)
+	Else		(["}"] {" "} "else")
+	Case		("case" * ":") | ("default" * ":")
+	IndentAfter	< {" "} ( If | Else | Case)
+	OutdentLine	< {" "} ( Else | Case)
+End
+
+#-------------------------------------------------------------------------------
+
+ClickList
+	iscomment	NoIndent MarkWord(WholeComment) GotoBlock_End CaretLeft CaretLeft DeleteRight DeleteRight GotoBlock_Start DeleteRight DeleteRight BlockClear
+	isblock		NoIndent GotoBlock_Start "/*" GotoBlock_End "*/"
+End
+
+#-------------------------------------------------------------------------------
+
+SyntaxComment 1
+	CommentType	OneLine
+	StartWhere	AnyWhere
+	StartWith	//
+End
+
+SyntaxComment 2
+	CommentType	MultiLine
+	StartWhere	AnyWhere
+	StartWith	/*
+	EndWith		*/
+End
+
+SyntaxOptions
+	SingleQuote	Yes
+	DoubleQuote	Yes
+	QuoteChar	\
+	QuoteQuote	No
+	SplitString	Yes
+	HexPrefix	0x
+	Functions	Spaces
+End
+
+# break case catch class const continue debugger default delete do
+# else enum export extends false finally for function goto
+# if implements import in instanceof interface let new null
+# package private protected public return static super switch
+# this throw true try typeof var void while with
+
+# abstract boolean byte char double final float goto int
+# long native short synchronized throws transient volatile
+
+SyntaxWords Group1 Case
+	break case catch continue
+	debugger default delete do
+	else finally for function
+	if in instanceof new return
+	switch this throw try typeof
+	var void while with
+End
+
+SyntaxWords Group2 Case
+	class
+	const
+	enum
+	export
+	extends
+	import
+	super
+End
+
+SyntaxWords Group3 Case
+	implements
+	interface
+	let
+	package
+	private
+	protected
+	public
+	static
+	yield
+End
+
+SyntaxWords Group4 Case
+	null
+	true
+	false
+End
+
+# Member functions
+SyntaxWords Group5 EndOfExpr Member
+	.
+End
+
+# Regular expressions
+# Commented out for now as it also colours '/' when used for division
+SyntaxWords Group6 EndOfExpr RegExp
+	/
+End
+
+#-------------------------------------------------------------------------------
+
+SmartIndent NoCase
+	IndentSize	2
+	IndentChar	{
+	OutdentChar	}
+	IndentAfter	IndentAfter
+	OutdentLine	OutdentLine
+End
+
+#-------------------------------------------------------------------------------
+
+Functions
+	Icon		LoF
+	Menu		List of functions ‹F2
+	Help		HCM_lof
+	Key		‹F2
+	Select		ListOfFound(Function, Text, Whole, NoLine, Case, Nosort)
+
+	Adjust		ListOfFound(Function, All, Whole, NoLine, Case, Nosort)
+
+	Icon		updown
+	Help		HCM_updn
+	Key 		^PgDown
+	Select		GotoNext(Function,Text)
+
+	Key 		^PgUp
+	Adjust		GotoPrev(Function,Text)
+
+	Icon		goto
+	Menu		Goto function definition
+	Help		HCM_go
+	Key		^G 1
+	Select		Push GotoFound(GoFunction,Text)
+
+	Key		^G 2
+	Adjust		Push GotoFound(GoFunction,All)
+
+#	Key		^‹G 1
+#	‹Select		Push GotoFound( GoFunction, Text, Whole, Line, Case, NoSort)
+
+#	Key		^‹G 2
+#	‹Adjust		Push GotoFound( GoFunction, All, Whole, Line, Case, NoSort )
+
+	^‹Select	Pop()
+
+	^‹Adjust	Pop()
+End

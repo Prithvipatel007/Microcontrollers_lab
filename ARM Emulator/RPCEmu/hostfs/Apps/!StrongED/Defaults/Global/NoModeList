@@ -1,0 +1,22 @@
+# This file describes which modes should be available to StrongED, it also
+# details which path to use for the mode. This path name must be specified
+# relative to the 'Modes' directory in UserPrefs/Defaults. The path can be
+# a single directory name. StrongED will prefix it with StrongED_Read$Path
+# to obtain the full pathname to the mode.
+#
+# To put this file into action copy it to StrED_cfg.UserPrefs.Global and
+# rename it to 'ModeList'. Then add a line for each modes you want to use.
+#
+# Restrictions:
+# Mode names must be unique
+# The list must be exhaustive
+# BaseMode MUST be in the list
+#
+# Format:
+# <Mode name>	<Mode path>
+#
+# Examples:
+# HTML		HTMLv123	loads StrongED_Read:Modes.HTMLv123.ModeFile
+# Obey		Obey.v123	loads StrongED_Read:Modes.Obey.v123.ModeFile
+
+BaseMode        BaseMode

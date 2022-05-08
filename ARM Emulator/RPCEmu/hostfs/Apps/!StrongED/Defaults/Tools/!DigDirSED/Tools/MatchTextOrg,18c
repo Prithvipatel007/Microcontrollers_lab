@@ -1,0 +1,55 @@
+#! lua
+
+assert(riscos.version,"SearchDir requires RiscLua 5.00 or later")
+
+do
+  local sys,dim,dir in riscos
+  local thisdir = arg[1]
+  local textpat = arg[2]
+  local recurse = arg[3]
+
+  function searchdir(thisdir,textpat,recurse)
+    for leaf,ftype in dir(thisdir) do
+      local path = thisdir.."."..leaf
+      if (ftype == 0x1000) or (ftype == 0x2000) then
+        if recurse == "recurse" then
+          searchdir(path,textpat,recurse)
+        end
+      elseif (ftype == 0xffd) or (ftype == 0xfff) then
+        local linenumber = 0
+        for line in io.lines(path) do
+          linenumber = linenumber + 1
+          local match = line:find(textpat)
+          if match then
+            if not results then results = {} end
+            if not results[thisdir] then results[thisdir] = {} end
+            if not results[thisdir][leaf] then results[thisdir][leaf] = {} end
+            table.insert(results[thisdir][leaf],{linenumber,line})
+          end -- if
+        end -- for
+      end -- if
+    end -- for
+  end -- function
+
+  sys("DDEUtils_ThrowbackStart")
+  searchdir(thisdir,textpat,recurse)
+  if results then
+    for k,v in pairs(results) do
+      for l,w in pairs(v) do
+        for m,x in ipairs(w) do
+          path = k.."."..l
+          --print(path,x[1],x[2])
+          sys("DDEUtils_ThrowbackSend",2,0,dim(path),x[1],0,dim(x[2]))
+        end -- for
+      end -- for
+    end -- for
+  else
+    local message = "Nothing found"
+    sys("OS_CLI",dim("Sound 1 &fff5 &5000 10"))
+    sys("DDEUtils_ThrowbackSend",2,0,dim(thisdir),1,0,dim(message))
+  end -- if
+  sys("DDEUtils_ThrowbackEnd")
+
+end -- do
+
+

@@ -1,0 +1,11 @@
+# ModeWhen file for XHTML mode
+
+Rules Include
+! *, **/xhtml 
+> *, **; _xhtml
+End
+
+# Use XHTML if xhtml doctype is found
+Match
+	_xhtml	** "PUBLIC" {White|NL}+ "\"-//OASIS//DTD XHTML"
+End

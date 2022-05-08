@@ -1,0 +1,33 @@
+02:31:32 **** Incremental Build of configuration Keil 8051 v9.60.0 - Debug for project LED_ASM_Button ****
+make all 
+PATH=/c/SiliconLabs/SimplicityStudio/v4/developer/toolchains/keil_8051/9.60/BIN:/c/SiliconLabs/SimplicityStudio/v4/support/8051:/usr/bin:/c/SiliconLabs/SimplicityStudio/v4/features/com.silabs.external.java.windows.x86_64.feature_1.8.0.92/jre/bin/server:/c/SiliconLabs/SimplicityStudio/v4/features/com.silabs.external.java.windows.x86_64.feature_1.8.0.92/jre/bin:/c/SiliconLabs/SimplicityStudio/v4/features/com.silabs.external.java.windows.x86_64.feature_1.8.0.92/jre/lib/amd64:/c/Program Files/AdoptOpenJDK/jdk-8.0.242.08-openj9/bin:/c/Program Files (x86)/Intel/iCLS Client/:/c/Program Files/Intel/iCLS Client/:/c/Windows/system32:/c/Windows:/c/Windows/System32/Wbem:/c/Windows/System32/WindowsPowerShell/v1.0/:/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL:/c/Program Files/Intel/Intel(R) Management Engine Components/DAL:/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT:/c/Program Files/Intel/Intel(R) Management Engine Components/IPT:/c/Program Files (x86)/ATI Technologies/ATI.ACE/Core-Static:/c/Program Files/Intel/WiFi/bin/:/c/Program Files/Common Files/Intel/WirelessCommon/:/c/Program Files/dotnet/:/c/Program Files/MATLAB/R2020a/bin:/c/SiliconLabs/SimplicityStudio/v4
+ 
+Building file: ../src/LED.asm
+Invoking: Keil 8051 Assembler
+AX51 "@src/LED.__ia" || test $? -lt 2
+
+MACRO ASSEMBLER AX51 V3.15.3.0
+COPYRIGHT ARM Germany GmbH 2016
+"c:\SiliconLabs\SimplicityStudio\v4\developer\toolchains\keil_8051\9.60\BIN\AX51.exe" "D:\ELearning\MC\ELearning_MC_8051_LCK\LED_ASM_Button\src\LED.asm" ERRORPRINT SET (SMALL,SILABS_STARTUP=1) DEBUG MACRO NOMOD51 INCDIR(C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7//Device/shared/si8051Base;C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7//Device/EFM8BB1/inc) PRINT(.\src\LED.lst) COND SYMBOLS PAGEWIDTH (120) PAGELENGTH (65) OBJECT(.\src\LED.OBJ)
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S).
+Finished building: ../src/LED.asm
+ 
+Building target: LED_ASM_Button.omf
+Invoking: Keil 8051 Linker
+LX51 "@LED_ASM_Button.lnp" || test $? -lt 2
+
+LX51 LINKER/LOCATER V4.66.97.0 - SN: Eval Version
+COPYRIGHT ARM Germany GmbH 1995 - 2019
+@LED_ASM_Button.lnp "./src/LED.OBJ"
+TO "LED_ASM_BUTTON.OMF.CRBUILD" REMOVEUNUSED PRINT(.\LED_ASM_Button.m51) PAGEWIDTH (120) PAGELENGTH (65) CLASSES( ECODE(C:0x0 - C:0x1ffe), HCONST(C:0x0 - C:0x1ffe), XDATA(X:0x0 - X:0xff), HDATA(X:0x0 - X:0xff))
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0019H BYTE ( 1%) *
+******************************************************************************
+
+Program Size: data=8.0 xdata=0 const=0 code=42
+LX51 RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+Finished building target: LED_ASM_Button.omf
+
+02:31:32 Build Finished (took 420ms)
+

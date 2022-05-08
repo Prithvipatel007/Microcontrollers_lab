@@ -1,0 +1,32 @@
+01:44:13 **** Incremental Build of configuration Keil 8051 v9.60.0 - Debug for project LED_UART ****
+make all 
+PATH=/c/SiliconLabs/SimplicityStudio/v4/developer/toolchains/keil_8051/9.60/BIN:/c/SiliconLabs/SimplicityStudio/v4/support/8051:/usr/bin:/c/SiliconLabs/SimplicityStudio/v4/features/com.silabs.external.java.windows.x86_64.feature_1.8.0.92/jre/bin/server:/c/SiliconLabs/SimplicityStudio/v4/features/com.silabs.external.java.windows.x86_64.feature_1.8.0.92/jre/bin:/c/SiliconLabs/SimplicityStudio/v4/features/com.silabs.external.java.windows.x86_64.feature_1.8.0.92/jre/lib/amd64:/c/Program Files/AdoptOpenJDK/jdk-8.0.242.08-openj9/bin:/c/Program Files (x86)/Intel/iCLS Client/:/c/Program Files/Intel/iCLS Client/:/c/Windows/system32:/c/Windows:/c/Windows/System32/Wbem:/c/Windows/System32/WindowsPowerShell/v1.0/:/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL:/c/Program Files/Intel/Intel(R) Management Engine Components/DAL:/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT:/c/Program Files/Intel/Intel(R) Management Engine Components/IPT:/c/Program Files (x86)/ATI Technologies/ATI.ACE/Core-Static:/c/Program Files/Intel/WiFi/bin/:/c/Program Files/Common Files/Intel/WirelessCommon/:/c/Program Files/dotnet/:/c/Program Files/MATLAB/R2020a/bin:/c/SiliconLabs/SimplicityStudio/v4
+ 
+Building file: ../src/LED.c
+Invoking: Keil 8051 Compiler
+C51 "@src/LED.__i" || test $? -lt 2
+
+C51 COMPILER V9.60.0.0 - SN: Eval Version
+COPYRIGHT Copyright (C) 2012 - 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
+Finished building: ../src/LED.c
+ 
+Building target: LED_UART.omf
+Invoking: Keil 8051 Linker
+LX51 "@LED_UART.lnp" || test $? -lt 2
+
+LX51 LINKER/LOCATER V4.66.97.0 - SN: Eval Version
+COPYRIGHT ARM Germany GmbH 1995 - 2019
+@LED_UART.lnp "./src/LED.OBJ"
+TO "LED_UART.OMF.CRBUILD" REMOVEUNUSED PRINT(.\LED_UART.m51) PAGEWIDTH (120) PAGELENGTH (65) CLASSES( ECODE(C:0x0 - C:0x1ffe), HCONST(C:0x0 - C:0x1ffe), XDATA(X:0x0 - X:0xff), HDATA(X:0x0 - X:0xff))
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0104H BYTE (12%) *
+******************************************************************************
+
+Program Size: data=20.0 xdata=0 const=6 code=600
+LX51 RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+Finished building target: LED_UART.omf
+
+01:44:13 Build Finished (took 453ms)
+

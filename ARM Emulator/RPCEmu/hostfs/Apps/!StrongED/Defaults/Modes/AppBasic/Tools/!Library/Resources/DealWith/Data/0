@@ -1,0 +1,11 @@
+DEF PROCDealWith_DataImport(message,file$,filetype%)
+REM ------------------------------------------
+REM Importing data via file dragged from filer
+REM ------------------------------------------
+CASE message OF
+ WHEN Message_DataLoad
+   REM Now load file and send acknowledgement
+   REM <---- insert code here ----
+   PROCMessage_DataLoadAck
+ENDCASE
+ENDPROC

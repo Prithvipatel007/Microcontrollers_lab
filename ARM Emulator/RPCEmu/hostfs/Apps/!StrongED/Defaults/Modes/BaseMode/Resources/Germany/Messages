@@ -1,0 +1,17 @@
+# Messages for BaseMode
+# © StrongED Developers
+
+HBM_help:SELECT gibt Hilfe über StrongED. ADJUST gibt Hilfe für das Wort unter der Einfügemarke.|MUmschalttaste-SELECT gibt Hilfe über die Datei und Umschalttaste-ADJUST über den Buchstaben unter der Einfügemarke
+HBM_low:SELECT öffnet und schließt das Textliste-Fenster.|MAdjust opens the File history box.
+HBM_spell:Select spell checks whole text.|MAdjust opens the spell window.
+HBM_opt:SELECT öffnet und schließt das Fenster für die globalen Einstellungen,|Mund ADJUST das Fenster für den aktuellen Modus.
+HBM_save:SELECT speichert den Text.|MADJUST saves the text without asking.
+HBM_undo:SELECT undoes the last edit operation.|MADJUST redoes the last undone operation.
+HBM_speak:Select speaks the currently selected block.|MAdjust stops speaking.
+HBM_refresh:SELECT opens the Refresh dialogue box.|MADJUST refreshes the file immediately without prompting.|MEVEN when the file has been edited!
+HBM_apply:Drag a script here to apply it to this text.|MCtrl-DRAG displays the result in a new window.|MShift-DRAG replaces the text with the result.|MCtrl-Shift-DRAG applies the script to all texts.|MSELECT opens the scripts directory (if set).
+
+HBM_trim:Entfernt Leerzeichen am Zeilenende
+HBM_ltrim:Entfernt Leerzeichen am Zeilenanfang.
+HBM_join:Zeilen zusammenfügen
+HBM_split:Zeile auftrennen

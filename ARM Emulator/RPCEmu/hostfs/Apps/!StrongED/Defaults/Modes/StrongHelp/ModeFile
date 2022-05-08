@@ -1,0 +1,177 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : StrongHlp
+#	Purpose : StrongED mode file for StrongHelp files
+#	Author  : © Fred Graute
+#	Licence : Freeware
+#	Version : 1.04, 30-05-2015
+#
+#-------------------------------------------------------------------------------
+# 14-04-11 FG Replaced old style Tmp vars with new StrongED$Tmp style
+#          FG Use "{*}" to make bold instead of "*". Same for italic/underline
+#          FG Changed end type of Group1 to better colour cmds of form #cmd:text
+# 01-05-11 FG Changed _pattern expression in ModeWhen file to '** "#Parent"'
+# 26-10-11 FG Added '#Pointer', '#*', '#/' and '#_' to Group1
+#          FG Added _SpellIgnore, so commands inside {} are not checked
+# 30-05-15 FG Extended LinkText & LinkCmd expressions to allow '\>'.
+#-------------------------------------------------------------------------------
+
+HelpPath	StrongHelp,SH-RefMan,SH-Style
+
+##ID_FirstChar
+ID_Middle	A-Za-z_0-9" "
+##ID_LastChar
+
+#-------------------------------------------------------------------------------
+
+Search
+	Link		"<" {~"=>" ~">" .} "=>" @0 {'a-zA-Z_0-9'} @9 ">"
+	Link2		"<" @0 {'a-zA-Z_0-9'} @9 ">"
+	LinkText	{ "\\>" | (~(">" | "=>" | NL) .) }+
+	LinkCmd		{ "\\>" | (~(">" | NL) .) }+
+	bold		(" " | "\t" | (<)) ("*") {(A" "A) | A} ("*") (Punct | White)
+	italic		(" " | "\t" | (<)) ("/") {(A" "A) | A} ("/") (Punct | White)
+	underline	(" " | "\t" | (<)) ("_") {(A" "A) | A} ("_") (Punct | White)
+	selected_line	{any}+
+	command_group	{'~}'} "}"
+	Cmd1		{~(":" | \n) .}
+
+	_SpellIgnore	"{" * "}"
+End
+
+#-------------------------------------------------------------------------------
+
+Replace
+	Make_bold	"{*}" @@ "{*}"
+	Make_italic	"{/}" @@ "{/}"
+	Make_underline	"{_}" @@ "{_}"
+End
+
+#-------------------------------------------------------------------------------
+
+ClickList Select2
+	Link	SetTmp LoadOne("<StrongED$Tmp_FilePath>.<StrongED$Tmp_MarkWord>")
+	Link2	SetTmp LoadOne("<StrongED$Tmp_FilePath>.<StrongED$Tmp_MarkWord>")
+
+End
+
+#-------------------------------------------------------------------------------
+
+SyntaxComment 1
+	CommentType	OneLine
+	StartWith	"# "
+End
+
+SyntaxOptions
+	DoubleQuote	Yes
+End
+
+SyntaxWords Group1 NoCase StartOfLine EndOfExpr Cmd1
+	#Align
+	#Background
+	#Below
+	#Bottom
+	#Draw
+	#Endtable
+	#F
+	#Include
+	#Indent
+	#Line
+	#Linkattributes
+	#Manuals
+	#Parent
+	#Pointer
+	#Prefix
+	#Postfix
+	#RGB
+	#Sprite
+	#Spritefile
+	#Subpage
+	#Tab
+	#Table
+	#Tag
+	#Wrap
+	#*
+	#/
+	#_
+End
+
+SyntaxWords Group2 NoCase EndOfExpr LinkText
+	<
+End
+
+SyntaxWords Group3 NoCase EndAlways
+	>
+End
+
+SyntaxWords Group4 NoCase EndOfExpr LinkCmd
+	=>
+End
+
+#SyntaxWords Group5 NoCase StartSpace EndOfID
+#	"*"
+#	"/"
+#	"_"
+#End
+
+#SyntaxWords Group6 NoCase EndAlways
+#	"* "
+#	"/ "
+#	"_ "
+#End
+
+SyntaxWords Group6 NoCase EndOfExpr command_group
+	"{"
+End
+
+#SyntaxWords Group7 NoCase EndOfID
+#	" *"
+#	" /"
+#	" _"
+#End
+
+SyntaxWords Group8 NoCase EndAlways
+	\{
+	\}
+	\*
+	\\
+	\<
+	\>
+	\_
+	\/
+	\#
+End
+
+#-------------------------------------------------------------------------------
+
+Functions
+	Menu	Add bold
+	Icon	fg_bold
+	Help	Hshlp_bld
+	Select	Replace(selected_line,Make_bold,block,noline,NoCase)
+
+	Adjust	ListOfFound(bold,All,Whole,noline,NoCase)
+
+	Menu	Add italic
+	Icon	fg_italic
+	Select	Replace(selected_line,Make_italic,block,noline,NoCase)
+
+	Adjust	ListOfFound(italic,All,Whole,noline,NoCase)
+
+	Menu	Add underline
+	Icon	fg_underline
+	Select	Replace(selected_line,Make_underline,block,noline,NoCase)
+
+	Adjust	ListOfFound(underline,All,Whole,noline,NoCase)
+
+	Icon	lof
+	Select	dbox_ListOfFound
+End
+
+#-------------------------------------------------------------------------------
+
+Shortcuts
+	``ac	#Align centre
+	``al	#Align left
+	``ar	#Align right
+End

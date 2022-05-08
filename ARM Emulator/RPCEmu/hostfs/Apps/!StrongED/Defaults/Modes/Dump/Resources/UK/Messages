@@ -1,0 +1,18 @@
+Hdmp_lof:Click to get a list of implemented SWIs and commands|M(Only if it's a module)
+Hdmp_bck:Click to change back to BaseMode
+Hdmp_byt:Click to view the file in byte mode
+Hdmp_hlf:Click to view the file in half-word mode
+Hdmp_wrd:Click to view the file in word mode
+Hdmp_asc:Click to view the file in ascii mode
+Hdmp_asm:Click to view the file in disassembly mode
+Hdmp_new:Click to re-grab module/workspace|M(Doesn't do anything for normal files)
+
+# Colours
+Group1:ADD Reg,Reg,Reg
+Group2:ADD Reg,Reg,#Im
+Group3:LDR/STR Reg,[Reg,#Im]
+Group4:LDR/STR Reg,[Reg,Reg]
+Group5:LDM/STM
+Group6:Branches
+Group7:CoProcessor
+Group8:SWI 

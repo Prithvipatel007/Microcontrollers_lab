@@ -1,0 +1,7 @@
+DEF PROCDealWith_FontMenu(event,object,component)
+CASE event OF
+ WHEN FontMenu_AboutToBeShown
+ WHEN FontMenu_HasBeenHidden
+ WHEN FontMenu_FontSelection
+ENDCASE
+ENDPROC

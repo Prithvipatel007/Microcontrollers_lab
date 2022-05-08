@@ -1,0 +1,44 @@
+#include <stdio.h>
+
+#include "os.h"
+
+void delay(void)
+{
+  volatile int cnt;
+
+  for (cnt=0; cnt<40000000; cnt++);
+}
+
+#define SWI_OS_Byte "0x00006"
+int OS_Byte(int r0, int r1, int r2)
+{
+  register int _r1 __asm ("r1") = r1;
+
+  __asm__ ("swi " SWI_OS_Byte);
+
+  return _r1;
+}
+
+int main (void)
+{
+  printf("Key - To end press Escape\n");
+
+  while (1)
+  {
+    if (OS_Byte(0x79, (1<<7)+25, 0) == 0xFF)
+    {
+      // LED red
+      gcol(3);
+      disc(20, 20, 30, 30);
+    }
+    if (OS_Byte(0x79, (1<<7)+121, 0) == 0xFF)
+    {
+      // LED black
+      gcol(0);
+      disc(20, 20, 30, 30);
+    }
+
+    delay();
+  }
+  return 0;
+}

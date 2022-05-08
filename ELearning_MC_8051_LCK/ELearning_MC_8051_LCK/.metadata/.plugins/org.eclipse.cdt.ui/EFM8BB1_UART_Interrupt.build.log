@@ -1,0 +1,88 @@
+01:55:13 **** Build of configuration Keil 8051 v9.60.0 - Debug for project EFM8BB1_UART_Interrupt ****
+make all 
+PATH=/c/SiliconLabs/SimplicityStudio/v4/developer/toolchains/keil_8051/9.60/BIN:/c/SiliconLabs/SimplicityStudio/v4/support/8051:/usr/bin:/c/SiliconLabs/SimplicityStudio/v4/features/com.silabs.external.java.windows.x86_64.feature_1.8.0.92/jre/bin/server:/c/SiliconLabs/SimplicityStudio/v4/features/com.silabs.external.java.windows.x86_64.feature_1.8.0.92/jre/bin:/c/SiliconLabs/SimplicityStudio/v4/features/com.silabs.external.java.windows.x86_64.feature_1.8.0.92/jre/lib/amd64:/c/Program Files/AdoptOpenJDK/jdk-8.0.242.08-openj9/bin:/c/Program Files (x86)/Intel/iCLS Client/:/c/Program Files/Intel/iCLS Client/:/c/Windows/system32:/c/Windows:/c/Windows/System32/Wbem:/c/Windows/System32/WindowsPowerShell/v1.0/:/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL:/c/Program Files/Intel/Intel(R) Management Engine Components/DAL:/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT:/c/Program Files/Intel/Intel(R) Management Engine Components/IPT:/c/Program Files (x86)/ATI Technologies/ATI.ACE/Core-Static:/c/Program Files/Intel/WiFi/bin/:/c/Program Files/Common Files/Intel/WirelessCommon/:/c/Program Files/dotnet/:/c/Program Files/MATLAB/R2020a/bin:/c/SiliconLabs/SimplicityStudio/v4
+ 
+Building file: ../src/EFM8BB1_UART_Interrupt.c
+Invoking: Keil 8051 Compiler
+C51 "@src/EFM8BB1_UART_Interrupt.__i" || test $? -lt 2
+
+C51 COMPILER V9.60.0.0 - SN: Eval Version
+COPYRIGHT Copyright (C) 2012 - 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
+Finished building: ../src/EFM8BB1_UART_Interrupt.c
+ 
+Building file: ../src/InitDevice.c
+Invoking: Keil 8051 Compiler
+C51 "@src/InitDevice.__i" || test $? -lt 2
+
+C51 COMPILER V9.60.0.0 - SN: Eval Version
+COPYRIGHT Copyright (C) 2012 - 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
+Finished building: ../src/InitDevice.c
+ 
+Building file: ../src/Interrupts.c
+Invoking: Keil 8051 Compiler
+C51 "@src/Interrupts.__i" || test $? -lt 2
+
+C51 COMPILER V9.60.0.0 - SN: Eval Version
+COPYRIGHT Copyright (C) 2012 - 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
+Finished building: ../src/Interrupts.c
+ 
+Building file: ../src/SILABS_STARTUP.A51
+Invoking: Keil 8051 Assembler
+AX51 "@src/SILABS_STARTUP.__ia" || test $? -lt 2
+
+MACRO ASSEMBLER AX51 V3.15.3.0
+COPYRIGHT ARM Germany GmbH 2016
+"c:\SiliconLabs\SimplicityStudio\v4\developer\toolchains\keil_8051\9.60\BIN\AX51.exe" "D:\ELearning\MC\ELearning_MC_8051_LCK\EFM8BB1_UART_Interrupt\src\SILABS_STARTUP.A51" ERRORPRINT SET (SMALL,SILABS_STARTUP=1) DEBUG MACRO NOMOD51 INCDIR(C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7//kits/common/drivers/efm8_retargetserial;C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7//Device/shared/si8051Base;C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7//Device/EFM8BB1/inc) PRINT(.\src\SILABS_STARTUP.lst) COND SYMBOLS PAGEWIDTH (120) PAGELENGTH (65) OBJECT(.\src\SILABS_STARTUP.OBJ)
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S).
+Finished building: ../src/SILABS_STARTUP.A51
+ 
+Building file: ../lib/bsp/efm8_retargetserial/retargetio.c
+Invoking: Keil 8051 Compiler
+C51 "@lib/bsp/efm8_retargetserial/retargetio.__i" || test $? -lt 2
+
+C51 COMPILER V9.60.0.0 - SN: Eval Version
+COPYRIGHT Copyright (C) 2012 - 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
+Finished building: ../lib/bsp/efm8_retargetserial/retargetio.c
+ 
+Building file: ../lib/bsp/efm8_retargetserial/retargetserial.c
+Invoking: Keil 8051 Compiler
+C51 "@lib/bsp/efm8_retargetserial/retargetserial.__i" || test $? -lt 2
+
+C51 COMPILER V9.60.0.0 - SN: Eval Version
+COPYRIGHT Copyright (C) 2012 - 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
+Finished building: ../lib/bsp/efm8_retargetserial/retargetserial.c
+ 
+Building target: EFM8BB1_UART_Interrupt.omf
+Invoking: Keil 8051 Linker
+LX51 "@EFM8BB1_UART_Interrupt.lnp" || test $? -lt 2
+
+LX51 LINKER/LOCATER V4.66.97.0 - SN: Eval Version
+COPYRIGHT ARM Germany GmbH 1995 - 2019
+@EFM8BB1_UART_Interrupt.lnp "./lib/bsp/efm8_retargetserial/retargetio.OBJ",
+"./lib/bsp/efm8_retargetserial/retargetserial.OBJ",
+"./src/EFM8BB1_UART_Interrupt.OBJ",
+"./src/InitDevice.OBJ",
+"./src/Interrupts.OBJ",
+"./src/SILABS_STARTUP.OBJ"
+TO "EFM8BB1_UART_INTERRUPT.OMF.CRBUILD" REMOVEUNUSED PRINT(.\EFM8BB1_UART_Interrupt.m51) PAGEWIDTH (120) PAGELENGTH (65) CLASSES( ECODE(C:0x0 - C:0x1ffe), HCONST(C:0x0 - C:0x1ffe), XDATA(X:0x0 - X:0xff), HDATA(X:0x0 - X:0xff))
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 013EH BYTE (15%) *
+******************************************************************************
+
+Program Size: data=78.0 xdata=0 const=0 code=414
+LX51 RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+Finished building target: EFM8BB1_UART_Interrupt.omf
+
+01:55:14 Build Finished (took 1s.92ms)
+

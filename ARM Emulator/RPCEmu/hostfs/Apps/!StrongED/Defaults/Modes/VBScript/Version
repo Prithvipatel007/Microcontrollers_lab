@@ -1,0 +1,20 @@
+Version History
+===============
+
+The version number of this mode is the uppermost number in the version history below.
+
+1.01 EP 2005-11-06 Updated !Help file- references StrongED not StrongEd, syntax group 'ID' now called Identifiers, Mentioned alt. colour scheme
+                   Background now very dark grey instead of black, so you can see the left window border as a black line with overlapping windows
+                   Background colour no longer set for syntax group 'Identifiers' (should not have been)
+                   Added ColoursStd file- colours now set when 'alt colour scheme' is NOT selected in global choices (but used the same colours as before)
+                   Added Resources folder, containing UK.Messages file which now gives the syntax groups in the choices menu friendly names instead of numbers
+                   Tested with StrongED version 4.67 alpha 9
+                   Distribution of mode in zip file now uses !StrED_cfg shell
+                   
+1.00 EP 2004-06-21 First release
+                   Added 'preserve' and 'goto 0' statements
+                   No longer mixes colours in custom variables or functions that include statements, inbuilt functions, constants or keywords in their name (thanks to suggestion from Fred Graute)
+
+0.02 EP 2004-06-13 Beta release.
+                   Tested with !StrongED v4.66
+

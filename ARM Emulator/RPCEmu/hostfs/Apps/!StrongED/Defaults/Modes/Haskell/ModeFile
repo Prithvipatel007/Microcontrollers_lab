@@ -1,0 +1,57 @@
+#-------------------------------------------------------------------------------
+#
+#	Name      : Haskell
+#	Purpose   : StrongED mode file for Gofer, Hugs
+#	Author    : G.C.Wraith
+#	Licence   : Freeware
+#	Version   : 0.02, 21-12-2011
+#
+#-------------------------------------------------------------------------------
+# 21-12-11 FG Changed 'Type' to 'CommentType' in SyntaxComment
+#          FG Removed ModeWhen lines as we now have a ModeWhen file
+#-------------------------------------------------------------------------------
+
+ID_FirstChar	A-Za-z_
+ID_Middle	A-Za-z_0-9
+ID_LastChar	'
+
+Search
+	FirstChar	'A-Za-z_'
+	MiddleChars	'A-Za-z_0-9'
+	_MarkWord	FirstChar {MiddleChars}
+End
+
+SyntaxOptions
+	SingleQuote	Yes
+	DoubleQuote	Yes
+	QuoteChar	\
+	QuoteQuote	No
+	SplitString	Yes
+	HexPrefix	0x
+End
+
+SyntaxComment 1
+	CommentType	Multiline
+	StartWith	{-
+	EndWith		-}
+End
+
+SyntaxComment 2
+	CommentType	Oneline
+	StartWith	--
+End
+
+SyntaxWords Group1 case
+	class data default deriving do else case
+	if import in infix infixl infixr instance
+	let module newtype of then type where
+End
+
+SyntaxWords Group2 case
+	as qualified hiding
+End
+
+SyntaxWords Group3 case
+	.. :: = \ | <- -> @ ~ => - !
+End
+

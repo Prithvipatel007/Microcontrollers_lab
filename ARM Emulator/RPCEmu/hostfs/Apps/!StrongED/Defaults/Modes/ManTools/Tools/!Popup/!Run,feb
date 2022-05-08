@@ -1,0 +1,15 @@
+|Wimp pool sprites
+ Iconsprites <Obey$Dir>.!Sprites
+
+|Task directory
+ Set Popup$Dir <Obey$Dir>
+ Set Popup$Resources <Popup$Dir>
+
+|Language resources
+ ifthere <Popup$Dir>.!Languages then Run <Popup$Dir>.!Languages Popup
+
+|Toolbox modules
+ ifthere <Popup$Resources>.Modules then Obey <Popup$Resources>.Modules
+
+|Run
+ Run <Popup$Dir>.!RunImage

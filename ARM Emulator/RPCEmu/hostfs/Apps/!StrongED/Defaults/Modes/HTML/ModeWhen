@@ -1,0 +1,17 @@
+# ModeWhen file for HTML mode
+
+Rules Exclude
+! faf, **/php*
+End
+
+Rules Include
+ ! faf, **
+ ! *, **/htm **/html
+ > ~faf, ** ; _html
+End
+
+# Use HTML if <html> tag is found
+
+Match
+	_html		** "<html>"
+End

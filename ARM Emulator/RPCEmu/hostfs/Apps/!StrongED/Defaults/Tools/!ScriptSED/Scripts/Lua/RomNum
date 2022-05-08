@@ -1,0 +1,22 @@
+#! lua
+-- Roman Numerals
+local add = \ (x, y) => x + y end
+local P, Cf, Cc in lpeg
+local symbs = { I = 1, V = 5, X = 10, L = 50,
+C = 100, D = 500, M = 1000, IV = 4, IX = 9,
+XL = 40, XC = 90, CD = 400, CM = 900 }
+for s, n in pairs (symbs) do
+  _ENV[s:lower ( )] = P (s) * Cc (n)
+end -- for
+local MS = m^0
+local CS = ( d * c^(-4) + cd + cm + c^(-4) )^(-1)
+local XS = ( l * x^(-4) + xl + xc + x^(-4) )^(-1)
+local IS = ( v * i^(-4) + ix + iv + i^(-4) )^(-1)
+local rom = MS * CS * XS * IS
+local pat = Cf (Cc (0) * rom, add)
+local input, read in io
+input (arg[1])
+local s = read "*a"
+input ( )
+local result = pat:match (s: upper ( ))
+print (result or "?")

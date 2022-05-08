@@ -1,0 +1,64 @@
+C51 COMPILER V9.01   LED                                                                   09/17/2014 23:59:13 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE LED
+OBJECT MODULE PLACED IN LED.OBJ
+COMPILER INVOKED BY: C:\Program Files\Keil\C51\BIN\C51.EXE LED.C BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include <REG51.h>
+   2          
+   3          extern unsigned char keypad(void);
+   4          
+   5          // ROM
+   6          // 11000000B  : 0
+   7          // 11111001B  : 1
+   8          // 10100100B  : 2
+   9          // 10110000B  : 3
+  10          // 10011001B  : 4
+  11          // 10010010B  : 5
+  12          // 10000010B  : 6
+  13          // 11111000B  : 7
+  14          // 10000000B  : 8
+  15          // 10010000B  : 9
+  16          code unsigned char table[] = {0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90};
+  17          
+  18          sbit CS = P0^7;   // MUX CS
+  19          sbit A0 = P3^3;   // MUX A0
+  20          sbit A1 = P3^4;   // MUX A1
+  21          
+  22          void main(void)
+  23          {
+  24   1        signed char num;
+  25   1        
+  26   1        CS = 0;     // MUX CS -> SEG off
+  27   1        P1 = 0xFF;  // SEG clear
+  28   1        A0 = 0;     // MUX A0 = 0 -> SEG #1 select
+  29   1        A1 = 0;     // MUX A1 = 0
+  30   1        CS = 1;     // MUX CS -> SEG on
+  31   1        
+  32   1        while (1)
+  33   1        {
+  34   2          num = keypad();   // read keypad
+  35   2          
+  36   2          if (num == -1)
+  37   2            P1 = 0xFF;          // no key pressed : SEG clear
+  38   2          else
+  39   2            P1 = table[num];    // SEG show number
+  40   2        }
+  41   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     44    ----
+   CONSTANT SIZE    =     10    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

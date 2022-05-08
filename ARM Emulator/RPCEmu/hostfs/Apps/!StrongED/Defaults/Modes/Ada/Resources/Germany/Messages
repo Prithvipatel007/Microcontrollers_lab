@@ -1,0 +1,10 @@
+Hada_lof:Erzeugt eine Liste aller Funktionen und Prozeduren.
+Hada_prev:AUSWAHL geht zur vorherigen Funktion oder Prozedur.|M SPEZIAL geht zur nächsten Funktion oder Prozedur.
+Hada_next:AUSWAHL geht zur nächsten Funktion oder Prozedur.|M SPEZIAL geht zur vorherigen Funktion oder Prozedur.
+Hada_def:Geht zur Definition der Funktion oder Prozedur auf der die Einfügemarke gerade steht.
+Hada_goto:Geht zur Definition des Typen der Variable auf der die Einfügemarke gerade steht.
+Hada_spec:Öffnet die Datei mit den specification.|M <filepath>.^.ads.<filename>
+Hada_make:AUSWAHL Compiliert das gesamte Projekt.SPEZIEL speicher die Datei erst.|M gnatmake runimage |M Das Projekt Verzeichnis muss das aktuelle Verzeichnis sein.
+Hada_stx:AUSWAHL kontrolliert die Syntax.|M SPEZIAL speichert die Datei erst. |M gcc -c gnats
+Hada_smt:AUSWAHL kontrolliert die Sematik.|M SPEZIAL speichert die Datei erst.|M gcc -c -gnatc
+Hada_man:SELECT öffnet die Hilfe Datei für diesen StrongEd Modus.

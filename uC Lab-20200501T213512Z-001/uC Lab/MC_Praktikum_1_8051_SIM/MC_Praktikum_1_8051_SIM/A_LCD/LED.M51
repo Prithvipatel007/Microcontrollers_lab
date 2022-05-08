@@ -1,0 +1,190 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        09/17/2014  23:27:30  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\PROGRAM FILES\KEIL\C51\BIN\BL51.EXE LED.obj, ASM.obj TO LED
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  LED.obj (LED)
+  ASM.obj (ASM)
+  C:\PROGRAM FILES\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\PROGRAM FILES\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  LED (LED)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0010H     UNIT         ?DT?LED
+            DATA    0018H     0002H     UNIT         _DATA_GROUP_
+            IDATA   001AH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     008CH     UNIT         ?C_C51STARTUP
+            CODE    088CH     005BH     UNIT         ?PR?LCD_INIT?ASM
+            CODE    08E7H     002FH     UNIT         ?PR?_LCD_SEND?ASM
+            CODE    0916H     001BH     UNIT         ?PR?MAIN?LED
+            CODE    0931H     0013H     UNIT         ?C_INITSEG
+            CODE    0944H     0005H     UNIT         ?PR?LCD_WAIT?ASM
+
+
+
+OVERLAY MAP OF MODULE:   LED (LED)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?LED
+  +--> ?C_INITSEG
+
+?PR?MAIN?LED                   0018H    0002H
+  +--> ?PR?LCD_INIT?ASM
+  +--> ?PR?_LCD_SEND?ASM
+
+?PR?LCD_INIT?ASM               -----    -----
+  +--> ?PR?LCD_WAIT?ASM
+
+?PR?_LCD_SEND?ASM              -----    -----
+  +--> ?PR?LCD_WAIT?ASM
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/17/2014  23:27:30  PAGE 2
+
+
+
+
+SYMBOL TABLE OF MODULE:  LED (LED)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        LED
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:0916H         PUBLIC        main
+  D:0008H         PUBLIC        str
+  -------         PROC          MAIN
+  -------         DO            
+  D:0018H         SYMBOL        ch
+  D:0019H         SYMBOL        idx
+  -------         ENDDO         
+  C:0916H         LINE#         8
+  C:0916H         LINE#         9
+  C:0916H         LINE#         10
+  C:0919H         LINE#         12
+  C:091CH         LINE#         14
+  C:0929H         LINE#         15
+  C:0929H         LINE#         16
+  C:092DH         LINE#         17
+  C:092FH         LINE#         19
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        LED
+
+  -------         MODULE        ASM
+  C:088CH         SEGMENT       ?PR?LCD_INIT?ASM
+  C:08E7H         SEGMENT       ?PR?_LCD_SEND?ASM
+  C:0944H         SEGMENT       ?PR?LCD_WAIT?ASM
+  C:088CH         PUBLIC        LCD_INIT
+  C:0944H         PUBLIC        LCD_WAIT
+  C:08E7H         PUBLIC        _LCD_SEND
+  D:00E0H         SYMBOL        ACC
+  N:0000H         SYMBOL        ASM
+  B:0090H.2       SYMBOL        CLK
+  C:0946H         SYMBOL        LOOP
+  D:0090H         SYMBOL        P1
+  B:0090H.3       SYMBOL        RS
+  C:088CH         LINE#         13
+  C:088EH         LINE#         15
+  C:0890H         LINE#         16
+  C:0892H         LINE#         17
+  C:0894H         LINE#         18
+  C:0896H         LINE#         20
+  C:0898H         LINE#         21
+  C:089AH         LINE#         22
+  C:089DH         LINE#         24
+  C:089FH         LINE#         25
+  C:08A1H         LINE#         27
+  C:08A3H         LINE#         28
+  C:08A5H         LINE#         29
+  C:08A7H         LINE#         30
+  C:08A9H         LINE#         32
+  C:08ABH         LINE#         33
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/17/2014  23:27:30  PAGE 3
+
+
+  C:08ADH         LINE#         34
+  C:08B0H         LINE#         37
+  C:08B2H         LINE#         38
+  C:08B4H         LINE#         39
+  C:08B6H         LINE#         40
+  C:08B8H         LINE#         42
+  C:08BAH         LINE#         43
+  C:08BCH         LINE#         45
+  C:08BEH         LINE#         46
+  C:08C0H         LINE#         47
+  C:08C2H         LINE#         48
+  C:08C4H         LINE#         50
+  C:08C6H         LINE#         51
+  C:08C8H         LINE#         52
+  C:08CBH         LINE#         55
+  C:08CDH         LINE#         56
+  C:08CFH         LINE#         57
+  C:08D1H         LINE#         58
+  C:08D3H         LINE#         60
+  C:08D5H         LINE#         61
+  C:08D7H         LINE#         63
+  C:08D9H         LINE#         64
+  C:08DBH         LINE#         65
+  C:08DDH         LINE#         66
+  C:08DFH         LINE#         68
+  C:08E1H         LINE#         69
+  C:08E3H         LINE#         70
+  C:08E6H         LINE#         71
+  C:08E7H         LINE#         82
+  C:08E9H         LINE#         83
+  C:08EAH         LINE#         85
+  C:08ECH         LINE#         86
+  C:08EEH         LINE#         87
+  C:08F0H         LINE#         88
+  C:08F2H         LINE#         89
+  C:08F4H         LINE#         90
+  C:08F6H         LINE#         91
+  C:08F8H         LINE#         92
+  C:08FAH         LINE#         94
+  C:08FCH         LINE#         95
+  C:08FEH         LINE#         97
+  C:0900H         LINE#         98
+  C:0902H         LINE#         99
+  C:0904H         LINE#         100
+  C:0906H         LINE#         101
+  C:0908H         LINE#         102
+  C:090AH         LINE#         103
+  C:090CH         LINE#         104
+  C:090EH         LINE#         106
+  C:0910H         LINE#         107
+  C:0912H         LINE#         108
+  C:0915H         LINE#         109
+  C:0944H         LINE#         119
+  C:0946H         LINE#         121
+  C:0948H         LINE#         122
+  -------         ENDMOD        ASM
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/17/2014  23:27:30  PAGE 4
+
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 00BCH BYTE ( 9%) *
+******************************************************************************
+
+Program Size: data=27.0 xdata=0 code=332
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

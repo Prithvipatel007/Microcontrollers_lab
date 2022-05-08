@@ -1,0 +1,16 @@
+#! lua
+-- Add up numbers within a text
+do
+io.input(arg[1])
+local text = io.read("*all")
+io.input()
+local x = 0
+local add = \(x,y) => x+tonumber(y) end
+local R,P,C,Ca,Cc in require("lpeg")
+local digit, point = R "09" , P "."
+local num = C(digit^1*point^(-1)*digit^0)/add
+local notnum = (1-digit)^1
+local pattern = Ca(Cc(0)*(num + notnum)^0)
+local result = pattern:match(text)
+print(result or 0)
+end -- do

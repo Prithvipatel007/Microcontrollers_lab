@@ -1,0 +1,167 @@
+A51 MACRO ASSEMBLER  ASM                                                                  09/17/2014 23:27:30 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN ASM.OBJ
+ASSEMBLER INVOKED BY: C:\Program Files\Keil\C51\BIN\A51.EXE ASM.A51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     NAME    ASM
+                       2     
+                       3     ?PR?LCD_init?ASM   SEGMENT CODE
+                       4     PUBLIC  LCD_init
+----                   5                     RSEG   ?PR?LCD_init?ASM
+                       6                     USING  0
+                       7     
+  0092                 8     CLK     EQU     P1.2                    ; #define LCD CLK
+  0093                 9     RS      EQU     P1.3                    ; #define LCD RS
+                      10     
+0000                  11     LCD_init:
+                      12     
+0000 C293             13             CLR RS                          ; clear RS - indicates instructions being sent to L
+                             CD
+                      14             
+0002 C297             15             CLR P1.7                        ; high nibble set - %0010
+0004 C296             16             CLR P1.6
+0006 D295             17             SETB P1.5
+0008 C294             18             CLR P1.4
+                      19             
+000A D292             20             SETB CLK                        ; negative edge CLK
+000C C292             21             CLR CLK
+000E 120000   F       22             CALL LCD_wait           ; wait for BF to clear
+                      23             
+0011 D292             24             SETB CLK                        ; negative edge CLK - 4-bit operation
+0013 C292             25             CLR CLK
+                      26             
+0015 D297             27             SETB P1.7                       ; low nibble also set - %1010
+0017 C296             28             CLR P1.6
+0019 D295             29             SETB P1.5
+001B C294             30             CLR P1.4
+                      31             
+001D D292             32             SETB CLK                        ; negative edge CLK
+001F C292             33             CLR CLK
+0021 120000   F       34             CALL LCD_wait           ; wait for BF to clear
+                      35             
+                      36                                                     ; LCD entry mode set - increment with no sh
+                             ift
+0024 C297             37             CLR P1.7                        ; high nibble set - %0000
+0026 C296             38             CLR P1.6
+0028 C295             39             CLR P1.5
+002A C294             40             CLR P1.4
+                      41             
+002C D292             42             SETB CLK                        ; negative edge CLK
+002E C292             43             CLR CLK
+                      44             
+0030 C297             45             CLR P1.7                        ; low nibble also set - %0110
+0032 D296             46             SETB P1.6
+0034 D295             47             SETB P1.5
+0036 C294             48             CLR P1.4
+                      49             
+0038 D292             50             SETB CLK                        ; negative edge CLK
+003A C292             51             CLR CLK
+003C 120000   F       52             CALL LCD_wait           ; wait for BF to clear
+                      53             
+                      54                                                     ; LCD display on/off control
+003F C297             55             CLR P1.7                        ; high nibble set - %0000
+0041 C296             56             CLR P1.6
+A51 MACRO ASSEMBLER  ASM                                                                  09/17/2014 23:27:30 PAGE     2
+
+0043 C295             57             CLR P1.5
+0045 C294             58             CLR P1.4
+                      59             
+0047 D292             60             SETB CLK                        ; negative edge CLK
+0049 C292             61             CLR CLK
+                      62             
+004B D297             63             SETB P1.7                       ; low nibble also set - %1111
+004D D296             64             SETB P1.6
+004F D295             65             SETB P1.5
+0051 D294             66             SETB P1.4
+                      67             
+0053 D292             68             SETB CLK                        ; negative edge CLK
+0055 C292             69             CLR CLK
+0057 120000   F       70             CALL LCD_wait           ; wait for BF to clear
+005A 22               71             RET
+                      72     
+                      73     ?PR?_LCD_send?ASM   SEGMENT CODE
+                      74     PUBLIC  _LCD_send
+----                  75                     RSEG   ?PR?_LCD_send?ASM
+                      76                     USING  0
+                      77                                     
+  REG                 78     CH      EQU     R7                              ; #define sent character
+                      79     
+0000                  80     _LCD_send:
+                      81     
+0000 D293             82             SETB RS                         ; set RS - indicates data being sent to LCD
+0002 EF               83             MOV A, CH                       ; sent character
+                      84             
+0003 A2E7             85             MOV C, ACC.7            ; high nibble set
+0005 9297             86             MOV P1.7, C
+0007 A2E6             87             MOV C, ACC.6
+0009 9296             88             MOV P1.6, C
+000B A2E5             89             MOV C, ACC.5
+000D 9295             90             MOV P1.5, C
+000F A2E4             91             MOV C, ACC.4
+0011 9294             92             MOV P1.4, C
+                      93             
+0013 D292             94             SETB CLK                        ; negative edge CLK
+0015 C292             95             CLR CLK
+                      96             
+0017 A2E3             97             MOV C, ACC.3            ; low nibble also set
+0019 9297             98             MOV P1.7, C
+001B A2E2             99             MOV C, ACC.2
+001D 9296            100             MOV P1.6, C
+001F A2E1            101             MOV C, ACC.1
+0021 9295            102             MOV P1.5, C
+0023 A2E0            103             MOV C, ACC.0
+0025 9294            104             MOV P1.4, C
+                     105             
+0027 D292            106             SETB CLK                        ; negative edge CLK
+0029 C292            107             CLR CLK
+002B 120000   F      108             CALL LCD_wait           ; wait for BF to clear
+002E 22              109             RET
+                     110     
+                     111     ?PR?LCD_wait?ASM   SEGMENT CODE
+                     112     PUBLIC  LCD_wait
+----                 113                     RSEG   ?PR?LCD_wait?ASM
+                     114                     USING  0
+                     115                                     
+  REG                116     CNT     EQU     R0                              ; #define counter
+                     117     
+0000                 118     LCD_wait:
+0000 7832            119             MOV CNT, #50
+0002                 120     loop:
+0002 D8FE            121             DJNZ CNT, loop
+0004 22              122             RET
+A51 MACRO ASSEMBLER  ASM                                                                  09/17/2014 23:27:30 PAGE     3
+
+                     123             
+                     124         END
+A51 MACRO ASSEMBLER  ASM                                                                  09/17/2014 23:27:30 PAGE     4
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+?PR?LCD_INIT?ASM .  C SEG    005BH       REL=UNIT
+?PR?LCD_WAIT?ASM .  C SEG    0005H       REL=UNIT
+?PR?_LCD_SEND?ASM.  C SEG    002FH       REL=UNIT
+ACC. . . . . . . .  D ADDR   00E0H   A   
+ASM. . . . . . . .  N NUMB   -----       
+CH . . . . . . . .    REG    R7          
+CLK. . . . . . . .  B ADDR   0090H.2 A   
+CNT. . . . . . . .    REG    R0          
+LCD_INIT . . . . .  C ADDR   0000H   R   SEG=?PR?LCD_INIT?ASM
+LCD_WAIT . . . . .  C ADDR   0000H   R   SEG=?PR?LCD_WAIT?ASM
+LOOP . . . . . . .  C ADDR   0002H   R   SEG=?PR?LCD_WAIT?ASM
+P1 . . . . . . . .  D ADDR   0090H   A   
+RS . . . . . . . .  B ADDR   0090H.3 A   
+_LCD_SEND. . . . .  C ADDR   0000H   R   SEG=?PR?_LCD_SEND?ASM
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

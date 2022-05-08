@@ -1,0 +1,66 @@
+#! lua
+-- Checks text with markup for well-formedness.
+
+do
+io.input(arg[1])
+local text = io.read("*all")
+io.input()
+local tagstk = {}
+local lower in string
+local insert,remove in table
+local C,Cp,P,R in lpeg
+
+local notag = "no %s-tag to match %s at character %d"
+local errmsg = "unexpected %s at character %d"
+
+local push = \(n,s)
+             insert(tagstk,{char = n;tag = s:lower()})
+             => n + #s
+             end
+local pop = \(s) remove(tagstk) => s end
+local pull = \(n,s)
+             local err = \()
+              print(notag:format('start',s,n))
+              errflag = true
+             end
+             if #tagstk == 0 then => err() end -- if
+             local char,tag in remove(tagstk)
+             if tag == s:lower() then
+               => n + #s
+             else
+               => err()
+             end -- if
+             end
+local balance = \()
+             if #tagstk>0 then
+              local char,tag in remove(tagstk)
+              print(notag:format('end',tag,char))
+              errflag = true
+             end -- if
+             => not errflag
+             end
+local bad = \(patt) => \(s,i)
+            local x = patt:match(s,i)
+            if x then print(errmsg:format(x,i)) => end
+            =>
+            end end
+local bra,ket,slash,dquote,sp = P'<',P'>',P'/',P'"',P ' '
+local badbra = bad(C(bra))
+local digit,alpha = R '09',R('az','AZ')
+local alphanum = alpha+digit
+local name = badbra+ Cp()*C(alpha*alphanum^0)
+local is_string = dquote*(1-dquote)^0*dquote
+local attr = sp*(badbra + is_string + (1-dquote-(slash^(-1)*ket)))^0
+local starttag = (name/push)*attr^0*(C(slash)/pop)^(-1)*ket
+local endtag = (name/pull)*ket
+local t_in = (slash*endtag) + starttag
+local all = (((bra*t_in) + (1-bra))^0/balance)*Cp()
+local n,m = all:match(text)
+if n then
+ if m == 1 + #text then print "OK"
+ else print(errmsg:format(text:sub(m,m),m))
+ end -- if
+else
+ print "FAIL"
+end -- if
+end -- do

@@ -1,0 +1,202 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : News
+#	Purpose : StrongED mode for editing E-mail
+#	Author  : © StrongED Developers
+#	Licence : Freeware
+#	Version : 1.11, 18-11-2013
+#
+#-----------------------------------------------------------------------------
+# 10.08.98 GV ctrl-Return inserts multiple newlines, to make room for a reply
+# 10.08.98 GV Clicking on the 'mail' icon saves *without* asking.
+#--- v 4.53 released
+# 03.10.98 GV Modified _NoWrap to include lines with at least 4 consecutive
+#             'special' characters. This should prevend separator lines from
+#             being wrapped (Lines like '------', '~~~~~~~~' etc..)
+# 26.10.98 GV Removed space from ID_Middle again. Don't know why it was there
+# 04.11.98 GV Added _SpellIgnore
+# 14.01.99 GV Now uses EndOfExpr ee_url instead of ID_Middle, as a test..
+# 07.07.03 FG Added snip button
+#          FG Added https:// and news: to syntax colouring
+# 16.11.03 FG Extended ee_url
+#          FG NoWrap updated
+#          FG Added Bcc: to Group2
+# 18.12.03 FG Added Lines: and User-Agent: to Group3
+# 19.12.03 FG Added sig button
+# 04-07-04 FG Uncommented SyntaxComment 1, multiline sigs should now be coloured
+#          FG Altered _ParPrefix so it works with the rewritten hardwrap code
+# 30-11-04 FG Added Cc: to Group2
+# 10-11-05 FG Added In-Reply-To: to Group3
+#          FG Added Tidy icon by Gavin Wraith
+# 07-06-06 FG Joined up and down toolbar arrows
+#          FG Added help for List subjects and up/down button
+# 26-04-09 FG Added "Mail-Followup-To" to Headers expressions and Group3
+# 26-10-11 FG Added cs-R to KeyList, reformats entire text in one go
+#          FG Converted all Tmp$* variables to StrongED$Tmp_* versions
+# 22-12-11 FG Renamed StrongED_Scrap$Dir to StrongED$ScrapDir
+# 01-10-12 FG Changed Author field to © StrongED Developers
+# 18-11-13 FG Gavin Wraith updated his TxtTidy to handle new style sysvars
+#-----------------------------------------------------------------------------
+
+# If you're reading a newsbox, you can fold on its subject lines.
+FoldParm1 ("Subject:",,startofline)
+
+# Search expressions
+Search
+	ee_url		{'A-Za-z_0-9./~+\-:;*()?%=@&$£,"\\!#'}+
+#	serverpart	{'A-Za-z0-9+%\-'}+
+#	We ignore:	<message-id's>			| server.names					| words containing numbers or underscore
+#	_SpellIgnore	("<"{'A-Za-z0-9.+%\-'}"@"*">")	| (serverpart"."serverpart"."serverpart)	| ({?} {'0-9_'}+ {?})
+	ToSnip		{InBlock '\x00-\xff'}+
+	StartSpc	< {" "}+
+	fquote		($ [" "] {'>|*' [" "]}+)
+	Bullet2		(< {'>' [' ']}+) {' '} @1 '\-*o'
+
+	Headers		(<("Subject"|"To"|"From"|"Message-ID"|"Mail-Followup-To"|"User-Agent"|("X-" Alpha {Alpha|"-"}+)) ": " * >)
+	Quoted		< {'>' [' ']}+
+	Bullet		{' '} '*\-o' ' '
+	Spaces		{' '}
+	QuotedLine	Quoted * >
+	SigSeparator	< "-- " >
+	Signature	[NL] SigSeparator [{NL {.}}+]
+	QuotedSig	[NL] Quoted "-- " [{NL {.}}+]
+
+	Paragraph	\n \n @0
+	ParaStart	~white .
+
+# We don't want to involve the sig separator or headerlines in hardwrap.
+	_NoTrim		SigSeparator
+	_NoWrap		SigSeparator | Headers | * {'\-*_~^+='}4:4
+	_ParPrefix	< [Quoted] @1 [Bullet] @2 [Spaces]
+	_SpellIgnore	Headers | http | QuotedLine
+End
+
+# Replace expressions
+Replace
+	Snipped		NL "[snip]" NL NL
+	NewLine		NL
+	Unbullet	@01 " "
+End
+
+# Use comments to colour signatures
+SyntaxComment 1
+	CommentType	Multiline
+	StartWhere	StartLine
+	StartWith	"-- "
+#  Endwith	"."
+End
+
+# Header lines we want to stand out
+SyntaxWords Group2 StartOfLine EndOfLine nocase
+	From: To: Cc: Bcc: Subject:
+End
+
+# Header lines we want to 'hide'
+SyntaxWords Group3 StartOfLine EndOfLine nocase
+	Path: Newsgroups: Date: Organization: X- References:
+	Mime-Version: Content-Type: NNTP-Posting-Host: Message-ID:
+	Distribution: Originator: Lines: User-Agent: In-Reply-To:
+	Mail-Followup-To:
+End
+
+# URL colouring
+SyntaxWords Group4 nocase EndOfExpr ee_url
+	URL: https:// http:// ftp:// telnet:// mailto: news: www.
+End
+
+# Four levels of quote colouring, using four different colours
+SyntaxWords Group5 StartOfLine EndOfLine nocase
+	> "> "
+End
+
+SyntaxWords Group6 StartOfLine EndOfLine nocase
+	>> ">> " "> >" "> > "
+End
+
+SyntaxWords Group7 StartOfLine EndOfLine nocase
+	>>>    ">> >"  "> >>"  "> > >"
+	">>> " ">> > " "> >> " "> > > "
+End
+
+SyntaxWords Group8 StartOfLine EndOfLine nocase
+	>>>>    ">>> >"  ">> >>"  ">> > >"  "> >>>"  "> >> >"  "> > >>"  "> > > >"
+	">>>> " ">>> > " ">> >> " ">> > > " "> >>> " "> >> > " "> > >> " "> > > > "
+End
+
+# Key definitions
+KeyList
+#	c-R		Rot13()
+	c-R		Reformat()
+	cs-R		Reformat(,Text,ParagraphWrap,Quote)
+	c-Q		CheckWidth(78) KillView()
+	cs-O		Replace(StartSpc,"",Block,,) Replace(fquote," ",block,,) Reformat()
+	c-Return	Newline Newline Newline CaretUp CaretUp
+	cs-Return	Newline(Indent, _ParPrefix) StartOfTLine MarkLine Replace(Bullet2, Unbullet, Block, Line) BlockClear Reformat Reformat Newline Newline Newline CaretUp CaretUp
+End
+
+# functions
+Functions
+	Icon	lof
+	Menu	Subjects  ‹F2
+	Help	Hnws_list
+	Key	‹F2
+	Select	ListOfFound ("Subject:",Text,After,Line,Case)
+
+	Adjust	ListOfFound ("Subject:",All,After,Line,Case)
+
+	Icon	updown
+	Help	Hnws_next
+	Key	‹PgDown
+	Select	GotoNext ("Subject:",Text,Line) Position(Top,4)
+
+	Key	‹PgUp
+	Adjust	GotoPrev ("Subject:",Text,Line) Position(Top,4)
+
+	Menu	From
+	Select	ListOfFound ("From:",Text,After,Line,Case)
+
+	Icon	snip
+	Menu	Snip block   ^‹S
+	Help	Hnws_snp
+	Key	^‹S
+	Select	Replace(ToSnip, Snipped, Block) BlockClear
+
+	Adjust	Replace(ToSnip, NewLine, Block) BlockClear
+
+	Icon	send
+	Help	Hnws_snd
+	Select	CheckWidth(78) SaveKill
+
+	Adjust	Reformat(72,Text,LineWrap,NoQuote) SaveKill
+
+#	Icon	signature
+#	Select	EndOfText NewLine NewLine CaretUp GotoPrev(SigSeparator,text,line,nocase) BlockClear BlockMark_Standard EndOfText BlockMark_Standard BlockDelete
+
+#	Adjust	EndOfText NewLine NewLine CaretUp GotoPrev(SigSeparator,text,line,nocase) BlockClear BlockMark_Standard EndOfText BlockMark_Standard BlockDelete SetTmp() InsertFile("<StrongED$Tmp_ModePath>.Files.Sig")
+
+	Icon	signature
+	Help	Hnws_sig
+	Select	Replace(QuotedSig,"",Text,Line,nocase)
+
+	^Select	Replace(Signature,"",Text,Line,nocase)
+
+	Adjust	Replace(QuotedSig,"",Text,Line,nocase) EndOfText NewLine SetTmp() InsertFile("<StrongED$Tmp_ModePath>.Files.Sig")
+
+	^Adjust	Replace(Signature,"",Text,Line,nocase) EndOfText NewLine SetTmp() InsertFile("<StrongED$Tmp_ModePath>.Files.Sig")
+
+	Menu	UnQuote
+	Select	SetTmp() Process(,"<StrongED$Tmp_ToolPath>.UnQuote <StrongED$ScrapDir>.out <StrongED$ScrapDir>.in")
+
+	Key	^O
+	Menu	Fix OE quoting
+	Select	SetTmp() Process(Block,"<StrongED$Tmp_ModePath>.Tools.QuoteFix") Reformat()
+
+	Icon	tidy
+	Help	Hnws_tidy
+	Select	SetTmp() Process(,"<StrongED$Tmp_ModePath>.Tools.Txtidy",,)
+End
+
+# Shortcuts for the news mode. Note that shortcuts that can be useful in other
+# modes (like shortcut for email address) should be placed in BaseMode instead
+Shortcuts
+End

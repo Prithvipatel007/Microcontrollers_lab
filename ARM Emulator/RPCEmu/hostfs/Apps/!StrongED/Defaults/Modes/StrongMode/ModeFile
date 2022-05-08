@@ -1,0 +1,169 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : StrongMode
+#	Purpose : StrongED mode file for Modefiles
+#	Author  : © Andrew Black
+#	Licence : Freeware
+#	Version : 1.11, 22-12-2011
+#
+#-------------------------------------------------------------------------------
+# 17-07-01 FG Changed shortcuts to `` so that they're in line with other modes
+#             Added shortcuts for various sections
+#             Clicking Select on LoF-icon now searches Text instead of All
+#             Clicking Adjust on LoF-icon now searches All
+# 16-11-03 FG Added Drag to Group 5
+# 14-02-04 FG Added support for SmartIndent keyword
+# 04-07-04 FG Added CommentType and StartWhere to Group 2
+# 04-07-04 FG Added SyntaxComment as comments can be tied to start of line now
+# 30-12-04 FG Added support for Tabstops keyword
+# 30-12-04 FG Added support for OnLoad keyword
+# 05-05-05 FG Added shortcuts for new StrongED$Tmp_xxx variables
+# 02-01-06 FG Added FoldParm1 and FoldParm2 to Group1
+# 24-12-06 FG Added ModeType to Group1
+# 03-03-07 FG Added HexSuffix BinSuffix to Group2
+# 03-03-07 FG Updated ModeFile popup for StrongED 4.67 & 4.68
+# 26-04-09 FG Removed "Bitmap" from Group1, no longer supported
+# 20-07-11 FG HelpPath now uses full path so StrongHelp can load the manual
+# 13-09-11 FG Added IndentAfter and OutdentLine to Group 2
+#          FG Added cs- style modifiers to group5
+# 22-12-11 FG Added shortcuts for StrongED$Tmp_FileName & StrongED$Tmp_WriteDir
+#-------------------------------------------------------------------------------
+# 13-06-03 Amended by Joe Taylor to include two popups
+#-------------------------------------------------------------------------------
+#--- The default fold-expression
+
+FoldParm1 ("#-",,StartOfLine)
+
+#---- Help Path
+
+HelpPath	StrongEDRes:StrongED
+
+#-------------------------------------------------------------------------------
+
+Search
+	section	~("end"|"#") {isalpha}+
+End
+
+#------------------------------------------------------------------------------
+
+ID_FirstChar	A-Za-z_
+ID_Middle	A-Za-z_0-9
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteQuote	No
+	QuoteChar	\
+	SplitString	No
+End
+
+# Comments
+SyntaxComment 1
+	CommentType	OneLine
+	StartWhere	StartLine
+	StartWith	#
+End
+
+# The sections
+SyntaxWords Group1 nocase StartSpace
+	ID_FirstChar ID_Middle ID_LastChar
+	SyntaxWords SyntaxOptions SyntaxComment
+	ClickList Functions KeyList Replace Search Shortcuts SmartIndent
+	FoldParm1 FoldParm2 HelpPath ModeType OnLoad PrintHead PrintFoot Tabstops End
+End
+
+# Section elements
+SyntaxWords Group2 nocase StartSpace
+	Key Menu Icon Help
+	CommentType StartWhere StartWith EndWith
+	HexPrefix BinPrefix HexSuffix BinSuffix Numbers
+	SingleQuote DoubleQuote QuoteQuote SplitString QuoteChar
+	IndentSize IndentChar OutdentChar IndentAfter OutdentLine
+End
+
+# Options for the SyntaxWords section
+SyntaxWords Group4 nocase
+	EndAlways EndNonID EndOfID EndOfLine EndOfExpr
+	EndOfAsm EndAsm EndSTM EndBL
+	StartOfLine StartSpace
+	Case NoCase
+End
+
+# Section elements that can be preceded with cs- or ^‹
+SyntaxWords Group5 nocase StartSpace
+	Select
+	^Select  c-Select
+	‹Select  s-Select
+	^‹Select cs-Select
+	Adjust
+	^Adjust  c-Adjust
+	‹Adjust  s-Adjust
+	^‹Adjust cs-Adjust
+	Drag
+	^Drag    c-Drag
+	‹Drag    s-Drag
+	^‹Drag   cs-Drag
+End
+
+#------------------------------------------------------------------------------
+
+Functions
+	Icon	lof
+	Menu	List of sections
+	Help	HSt_lof
+	Select	ListOfFound(section, Text, Whole, Line, NoCase)
+
+	Adjust	ListOfFound(section, All, Whole, Line, NoCase)
+
+	Icon	UpDown
+	Help	HSt_UpDown
+	Key	^PgDown
+	Select	GotoNext(section, Text, Line, NoCase)
+
+	Key	^PgUp
+	Adjust	GotoPrev(section, Text, Line, NoCase)
+
+	Icon	small_dir
+	Help	HSt_Create
+	Select	SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!Mode")
+
+	‹Select	SetTmp() InsertFile("<StrongED$Tmp_ModePath>.Tools.!Mode.Resources.Popup")
+
+	Adjust	SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!PopUp")
+
+	Icon	small_fff
+	Help	HSt_Insert
+	Select	ViewToTop() SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!ModeFile")
+
+#	Adjust	GSTrans("<strongmode$options>")  Run("Unset strongmode$options")
+End
+
+#-------------------------------------------------------------------------------
+
+# Shortcuts for the various sections inside a modefile
+Shortcuts
+	``fn	StrongED$Tmp_FileName
+	``fp	StrongED$Tmp_FilePath
+	``fl	StrongED$Tmp_FileLeaf
+	``mp	StrongED$Tmp_ModePath
+	``mn	StrongED$Tmp_ModeName
+	``tp	StrongED$Tmp_ToolPath
+	``df	StrongED$Tmp_DragFile
+	``mw	StrongED$Tmp_MarkWord
+	``wd	StrongED$Tmp_WriteDir
+
+	``fu	Functions\n	\@\nEnd
+	``fe	\tKey	\@\n	Menu	\@\n	Icon	\@\n	Help	\@\n	Select\t\@
+	``se	Search\n	\@\nEnd
+	``sc	SyntaxComment\n	\@\nEnd
+	``so	SyntaxOptions\n	\@\nEnd
+	``sw	SyntaxWords\n	\@\nEnd
+	``sh	Shortcuts\n	\@\nEnd
+	``re	Replace\n	\@\nEnd
+	``cl	ClickList\n	\@\nEnd
+	``kl	KeyList\n	\@\nEnd
+	``wp	WriteProtect\n	\@\nEnd
+	``si	SmartIndent\n	IndentSize	\@\n	IndentChar	\@\n	OutdentChar	\@\nEnd
+	``-	#-------------------------------------------------------------------------------
+	``=	#===============================================================================
+End

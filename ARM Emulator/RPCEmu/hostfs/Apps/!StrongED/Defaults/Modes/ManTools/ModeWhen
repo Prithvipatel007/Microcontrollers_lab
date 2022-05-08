@@ -1,0 +1,13 @@
+Rules Exclude
+  *, **.!StrongED.Defaults.Modes.**
+  *, **.!StrED_cfg.UserPrefs.Modes.**
+End
+
+Rules Include
+  ffd fff, **.ManTool.*
+> ffd fff; **; _doc
+End
+
+Match
+	_doc	** "<document"
+End

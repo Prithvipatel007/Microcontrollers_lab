@@ -1,0 +1,6 @@
+echo gcc compiling ...
+dir <Obey$Dir>
+wimpslot 20000000
+gcc -nostdlib s.asm_euclid
+settype a/out absolute
+a/out

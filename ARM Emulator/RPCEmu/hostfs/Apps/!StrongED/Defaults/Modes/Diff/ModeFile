@@ -1,0 +1,142 @@
+#------------------------------------------------------------------------------#
+#                                                                              #
+#       Name    : Diff                                                         #
+#       Purpose : Diff StrongED mode                                           #
+#       Author  : © Philip Ludlam                                              #
+#       Licence : Freeware                                                     #
+#       Version : 0.13, 04-04-2015                                             #
+#                                                                              #
+#------------------------------------------------------------------------------#
+# 22-12-11 FG Replaced old Tmp$* variables with StrongED$Tmp_* ones            #
+#          FG Changed the above header slightly to easy automation             #
+# 04-04-15 FG Reduced Group8 to 1 space so all unmodified lines are            #
+#             coloured the same.                                               #
+#          FG Set up the colours for standard colour scheme                    #
+#          FG Made the Help file into a basic StrongHelp manual                #
+#          FG Added a Messages file with names for syntax colour groups        #
+#          FG EoL spaces made visible, trimming of EoL spaces turned off       #
+#------------------------------------------------------------------------------#
+
+SyntaxOptions
+	SingleQuote	Yes
+	DoubleQuote	Yes
+	QuoteQuote	No
+	SplitString	No
+	HexPrefix	&
+	Binprefix	%
+	Numbers		flt
+End
+
+SyntaxComment	1
+	CommentType	OneLine
+	StartWhere	StartLine
+	StartWith	#
+End
+
+ID_FirstChar	A-Za-z
+ID_Middle	A-Za-z_0-9./~+\-:;,?%@&#=*
+
+Search
+	header		< ("CVS RISC OS port by " | "CVS is ported " | "The SSH functions are based on the PuTTY ") * >
+	status		< ["<CVS$BinDir>."] "cvs diff: " * >
+	index		< "Index: " ** >
+	filesep		< "===================================================================" >
+	rcsfile		< "RCS file: /" ** >
+	revision	< "retrieving revision " ** >
+	diffcmnd	< "diff " ** >
+	diffheader	< ("*** " * NL "--- " * NL )
+#("--- " * NL "+++ " * NL "@@ " * " @@")|
+	diffcontent	< (' !'|("+" ~"+")|("-" ~"-")) * >
+	diff		diffcmnd NL diffheader NL {diffcontent NL}+
+	file		index NL filesep NL rcsfile NL revision NL diff
+
+	filesystem	"ADFS" | "CDFS" | "IZipFS" | "SCSI" | "IDEFS" | "Net" | ("Net#" AlphaNum) | "Pipe" | "RAM" | "Resources" | "LanMan" | ("LanMan#" AlphaNum) | "LanMan98" | ("LanMan98#" AlphaNum) | "DOOMFS"
+	filename	(("/" filesystem "::") | (("Index: " | "*** " | "+++ " | "--- ")@0 )) {AlphaNum | Punct}+
+
+	_segment	{Digit|','} 'acd' Digit {Digit|','}
+End
+
+ClickList s-Select2
+	filename	SetTmp (_MarkWord, "tmp$temp") Run ("<StrongED$Tmp_ModePath>.Tools.LoadFile")
+End
+
+# header gumph (grey1)
+SyntaxWords Group1 Case StartOfLine EndOfLine
+	Diff files "CVS RISC OS port by" "CVS is ported ("
+	"The SSH functions are based on the PuTTY ("
+End
+
+# Information (green)
+# For CVS diff
+SyntaxWords Group2 Case StartOfLine EndOfLine
+	diff "retrieving revision" "RCS file: " "<CVS$BinDir>.cvs diff: " "cvs server: Diffing " "cvs diff: Diffing"
+End
+
+# Filenames (light blue)
+SyntaxWords Group3 Case StartOfLine EndOfLine
+	: Index:
+End
+
+# segment and sub-segment separators (yellow)
+SyntaxWords Group4 Case StartOfLine EndOfLine
+##	segment separators
+#	diff -c
+	***
+#	diff -u
+	@@
+##	sub-segment separators
+#	diff & diff -c
+	"--- "
+	"+++ "
+End
+
+# segment and sub-segment separators (cont.) (yellow)
+SyntaxWords Group5 Case StartOfLine EndOfExpr _segment
+##	segment separators
+#	diff
+#	Digit {Digit|","}+ 'acd' Digit {Digit|","}+
+	0 1 2 3 4 5 6 7 8 9
+End
+
+# Removed lines (red)
+SyntaxWords Group6 Case StartOfLine EndOfLine
+#	diff
+	<
+#	diff -c & diff -u
+	-
+End
+
+# Changed/modified lines (orange)
+SyntaxWords Group7 Case StartOfLine EndOfLine
+#	diff -c
+	!
+End
+
+# Unmodified lines (cream)
+SyntaxWords Group8 Case StartOfLine EndOfLine
+#	diff -c
+	" "
+End
+
+# Added lines (green)
+SyntaxWords Group9 Case StartOfLine EndOfLine
+#	diff
+	>
+#	diff -c & diff -u
+	+
+End
+
+# file separators (purple)
+SyntaxWords Group10 Case StartOfLine EndOfLine
+#	diff, diff -c & diff -u
+	===================================================================
+End
+
+# 'Command' lines (dark cyan: R:12.9, G:85.1 B:85.1)
+SyntaxWords Group11 Case StartOfLine EndOfLine
+#	diff, diff -c & diff -u
+	"\ No newline at end of file"
+	"Binary files "
+	"? "
+	"Only in "
+End

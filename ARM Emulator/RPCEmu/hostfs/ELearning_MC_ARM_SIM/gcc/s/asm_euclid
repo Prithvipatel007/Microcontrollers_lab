@@ -1,0 +1,42 @@
+.include "os.i"
+
+.global _start
+
+_start:
+  adr   sp, stack  // stack init
+
+main:
+  stmia sp!, {lr}  // push return address to (ascending) stack
+
+  adr   r0, string     // gcd=
+  swi   OS_Write0
+
+  adr   r12, table     // pointer to table
+  ldr   r0, [r12]      // load 1st value from table
+  ldr   r1, [r12, #4]  // load 2nd value from table
+
+  bl    gcd
+
+  add   r0, r0, #0x30  // show result
+  swi   OS_WriteC
+
+  ldmdb sp!, {pc}  // pop return address from stack (pc = lr return)
+
+gcd:
+  cmp   r0, r1
+  subgt r0, r0, r1
+  suble r1, r1, r0
+  bne   gcd
+  mov   pc, lr
+
+string:
+.asciz  "gcd="  // string + 0x00
+.align
+
+table:
+.word   15
+.word   9
+
+stack:
+
+.end

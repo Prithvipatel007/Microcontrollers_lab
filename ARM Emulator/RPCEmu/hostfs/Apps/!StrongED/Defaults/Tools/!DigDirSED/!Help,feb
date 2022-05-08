@@ -1,0 +1,12 @@
+| Help file for DigDirSED
+| © StrongED Developers
+
+| Task directory
+Set DigDirSED$Dir <Obey$Dir>
+Set DigDirSED$Resources <DigDirSED$Dir>
+
+| Language resources
+IfThere <DigDirSED$Dir>.!Languages Then Run <DigDirSED$Dir>.!Languages DigDirSED
+
+| Run
+Filer_Run <DigDirSED$Resources>.DigDirSED

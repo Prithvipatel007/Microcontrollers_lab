@@ -1,0 +1,16 @@
+| Upload file using cURL
+| © StrongED developers
+
+RMEnsure uploadc 2.10 RMLoad <FTPupSED$Dir>.Tools.uploadc
+RMEnsure DDEUtils 0.00 RMLoad System:Modules.DDEUtils
+Prefix <StrongED$FTP_LocalPath>
+
+WimpSlot 2048k
+
+If "<StrongED$FTP_SiteCmd>" <> "" Then Set StrongED$FTP_SiteCmd "-Q <34>-site <StrongED$FTP_SiteCmd> <StrongED$FTP_RemoteName><34>"
+
+Do curl --env <StrongED$FTP_SiteCmd> -T <StrongED$FTP_RemoteName> -u <StrongED$FTP_UserName>:<StrongED$FTP_Password> <StrongED$FTP_RemotePath>
+If "<curl_http_code>" > "290" Then Echo "Error reported in FTP Upload."
+If "<curl_http_code>" > "290" Then Echo "<StrongED$FTP_RemotePath>"
+If "<curl_http_code>" > "290" Then Do curl --env -v <StrongED$FTP_SiteCmd> -T <StrongED$FTP_RemoteName> -u <StrongED$FTP_UserName>:<StrongED$FTP_Password> <StrongED$FTP_RemotePath>
+IF "<curl_http_code>" < "300" THEN Splay_uploadc

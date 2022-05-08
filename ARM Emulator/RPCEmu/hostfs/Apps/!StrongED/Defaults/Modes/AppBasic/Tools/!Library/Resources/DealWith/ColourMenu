@@ -1,0 +1,7 @@
+DEF PROCDealWith_ColourMenu(event,object,component)
+CASE event OF
+ WHEN ColourMenu_AboutToBeShown
+ WHEN ColourMenu_HasBeenHidden
+ WHEN ColourMenu_Selection
+ENDCASE
+ENDPROC

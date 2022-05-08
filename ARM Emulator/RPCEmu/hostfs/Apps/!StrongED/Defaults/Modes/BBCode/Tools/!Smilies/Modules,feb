@@ -1,0 +1,15 @@
+|Toolbox modules for 'Smilies'
+
+|Utility module --------------------------------------------------------
+ RMEnsure UtilityModule  3.10 ERROR Smilies is only suitable for use with RISC OS 3.10 or later versions
+
+|These modules fix Wimp problems in RiscOS 3.10 ------------------------
+ RMENSURE BorderUtils   0.00  RMENSURE WindowManager 0.00 RMLoad System:modules.BorderUtil
+ RMENSURE FilterManager 0.00 RMLOAD System:modules.FilterMgr
+ RMENSURE FilterManager 0.00 ERROR Smilies requires FilterManager 0.00  to run
+
+|Toolbox modules -------------------------------------------------------
+ RMENSURE Toolbox       0.00 RMLOAD System:modules.Toolbox.Toolbox
+ RMENSURE Toolbox       0.00 ERROR Smilies requires Toolbox 0.00  to run
+ RMENSURE Window        0.00 RMLOAD System:modules.Toolbox.Window
+ RMENSURE Window        0.00 ERROR Smilies requires Window 0.00  to run

@@ -1,0 +1,29 @@
+!ReadMe for StrongED.Tools directory:
+
+!ReadMe         - This file
+
+BasicRun        - used by StrongED to run BASIC programs
+
+Dialogue        - used to send messages to other tasks
+
+KeyExtend       - new version, deals better with keypad keys if numlock set
+
+StrongTask      - new version, only adds -ctrl if both -ctrl and -task absent  
+
+Export          - puts addresses of BASIC's tokenise & detokenise routines in
+		  sysvars called Edit$Tokenise and Edit$Detokenise.
+
+ResFind         - used to find language dependant resources
+
+IfThere         - implements IfThere command
+
+TestAlt		- Tests left and right Alt keys and places their status in a
+		  sysvar called Alt$Pressed.
+
+TestCtrl        - Tests left and right Ctrl keys and places their status in a
+		  sysvar called Ctrl$Pressed.
+
+TestShift	- Tests left and right Shift keys and places their status in a
+		  sysvar called Shift$Pressed.
+
+TestACS		- Tests all three modifier keys in one go.

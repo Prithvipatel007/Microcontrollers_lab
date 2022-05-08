@@ -1,0 +1,15 @@
+#! lua
+do
+io.input(arg[1])
+text = io.read("*all")
+io.input()
+local match,P,V in lpeg
+local a,b = P'a',P'b'
+local grammar = P { "S", -- initial nonterminal
+S = a*V'B' + b*V'A' + '',
+A = a*V'S' + b*V'A'*V'A',
+B = b*V'S' + a*V'B'*V'B',
+        }
+local ok = grammar:match(text)
+print(ok and "equal numbers of a's and b's" or "FAIL")
+end

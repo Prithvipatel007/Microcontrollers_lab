@@ -1,0 +1,222 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : AVR
+#	Purpose : StrongED mode file for AVR assembler source files
+#	Author  : © Peter van der Vos
+#	Licence : Freeware
+#	Version : 1.01, 22-12-2011
+#
+#-------------------------------------------------------------------------------
+# 22-12-11 FG Replaced old Tmp$* variables with StrongED$Tmp_* ones
+#          FG Changed 'Type' to 'CommentType' in SyntaxComment
+#-------------------------------------------------------------------------------
+
+HelpPath	AVR,
+
+#-------------------------------------------
+
+Search
+	include1	[_spct] "GET" _spct "<" [_spct] @0 * (@9 ".H" [_spct] ">")
+	Achar		AlphaNum|"_"|"."
+	label		(Achar {.} )
+	label2		CW ~Achar
+End
+
+Foldparm1 ("/*{{{","/*}}}",startspace,case)
+
+ClickList
+	include1	LoadOne("C:H.<StrongED$Tmp_MarkWord>")
+End
+
+#-------------------------------------------
+
+ID_FirstChar	A-Za-z_
+ID_Middle	A-Za-z_0-9
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteChar	\
+	QuoteQuote	Yes
+	SplitString	No
+	BinPrefix	2_
+	HexPrefix	0x
+End
+
+
+SyntaxComment 1
+	CommentType	OneLine
+	StartWith	;
+End
+
+#special instuction
+#<ST X,Rd=>.indirect>	Store indirect
+#<ST X+,Rd=>.post>	Store indirect with post-increment
+#<ST -X,Rd=>.pre>	Store indirect with pre-decrement
+#<ST Y,Rd=>.indirect>	Store indirect
+#<ST Y+,Rd=>.post>	Store indirect with post-increment
+#<ST -Y,Rd=>.pre>	Store indirect with pre-decrement
+#<STD Y+q,Rd=>.displace>	Store indirect with displacement
+#<ST Z,Rd=>.indirect>	Store indirect
+#<ST Z+,Rd=>.post>	Store indirect with post-increment
+#<ST -Z,Rd=>.pre>	Store indirect with pre-decrement
+#<STD Z+q,Rd=>.displace>	Store indirect with displacement
+SyntaxWords Group1 case EndNonID
+	" st" " ld"
+	" std" " ldd"
+	" sts" " lds"
+	" ldi"
+	" lpm"
+	" mov"
+	" out" " in"
+	" push" " pop"
+End
+
+#labels at beginning of line
+SyntaxWords Group8 nocase StartOfLine EndOfID
+	a b c d e f g h i j k l m n o p q r s t u v w x y z
+End
+
+#jump/branch instructions
+SyntaxWords Group3 case EndNonID
+	" brbc" " brbs"
+	" call" " icall" " rcall"
+	" cpse"
+	" jmp" " ijmp" " rjmp"
+	" ret" " reti"
+	" sbic" " sbis" " sbrc" " sbrs"
+End
+
+#branch instruction with condition like breq, brne etc
+SyntaxWords Group4 case EndNonID
+	" breq" " brne"
+	" brcs" " brcc"
+	" brsh" " brlo"
+	" brmi" " brpl"
+	" brge" " brlt"
+	" brhs" " brhc"
+	" brts" " brtc"
+	" brvs" " brvc"
+	" brie" " brid"
+End
+
+#arithmetic instructions
+SyntaxWords Group5 case EndNonID
+	" adc" " add" " adiw"
+	" and" " andi"
+	" cp"  " cpc" " cpi"
+	" com" " neg"
+	" dec" " inc"
+	" eor"
+	" or"  " ori"
+	" sbc" " sbci" " sbiw" " sub" " subi"
+	" ser" " clr"
+	" tst"
+End
+
+#register names
+SyntaxWords Group6 case EndNonID
+	r0  r1  r2  r3  r4  r5  r6  r7  r8  r9  r10 r11 r12 r13 r14 r15
+	r16 r17 r18 r19 r20 r21 r22 r23 r24 r25 r26 r27 r28 r29 r30 r31
+End
+
+#compiler instructions
+#NB end must be a string or else StrongED
+#   thinks it's the end of this section
+SyntaxWords Group7 case EndNonID
+	#define
+	assert
+	cequ
+	db
+	dt
+	dw
+	"end"
+	error
+	get
+	equ
+	opt
+	org
+	path
+	sets
+	_config
+	^ #
+	[ | ]
+End
+
+#bitwise instructions
+SyntaxWords Group2 case EndNonID
+	" asr" " lsl" " lsr" " rol" " ror"
+	" bset" " bclr"
+	" bst" " bld"
+	" sbi" " cbi"
+	" sbr" " cbr"
+	" sei" " cli"
+	" set" " clt"
+	" seh" " clh"
+	" ses" " cls"
+	" sev" " clv"
+	" sen" " cln"
+	" sez" " clz"
+	" sec" " clc"
+	" swap"
+End
+
+#----------------------------------------------------------
+
+KeyList
+	^‹[		InsertStr("/*")
+	^‹]		InsertStr("*/")
+#	Return		Clicklist("indent")
+End
+
+#----------------------------------------------------------
+
+Functions
+
+	Key	‹F2
+	Menu	List of functions ‹F2
+	Icon	LoF
+	Select	ListOfFound(label,Text,Whole,Line,Case,Sort)
+	Help	Havr_lof
+
+	Adjust	ListOfFound(label,All,Whole,Line,Case,Sort)
+
+	Key	‹PgUp
+	Icon	up
+	Select	GotoPrev(label)
+	Help	Havr_up
+
+	Key	‹PgDown
+	Icon	down
+	Select	GotoNext(label)
+	Help	Havr_dn
+
+	Key	^H
+	Menu	Load H.*
+	Icon	load
+	Help	Havr_ld
+	Select	SetTmp() LoadOne("<StrongED$Tmp_FilePath>.^.H.<StrongED$Tmp_MarkWord>","C:H.<StrongED$Tmp_MarkWord>")
+
+	Key	F10
+	Menu	Save & Compile      F10
+	Icon	Run
+	Select	SaveDrag("AVR")
+	Help	Havr_run
+
+	Key	^G 1
+	Menu	Goto function definition
+	Icon	goto
+	Select	Push GotoFound(label2,Text,Whole,Line,Case,Sort)
+	Help	Havr_go
+
+	Key	^G 2
+	‹Select	Pop
+
+End
+
+Shortcuts
+	JT	\n       rjmp      reset        ; Reset handler\n       reti                   ; External interupt req 0\n       reti                   ; External interupt req 1\n       reti                   ; Timer/Counter1 Capture Event\n       reti                   ; Timer/Counter1 Compare Match\n       reti                   ; Timer/Counter1 Overflow/interupt\n       reti                   ; Timer 0 interupt (8bits)\n       reti                   ; UART, RX Complete\n       reti                   ; UART Data Register Empty\n       reti                   ; UART, TX Complete\n       reti                   ; Analog Comparator\n
+
+	;-     ;----------------------------------------------------------------------------;
+End
+

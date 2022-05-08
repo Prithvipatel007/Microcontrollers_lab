@@ -1,0 +1,82 @@
+# Project:   StrongED_Read:Modes.DocBook.Makefile
+
+
+#depend		= -depend !Depend
+#throwback	= -throwback
+
+# tool macros:
+cc_		= cc
+ccflags		= -c $(depend) $(throwback) -IC: -IOSLib: -ffah -o $@
+c++_		= c++
+c++flags	= -c $(depend) $(throwback) -IC:
+asm_		= ObjAsm
+asmflags	= $(throwback) -NoCache $(depend)
+link		= link
+linkflags	=  -o $@
+CMHGflags	=
+libfile		= libfile
+libFileflags	=
+squeeze_	= squeeze
+squeezeflags	= $@
+setdate		= setdate
+wipe		= X wipe
+wipeflags	= ~CFRV
+
+# combined tool macros:
+cc		= $(cc_) $(ccflags)
+c++		= $(c++_) $(c++flags)
+asm		= $(asm_) $(asmflags)
+link_app	= $(link) $(linkflags) -aif
+link_util	= $(link) $(linkflags) -bin
+squeeze		= $(squeeze_) $(squeezeflags)
+
+
+files 		=
+
+
+# Final targets:
+
+all:		$(files) setup
+		submake *.Makefile
+
+setup:
+		cdir @.o
+
+clean:
+		$(wipe) @.o $(wipeflags)
+		submake *.Makefile -- clean
+
+maintainerclean:
+		$(wipe) @.o        $(wipeflags)
+		submake *.Makefile -- maintainerclean
+
+nosource:
+		$(wipe) @.o $(wipeflags)
+		$(wipe) @.c $(wipeflags)
+		$(wipe) @.s $(wipeflags)
+		submake *.Makefile -- nosource
+		$(wipe) @.Makefile $(wipeflags)
+
+
+## Rule Patterns ##
+
+.SUFFIXES:	.o .s
+
+.s.o:
+		$(asm) $< $@
+
+.c.o:
+		$(cc) -o $@ $*
+
+.cc.o:
+		$(c++) -o $@ $*
+
+
+# User-editable dependencies:
+
+
+# Static dependencies:
+
+
+# Dynamic dependencies:
+

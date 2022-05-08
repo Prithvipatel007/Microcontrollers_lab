@@ -1,0 +1,17 @@
+Version History
+===============
+
+The version number of this mode is the uppermost number in the version history below.
+
+0.01 EP 2006-05-25	Beta release.
+			Tested with !StrongED v4.67b5
+
+1.00 EP 2006-05-27	Caters for both !Syslog (the Tom Hughes version) and !Syslogs (the RISC OS Select version)
+			Automatically selected for logs of filetype data
+
+1.01 EP 2006-05-28	Works correctly for log entries with no error ID (3 hyphens instead)
+			Added "invalid" and "òŸå" to the list of problem phrases
+			Added more explanatory comments in ModeFile and ModeWhen, updated !Help
+
+1.02 EP 2006-05-31	Works for dates beginning with a 3
+

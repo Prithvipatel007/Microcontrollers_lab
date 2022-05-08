@@ -1,0 +1,31 @@
+| Run file for FTPupSED
+| © StrongED Developers
+
+| Wimp pool sprites
+Iconsprites <Obey$Dir>.!Sprites
+
+| Task directory
+Set FTPupSED$Dir <Obey$Dir>
+Set FTPupSED$Resources <FTPupSED$Dir>
+
+|
+Set FTPupSED$Action %*0
+Set FTPupSED$SitesDir <FTPupSED$Dir>.Sites
+Set FTPupSED$ToolsDir <FTPupSED$Dir>.Tools
+
+| Language resources
+IfThere <FTPupSED$Dir>.!Languages Then Run <FTPupSED$Dir>.!Languages FTPupSED
+
+| Toolbox modules
+IfThere <FTPupSED$Resources>.Modules Then Obey <FTPupSED$Resources>.Modules
+
+| Set wimpslot required
+WimpSlot -min 64K -max 64k
+If "<FTPupSED$Action>"="ShowSites"  Then Filer_Run <FTPupSED$ToolsDir>.ShowSites
+If "<FTPupSED$Action>"="VerifySite" Then Filer_Run <FTPupSED$ToolsDir>.cFTPvars
+If "<FTPupSED$Action>"="AddNewSite" Then Filer_Run <FTPupSED$ToolsDir>.AddSite
+If "<FTPupSED$Action>"="UploadFile" Then Filer_Run <FTPupSED$ToolsDir>.Upload
+If "<FTPupSED$Action>"="SelectSite" Then Filer_Run <FTPupSED$Dir>.!RunImage
+
+| Unset vars we no longer need
+Unset FTPupSED$Action

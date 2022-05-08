@@ -1,0 +1,19 @@
+Rules Include
+! f7e, **
+! f7f, **
+! f80, **
+  *, **/dtd
+  *, **/xml
+  *, **/xsl
+> *, **; _xml1 _xml2
+End
+
+Rules Exclude
+! *, **.!StrongED.**
+! *, **.!StrED_cfg.**
+End
+
+Match
+	_xml1	"<?xml"
+	_xml2	** "PUBLIC" {White|NL}+ "\"-//OASIS//DTD"
+End

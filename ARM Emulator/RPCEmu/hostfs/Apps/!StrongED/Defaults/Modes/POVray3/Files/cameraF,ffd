@@ -1,0 +1,8 @@
+camera {
+   orthographic
+   location < , , >
+   right 
+   up 
+   look_at < ,  , >
+   angle
+}

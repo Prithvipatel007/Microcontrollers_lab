@@ -1,0 +1,6 @@
+# Pascal mode
+
+Hpas_lof:Click to generate list of all functions.
+Hpas_lop:Click to generate list of all procedures.
+Hpas_run:Click to send text to pascal compiler.
+Hpas_mak:Click to save and launch Make.

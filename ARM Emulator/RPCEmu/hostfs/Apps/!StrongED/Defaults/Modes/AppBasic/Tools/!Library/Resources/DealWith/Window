@@ -1,0 +1,6 @@
+DEF PROCDealWith_Window(event,object,component)
+CASE event OF
+ WHEN Window_AboutToBeShown
+ WHEN Window_HasBeenHidden
+ENDCASE
+ENDPROC

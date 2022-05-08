@@ -1,0 +1,12 @@
+| Help file for ScriptSED
+| © StrongED Developers
+
+| Task directory
+Set ScriptSED$Dir <Obey$Dir>
+Set ScriptSED$Resources <ScriptSED$Dir>
+
+| Language resources
+IfThere <ScriptSED$Dir>.!Languages Then Run <ScriptSED$Dir>.!Languages ScriptSED
+
+| Run
+Filer_Run <ScriptSED$Resources>.Help

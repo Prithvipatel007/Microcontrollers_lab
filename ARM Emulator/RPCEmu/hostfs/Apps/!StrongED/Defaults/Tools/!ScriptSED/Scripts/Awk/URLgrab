@@ -1,0 +1,5 @@
+#! awk
+# extract links from a webpage
+BEGIN { RS = "\"" }
+/^http/ 
+

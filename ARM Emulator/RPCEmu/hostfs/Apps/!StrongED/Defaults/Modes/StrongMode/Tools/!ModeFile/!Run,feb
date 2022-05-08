@@ -1,0 +1,14 @@
+|Wimp pool sprites
+ Iconsprites <Obey$Dir>.!Sprites
+
+|Resources
+ Set ModeFile$Dir <Obey$Dir>
+
+|Toolbox modules
+ ifthere <ModeFile$Dir>.Modules then Obey <ModeFile$Dir>.Modules
+
+|Wimpslot
+ ifthere <ModeFile$Dir>.WimpSlot then Obey <ModeFile$Dir>.WimpSlot
+
+|Run
+ Run <ModeFile$Dir>.!RunImage

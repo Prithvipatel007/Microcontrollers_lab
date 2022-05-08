@@ -1,0 +1,119 @@
+A51 MACRO ASSEMBLER  ASM                                                                  09/21/2014 18:02:01 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN ASM.OBJ
+ASSEMBLER INVOKED BY: C:\Program Files\Keil\C51\BIN\A51.EXE ASM.A51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     NAME    ASM
+                       2     
+                       3     ?PR?keypad?ASM   SEGMENT CODE
+                       4     PUBLIC  keypad
+----                   5                     RSEG   ?PR?keypad?ASM
+                       6                     USING  0
+                       7     
+0000                   8     keypad:
+0000 7FFF              9             MOV R7, #-1
+0002 43807F           10             ORL P0, #01111111B
+0005                  11     row3:
+0005 C283             12             CLR P0.3
+0007 308631           13             JNB P0.6, key1
+000A 308531           14             JNB P0.5, key2
+000D 308431           15             JNB P0.4, key3
+0010 43807F           16             ORL P0, #01111111B
+0013                  17     row2:
+0013 C282             18             CLR P0.2
+0015 30862C           19             JNB P0.6, key4
+0018 30852C           20             JNB P0.5, key5
+001B 30842C           21             JNB P0.4, key6
+001E 43807F           22             ORL P0, #01111111B
+0021                  23     row1:
+0021 C281             24             CLR P0.1
+0023 308627           25             JNB P0.6, key7
+0026 308527           26             JNB P0.5, key8
+0029 308427           27             JNB P0.4, key9
+002C 43807F           28             ORL P0, #01111111B
+002F                  29     row0:
+002F C280             30             CLR P0.0
+0031 308622           31             JNB P0.6, keystar
+0034 308522           32             JNB P0.5, key0
+0037 308422           33             JNB P0.4, keydash
+                      34             
+003A 22               35             RET
+                      36             
+003B                  37     key1:
+003B 7F01             38             MOV R7, #1
+003D 22               39             RET
+003E                  40     key2:
+003E 7F02             41             MOV R7, #2
+0040 22               42             RET
+0041                  43     key3:
+0041 7F03             44             MOV R7, #3
+0043 22               45             RET
+0044                  46     key4:
+0044 7F04             47             MOV R7, #4
+0046 22               48             RET
+0047                  49     key5:
+0047 7F05             50             MOV R7, #5
+0049 22               51             RET
+004A                  52     key6:
+004A 7F06             53             MOV R7, #6
+004C 22               54             RET
+004D                  55     key7:
+004D 7F07             56             MOV R7, #7
+004F 22               57             RET
+0050                  58     key8:
+A51 MACRO ASSEMBLER  ASM                                                                  09/21/2014 18:02:01 PAGE     2
+
+0050 7F08             59             MOV R7, #8
+0052 22               60             RET
+0053                  61     key9:
+0053 7F09             62             MOV R7, #9
+0055 22               63             RET
+0056                  64     keystar:
+0056 7F00             65             MOV R7, #0      ; no keystar
+0058 22               66             RET
+0059                  67     key0:
+0059 7F00             68             MOV R7, #0
+005B 22               69             RET
+005C                  70     keydash:
+005C 7F00             71             MOV R7, #0      ; keydash
+005E 22               72             RET
+                      73     
+                      74             END
+A51 MACRO ASSEMBLER  ASM                                                                  09/21/2014 18:02:01 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+?PR?KEYPAD?ASM . .  C SEG    005FH       REL=UNIT
+ASM. . . . . . . .  N NUMB   -----       
+KEY0 . . . . . . .  C ADDR   0059H   R   SEG=?PR?KEYPAD?ASM
+KEY1 . . . . . . .  C ADDR   003BH   R   SEG=?PR?KEYPAD?ASM
+KEY2 . . . . . . .  C ADDR   003EH   R   SEG=?PR?KEYPAD?ASM
+KEY3 . . . . . . .  C ADDR   0041H   R   SEG=?PR?KEYPAD?ASM
+KEY4 . . . . . . .  C ADDR   0044H   R   SEG=?PR?KEYPAD?ASM
+KEY5 . . . . . . .  C ADDR   0047H   R   SEG=?PR?KEYPAD?ASM
+KEY6 . . . . . . .  C ADDR   004AH   R   SEG=?PR?KEYPAD?ASM
+KEY7 . . . . . . .  C ADDR   004DH   R   SEG=?PR?KEYPAD?ASM
+KEY8 . . . . . . .  C ADDR   0050H   R   SEG=?PR?KEYPAD?ASM
+KEY9 . . . . . . .  C ADDR   0053H   R   SEG=?PR?KEYPAD?ASM
+KEYDASH. . . . . .  C ADDR   005CH   R   SEG=?PR?KEYPAD?ASM
+KEYPAD . . . . . .  C ADDR   0000H   R   SEG=?PR?KEYPAD?ASM
+KEYSTAR. . . . . .  C ADDR   0056H   R   SEG=?PR?KEYPAD?ASM
+P0 . . . . . . . .  D ADDR   0080H   A   
+ROW0 . . . . . . .  C ADDR   002FH   R   SEG=?PR?KEYPAD?ASM
+ROW1 . . . . . . .  C ADDR   0021H   R   SEG=?PR?KEYPAD?ASM
+ROW2 . . . . . . .  C ADDR   0013H   R   SEG=?PR?KEYPAD?ASM
+ROW3 . . . . . . .  C ADDR   0005H   R   SEG=?PR?KEYPAD?ASM
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

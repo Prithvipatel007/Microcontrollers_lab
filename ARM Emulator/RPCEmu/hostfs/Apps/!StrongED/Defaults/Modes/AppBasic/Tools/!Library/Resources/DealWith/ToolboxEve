@@ -1,0 +1,6 @@
+DEF PROCDealWith_ToolboxEvent(event,object,component)
+CASE event OF
+ WHEN
+ 
+ENDCASE
+ENDPROC

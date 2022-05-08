@@ -1,0 +1,14 @@
+
+RMEnsure UtilityModule  3.10 Error This application is only suitable for use with RISC OS 3.10 or later versions
+
+|These modules fix Wimp problems in RiscOS 3.10 -----------------------
+ RMENSURE BorderUtils   0.01  RMENSURE WindowManager 0.07 RMLoad System:modules.BorderUtil
+ RMENSURE BorderUtils   0.01  RMENSURE WindowManager 0.07 Error popup requires BorderUtils 0.01+
+ RMENSURE FilterManager 0.00 RMLOAD System:modules.FilterMgr
+ RMENSURE FilterManager 0.00  ERROR You need FilterManager 0.00+ to run popup
+
+|Toolbox modules -----------------------------------
+ RMENSURE Toolbox       0.00 RMLOAD System:modules.Toolbox.Toolbox
+ RMENSURE Toolbox       1.62  ERROR You need Toolbox 1.62+ to run popup
+ RMENSURE Menu          0.00 RMLOAD System:modules.Toolbox.Menu
+ RMENSURE Menu          0.36  ERROR You need Menu 0.36+ to run popup

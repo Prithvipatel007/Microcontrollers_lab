@@ -1,0 +1,7 @@
+# Messages for ManToolsFE
+
+_TaskName:ManToolsFE
+
+NoInFile:Please drag a ManTools source file to this window.
+NoPath:Please enter a full pathname or drag to a directory.
+NoSave:Unable to create target object. Please ensure path is valid and target is writable.

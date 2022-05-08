@@ -1,0 +1,124 @@
+#include <stdbool.h>
+
+/*** Window Manager ***/
+
+#define SWI_Wimp_CloseDown "0x0400DD"
+void Wimp_CloseDown(void)
+{
+  __asm__ ("swi " SWI_Wimp_CloseDown);
+}
+
+#define SWI_Wimp_Poll "0x0400C7"
+int Wimp_Poll(int r0, int r1)
+{
+  register int _r0 __asm ("r0") = r0;
+
+  __asm__ ("swi " SWI_Wimp_Poll);
+
+  return _r0;
+}
+
+#define SWI_Wimp_Initialise "0x0400C0"
+void Wimp_Initialise(int r0, int r1, int r2, int r3)
+{
+  __asm__ ("swi " SWI_Wimp_Initialise);
+}
+
+void taskend(void)
+{
+  Wimp_CloseDown();
+}
+
+int taskyield(void)
+{
+  unsigned char buffer[256];
+
+  bool running = true;
+
+  int reason = Wimp_Poll(0x3830, (int) buffer);
+
+  if (reason == 17 || reason == 18)
+  {
+    if (buffer[16] == 0)
+      running = false;
+  }
+  return running;
+}
+
+void taskstart(char *name)
+{
+  Wimp_Initialise(310, 0x4B534154, (int) name, 0);
+}
+
+/*** Text ***/
+
+#define SWI_OS_Write0 "0x00002"
+void OS_Write0(int r0)
+{
+  __asm__ ("swi " SWI_OS_Write0);
+}
+
+#define SWI_OS_WriteC "0x00000"
+void OS_WriteC(int r0)
+{
+  __asm__ ("swi " SWI_OS_WriteC);
+}
+
+/*** Graphics ***/
+
+#define SWI_OS_ScreenMode "0x00065"
+void OS_ScreenMode(int r0, int r1)
+{
+  __asm__ ("swi " SWI_OS_ScreenMode);
+}
+
+#define SWI_OS_Plot "0x00045"
+void OS_Plot(int r0, int r1, int r2)
+{
+  __asm__ ("swi " SWI_OS_Plot);
+}
+
+void disc(int xk1, int yk1, int xk2, int yk2)
+{
+  OS_Plot(152+4, xk1, yk1);
+  OS_Plot(152+5, xk2, yk2);
+}
+
+void line(int xk1, int yk1, int xk2, int yk2)
+{
+  OS_Plot(4, xk1, yk1);
+  OS_Plot(5, xk2, yk2);
+}
+
+void draw(int xk, int yk)
+{
+  OS_Plot(5, xk, yk);
+}
+
+void move(int xk, int yk)
+{
+  OS_Plot(4, xk, yk);
+}
+
+void text(char ch)
+{
+  OS_WriteC(5);
+  OS_WriteC(ch);
+}
+
+void gcol(int col)
+{
+  OS_WriteC(18);
+  OS_WriteC(0);
+  OS_WriteC(col);
+}
+
+void clg(void)
+{
+  OS_WriteC(16);
+}
+
+void mode(char *mod)
+{
+  OS_ScreenMode(15, (int) mod);
+}

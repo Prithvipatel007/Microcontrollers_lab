@@ -1,0 +1,134 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : Dump
+#	Purpose : StrongED mode file for binary files
+#	Author  : © StrongED Developers
+#	Licence : Freeware
+#	Version : 1.04, 15-04-2013
+#
+#-------------------------------------------------------------------------------
+# "Dump" is a special kind of Mode. It doesn't have wraplines and textlines
+# like ordinary modes, but instead each line represents a fixed number of
+# bytes of the file.
+#------------------------------------------------------------------------------
+#
+# Changes:
+#------------------------------------------------------------------------------
+# 08.07.98 Changed the 'back to basemode' key from just ESC to ctrl-shift-ESC.
+#          Moved it from KeyList to Functions too.
+# 31.07.98 The key is now defined in baseMode, so I have commented it out here.
+#
+# 31.12.05 FG Added dummy SyntaxGroups so they show in the elements menu.
+# 24.12.06 FG Replaced ChangeMode() with the new Dump_Display() function.
+# 01-10-12 FG Changed Author field to © StrongED Developers
+# 15-04-13 FG Added toolbar icon for half-word (16 bit) display
+#------------------------------------------------------------------------------
+
+ModeType	Dump
+
+HelpPath	OS,Wimp,MiscSWIs,InetSocket,InetSWIs,VDU,Toolbox,
+
+#-------------------------------------------------------------------------------
+# The SyntaxWords groups are just there so that they show up in
+# the menu of elements in the Colours section of the Mode choices.
+
+# Group1  add reg,reg,reg
+SyntaxWords Group1
+End
+
+# Group2  add reg,reg,#value
+SyntaxWords Group2
+End
+
+# Group3  ldr reg,[reg,#value]
+SyntaxWords Group3
+End
+
+# Group4  ldr reg,[reg,reg]
+SyntaxWords Group4
+End
+
+# Group5  ldm
+SyntaxWords Group5
+End
+
+# Group6  b,bl
+SyntaxWords Group6
+End
+
+# Group7  stc
+SyntaxWords Group7
+End
+
+# Group8  swi
+SyntaxWords Group8
+End
+
+#-------------------------------------------------------------------------------
+KeyList
+	TAB		Dump_CycleSection
+
+	F1		Dump_Help
+
+	Left		Dump_Left
+	‹Left		NIL
+	^Left		StartOfWLine
+	^‹Left		NIL
+
+	Right		Dump_Right
+	‹Right		NIL
+	^Right		EndOfWLine
+	^‹Right		NIL
+
+	Up		Dump_Up
+	^Up		StartOftext
+	^‹Up		LineUp
+	Down		Dump_Down
+	^Down		EndOfText
+	^‹Down		LineDown
+End
+
+#-------------------------------------------------------------------------------
+Functions
+	Key		‹F2
+	Menu		List SWIs  ‹F2
+	Icon		LoF
+	Help		Hdmp_lof
+	Select		ListOfMod(Text)
+
+	Adjust		ListOfMod(All)
+
+	Icon		left
+	Help		Hdmp_bck
+	Select		ChangeMode()
+
+	Menu		Byte display
+	Icon		dm_byte
+	Help		Hdmp_byt
+	Select		Dump_Display(Byte)
+
+	Menu		Half display
+	Icon		dm_half
+	Help		Hdmp_hlf
+	Select		Dump_Display(Half)
+
+	Menu		Word display
+	icon		dm_word
+	Help		Hdmp_wrd
+	Select		Dump_Display(Word)
+
+	Menu		Ascii display
+	icon		dm_ascii
+	Help		Hdmp_asc
+	Select		Dump_Display(ASCII)
+
+	Menu		Assembly display
+	icon		dm_asm
+	Help		Hdmp_asm
+	Select		Dump_Display(Disass)
+
+	Menu		Grab fresh copy
+	icon		new
+	Help		Hdmp_new
+	Select		Dump_ReGrab
+End

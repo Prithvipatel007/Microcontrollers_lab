@@ -1,0 +1,9 @@
+_TaskName:MemNow
+_Purpose:Display free memory
+_Author:© Acorn Computers Ltd, 1993
+_Version:0.08 (19-Jan-20)
+
+Banner:Memory displayer
+Menu:MemNow,Info,Quit
+E00:Buffer space full
+Border:R3

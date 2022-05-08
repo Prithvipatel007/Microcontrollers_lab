@@ -1,0 +1,5 @@
+#! lua
+local file = io.open(arg[1],"r")
+local text = file:read "*all"
+file:close()
+io.write(text:gsub("%b<>",""))

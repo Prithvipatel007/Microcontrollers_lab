@@ -1,0 +1,6 @@
+# StrongMode
+
+HSt_lof:SELECT liefert die Fundliste
+HSt_UpDown:\Smove the caret to the next section.|M\Amove the caret to the previous section.
+HSt_Create:\Screate a new mode directory.|M\Acreate a new Popup.|MClick Shift-SELECT to insert Popup code into the ModeFile.
+HSt_Insert:Click on one of menu items to insert a section into the ModeFile.|MSome items have a window attached that allows various values to be set.

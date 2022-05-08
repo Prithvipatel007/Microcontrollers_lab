@@ -1,0 +1,608 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : BaseMode
+#	Purpose : The main configuration file for StrongED
+#	Author  : © StrongED Developers
+#	Licence : Freeware
+#	Version :
+#
+#-------------------------------------------------------------------------------
+
+# This is the mode that lies under any other mode. This file should not be
+# renamed. If it is, StrongED will get seriously confused and won't start..
+
+# Options:
+#   StrongED$FoldParm1 = ("#-",,Startofline)
+#-------------------------------------------------------------------------------
+# 10.02.98 Added _perl and _HTML expressions for ModeWhen testing
+# 12.07.98 Added '-' and '_' to characters that can appear in an email address.
+# 31.07.98 cs-ESC is now a global toggle between mode and BaseMode
+#          (had to be ctrl-shift to not interfere with ESC-blockmark)
+#--- v 4.53 released
+# 14.08.98 Added wsp to _markword, so you with one press on c-A can mark all
+#          spaces.
+# 02.10.98 Corrected the advancedsyntax help page name in the SearchReplace
+#          keylist, and added the keypress to the LoF keylist.
+# 20.10.98 Changed _MoveWord/_Deleteword to use the *old* _MarkWord value
+# 03.11.98 Added _SpellIgnore
+# 15.01.99 s-F1 is again Help StrongED. Haven't used StrongHelp search dbox..
+# 31.03.99 Now defines _ParPrefix so all modes can have a sensible hardwrap
+# 07.07.00 Added IconiseView
+# 25.04.02 FG Added https:// to syntax colouring
+# 25.06.03 FG Extended ee_url expression, also made http & www expressions use it
+# 01.07.03 FG Added ^D^I to main keylist, inserts date in ISO format i.e. 20030701
+# 02.07.04 FG Moved functions tied to c-E to c-K to make room for export functions
+#          FG Added keybindings to export in Impression, OvationPro & Raw format
+#          FG Switched definitions for Print and s-Print
+#          FG Added default tabstop definition
+# 25.01.05 FG Added keybindings for commands (cs-E) and snippets (cs-S) windows
+#          FG Added keyboard control for commands, snippets and tabstops windows
+#          FG Added shortcuts ``se and ``ro, expand to StrongED and RISC OS
+# 08.02.05 FG Removed several invalid characters from ee_url expression
+#          FG Removed CR expression as awkify is now replaced by apply script icon
+# 16.08.05 FG Added ^E^H and ^E^X to export to HTML and XHTML
+# 31.12.05 FG Updated export key bindings for updated export utility
+# 31.12.05 FG Added key bindings to give focus to LoF and Throwback (cs-F7, cs-F8)
+# 31.12.05 FG Now uses c-R and cs-R for Reformat, Pop, PopAll moved to c-Y, cs-Y
+# 08.07.06 FG Combined undo & redo toolbar icons into a single icon
+#          FG Changed functions tied to info icon
+#          FG Changed all old Tmp$xxx variables to new form StrongED$Tmp_xxx
+#          FG Updated interactive help and mode manual
+#          FG Changed email search expression so it doesn't clash with BASIC mode
+# 28.08.08 FG Tied SearchDir add-on to c-F11
+# 12.11.11 FG Replaced old Tmp$Page variable with new StrongED$Tmp_Page
+# 05.09.12 FG Removed Bitmap keyword, still accepted but no longer used
+# 01.10.12 FG Changed Author field to © StrongED Developers
+# 17.02.13 FG Added ' to ee_url expression as it's allowed in URLs
+# 14.06.13 FG Removed all keybindings for different export formats
+#          FG Removed cs-S keybinding, c-O,c-S opens Snippets dbox
+#          FG Added keybinding c-E,c-E, opens ExportSED dbox
+#          FG Added keybinding c-E,c-D, opens DigDirSED dbox
+#          FG Added keybinding c-E,c-U, opens FTPupSED dbox
+#          FG Extended the emailpart search expression
+#          FG PrintHead now uses <StrongED$Tmp_FileName>
+#          FG Changed all modifier indicators from ^‹ to cs-
+#-------------------------------------------------------------------------------
+
+#--- The default fold-expression
+
+FoldParm1 ("*",,StartOfLine)
+
+#--- PrintHead & PrintFoot
+#    These two defines default heading and footing used when printing.
+
+PrintHead	<StrongED$Tmp_FileName>|i|i<Sys$Date> <Sys$Time>|m
+PrintFoot	|m|i---- <StrongED$Tmp_Page> ----
+
+#--- Tabstops
+#    This is the default tabstop definition.
+#    It is used by all modes that do not override it with their own.
+
+Tabstops	3*
+
+#--- Named search/match expressions.
+#    Some are used to modify how standard functions behave,
+#    and some are used as parameters to functions.
+
+Search
+	scheme		"https://" | "http://" | "ftp://" | "telnet://" | "file:/" | "mailto:" | "news:" | "stronghelp:"
+	ee_url		{'A-Za-z0-9_!#$%&()*+\-./:;=?@\'\`~'}+
+	http		scheme ee_url
+	www		"www." ee_url
+
+#	emailpart	{'A-Za-z0-9_+\-!%~$'}+
+	emailpart	{'A-Za-z0-9_!#$%&\'*+\-/=?^`{|}~'}+
+	email		emailpart {'.' emailpart} "@" emailpart {'.' emailpart}+
+
+	_Indent		{" "|"\t"}
+	_MarkWord	{AlphaNum|"_"}+ | {Punct}+ | {' \t'}+
+	_MoveWord	{AlphaNum|"_"}+ | {Punct}+
+	_DeleteWord	_MoveWord
+	_EndSpc		{'\t '}+ >
+	_spct		{" " | "\t"}+
+	_Complete	{" "} ((Upper [{Upper}+ | {Lower}+]) | {Lower}+ ["_"]) | {Punct|Digit}+
+#	_Wrap		~NL Any @1 {" "} NL ~(NL|"\t"|" ")
+	_Wrap		~NL Any @1 {" "} ~(NL NL) NL {'\t '}
+	_SpellIgnore	email | http | www | ( {Upper}+ ~? )
+
+#	With hardwrap turned on, this is the default paragraph definition.
+#	It is the same expression as the one used by the !News mode.
+
+	Quoted		< {'>' [' ']}+
+	Bullet		{' '} '\-*o' ' '
+	Spaces		{' '}
+	_ParPrefix	< [Quoted] @1 [Bullet] @2 [Spaces]
+
+#
+
+	_foldstar	{' \t'} "*"
+	_foldindent	{' \t'} ~NL .
+
+# clicklist related entries
+
+	c_TRUE		"TRUE"
+	c_FALSE		"FALSE"
+End
+
+#--- Named replace expressions.
+#    Mostly used as parameter in functions.
+
+Replace
+	_rwrap		@01 " "
+End
+
+#--- Syntax colouring; We colour URLs to show that they are clickable.
+
+SyntaxWords Group8 EndOfExpr ee_url nocase
+	https:// http:// ftp:// telnet:// file:/ mailto: news: stronghelp: www.
+End
+
+#--- Clicklist
+#    Each time you doubleclick with Select, this list will be consulted.
+#    If the clicked word matches one of the search expressions listed
+#    the corresponding function(s) will be executed.
+
+ClickList Select2
+	http	BroadcastURL("<StrongED$Tmp_MarkWord>")
+	www	BroadcastURL("http://<StrongED$Tmp_MarkWord>")
+	email	BroadcastURL("mailto:<StrongED$Tmp_MarkWord>")
+End
+
+ClickList Toggle
+	c_TRUE	ToggleStr("FALSE")
+	c_FALSE	ToggleStr("TRUE")
+End
+
+#--- Key definitions for various dialogue boxes.
+#    Note that shortcuts like ctrl-C for toggling case sensitivity are defined
+#    directly in the template files (in the validation string). This because
+#    shortcuts that depend on the label are language specific.
+#    (You *can* override them here, if you wish..)
+
+KeyList Throwback
+	Esc		ThrowbackAction(Close)
+	Delete		ThrowbackAction(GotoLine) ThrowbackAction(Delete)
+	c-Space		ThrowbackAction(NewView)
+	Return		ThrowbackAction(GotoLine)
+	Up		ThrowbackAction(PrevLine)
+	Down		ThrowbackAction(NextLine)
+	Right		ThrowbackAction(GotoLine) ThrowbackAction(Delete) ThrowbackAction(GiveFocus) ThrowbackAction(KeepOnTop)
+	c-G		ThrowbackAction(GotoLine)
+End
+
+KeyList SearchReplace
+	s-F4		Select(Old)
+	Return		Select(GO)
+	PgUp		History(older)
+	PgDown		History(newer)
+	F1		MenuToWindow HelpString("StrongEDRes:StrongED !ref_as_")
+End
+
+KeyList LoF_dbox
+	F2		Select(Old)
+	Return		Select(GO)
+	PgUp		History(older)
+	PgDown		History(newer)
+	F1		MenuToWindow HelpString("StrongEDRes:StrongED !ref_as_")
+End
+
+KeyList Interactive
+	F4		Select(Old)
+	Down		Select(Next)
+	Up		Select(Prev)
+	PgUp		Select(Old)
+	PgDown		Adjust(Old)
+End
+
+KeyList SaveBox
+	Return		Select(Save)
+	c-Q		Select(Kill)
+	PgUp		History(older)
+	PgDown		History(newer)
+End
+
+KeyList WhatNext
+	Down		Select(Next)
+	Return		Select(Replace)
+	F8		Select(Undo)
+	c-F8		Select(Redo)
+End
+
+KeyList	Goto
+	F5		History(older)
+	PgUp		History(older)
+	PgDown		History(newer)
+	c-G		CycleGotoType
+End
+
+KeyList	CommandsBox
+	F1		MenuToWindow HelpString("StrongEDRes:StrongED !ref_function")
+	Esc		Select(Cancel)
+	Return		Select(Execute)
+	PgUp		History(older)
+	PgDown		History(newer)
+End
+
+KeyList	SnippetsBox
+	Esc		Select(Cancel)
+	Return		Select(Insert)
+	PgUp		History(older)
+	PgDown		History(newer)
+End
+
+KeyList	TabstopsBox
+	Esc		Select(Cancel)
+	Return		Select(Apply)
+End
+
+KeyList	LoadFileBox
+	Esc		Select(Cancel)
+	Return		Select(Load)
+	PgUp		History(older)
+	PgDown		History(newer)
+End
+
+#KeyList Print
+#	c-F		Select(HeaderFooter)
+#	Return		Select(GO)
+#End
+
+#--- Key definitions when CopyCursor is used.
+
+KeyList CopyCursor
+	ESC		CopyCursor_Off
+	Copy		CopyFromCC
+	s-Copy		CopyCursor_Off
+	Left		CopyCursor_Left
+	Right		CopyCursor_Right
+	Up		CopyCursor_Up
+	Down		CopyCursor_Down
+	s-Left		CaretLeft
+	s-Right		CaretRight
+	s-Up		CaretUp
+	s-Down		CaretDown
+	Return		CopyCursor_Off NewLine
+End
+
+#--- Global key definitions
+#    These keys are checked last of all, and are also checked even if
+#    StrongED doesn't have the input focus.
+
+KeyList Global
+	cs-F9		dbox_Chars
+	c-F1 1		GotoMark (1)
+	c-F2 1		GotoMark (2)
+	c-F3 1		GotoMark (3)
+	c-F4 1		GotoMark (4)
+	s-F5 1		GotoBlock_Start
+	s-F5 2		GotoBlock_End
+	cs-H		HideAll
+	c-L		ListOfWindows
+	c-W		Complete(_Complete) ; These three are used to copy text to writable fields in dboxes.
+	F7		BlockToBuffer       ; They have no meaning if no writable field has caret.
+	F8		ClipToBuffer        ;
+	F11		CreateText
+	cs-Tab		SetDir
+	s-Up		NextWindow
+	s-Down		PreviousWindow
+	c-PgUp		UserMessage1(&400D1,"<1><0><0><0>")
+	c-PgDown	UserMessage1(&400D1,"<2><0><0><0>")
+End
+
+#--- The main keylist.
+
+KeyList
+	ESC		BlockMark_ESC
+	c-ESC		ChangeMode()
+	cs-ESC		ChangeMode()
+
+	F2		dbox_ListOfFound
+	F3		dbox_SaveText
+	F4		dbox_Interactive
+	F5		dbox_GotoLine
+#	F6		BlockMark_Standard
+	F6		BlockMark_Continous
+	F7		BlockCopy
+	F8		Undo
+	F9		Playback
+	F10		Process(Text,"Filer_Run <StrongED$ScrapDir>.out",,noreplace)
+
+#	s-F3		dbox_SaveBlock
+	s-F4		dbox_Replace
+#	s-F5		GotoBlock
+	s-F6		BlockClear
+	s-F7		BlockMove
+	s-F8		BlockDelete
+	s-F9		Learn
+	s-F11		ToggleHardwrap
+
+	c-F5		InsertCtrl
+	c-F6		MarkText
+	c-F7		LoseCaret
+	c-F8		Redo
+
+	c-F1 1		SetMark(5) GotoMark (1)
+	c-F2 1		SetMark(5) GotoMark (2)
+	c-F3 1		SetMark(5) GotoMark (3)
+	c-F4 1		SetMark(5) GotoMark (4)
+
+	c-F1 2		GotoMark(5)
+	c-F2 2		GotoMark(5)
+	c-F3 2		GotoMark(5)
+	c-F4 2		GotoMark(5)
+
+	c-F11		SetTmp() Run("Set StrongED$Tmp_MouseKey Key") Run("Run <StrongED$Tmp_ToolPath>.!DigDirSED")
+
+	cs-F1 1		SetMark (1)
+	cs-F2 1		SetMark (2)
+	cs-F3 1		SetMark (3)
+	cs-F4 1		SetMark (4)
+
+	cs-F1 2		ClearMark (1)
+	cs-F2 2		ClearMark (2)
+	cs-F3 2		ClearMark (3)
+	cs-F4 2		ClearMark (4)
+
+	cs-F5		SetTmp() Run("<StrongED$Tmp_ToolPath>.DictURL")
+	cs-F6		SetTmp() Run("<StrongED$Tmp_ToolPath>.ThesURL")
+
+	cs-F7		FocusToMRU(ListOfFound)
+	cs-F8		FocusToMRU(Throwback)
+
+#	cs-F11		Debug2()
+#	cs-F11		Reformat(40)
+#	cs-F11		SetTmp() InsertFile("ADFS::Hard1.$.NewsProb")
+#	cs-F11		MinimizeModes
+
+	cs-KpMin B	AddFold
+	s-KpPlus	OpenFold
+	s-KpMin		CloseFold
+	c-KpPlus	UnfoldText
+	c-KpMin		UnfoldText() FoldText
+#	c-KpMin		UnfoldText() FoldText(_foldstar,,line,case)
+
+	c-A 1		MarkWord
+	c-A 2		MarkLine
+	c-A 3		MarkText
+	c-B		GotoBracket
+	cs-B		ToggleIndent
+	c-C		BlockCopy
+
+	c-D,c-I		DateAndTime ("%CE%YR-%MN-%DY")
+	c-D,c-D		DateAndTime ("%DY.%MN.%YR")
+	c-D,c-T		DateAndTime ("%24:%MI")
+	c-D,c-W		DateAndTime ("%WK")
+
+	c-E,c-D		SetTmp() Run("Set StrongED$Tmp_MouseKey Key") Run("Run <StrongED$Tmp_ToolPath>.!DigDirSED")
+	c-E,c-E		SetTmp() ExportText() Run("Run <StrongED$Tmp_ToolPath>.!ExportSED")
+	c-E,c-U		SetTmp() Run("Run <StrongED$Tmp_ToolPath>.!FTPupSED SelectSite")
+
+	cs-E		PreviousMessage
+	c-F		ListOfWord (Text,Whole,NoLine,NoCase)
+	cs-F		ListOfWord (All,Whole,NoLine,NoCase)
+	c-H		HideView
+	cs-I		IconiseView
+	c-J		LowercaseChar
+	cs-K		CB_Copy BlockClear StartOfText BlockMark_Standard EndOfText BlockMark_Standard BlockDelete CB_Paste
+#	cs-K		GotoBlock_Start Push GotoBlock_End BlockClear BlockMark_Standard EndOfText BlockMark_Standard BlockDelete StartOfText BlockMark_Standard Pop BlockMark_Standard BlockDelete
+	cs-L		LongestLine
+	c-M		ChangeMode()
+	cs-M		ChangeMode(Toggle,"BaseMode")
+	c-N		FindNext(Text)
+	cs-N		FindNext(All)
+
+	c-O,c-C		dbox_Commands
+	c-O,c-F		dbox_FileInfo
+	c-O,c-G		dbox_GotoLine
+	c-O,c-P		dbox_Print
+	c-O,c-S		dbox_Snippets
+
+	c-P		FindPrev(Text)
+	cs-P		FindPrev(All)
+
+	c-Q		KillView
+	cs-Q		KillStrongED
+	c-R		Reformat(,Para,ParagraphWrap,Quote)
+	cs-R		Reformat(,Text,LineWrap,)
+	c-S		SwapcaseChar
+	c-T		ViewToTop
+#	c-T		Transpose(-2)
+	c-U		UppercaseChar
+	c-V		BlockMove
+	cs-W		CountWords
+	c-W,c-C		CreateView
+	c-W,c-V		SplitViewVert
+	c-W,c-H		SplitViewHor
+	c-W,c-F		FullView
+	c-W,c-S		ScaleView
+	c-X		BlockDelete
+	c-Y		Pop
+	cs-Y		PopAll
+	c-Z		BlockClear
+
+	Tab		Tab
+	s-Tab		ToggleTabLine
+	c-Tab		CycleTabkey
+	Copy		EndOfText
+	s-Copy		CopyCursor_On
+	c-Copy		DeleteLine
+	cs-Copy 1	MarkToEnd_tl
+	cs-Copy 2	BlockDelete
+	Print		dbox_Print
+	s-Print		Print
+	Delete		DeleteRight
+	s-Delete	DeleteWordRight
+	c-Delete	MarkToEnd_tl BlockDelete
+	cs-Delete	MarkToEnd_tl CB_Copy BlockDelete
+	Backspace	DeleteLeft
+	s-Backspace	DeleteWordLeft
+	c-Backspace	MarkToStart_tl BlockDelete
+	cs-Backspace	MarkToStart_tl CB_Copy BlockDelete
+	Insert		ToggleInsert
+	c-Insert	CB_Copy
+	s-Insert	CB_Paste
+	Home		StartOfText
+	s-Home		ClickList("Toggle")
+	c-Home		ClickList("Select2")
+	Return		NewLine
+	s-Return	NewLine(noindent)
+	cs-Return	CaretUp() EndOfTLine() NewLine()
+
+	cs-Space	BlockClear() Wordright() BlockMark_Continous() WordLeft() BlockMark_Continous() Replace(_spct," ",Block) BlockClear()
+
+#	Select		PlaceCaret() Clicklist("TEST")
+#	Select 2	MarkWord()
+#	Select 3	MarkLine()
+#	Adjust		adjustmark()   if(focus) { MarkBlock() wobble } ifnot(focus) Setfocus()
+
+	Left		CaretLeft
+	s-Left		WordLeft
+	c-Left 1	StartOfWLine
+	c-Left 2	StartOfTLine
+	cs-Left 1	MarkToStart_tl
+	cs-Left 2	BlockDelete
+
+	Right		CaretRight
+	s-Right		WordRight
+	c-Right 1	EndOfWLine
+	c-Right 2	EndOfTLine
+	cs-Right 1	MarkToEnd_tl
+	cs-Right 2	BlockDelete
+
+	Up		CaretUp
+	c-Up		StartOftext
+	cs-Up		LineUp
+	Down		CaretDown
+	c-Down		EndOfText
+	cs-Down		LineDown
+
+	PgUp		PageUp
+	PgDown		PageDown
+
+	cs-Z		CB_Purge
+	cs-X		CB_Copy  BlockDelete
+	cs-C		CB_Copy  BlockClear
+	cs-V		CB_Paste
+End
+
+#--- Toolbar and mode-menu functions
+
+Functions
+	Icon		help
+	Help		HBM_help
+	Select		HelpMode
+
+	c-Select	HelpBaseMode
+
+	cs-Select	HelpStrongED
+
+	Adjust		CharInfo
+
+	Key		F1
+	c-Adjust	HelpWord
+
+	Key		s-F1
+	s-Adjust	HelpSearch("StrongED,")
+
+	Key		c-I
+	cs-Adjust	dbox_FileInfo
+
+	Icon		Lot
+	Help		HBM_low
+	Key		c-L
+	Select		ListOfWindows
+
+	Adjust		dbox_LoadFile
+
+	Icon		dicticon
+	Help		HBM_spell
+	Select		SpellCheck()
+
+	Adjust		dbox_spellcheck()
+
+	s-Select	SetTmp() Run("TaskWindow \"Dict <StrongED$Tmp_MarkWord>\" -display")
+
+	Icon		opton
+	Help		HBM_opt
+	Select		dbox_GlobalChoices
+
+	Adjust		dbox_ModeChoices
+
+	Icon		Save2
+	Help		HBM_save
+	Select		dbox_SaveText
+
+	Adjust		SaveText()
+
+	c-Select	SetTmp() ExportText() Run("Run <StrongED$Tmp_ToolPath>.!ExportSED")
+
+	Icon		undoredo
+	Help		HBM_undo
+	Select		Undo
+
+	Adjust		Redo
+
+	Icon		Speak
+	Help		HBM_speak
+	Select		SetTmp() Process(,"Run <StrongED$Tmp_ToolPath>.!SpeakSED",,NoReplace)
+
+	Icon		Refresh3
+	Help		HBM_refresh
+	Select		dbox_RefreshFile()
+
+	Adjust		RefreshFile()
+
+	c-Select	SetTmp() Process(Text,"Run <StrongED$Tmp_ToolPath>.DoDiff",,NoReplace)
+
+	Icon		Apply
+	Help		HBM_apply
+	Select		SetTmp() Run("Filer_OpenDir <StrongED$ScriptsDir>")
+
+	Adjust		SetTmp() Process(,"<StrongED$Tmp_ToolPath>.!ScriptSED",,NoReplace)
+
+	c-Drag		SetTmp() Process(,"<StrongED$Tmp_ToolPath>.!ScriptSED.Tools.Despatch <StrongED$Tmp_DragFile>",,NoReplace) Run("Filer_Run <StrongED$ScrapDir>.in")
+
+	s-Drag		SetTmp() Process(,"<StrongED$Tmp_ToolPath>.!ScriptSED.Tools.Despatch <StrongED$Tmp_DragFile>",,"<StrongED$ScrapDir>.in")
+
+	cs-Drag		SetTmp() Process(All,"<StrongED$Tmp_ToolPath>.!ScriptSED.Tools.Despatch <StrongED$Tmp_DragFile>",,"<StrongED$ScrapDir>.in")
+
+#	Menu		Tab to spaces
+#	Help		Replaces occurrences of the TAB character with spaces.
+#	Select		Untab
+#
+#	Menu		Spaces to Tab
+#	Help		Replaces multiple spaces with TAB characters.|MOnly handles spaces at the start of the line.
+#	Select		TabIt
+
+	Menu		Remove trailing spaces
+	Help		HBM_trim
+#	Select		Replace (_EndSpc,"",,NoLine)
+	Select		TrimLines()
+
+	Menu		Remove leading spaces
+	Help		HBM_ltrim
+	Select		Replace(_spct,"",,Line)
+
+	Menu		Wrap (join) lines
+	Help		HBM_join
+	Select		Replace(_wrap,_rwrap,,Noline)
+
+	Menu		Unwrap (split) lines
+	Help		HBM_split
+	Select		Unwrap
+
+	Menu		Fold text
+	Select		UnfoldText() FoldText
+
+	Menu		Unfold text
+	Select		UnfoldText
+End
+
+#--- Shortcuts
+#    Small macros that, when written, will expand to the full text.
+
+Shortcuts
+	``-	--------------------------------------------------------------------------------\n
+	``ro	RISC OS
+	``se	StrongED
+End

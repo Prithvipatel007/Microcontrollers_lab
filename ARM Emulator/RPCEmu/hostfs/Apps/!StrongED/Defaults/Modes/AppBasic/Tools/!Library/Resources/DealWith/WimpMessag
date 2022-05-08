@@ -1,0 +1,5 @@
+DEF PROCDealWith_WimpMessage(message)
+CASE message OF
+
+ENDCASE
+ENDPROC

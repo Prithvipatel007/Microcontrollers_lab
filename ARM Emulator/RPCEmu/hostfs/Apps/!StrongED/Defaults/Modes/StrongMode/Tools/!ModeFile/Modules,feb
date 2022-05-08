@@ -1,0 +1,17 @@
+|Toolbox modules for 'ModeFile'
+
+|Utility module --------------------------------------------------------
+ RMEnsure UtilityModule  3.10 ERROR ModeFile is only suitable for use with RISC OS 3.10 or later versions
+
+|These modules fix Wimp problems in RiscOS 3.10 ------------------------
+ RMENSURE BorderUtils   0.00  RMENSURE WindowManager 0.00 RMLoad System:modules.BorderUtil
+ RMENSURE FilterManager 0.00 RMLOAD System:modules.FilterMgr
+ RMENSURE FilterManager 0.00 ERROR ModeFile requires FilterManager 0.00  to run
+
+|Toolbox modules -------------------------------------------------------
+ RMENSURE Toolbox       0.00 RMLOAD System:modules.Toolbox.Toolbox
+ RMENSURE Toolbox       0.00 ERROR ModeFile requires Toolbox 0.00  to run
+ RMENSURE Window        0.00 RMLOAD System:modules.Toolbox.Window
+ RMENSURE Window        0.00 ERROR ModeFile requires Window 0.00  to run
+ RMENSURE Menu          0.00 RMLOAD System:modules.Toolbox.Menu
+ RMENSURE Menu          0.00 ERROR ModeFile requires Menu 0.00  to run

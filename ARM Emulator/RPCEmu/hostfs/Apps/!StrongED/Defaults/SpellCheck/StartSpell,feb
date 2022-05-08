@@ -1,0 +1,18 @@
+| StrongED will run this file the first time spell checking is used.
+| See the 'Spell checking' section of the manual to find out more.
+| © StrongED developers
+
+| User dictionaries will be loaded from and saved to the variable below.
+| If it isn't set, !StrED_cfg.UserPrefs.SpellCheck.UserDicts is assumed.
+|
+|Set StrongED_UserDict$Dir <ImpressionPublisher$Dir>.Auto
+
+| Set a path to find SpellMod, which StrongED needs to do spell checking
+| See the 'Spell checking' section of the manual to find out more.
+|
+|SetMacro StrongED_SpellMod$Path StrongED_Tmp:Tools., Impression:.^.RMStore., Junior:.^.RMStore., System:!CCShared.RMStore., <CCShared$Dir>.RMStore.
+
+| Make sure SpellMod is loaded, which StrongED needs to do spell checking
+|
+RMEnsure ImpressionSpell 1.26 RMLoad StrongED_Tmp:SpellCheck.SpellMod
+RMEnsure ImpressionSpell 1.26 Error Unable to find ImpressionSpell

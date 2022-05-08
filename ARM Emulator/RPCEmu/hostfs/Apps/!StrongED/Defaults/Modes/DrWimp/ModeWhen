@@ -1,0 +1,7 @@
+Rules Include
+> ffb, ** ; _DWtest
+End
+
+Match
+	_DWtest		** "DrWimp"
+End

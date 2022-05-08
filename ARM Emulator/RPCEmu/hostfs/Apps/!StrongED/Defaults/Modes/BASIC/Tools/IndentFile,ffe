@@ -1,0 +1,4 @@
+BASIC
+TEXTLOAD "<StrongED$ScrapDir>.Out"
+TEXTSAVEO %01010,"<StrongED$ScrapDir>.In"
+QUIT

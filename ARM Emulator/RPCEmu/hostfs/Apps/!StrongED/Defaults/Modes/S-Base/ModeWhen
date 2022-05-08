@@ -1,0 +1,11 @@
+# Modewhen file for S-Base
+
+Rules Exclude
+  fff, **.!StrongED.Defaults.Modes.**
+  fff, **.!StrED_cfg.UserPrefs.Modes.**
+End
+
+
+Rules Include
+ fff, **.!Scrap.ScrapDirs.*.S-Base.**
+End        

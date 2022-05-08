@@ -1,0 +1,50 @@
+do
+
+function pathMatch(pPtr,fPtr,allowDot)
+  local diff,invert,match,stop,fChr,pChr
+
+--  print(pattern)
+--  print(fileName)
+
+  repeat
+    if string.sub(pattern,pPtr,pPtr) == "*" then
+      allowDot = false
+      pPtr = pPtr + 1
+      if string.sub(pattern,pPtr,pPtr) == "*" then
+        allowDot = true
+        pPtr = pPtr + 1
+      end -- if
+
+      repeat
+        match = pathMatch(pPtr,fPtr,allowDot)
+        stop = match
+        if not stop then
+          pChr = string.sub(pattern,pPtr,pPtr)
+          fChr = string.sub(fileName,fPtr,fPtr) ; fPtr = fPtr + 1
+
+          if fChr <= " " then match = (pChr <= " ") ; stop = true end -- if
+          if fChr == "." and not allowDot then match = false ; stop = true end -- if
+        end -- if
+      until (stop)
+    else
+      pChr = string.sub(pattern,pPtr,pPtr) ; pPtr = pPtr + 1
+      fChr = string.sub(fileName,fPtr,fPtr) ; fPtr = fPtr + 1
+--      diff = bit32.band(bit32.bxor(pChr, fChr), 0xDF)
+      diff = (string.byte(pChr) ^^ string.byte(fChr)) & 0xDF
+
+      if diff ~= 0 then stop = true end
+      if pChr == ";" then pChr = string.char(0x0) end
+      if (pChr <= " ") or (fChr <= " ") then stop = true end
+      if stop then match = (pChr <= " ") and (fChr <= " ") end
+    end -- if
+
+  until (stop)
+    --  if invert then match = not match
+  return match
+end -- function
+
+fileName = "ADFS::Iyonix.$.Projects.StrongED.Source_469.!StrongED.Defaults.Tools.!DigDirSED.Tools.CfgRules" .. " "
+pattern = "**" .. " "
+print (pathMatch(1,1,false))
+
+end -- do

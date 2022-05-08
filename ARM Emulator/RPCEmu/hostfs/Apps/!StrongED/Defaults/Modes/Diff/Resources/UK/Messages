@@ -1,0 +1,14 @@
+# Messages file for Diff mode
+
+#Syntax colour groups
+Group1:Header lines
+Group2:CVS Information
+Group3:Filenames
+Group4:Segment separators
+Group5:Segment separators
+Group6:Removed lines
+Group7:Modified lines
+Group8:Unmodified line
+Group9:Added line
+Group10:File separator
+Group11:'Command' lines

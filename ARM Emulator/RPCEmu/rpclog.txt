@@ -1,0 +1,65 @@
+localtime: 2020-08-03 21:52:50
+   gmtime: 2020-08-03 19:52:50
+RPCEmu 0.9.2 [DYNAREC NO_DEBUG]
+Build: 32-bit binary
+Compiler: GCC version 5.3.0
+OS: Microsoft Windows
+OS: PlatformId = 2
+OS: MajorVersion = 6
+OS: MinorVersion = 2
+OS: ProductType = 1
+OS: SuiteMask = 0x100
+OS: ServicePackMajor = 0
+OS: ServicePackMinor = 0
+OS: ProcessorArchitecture = 9
+OS: SystemMetricsServerR2 = 0
+OS: ProductInfoType = 121
+QT5: 5.9.8
+Number of screens: 2
+Primary screen: \\.\DISPLAY1
+Information for screen: \\.\DISPLAY1
+ Resolution: 1920 x 1080
+ Colour depth: 32
+Information for screen: \\.\DISPLAY2
+ Resolution: 1360 x 768
+ Colour depth: 32
+Working Directory: D:\HRW Materials\Bachelors\Sem 9\Microcontrollers\Lab\ARM Emulator\RPCEmu
+config_load: bridgename = "rpcemu"
+config_load: cdrom_enabled = "1"
+config_load: cdrom_iso = ""
+config_load: cdrom_type = "0"
+config_load: cpu_idle = "0"
+config_load: ipaddress = "172.31.0.1"
+config_load: macaddress = ""
+config_load: mem_size = "32"
+config_load: model = "RPC710"
+config_load: mouse_following = "1"
+config_load: mouse_twobutton = "1"
+config_load: network_type = "off"
+config_load: refresh_rate = "60"
+config_load: show_fullscreen_message = "1"
+config_load: sound_enabled = "0"
+config_load: stretch_mode = "1"
+config_load: username = ""
+config_load: vram_size = "2"
+romload: Loaded 'riscos' 4194304 bytes
+romload: Total ROM size 4 MB
+plt_sound: qt5 Audio Device: Default Output Device
+plt_sound: qt5 Audio Codecs Supported: 1
+0: audio/pcm
+plt_sound: qt5 Audio SampleRates Supported: 10
+0: 8000
+1: 11025
+2: 16000
+3: 22050
+4: 32000
+5: 44100
+6: 48000
+7: 88200
+8: 96000
+9: 192000
+initpodulerom: Successfully loaded 'hostfs,ffa' into podulerom
+initpodulerom: Successfully loaded 'hostfsfiler,ffa' into podulerom
+RPCEmu: Machine reset
+RPCEmu: Machine reset complete
+HostFS: Registration request version 3 accepted

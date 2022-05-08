@@ -1,0 +1,463 @@
+=============================================================================
+ManTools - Application manual creation tools                     Version ----
+
+(C) Stephen Fryatt, 2002-2013                                   19 April 2013
+=============================================================================
+
+
+License
+-------
+
+  ManTools are licensed under the EUPL, Version 1.1 only (the "Licence"); you
+  may not use this work except in compliance with the Licence.
+
+  You may obtain a copy of the Licence at
+  http://joinup.ec.europa.eu/software/page/eupl
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the Licence is distributed on an "AS IS" basis, WITHOUT
+  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
+  See the Licence for the specific language governing permissions and
+  limitations under the Licence.
+
+  The source for ManTools can be found alongside this binary download, at
+  http://www.stevefryatt.org.uk/software
+
+
+
+Introduction
+------------
+
+  ManTools are a set of Perl scripts intended for generating StrongHelp,
+  HTML, DDF and plain text help files from a single source file.  The
+  intention is to make it easier to supply a both plain text and formatted
+  versions of software manuals.  The markup options available have a strong
+  bias towards creating documentation for ROSC OS software.
+
+  To use the scripts natively on RISC OS, a copy of Perl 5 will be required.
+  At the time of writing, a copy can be found at http://www.cp15.org/perl/.
+  The scripts are command-line based, and should be installed in a library or
+  called by their full pathname.
+
+
+
+Command Line Use
+----------------
+
+  The scripts that comprise ManTools are TextMan, StrongMan, HTMLMan and
+  DDFMan.  Each script takes the same parameters on the command line, and in
+  their simplest form should be called with the syntax:
+
+  "textman <infile> <outfile>"
+
+  This two-parameter format is provided for backwards compatibility.  If
+  constants are required to be defined by the called (such as in a Makefile,
+  then then an alternative syntax is provided:
+
+  "textman -I<infile> -O<outfile> -D<constant>=<value>"
+
+  This allows constants to be defined externally from the script (maybe for
+  things such as creation date or build version).  If multiple constants are
+  required, more than one "-D" parameter can be supplied to the script.
+
+
+  Output types
+  ------------
+
+  ManTools manuals are formed from a sequence of blocks and chapters: how
+  these are used by a script depends upon its output format.  The text, HTML
+  and DDF scripts generate a single file in the target format which contains
+  all of the applicable blocks in sequence.  The StrongHelp script creates a
+  folder with the name of the output file, and saves each part of the source
+  into a separate file within it; a separate tool (such as BindHelp or
+  StrongHelp itself) will be required to turn these files into a finished
+  manual.
+
+  How individual output formats handle aspects of the markup will depend on
+  their capabilities.  Individual scripts are free to ignore tags and
+  entities which they can not process sensibly: for example, while
+  "<file>...</file>" might create italic text in an HTML document, it will
+  have no visible effect in a text manual.
+
+
+
+Markup language
+---------------
+
+  The markup tags used by ManTools are similar to HTML, but the whole
+  structure is simplified and with a less rigorous structure.  All tags are
+  enclosed in angle brackets (like <this>) and reserved characters are
+  inserted using the standard entities starting with ampersand.  Recognised
+  entities are:
+
+  * "&lt;" -- <
+  * "&gt;" -- >
+  * "&amp;" -- &
+  * "&quot;" -- "
+  * "&ndash;" -- n-dash (--)
+  * "&nbsp;" -- non-breaking space
+  * "&msep;" -- menu item separator
+
+  Note the RISC OS-specific "&msep;", which is used to signify the separation
+  between levels of a hierarchical menu.
+
+  Unlike in HTML, paragraphs are not enclosed in "<p> ... </p>" tags.
+  Instead, each paragraph must be on one line in the file, with one or more
+  newlines at the end.  Using a text editor that supports soft-wrap (ie. not
+  Edit) will help to make this easier.
+
+  Two types of tag are defined: inline tags and block tags.  Inline tags
+  appear within the text of a paragraph <em>like this</em> and apply
+  formatting to all or part of that line.  They can not span across more than
+  one paragraph.  Block tags, on the other hand, appear on lines of their own
+
+    <codeblock>
+    like this
+    </codeblock>
+
+  and provide structure to the document.  Their contents can include one or
+  more paragraphs, as required; they may also affect the formatting of the
+  output.
+
+
+  General document structure
+  --------------------------
+
+  A ManTools document starts with block tags defining details of the document
+  itself and setting constants to be used elsewhere.  Following on from
+  these, the source contains a sequence of chapters and literal blocks.
+  Chapters are written out to all outputs, laid out appropriately to take
+  into account the capabilities of the target format.  Literal blocks are
+  written out unchanged, if the target format matches that to which the block
+  is attached.
+
+  The intention is that chapters are used to hold the majority of the
+  manual's content, while literal blocks can be used to set up areas such as
+  the start and end of the document where more precise control of the output
+  is required.  In the case of multi-file formats like StrongHelp, literal
+  blocks can also be used to hold additional files such as configuration
+  data.
+
+
+  Document header and constants
+  -----------------------------
+
+  Every source file must start with the <document ...> tag, which gives
+  details of the manual being created.
+
+  <document ...>
+
+    The "<document ...>" tag appears at the top of a document, at the block
+    level.  It supplies details about that document, and is not closed.
+
+    The defined attributes are:
+
+    * "title": the title of the document.  Used to prefix chapter titles in
+      StrongHelp title-bars.
+
+  The <document ...> tag is followed by any constant definitions which are
+  required by the rest of the manual.
+
+  <define ...>
+
+    The "<define ...>" tag appears at the top of a document, at the block
+    level; it is not closed.  Each tag defines a single constant which can be
+    used later on in literal blocks document.
+
+    The defined attributes are:
+
+    * "name": the name of the constant.
+    * "value": the value to be given to the constant.
+    * "length": the length of the constant's field, in characters.
+    * "align": the alignment of the constant's contents in the field.
+
+    The "length" and "align" attributes are optional, and will be ignored if
+    they do not make sense in the context of a specific output format.
+
+  Constants can be defined entirely within the file, or they can be defined
+  on the command line when a script is called.  To give an example, a manual
+  could start with the lines
+
+    <document title="Example">
+    <define name="foo" value="bar">
+
+  to set the constant "foo" to the value "bar".  Within a literal block this
+  constant can then be referenced by enclosing the constant name within
+  double string symbols: "$$foo$$".  In the example above, "This is a $$foo$$
+  code" would result in the text "This is a bar code" being output.
+
+  Alternatively, the variable could have been defined as a command-line
+  parameter to the script:
+
+  <command>textman -Iinfile -Ooutfile -Dfoo=bar</code>
+
+  When parameters are passed in this way, they override any "<define ...>"
+  tags found in the script file.
+
+  The "length" and "align" attributes can be used to apply fixed-space
+  formatting where this makes sense in the context of the output format (such
+  as plain text).  The "length" gives a field width: when specified, the
+  constant's value will be truncated to fit (if necessary) or padded out with
+  spaces.  The text can be aligned to the left or right of the field, as
+  shown here:
+
+    <document title="Example">
+    <define name="left" value="Fred" length=10 align="left">
+    <define name="right" value="Jim" length=10 align="right">
+
+    <literal mode="text">
+    This text is $$left$$ aligned.
+    This text is $$right$$ aligned.
+    </literal>
+
+  would result in the output
+
+    This text is Fred      aligned.
+    This text is       Jim aligned.
+
+  being generated by the text script (which only works when viewed in a
+  fixed-width font).
+
+
+  Chapters and literal blocks
+  ---------------------------
+
+  Following on from the document and constant definitions are a series of
+  blocks of content which form the help text.  There are two types of
+  content: literal blocks are passed straight to the output for their
+  specific format (and ignored for all other formats); chapters go into all
+  outputs, but are formatted according to the requirements of the specific
+  output before they go.
+
+  <literal ...> ... </literal>
+
+    The "<literal ...> ... </literal>" tag pair enclose a block of text that
+    will be written to a specific type of output file.  The block is written
+    with no translation apart from the insertion of constants as described
+    above.  No tags or entities are searched for or processed within a
+    literal block.
+
+    The defined attributes are:
+
+    * "mode": the output mode that will output the text.
+    * "file": the file name if multiple output files are produced.
+
+  The following output modes are currently defined, and are case-insensitive:
+
+  * "Text" -- textman
+  * "Strong" -- strongman
+  * "HTML" -- htmlman
+  * "DDF" -- ddfman
+
+  If the "mode" attribute given for a literal matches that of the script
+  being run, then the literal is written to the output; otherwise it is
+  skipped.  If the script generates multiple files, then the
+  <code>file</file> attribute will be used for the name of the file.
+
+  Chapters, on the other hand, are written to all outputs and can contain
+  markup in the form of tags and entities.  The contents is processed in a
+  way that is appropriate to the capabilities of the current output format.
+
+  <chapter ...> ... </chapter>
+
+    The "<chapter ...> ... </chapter>" tag pair enclose a block of text that
+    forms a chapter in a document.  Depending upon the type of manual being
+    produced, this will either form a section of text with a main heading
+    above it, or it will be a separate page.
+
+    The defined attributes are:
+
+    * "title": the title of the chapter as used in the document.
+    * "file": the file name or link attribute.  This is used to reference the
+      chapter in the "<link ...>" tag and will be used as a filename if
+      multiple output files are produced.
+
+  Unlike a literal block, a chapter has a "title" attribute to set the title
+  for the block of text: this is written out in advance with suitable
+  formatting.
+
+  As with literal blocks, chapters also have a "file" attribute to specify a
+  filename for multi-file output formats.  However, the value here is also
+  used as a bookmark for the <code><link ...> ... </link> tag: allowing
+  hyperlinks to be created in a manual when the format (such as StrongHelp or
+  HTML) allows it.
+
+
+
+Block Level Tags
+----------------
+
+  The tags that can appear within a "<chapter ...> ... </chapter>" block fall
+  into two groups: block-level and in-line tags.  Block-level tags appear on
+  a line of their own, and should be separated by newlines from other tags or
+  content.
+
+  The purpose of block-level tags is to apply structure to the chapter
+  contents, and allow the individual scripts to mark it up in a suitable way.
+  Some tags are 'open' and come without a closing tag: they apply to a single
+  point in the text.  Other tags are 'closed', and affect one or more
+  paragraphs that are enclosed between them.
+
+
+  Subheadings
+  -----------
+
+  The "<subhead ...>" tag places a subheading in the text.
+
+  <subhead ...>
+
+    The "<subhead ...>" tag appears in a chapter and inserts a sub heading at
+    that point.  It is not closed.
+
+    The defined attributes are:
+
+    * "title": the title of the subsection.
+
+
+  Lists
+  -----
+
+  Lists can be inserted into the text using the "<list ...> ... </list>" tag.
+  Lists are effectively a set of specially-formatted paragraphs: indented
+  appropriately, and marked by a bullet or number when they start with an
+  "<li>" tag.
+
+  Lists can be bulleted, or identified by numeric or alphabetic indexes.
+  They can be nested.
+
+  <list ...> ... </list>
+
+    The "<list ...> ... </list>" tag pair enclose a bullet-point list.  The
+    paragraphs between the tags are indented as a list and those with "<li>"
+    at the start are given a bullet point.
+
+    The defined attributes are:
+
+    * "type": the type of list.  This can be "bullet", "num", "upper" or
+      "lower".  The default is bullet.
+    * "spacing": the line spacing.  This is either "0" or "1" and sets the
+      number of lines between list paragraphs; the default is 0.
+
+
+  Definitions
+  -----------
+
+  The "<definition ...> ... </definition>" tag allows a definition to be
+  given for a piece of text.  The target for the definition is given by the
+  "target" attribute, and the definition itself is given by the paragraphs
+  which fall within the tag.
+
+  <definition ...> ... </definition>
+
+    The "<definition ...> ... </definition>" tag pair enclose a definition of
+    a piece of text (the target).  This is equivalent to the "<dl><dt><dd>"
+    structure in HTML.
+
+    The defined attributes are:
+
+    * "target": the text being defined by the content of the definition
+      block.
+
+
+  Block formatting
+  ----------------
+
+  Blocks of text, comprising one or more paragraphs, can have specific
+  formats applied.  The "<codeblock ...> ... </codeblock>" can be used to
+  enclose preformatted text: while intended for quoting blocks of code or
+  text file, it can be used for other similar purposes.
+
+  <codeblock> ... </codeblock>
+
+    The "<codeblock> ... </codeblock>" tag pair enclose a section of code or
+    literal text.  All lines (including blank ones) are output to the file.
+    A monospace font and indentation are used if applicable.
+
+    The are no defined attributes.
+
+  The <code><box> ... </box> tag can be used to highlight a block of text
+  from the surrounding paragraphs.
+
+  <box> ... </box>
+
+    The "<box> ... </box>" tag pair enclose a section of text that is to be
+    highlighted or stand out from the remaining copy (such as a 'box' in a
+    magazine).
+
+    The defined attributes are:
+
+    * "type": the type of box to apply: either "info" or "warning".  If
+      either are used, then a "sprites" parameter must be defined which gives
+      the name of a spritefile in the manual containing suitable "info" and
+      "warning" sprites of 32 pixels width.
+
+
+
+In-line tags
+------------
+
+  Unlike block-level tags, in-line tags appear within a line of text.  They
+  apply formatting to individual words or characters, as opposed to entire
+  paragraphs.
+
+
+  References and hyperlinks
+  -------------------------
+
+  The "<link ...> ... </link>" tag can be used to insert hyperlinks in
+  formats that support them.  The links can either be to other sections of
+  the manual, or to external URLs.
+
+  <link ...> ... </link>
+
+    The "<link ...> ... </link>" tag pair enclose a hyperlink, that will be
+    used in output formats that support these.
+
+    The defined attributes are:
+
+    * "ref": the "file" attribute from a "<chapter ...>" tag pair elsewhere
+      in the document, defining the location to jump to.  Alternatively, the
+      reference can start with a StrongHelp-style "#url " (with a trailing
+      space) to indicate that what follows is a URI.
+
+  If an output format does not support hyperlinks, then the link tags are
+  just removed during the processing.
+
+
+  Semantic tags
+  -------------
+
+  There are several semantic tags that can be used to apply meaning to pieces
+  of text.  Which -- or even if any -- formats are applied will depend on the
+  capabilities of the output format.
+
+  The defined semantics are:
+
+  * "<cite> ... </cite>": indicates a citation.
+  * "<code> ... </code>": identifies an inline block of code.
+  * "<command> ... </command>": marks a command-line command.
+  * "<em> ... </em>": emphasises the text.
+  * "<entry> ... </entry>": identifies user-typed text.
+  * "<file> ... </file>": shows a file name or path.
+  * "<icon> ... </icon>": indicates an icon (button) label.
+  * "<key> ... </key>": indicates a key name.
+  * "<menu> ... </menu>": marks a menu entry.
+  * "<mouse> ... </mouse>": indicates a mouse button.
+  * "<param> ... </param>": marks a command-line parameter.
+  * "<strong> ... </strong>": strongly emphasises the text.
+  * "<window> ... </window>": marks a window title.
+
+
+
+Updates and Contacting Me
+-------------------------
+
+  If you have any comments about ManTools, or would like to report any bugs
+  that you find, you can email me at the address below.
+
+  Updates to ManTools and more programs for RISC OS computers can be found
+  on my website at http://www.stevefryatt.org.uk/software/
+
+  Stephen Fryatt
+  email: steve@stevefryatt.org.uk

@@ -1,0 +1,387 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : DocBook
+#	Purpose : DocBook StrongED mode file for DocBook files
+#	Author  : © Philip Ludlam
+#	Licence : Freeware
+#	Version : 0.08, 22-12-2011
+#
+#-------------------------------------------------------------------------------
+# 22-12-11 FG Replaced old Tmp$* variables with StrongED$Tmp_* ones
+#          FG Changed 'Type' to 'CommentType' in SyntaxComment
+#-------------------------------------------------------------------------------
+#
+# For help for DocBook have a look at the online version of:
+#   "DocBook: The Definitive Guide" (1st Ed)
+#   http://www.oasis-open.org/docbook/documentation/reference/html/docbook.html
+#
+# Work is under way on a second edition which can be found at:
+#   http://www.docbook.org/tdg/en/html/
+#
+# Other useful links include:
+#   Customizer's Guide for the DocBook DTD
+#     http://www.lrz-muenchen.de/services/datenhaltung/text/docbook-doc/maint/index.html
+#
+#-------------------------------------------------------------------------------
+
+
+#HelpPath
+
+FoldParm1 (fold_start, fold_end,,)
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteQuote	Yes
+	SplitString	Yes
+	HexPrefix	#
+End
+
+
+SyntaxComment 1
+	CommentType	Multiline
+	StartWith	<!--
+	EndWith		-->
+End
+
+SyntaxComment 2
+	CommentType	OneLine
+	StartWith	;;
+End
+
+
+# Id's are used to try and pick up all tags that don't have their
+# own colouring. It also picks out start of tags such as
+# <A ( as part of <A HREF=""></A> )
+# Of course it will also pick out non-tags such as <ANDREW>
+
+ID_FirstChar	<
+ID_Middle	/A-Za-z_0-9
+ID_LastChar	>
+
+
+# colours for document structure, headers and frames
+SyntaxWords Group1 EndAlways nocase
+	<!doctype
+	<section> </section> <section
+	<sect1> </sect1> <sect1
+	<sect2> </sect2> <sect2
+	<sect3> </sect3> <sect3
+	<sect4> </sect4> <sect4
+End
+
+# Text styles 2
+SyntaxWords Group8 EndAlways nocase
+	<para> </para> <para
+End
+
+# Text styles
+SyntaxWords Group2 EndAlways nocase
+	<empasis> </emphasis> <emphasis
+	<literallayout> </literallayout> <literallayout
+	<entry> </entry> <entry
+	<filename> </filename> <filename
+	<application> </application> <application
+	<acronym> </acronym> <acronym
+	<programlisting> </programlisting> <programlisting
+	<envar> </envar> <envar
+	<firstname> </firstname> <firstname
+	<surname> </surname> <surname
+	<phrase> </phrase> <phrase
+	<date> </date> <date
+	<year> </year> <year
+End
+
+# Main containers
+SyntaxWords Group3 EndAlways nocase
+	<table> </table> <table
+	<variablelist> </variablelist> <variablelist
+	<inlinemediaobject> </inlinemediaobject> <inlinemediaobject
+	<authorgroup> </authorgroup> <authorgroup
+	<cmdsynopsis> </cmdsynopsis> <cmdsynopsis
+End
+
+# Sub containers
+SyntaxWords Group4 EndAlways nocase
+	<tgroup> </tgroup> <tgroup
+	<varlistentry> </varlistentry> <varlistentry
+	<imageobject> </imageobject> <imageobject
+	<author> </author> <author
+	<command> </command> <command
+End
+
+# Sub sub containers
+SyntaxWords Group5 EndAlways nocase
+	<thead> </thead> <thead
+	<tbody> </tbody> <tbody
+	<tfoot> </tfoot> <tfoot
+	<procedure> </procedure> <procedure
+	<simplelist> </simplelist> <simplelist
+	<term> </term> <term
+	<textobject> </textobject> <textobject
+	<copyright> </copyright> <copyright
+	<group> </group> <group
+	<replaceable> </replaceable> <replaceable
+End
+
+# Sub sub sub containers
+SyntaxWords Group6 EndAlways nocase
+	<row> </row> <row
+	<step> </step> <step
+	<member> </member> <member
+	<listitem> </listitem> <listitem
+	<imagedata
+	<holder> </holder> <holder
+	<arg> </arg> <arg
+End
+
+SyntaxWords Group7 EndAlways nocase
+	<ulink </ulink>
+	<email> </email> <email
+	<link> </link> <link
+End
+
+
+#-------------------------------------------------------------------------------
+
+
+Search
+	entity		"&" {AlphaNum}+ ";"
+	entity_		{AlphaNum}+ ";"
+	tag_mark	"<" ["\\"] { AlphaNum | "/" }+  ">"
+	_MarkWord	tag_mark  | entity | {AlphaNum}+ | {Punct}+
+	_SpellIgnore	("<" ["/"] Alpha {'~<>'}+ ">") | ("&" {AlphaNum}+ ";")
+	selected_line	{any}+
+
+	fold_start	"<section"
+	fold_end	"</section>"
+
+#	For 'Escape'
+	speech	&22
+End
+
+
+Replace
+	para_r		"<para>" @@ "</para>"
+End
+
+#Colour entities (when we have more than 8 SyntaxWords groups!)
+#SyntaxWords Group7 EndOfExpr entity_ nocase
+#	&
+#End
+
+#----------------------------------------------------------------------
+
+#ClickList Select2
+#	http		BroadcastURL("<StrongED$Tmp_MarkWord>")
+#END
+#
+#ClickList Adjust2
+#	http		BroadcastURL("<StrongED$Tmp_MarkWord>")
+#END
+
+#-------------------------------------------------------------------------------
+
+KeyList
+	^D,^D		DateAndTime ("%zdy %mo %ce%yr")
+End
+
+Shortcuts
+# Common characters
+	``>	&gt;
+	``<	&lt;
+	``"	&quot;
+	``&	&amp;
+
+# Special characters
+	½	&half;
+	¼	&frac14;
+	¾	&frac34;
+	¹	&sup1;
+	²	&sup2;
+	³	&sup3;
+	±	&plusmn;
+	÷	&divide;
+	×	&times;
+	¤	&curren;
+	£	&pound;
+	¢	&cent;
+	¥	&yen;
+	µ	&micro;
+	°	&degree;
+	º	&ordm;
+	ª	&ordf;
+	§	&sect;
+	¶	&para;
+	·	&middot;
+	ˆ	&larr;
+	‰	&rarr;
+	‹	&uarr;
+	Š	&darr;
+	©	&copy;
+	®	&reg;
+		&trade;
+	¦	&brvbar;
+	¬	&not;
+	¡	&iexcl;
+	¿	&iquest;
+	«	&laquo;
+	»	&raquo;
+		&lsquo;
+	‘	&rsquo;
+	”	&ldquo;
+	•	&rdquo;
+	 	&nbsp;
+	€	&radic;
+	´	&prime;
+	~	&sim;
+	˜	&mdash;
+	™	&ndash;
+	—	&dash;
+		&bull;
+	œ	&dagger;
+		&Dagger;
+	ž	&filig;
+	Ÿ	&fllig;
+	á	&aacute;
+	Á	&Aacute;
+	â	&acirc;
+	Â	&Acirc;
+	à	&agrave;
+	À	&Agrave;
+	å	&aring;
+	Å	&Aring;
+	ã	&atilde;
+	Ã	&Atilde;
+	ä	&auml;
+	Ä	&Auml;
+	æ	&aelig;
+	Æ	&AElig;
+	ç	&ccedil;
+	Ç	&Ccedil;
+	ð	&eth;
+	Ð	&ETH;
+	é	&eacute;
+	É	&Eacute;
+	ê	&ecirc;
+	Ê	&Ecirc;
+	è	&egrave;
+	È	&Egrave;
+	ë	&euml;
+	Ë	&Euml;
+	ì	&iacute;
+	Ì	&Iacute;
+	î	&icirc;
+	Î	&Icirc;
+	ì	&igrave;
+	Ì	&Igrave;
+	ï	&iuml;
+	Ï	&Iuml;
+	ñ	&ntilde;
+	Ñ	&Ntilde;
+	ó	&oacute;
+	Ó	&Oacute;
+	ô	&ocirc;
+	Ô	&Ocirc;
+	ò	&ograve;
+	Ò	&Ograve;
+	ø	&oslash;
+	Ø	&Oslash;
+	õ	&otilde;
+	Õ	&Otilde;
+	ö	&ouml;
+	Ö	&Ouml;
+	ß	&szlig;
+	þ	&thorn;
+	Þ	&THORN;
+	ú	&uacute;
+	Ú	&Uacute;
+	û	&ucirc;
+	Û	&Ucirc;
+	ù	&ugrave;
+	Ù	&Ugrave;
+	ü	&uuml;
+	Ü	&Uuml;
+	ý	&yacute;
+	Ý	&Yacute;
+	ÿ	&yuml;
+	Œ	&hellip;
+
+# Shortcuts
+
+	``autho	<author><firstname>\@</firstname><surname>\@</surname></author>
+
+	``table	<table>\n\i<title>\@</title>\n\i  <tgroup cols=\@>\n\i    <tbody>\n\i      <row>\n\i        <entry>\@</entry>\n\i      </row>\n\i    </tbody>\n\i  </tgroup>\n\i</table>
+	``row	<row>\n\i  <entry>\@</entry>\n\i</row>
+	``entry	<entry>\@</entry>\@
+
+	``tbody	<tbody>\n\i  <row>\n\i    <entry>\@</entry>\n\i  </row>\n\i</tbody>
+	``thead	<thead>\n\i  <row>\n\i    <entry>\@</entry>\n\i  </row>\n\i</thead>
+	``tfoot	<tfoot>\n\i  <row>\n\i    <entry>\@</entry>\n\i  </row>\n\i</tfoot>
+
+	</row>+	</row>\n\i<row>\n\i  <entry>\@</entry>\n\i</row>
+	entry>+	entry>\n\i<entry>\@</entry>
+#	<entry>+	<entry>\@</entry>\n\i<entry>
+#	</entry>+	</entry>\i<entry>\@</entry>
+
+	``para	<para>\@</para>
+	<para>+	<para>\@</para>\n\i<para>\@
+	/para>+	/para>\n\i<para>\@</para>
+#	</para>+	</para>\n\i<para>\@</para>
+
+	``url	<ulink url="\@">\@</ulink>\@
+	``ulink	<ulink url="\@">\@</ulink>\@
+	``email	<email>\@</email>\@
+
+	``sect	<section id="\@">\n\i  <title>\@</title>\n\i  <para>\@</para>\n\i</section>
+
+	``link	<link linkend="\@">\@</link>
+	``title	<title>\@</title>
+
+	``chapt	<chapter id="\@">\n\i  <title>\@</title>\n\i</chapter>
+
+	''filen	<filename>\@</filename>\@
+	''filec	<filename class="\@">\@</filename>\@
+	``acron	<acronym>\@</acronym>\@
+	``progl	<programlisting>\@</programlisting>\@
+	``envar	<envar>\@</envar>\@
+	``link	<link linkend="\@">\@</link>\@
+	``date	<date>\@</date>\@
+	``liter	<literallayout>\@</literallayout>\@
+
+	``cmdsy	<cmdsynopsis>\n\i  <command>\@</command>\n\i  \@\n\i</cmdsynopsis>
+	``arg	<arg>\@</arg>\@
+	``repla	<replaceable>\@</replaceable>\@
+	``group	<group>\n\i  \@\n\i</group>
+	``comma	<command>\@</command>\@
+	</arg>+	</arg>\n\i<arg>\@</arg>
+	eable>+	eable>\n\i<replaceable>\@</replaceable>\@
+#	<replaceable>+	<replaceable>\@</replaceable>\n\i<replaceable>\@
+#	</replaceable>+	</replaceable>\n\i<replaceable>\@</replaceable>\@
+
+	``simpl	<simplelist>\n\i  <member>\@</member>\n\i</simplelist>
+	``membe	<member>\@</member>\@
+	ember>+	ember>\n\i<member>\@</member>
+#	<member>+	<member>\@</member>\n\i<member>\@
+#	</member>+	</member>\n\i<member>\@</member>
+
+	``varia	<variablelist>\n\i  <title>\@</title>\n\i  <varlistentry>\n\i    <term>\@</term>\n\i      <listitem>\@</listitem>\n\i  </varlistentry>\n\i</variablelist>
+	``varli	<varlistentry>\n\i  <term>\@</term>\n\i    <listitem>\@</listitem>\n\i</varlistentry>
+	``term	<term>\@</term>\n\i  <listitem>\@</listitem>
+	``listi	<listitem>\@</listitem>
+	titem>+	titem>\n\i<listitem>\@</listitem>
+#	<listitem>+	<listitem>\@</listitem>\n\i<listitem>\@
+#	</listitem>+	</listitem>\n\i<listitem>\@</listitem>
+End
+
+Functions
+	Key	^P
+	Icon	docbook_para
+	Help	Hdocbook_para
+	Select	Replace (selected_line,para_r,block,,)
+
+	Menu	Escape brackets
+	Help	Hdocbook_esc
+	Select	Replace ("&","&amp;",block) Replace ("<","&lt;", block ) Replace (">","&gt;", block ) Replace ( speech , "&quot;", block )
+End
+

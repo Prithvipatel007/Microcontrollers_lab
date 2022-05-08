@@ -1,0 +1,4 @@
+#! awk
+# Number non-empty lines
+{ if (NF > 0 ) printf( "%d ",  ++line );
+   print; }

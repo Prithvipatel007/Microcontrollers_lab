@@ -1,0 +1,2 @@
+Iconsprites <Obey$Dir>.!Sprites
+if "%0"="" then filer_opendir <obey$dir>.Resources else <Obey$Dir>.!RunImage %0

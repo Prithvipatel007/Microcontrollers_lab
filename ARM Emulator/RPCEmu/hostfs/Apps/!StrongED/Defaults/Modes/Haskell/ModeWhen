@@ -1,0 +1,9 @@
+Rules Include
+  fff,**.hs.*
+  fff,**.lhs.*
+  fff,**/hs
+  fff,**/lhs
+! 08a,**
+! 448,**
+! 44a,**
+End

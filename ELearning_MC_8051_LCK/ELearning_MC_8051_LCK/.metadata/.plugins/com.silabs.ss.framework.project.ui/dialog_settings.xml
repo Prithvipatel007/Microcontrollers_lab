@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="com.silabs.ss.framework.ide.project.core.cdtMbsProjectType">
+		<item value="COPY" key="settingImportModeOption"/>
+		<item value="true" key="filterTemplatesByPartSdk"/>
+		<item value="projectTemplate.com.silabs.sdk.8051:4.1.7.0_-963069321.../examples/EFM8BB1_LCK/UART/Interrupt/iar/EFM8BB1_UART_Interrupt.eww" key="selectedTemplateId"/>
+		<item value="true" key="filterTemplatesByToolchain"/>
+	</section>
+</section>

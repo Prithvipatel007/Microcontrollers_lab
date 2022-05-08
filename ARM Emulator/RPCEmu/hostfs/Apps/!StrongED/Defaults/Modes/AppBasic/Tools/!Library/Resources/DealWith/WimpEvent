@@ -1,0 +1,5 @@
+DEF PROCDealWith_WimpEvent(event)
+CASE event OF
+
+ENDCASE
+ENDPROC

@@ -1,0 +1,17 @@
+|Toolbox modules for 'ExportSED'
+
+|Utility module --------------------------------------------------------
+ RMEnsure UtilityModule  3.10 ERROR ExportSED is only suitable for use with RISC OS 3.10 or later versions
+
+|These modules fix Wimp problems in RiscOS 3.10 ------------------------
+ RMENSURE BorderUtils   0.00  RMENSURE WindowManager 0.00 RMLoad System:modules.BorderUtil
+ RMENSURE FilterManager 0.00 RMLOAD System:modules.FilterMgr
+ RMENSURE FilterManager 0.00 ERROR ExportSED requires FilterManager 0.00  to run
+
+|Toolbox modules -------------------------------------------------------
+ RMENSURE Toolbox       0.00 RMLOAD System:modules.Toolbox.Toolbox
+ RMENSURE Toolbox       0.00 ERROR ExportSED requires Toolbox 0.00  to run
+ RMENSURE Window        0.00 RMLOAD System:modules.Toolbox.Window
+ RMENSURE Window        0.00 ERROR ExportSED requires Window 0.00  to run
+ RMENSURE SaveAs        0.00 RMLOAD System:modules.Toolbox.SaveAs
+ RMENSURE SaveAs        0.00 ERROR ExportSED requires SaveAs 0.00  to run

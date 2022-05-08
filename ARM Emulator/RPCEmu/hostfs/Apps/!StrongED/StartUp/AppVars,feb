@@ -1,0 +1,10 @@
+| Set up system variables describing application
+| © StrongED Developers
+
+Set StrongED$Description "StrongED Text editor"
+Set StrongED$Publisher "StrongED Developers"
+Set StrongED$Version "4.69f11"
+Set StrongED$Title "StrongED"
+Set StrongED$Help "<StrongED$Dir>.!Help"
+Set StrongED$Web "http://www.stronged.iconbar.com"
+

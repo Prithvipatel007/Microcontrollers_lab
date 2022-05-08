@@ -1,0 +1,19 @@
+# AppBasic
+
+HBa_lof:Click to generate list of all procedures and functions.
+HBa_up:Click Select to go to previous function, and Adjust to go to previous assembly label.
+HBa_dn:Click Select to go to next function, and Adjust to go to next assembly label.
+HBa_run:Select to run application containing this file.|MUse adjust to save first.
+HBa_go:Select: Goto Procedure/Function.|MAdjust: Goto Label.
+HBa_appbasic:'Select' pops up application menu. (AppBasic must be running).|M'Adjust' writes REM |<path>
+HBa_library:'Select' pops up Utilities menu.|M'Adjust' write PROCUtilsAlert()
+HBa_toolbox:'Select' pops up Objects menu.|M'Adjust' popsup Gadgets menu.
+Menu: êkeywordsë menu.
+
+# Syntax colouring groups
+Group1:Basic keywords 1
+Group2:Basic keywords 2
+Group3:Basic PROCs & FNs
+Group4:Event handlers
+Group5:Event names
+Group6:AppBasic PROCs & FNs

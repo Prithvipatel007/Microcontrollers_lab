@@ -1,0 +1,6 @@
+Rules Include
+! ffb, **.!StrongED.S.*
+! ffb, **.!StrongSrc.s.*
+! fd1, **.!SrcStrED.sTxt.*
+! fd1, **.!StrongSrc.sTxt.*
+End

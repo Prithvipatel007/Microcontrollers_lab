@@ -1,0 +1,16 @@
+# ModeWhen file for SysLog mode
+
+Rules Include
+# !Syslog* below caters for !Syslog (Tom Hughes) and !Syslogs (RISC OS Select)
+ fff, **.!SysLog*.Logs.**
+# below line is for logs of filetype data.
+# Dump mode would normally claim these,
+# so we have to claim them 'back' by applying a match rule ( beginning with '>')
+# after the file is loaded.
+# _dummy is only there because match rules must have a match expression
+ >ffd, **.!SysLog*.Logs.**; _dummy
+End
+
+Match
+     _dummy  Any
+End

@@ -1,0 +1,15 @@
+|Wimp pool sprites
+ Iconsprites <Obey$Dir>.!Sprites
+
+|Task directory
+ Set Smilies$Dir <Obey$Dir>
+ Set Smilies$Resources <Smilies$Dir>
+
+|Language resources
+ ifthere <Smilies$Dir>.!Languages then Run <Smilies$Dir>.!Languages Smilies
+
+|Toolbox modules
+ ifthere <Smilies$Resources>.Modules then Obey <Smilies$Resources>.Modules
+
+|Run
+ Run <Smilies$Dir>.!RunImage

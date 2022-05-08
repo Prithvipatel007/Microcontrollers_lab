@@ -1,0 +1,19 @@
+| Run file for ExportSED.
+| © StrongED Developers.
+
+| Task directory
+Set ExportSED$Dir <Obey$Dir>
+Set ExportSED$Resources <ExportSED$Dir>
+
+| Wimp pool sprites
+Iconsprites <ExportSED$Dir>.!Sprites
+
+| Language resources
+If "<StrongED$Language>" <> "" Then Set ExportSED$Language <StrongED$Language>
+IfThere <ExportSED$Dir>.!Languages Then Run <ExportSED$Dir>.!Languages ExportSED
+
+| Toolbox modules
+IfThere <ExportSED$Resources>.Modules Then Obey <ExportSED$Resources>.Modules
+
+| Run application
+Run <ExportSED$Dir>.!RunImage %*0

@@ -1,0 +1,10 @@
+.include "os.i"
+
+.global print
+
+print:
+
+  swi   OS_Write0
+  mov   pc, lr
+
+.end

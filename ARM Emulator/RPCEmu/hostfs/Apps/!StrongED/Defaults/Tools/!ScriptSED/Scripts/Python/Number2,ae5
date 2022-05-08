@@ -1,0 +1,9 @@
+#!Python
+
+import sys
+
+cnt = 1
+for line in sys.stdin.readlines():
+#  outFile.write(cnt, line)
+  print cnt, line;
+  cnt = cnt + 1

@@ -1,0 +1,10 @@
+# ModeWhen file for HPprint
+
+Rules Include
+! f7c,**
+! f7d,**
+! ff3,**
+End
+
+#Dump,0
+#> ~f7c f7d ff3 ff8 ffa,** ; _dumptest

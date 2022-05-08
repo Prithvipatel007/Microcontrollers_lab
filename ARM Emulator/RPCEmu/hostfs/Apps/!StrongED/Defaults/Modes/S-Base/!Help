@@ -1,0 +1,121 @@
+Help file for the StrongEd S-Base mode.
+27th February 2003
+
+The S-Base directory and all its contents should be placed in either
+!StrED_cfg.UserPrefs.Modes or in !StrongED.Defaults.Modes
+
+The preferred place is in !StrED_cfg.UserPrefs.Modes
+
+!S-Base contains a configuration option to use an external editor. If
+this is enabled, and you are using StrongED as your editor, then the
+text files created will be displayed in this S-Base mode.
+
+Its main advantage is that it colours key words, functions, strings,
+numbers and "remarks" so that they stand out. If you do not like the
+default colours produced you can change these:
+
+  Make sure you are in a text file which is being displayed in the
+  S-Base mode
+
+  Adjust click on the "tick" icon above (to bring up the mode choices
+  dialogue), and then go to the Colours section. Do not Select click on
+  this icon, as the dialogue created if you do will be the wrong one.
+
+  Most of the colour options are self-explanatory, with the exception
+  that key words are under Reserved Words 1, functions (@funcs) are
+  under Reserved Words 2 and def, proc, and enddef are on their own
+  under Reserved Words 3
+
+
+The same choices dialogue will also let you set many other options , which are
+worth exploring if you are not familiar with them.
+
+The S-Base mode will also enable the following:
+
+  Clicking on the "List of Found" icon (the one on the right in the
+  button bar at the top of the window):
+
+    with Select or Adjust produces a list of all "def proc" statements
+    in the file.
+
+    with Ctrl-Select or Ctrl-Adjust produces a list of all "print"
+    statements in the file
+
+    with Sh-Select or Sh-Adjust produces a list of all "suspend"
+    statements in the file
+
+
+  The following abbreviations will be automatically expanded:
+
+    def. (note the full stop) expands to
+
+      def proc
+
+      enddef
+
+
+    for. expands to
+
+       for
+
+       next
+
+
+    case. expands to
+
+       case
+       when
+       endcase
+
+    repeat. expands to
+
+       repeat
+
+       until
+
+
+    if. expands to
+
+       if
+
+       endif
+
+
+    while expands to
+
+       while
+
+       endwhile
+
+
+    |. expands to
+
+      |<followed by a whole line of dashes>
+
+
+    I have only indented the expansions here for clarity. The real
+    expansions to not indent the constructions any further than the
+    typed short-cuts.
+
+    In each case the caret is placed after the first keyword ready for
+    you to continue typing, and in most cases on pressing Return the
+    caret is then placed on the next line, indented by two spaces. In
+    the case of "case", it is placed after "when "
+
+    You can add to the abbreviation expansions by scrolling down to the
+    bottom of the S-Base mode file and adding further definitions after
+    Shortcuts and before the following End statement.
+
+
+Please let me know if you think of any enhancements to the S-Base mode,
+as at present it is very basic and could definitely be improved.
+
+I am slowly and not very regularly working on an S-Base StrongHelp
+reference manual, but it is a very long job and has to wait its turn
+with all the other bits of life which get in the way. When and if it
+ever appears I will circulate it. If you would like a copy then please
+let me know. The encouragement /might/ give me an incentive to get on
+with it.
+
+Robin Hampshire
+robin@brushford.com

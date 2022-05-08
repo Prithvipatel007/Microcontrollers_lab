@@ -1,0 +1,5 @@
+# JavaScript Mode
+
+HCM_lof:Generate a list of all functions.|M\Slook in this file only.|M\Alook in all files.
+HCM_updn:\Sgo to next function.|M\Ago to previous function
+HCM_go:Go to the definition of the function at cursor.|M\Slook in this file only.|M\Alook in all files.|Mcs-\Sreturn cursor to original position.

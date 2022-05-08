@@ -1,0 +1,570 @@
+	.file	"5_key_led.c"
+	.text
+	.align	2
+	.global	Wimp_CloseDown
+	.ascii	"Wimp_CloseDown\000"
+	.align	2
+	.word	4278190096
+	.type	Wimp_CloseDown, %function
+Wimp_CloseDown:
+	@ args = 0, pretend = 0, frame = 0, outgoing = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r9, fp, ip, lr, pc}
+	sub	fp, ip, #4
+	cmp	sp, sl
+	bllt	__rt_stkovf_split_small
+@ 8 "os.h" 1
+	swi 0x0400DD
+@ 0 "" 2
+	ldmea	fp, {r9, fp, sp, pc}
+	.size	Wimp_CloseDown, .-Wimp_CloseDown
+	.align	2
+	.global	Wimp_Poll
+	.ascii	"Wimp_Poll\000"
+	.align	2
+	.word	4278190092
+	.type	Wimp_Poll, %function
+Wimp_Poll:
+	@ args = 0, pretend = 0, frame = 8, outgoing = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r9, fp, ip, lr, pc}
+	sub	fp, ip, #4
+	cmp	sp, sl
+	bllt	__rt_stkovf_split_small
+	sub	sp, sp, #8
+	mov	r9, sp
+	str	r0, [r9, #0]
+	str	r1, [r9, #4]
+	ldr	r0, [r9, #0]
+@ 16 "os.h" 1
+	swi 0x0400C7
+@ 0 "" 2
+	mov	r3, r0
+	mov	r0, r3
+	ldmea	fp, {r9, fp, sp, pc}
+	.size	Wimp_Poll, .-Wimp_Poll
+	.align	2
+	.global	Wimp_Initialise
+	.ascii	"Wimp_Initialise\000"
+	.align	2
+	.word	4278190096
+	.type	Wimp_Initialise, %function
+Wimp_Initialise:
+	@ args = 0, pretend = 0, frame = 16, outgoing = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r9, fp, ip, lr, pc}
+	sub	fp, ip, #4
+	cmp	sp, sl
+	bllt	__rt_stkovf_split_small
+	sub	sp, sp, #16
+	mov	r9, sp
+	str	r0, [r9, #0]
+	str	r1, [r9, #4]
+	str	r2, [r9, #8]
+	str	r3, [r9, #12]
+@ 24 "os.h" 1
+	swi 0x0400C0
+@ 0 "" 2
+	ldmea	fp, {r9, fp, sp, pc}
+	.size	Wimp_Initialise, .-Wimp_Initialise
+	.align	2
+	.global	taskend
+	.ascii	"taskend\000"
+	.align	2
+	.word	4278190088
+	.type	taskend, %function
+taskend:
+	@ args = 0, pretend = 0, frame = 0, outgoing = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r9, fp, ip, lr, pc}
+	sub	fp, ip, #4
+	cmp	sp, sl
+	bllt	__rt_stkovf_split_small
+	bl	Wimp_CloseDown
+	ldmea	fp, {r9, fp, sp, pc}
+	.size	taskend, .-taskend
+	.align	2
+	.global	taskyield
+	.ascii	"taskyield\000"
+	.align	2
+	.word	4278190092
+	.type	taskyield, %function
+taskyield:
+	@ args = 0, pretend = 0, frame = 264, outgoing = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r9, fp, ip, lr, pc}
+	sub	fp, ip, #4
+	sub	ip, sp, #264
+	cmp	ip, sl
+	bllt	__rt_stkovf_split_big
+	sub	sp, sp, #264
+	mov	r9, sp
+	mov	r3, #1
+	strb	r3, [r9, #0]
+	add	r3, r9, #8
+	mov	r0, #14336
+	add	r0, r0, #48
+	mov	r1, r3
+	bl	Wimp_Poll
+	str	r0, [r9, #4]
+	ldr	r3, [r9, #4]
+	cmp	r3, #17
+	beq	.L7
+	ldr	r3, [r9, #4]
+	cmp	r3, #18
+	bne	.L8
+.L7:
+	ldrb	r3, [r9, #24]	@ zero_extendqisi2
+	cmp	r3, #0
+	bne	.L8
+	mov	r3, #0
+	strb	r3, [r9, #0]
+.L8:
+	ldrb	r3, [r9, #0]	@ zero_extendqisi2
+	mov	r0, r3
+	ldmea	fp, {r9, fp, sp, pc}
+	.size	taskyield, .-taskyield
+	.align	2
+	.global	taskstart
+	.ascii	"taskstart\000"
+	.align	2
+	.word	4278190092
+	.type	taskstart, %function
+taskstart:
+	@ args = 0, pretend = 0, frame = 4, outgoing = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r9, fp, ip, lr, pc}
+	sub	fp, ip, #4
+	cmp	sp, sl
+	bllt	__rt_stkovf_split_small
+	sub	sp, sp, #4
+	mov	r9, sp
+	str	r0, [r9, #0]
+	ldr	r3, [r9, #0]
+	mov	r0, #308
+	add	r0, r0, #2
+	ldr	r1, .L11
+	mov	r2, r3
+	mov	r3, #0
+	bl	Wimp_Initialise
+	ldmea	fp, {r9, fp, sp, pc}
+.L12:
+	.align	2
+.L11:
+	.word	1263747412
+	.size	taskstart, .-taskstart
+	.align	2
+	.global	OS_Write0
+	.ascii	"OS_Write0\000"
+	.align	2
+	.word	4278190092
+	.type	OS_Write0, %function
+OS_Write0:
+	@ args = 0, pretend = 0, frame = 4, outgoing = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r9, fp, ip, lr, pc}
+	sub	fp, ip, #4
+	cmp	sp, sl
+	bllt	__rt_stkovf_split_small
+	sub	sp, sp, #4
+	mov	r9, sp
+	str	r0, [r9, #0]
+@ 58 "os.h" 1
+	swi 0x00002
+@ 0 "" 2
+	ldmea	fp, {r9, fp, sp, pc}
+	.size	OS_Write0, .-OS_Write0
+	.align	2
+	.global	OS_WriteC
+	.ascii	"OS_WriteC\000"
+	.align	2
+	.word	4278190092
+	.type	OS_WriteC, %function
+OS_WriteC:
+	@ args = 0, pretend = 0, frame = 4, outgoing = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r9, fp, ip, lr, pc}
+	sub	fp, ip, #4
+	cmp	sp, sl
+	bllt	__rt_stkovf_split_small
+	sub	sp, sp, #4
+	mov	r9, sp
+	str	r0, [r9, #0]
+@ 64 "os.h" 1
+	swi 0x00000
+@ 0 "" 2
+	ldmea	fp, {r9, fp, sp, pc}
+	.size	OS_WriteC, .-OS_WriteC
+	.align	2
+	.global	OS_ScreenMode
+	.ascii	"OS_ScreenMode\000"
+	.align	2
+	.word	4278190096
+	.type	OS_ScreenMode, %function
+OS_ScreenMode:
+	@ args = 0, pretend = 0, frame = 8, outgoing = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r9, fp, ip, lr, pc}
+	sub	fp, ip, #4
+	cmp	sp, sl
+	bllt	__rt_stkovf_split_small
+	sub	sp, sp, #8
+	mov	r9, sp
+	str	r0, [r9, #0]
+	str	r1, [r9, #4]
+@ 72 "os.h" 1
+	swi 0x00065
+@ 0 "" 2
+	ldmea	fp, {r9, fp, sp, pc}
+	.size	OS_ScreenMode, .-OS_ScreenMode
+	.align	2
+	.global	OS_Plot
+	.ascii	"OS_Plot\000"
+	.align	2
+	.word	4278190088
+	.type	OS_Plot, %function
+OS_Plot:
+	@ args = 0, pretend = 0, frame = 12, outgoing = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r9, fp, ip, lr, pc}
+	sub	fp, ip, #4
+	cmp	sp, sl
+	bllt	__rt_stkovf_split_small
+	sub	sp, sp, #12
+	mov	r9, sp
+	str	r0, [r9, #0]
+	str	r1, [r9, #4]
+	str	r2, [r9, #8]
+@ 78 "os.h" 1
+	swi 0x00045
+@ 0 "" 2
+	ldmea	fp, {r9, fp, sp, pc}
+	.size	OS_Plot, .-OS_Plot
+	.align	2
+	.global	disc
+	.ascii	"disc\000"
+	.align	2
+	.word	4278190088
+	.type	disc, %function
+disc:
+	@ args = 0, pretend = 0, frame = 16, outgoing = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r9, fp, ip, lr, pc}
+	sub	fp, ip, #4
+	cmp	sp, sl
+	bllt	__rt_stkovf_split_small
+	sub	sp, sp, #16
+	mov	r9, sp
+	str	r0, [r9, #0]
+	str	r1, [r9, #4]
+	str	r2, [r9, #8]
+	str	r3, [r9, #12]
+	mov	r0, #156
+	ldr	r1, [r9, #0]
+	ldr	r2, [r9, #4]
+	bl	OS_Plot
+	mov	r0, #157
+	ldr	r1, [r9, #8]
+	ldr	r2, [r9, #12]
+	bl	OS_Plot
+	ldmea	fp, {r9, fp, sp, pc}
+	.size	disc, .-disc
+	.align	2
+	.global	line
+	.ascii	"line\000"
+	.align	2
+	.word	4278190088
+	.type	line, %function
+line:
+	@ args = 0, pretend = 0, frame = 16, outgoing = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r9, fp, ip, lr, pc}
+	sub	fp, ip, #4
+	cmp	sp, sl
+	bllt	__rt_stkovf_split_small
+	sub	sp, sp, #16
+	mov	r9, sp
+	str	r0, [r9, #0]
+	str	r1, [r9, #4]
+	str	r2, [r9, #8]
+	str	r3, [r9, #12]
+	mov	r0, #4
+	ldr	r1, [r9, #0]
+	ldr	r2, [r9, #4]
+	bl	OS_Plot
+	mov	r0, #5
+	ldr	r1, [r9, #8]
+	ldr	r2, [r9, #12]
+	bl	OS_Plot
+	ldmea	fp, {r9, fp, sp, pc}
+	.size	line, .-line
+	.align	2
+	.global	draw
+	.ascii	"draw\000"
+	.align	2
+	.word	4278190088
+	.type	draw, %function
+draw:
+	@ args = 0, pretend = 0, frame = 8, outgoing = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r9, fp, ip, lr, pc}
+	sub	fp, ip, #4
+	cmp	sp, sl
+	bllt	__rt_stkovf_split_small
+	sub	sp, sp, #8
+	mov	r9, sp
+	str	r0, [r9, #0]
+	str	r1, [r9, #4]
+	mov	r0, #5
+	ldr	r1, [r9, #0]
+	ldr	r2, [r9, #4]
+	bl	OS_Plot
+	ldmea	fp, {r9, fp, sp, pc}
+	.size	draw, .-draw
+	.align	2
+	.global	move
+	.ascii	"move\000"
+	.align	2
+	.word	4278190088
+	.type	move, %function
+move:
+	@ args = 0, pretend = 0, frame = 8, outgoing = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r9, fp, ip, lr, pc}
+	sub	fp, ip, #4
+	cmp	sp, sl
+	bllt	__rt_stkovf_split_small
+	sub	sp, sp, #8
+	mov	r9, sp
+	str	r0, [r9, #0]
+	str	r1, [r9, #4]
+	mov	r0, #4
+	ldr	r1, [r9, #0]
+	ldr	r2, [r9, #4]
+	bl	OS_Plot
+	ldmea	fp, {r9, fp, sp, pc}
+	.size	move, .-move
+	.align	2
+	.global	text
+	.ascii	"text\000"
+	.align	2
+	.word	4278190088
+	.type	text, %function
+text:
+	@ args = 0, pretend = 0, frame = 4, outgoing = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r9, fp, ip, lr, pc}
+	sub	fp, ip, #4
+	cmp	sp, sl
+	bllt	__rt_stkovf_split_small
+	sub	sp, sp, #4
+	mov	r9, sp
+	mov	r3, r0
+	strb	r3, [r9, #0]
+	mov	r0, #5
+	bl	OS_WriteC
+	ldrb	r3, [r9, #0]	@ zero_extendqisi2
+	mov	r0, r3
+	bl	OS_WriteC
+	ldmea	fp, {r9, fp, sp, pc}
+	.size	text, .-text
+	.align	2
+	.global	gcol
+	.ascii	"gcol\000"
+	.align	2
+	.word	4278190088
+	.type	gcol, %function
+gcol:
+	@ args = 0, pretend = 0, frame = 4, outgoing = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r9, fp, ip, lr, pc}
+	sub	fp, ip, #4
+	cmp	sp, sl
+	bllt	__rt_stkovf_split_small
+	sub	sp, sp, #4
+	mov	r9, sp
+	str	r0, [r9, #0]
+	mov	r0, #18
+	bl	OS_WriteC
+	mov	r0, #0
+	bl	OS_WriteC
+	ldr	r0, [r9, #0]
+	bl	OS_WriteC
+	ldmea	fp, {r9, fp, sp, pc}
+	.size	gcol, .-gcol
+	.align	2
+	.global	clg
+	.ascii	"clg\000"
+	.align	2
+	.word	4278190084
+	.type	clg, %function
+clg:
+	@ args = 0, pretend = 0, frame = 0, outgoing = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r9, fp, ip, lr, pc}
+	sub	fp, ip, #4
+	cmp	sp, sl
+	bllt	__rt_stkovf_split_small
+	mov	r0, #16
+	bl	OS_WriteC
+	ldmea	fp, {r9, fp, sp, pc}
+	.size	clg, .-clg
+	.align	2
+	.global	mode
+	.ascii	"mode\000"
+	.align	2
+	.word	4278190088
+	.type	mode, %function
+mode:
+	@ args = 0, pretend = 0, frame = 4, outgoing = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r9, fp, ip, lr, pc}
+	sub	fp, ip, #4
+	cmp	sp, sl
+	bllt	__rt_stkovf_split_small
+	sub	sp, sp, #4
+	mov	r9, sp
+	str	r0, [r9, #0]
+	ldr	r3, [r9, #0]
+	mov	r0, #15
+	mov	r1, r3
+	bl	OS_ScreenMode
+	ldmea	fp, {r9, fp, sp, pc}
+	.size	mode, .-mode
+	.align	2
+	.global	delay
+	.ascii	"delay\000"
+	.align	2
+	.word	4278190088
+	.type	delay, %function
+delay:
+	@ args = 0, pretend = 0, frame = 4, outgoing = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r9, fp, ip, lr, pc}
+	sub	fp, ip, #4
+	cmp	sp, sl
+	bllt	__rt_stkovf_split_small
+	sub	sp, sp, #4
+	mov	r9, sp
+	mov	r3, #0
+	str	r3, [r9, #0]
+	b	.L26
+.L27:
+	ldr	r3, [r9, #0]
+	add	r3, r3, #1
+	str	r3, [r9, #0]
+.L26:
+	ldr	r2, [r9, #0]
+	mvn	r3, #-50331648
+	sub	r3, r3, #10289152
+	sub	r3, r3, #42496
+	cmp	r2, r3
+	ble	.L27
+	ldmea	fp, {r9, fp, sp, pc}
+	.size	delay, .-delay
+	.align	2
+	.global	OS_Byte
+	.ascii	"OS_Byte\000"
+	.align	2
+	.word	4278190088
+	.type	OS_Byte, %function
+OS_Byte:
+	@ args = 0, pretend = 0, frame = 12, outgoing = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r9, fp, ip, lr, pc}
+	sub	fp, ip, #4
+	cmp	sp, sl
+	bllt	__rt_stkovf_split_small
+	sub	sp, sp, #12
+	mov	r9, sp
+	str	r0, [r9, #0]
+	str	r1, [r9, #4]
+	str	r2, [r9, #8]
+	ldr	r1, [r9, #4]
+@ 17 "5_key_led.c" 1
+	swi 0x00006
+@ 0 "" 2
+	mov	r3, r1
+	mov	r0, r3
+	ldmea	fp, {r9, fp, sp, pc}
+	.size	OS_Byte, .-OS_Byte
+	.section	.rodata
+	.align	2
+.LC0:
+	.ascii	"Key - To end press Escape\000"
+	.text
+	.align	2
+	.global	main
+	.ascii	"main\000"
+	.align	2
+	.word	4278190088
+	.type	main, %function
+main:
+	@ args = 0, pretend = 0, frame = 0, outgoing = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r9, fp, ip, lr, pc}
+	sub	fp, ip, #4
+	cmp	sp, sl
+	bllt	__rt_stkovf_split_small
+	ldr	r0, .L34
+	bl	puts
+.L33:
+	mov	r0, #121
+	mov	r1, #153
+	mov	r2, #0
+	bl	OS_Byte
+	mov	r3, r0
+	cmp	r3, #255
+	bne	.L31
+	mov	r0, #3
+	bl	gcol
+	mov	r0, #20
+	mov	r1, #20
+	mov	r2, #30
+	mov	r3, #30
+	bl	disc
+.L31:
+	mov	r0, #121
+	mov	r1, #249
+	mov	r2, #0
+	bl	OS_Byte
+	mov	r3, r0
+	cmp	r3, #255
+	bne	.L32
+	mov	r0, #0
+	bl	gcol
+	mov	r0, #20
+	mov	r1, #20
+	mov	r2, #30
+	mov	r3, #30
+	bl	disc
+.L32:
+	bl	delay
+	b	.L33
+.L35:
+	.align	2
+.L34:
+	.word	.LC0
+	.size	main, .-main
+	.ident	"GCC: (GCCSDK GCC 4.7.4 Release 3) 4.7.4"

@@ -1,0 +1,7 @@
+Hsql_lof:SELECT erzeugt eine Liste aller Funktionen.
+Hsql_up:SELECT geht zur letzten Funktion.
+Hsql_dn:SELECT geht zur nächsten Funktion.
+Hsql_ld:SELECT lädet die Header-Datei unter der Einfügemarke.
+Hsql_run:SELECT speichert und kompiliert den Text.
+Hsql_mak:SELECT speichert den Text und startet Make.
+Hsql_go:SELECT geht zur Definition auf der die Einfügemarke steht.

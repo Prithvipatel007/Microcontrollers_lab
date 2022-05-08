@@ -1,0 +1,7 @@
+DEF PROCDealWith_Iconbar(event,object,component)
+CASE event OF
+ WHEN Iconbar_Clicked
+ WHEN Iconbar_SelectAboutToBeShown
+ WHEN Iconbar_AdjustAboutToBeShown
+ENDCASE
+ENDPROC

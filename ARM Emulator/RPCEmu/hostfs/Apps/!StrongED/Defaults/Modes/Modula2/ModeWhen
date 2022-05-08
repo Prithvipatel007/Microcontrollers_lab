@@ -1,0 +1,4 @@
+Rules Include
+  fff,**.DEF.*
+  fff,**.MOD.*
+End

@@ -1,0 +1,16 @@
+
+ Additions for the StrongED HTML mode
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Below are some additions for the StrongED HTML mode. 
+
+
+ !Sprites and !Sprites22
+=========================
+
+
+Sprites for HTML files. !Sprites22 should be used if possible.
+
+If you have a the 'new' boot sequence place !Sprites or !Sprites22 in
+Boot:Choices.Boot.PreDesk . Otherwise ensure that either of the files gets
+'*IconSprite'ed during start up.

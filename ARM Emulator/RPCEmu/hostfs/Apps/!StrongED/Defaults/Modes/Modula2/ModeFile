@@ -1,0 +1,70 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : Modula2
+#	Purpose :
+#	Author  :
+#	Licence :
+#	Version : 1.00, 22-12-2011
+#
+#-------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+# 06.01.99 GV Removed duplicate syntax word 'OR'
+# 22-12-11 FG Changed 'Type' to 'CommentType' in SyntaxComment
+#          FG Moved Help in Functions section in front of Select line
+#          FG Made up a version number to make it easier to signal changes
+#------------------------------------------------------------------------------
+
+Search
+	Func		"PROCEDURE" {" "} @0 Alpha {Alphanum}
+End
+
+#--------------------------------
+
+SyntaxOptions
+	SingleQuote	Yes
+	DoubleQuote	Yes
+	QuoteQuote	No
+	SplitString	No
+End
+
+SyntaxComment
+	CommentType	Recursive
+	StartWith	(*
+	EndWith		*)
+End
+
+
+SyntaxWords Group1 EndNonID case
+	ARRAY BEGIN BY CASE CONST DEFINITION DO ELSE ELSIF END
+	EXIT EXPORT FOR FROM IF IMPLEMENTATION IMPORT LOOP
+	MODULE OF POINTER PROCEDURE QUALIFIER RECORD REPEAT
+	RETURN SET THEN TO TYPE UNTIL VAR WHILE WITH
+End
+
+SyntaxWords Group2 EndNonID case
+	BITSET BOOLEAN CARDINAL CHAR INTEGER LONGINT LONGREAL PROC REAL
+End
+
+SyntaxWords Group3 EndNonID case
+	FALSE NIL TRUE
+	DIV MOD AND OR NOT IN
+End
+
+SyntaxWords Group4 EndNonID case
+	ABS CAP CHR FLOAT HIGH MAX MIN ODD ORD SIZE TRUNC VAL
+	DEC EXCL INC INCL
+	HALT
+End
+
+#--------------------------------
+
+Functions
+
+	Key	‹F2
+	Menu	List of functions ‹F2
+	Icon	LoF
+	Help	Hmod_lof
+	Select	ListOfFound (Func,All,Whole,Line,Case)
+
+End

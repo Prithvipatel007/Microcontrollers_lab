@@ -1,0 +1,22 @@
+Hhtml_loh:List of headings
+Hhtml_run:Click to save text and launch browser (‹F3)
+Hhtml_esc:replaces  < with escape |M to embed an HTML example in HTML file
+Hhtml_load:Goes to selected file|MFor now must be in same directory as current file
+Hhtml_h1:Makes selected text into H1
+Hhtml_h2:Makes selected text into H2
+Hhtml_h3:Makes selected text into H3
+Hhtml_h4:Makes selected text into H4
+Hhtml_h5:Makes selected text into H5
+Hhtml_h6:Makes selected text into H6
+Hhtml_strong:Makes selected text strong
+Hhtml_emph:Makes selected text emphasis
+Hhtml_italic:Makes selected text italic
+Hhtml_bold:Makes selected text bold
+Hhtml_rm:Removes all tags from selected text |M (URL of anchors remain)
+Hhtml_anc:Select inserts anchor|M Adjust Convert url + text to anchor
+
+Hhtml_font:Adds font tags to selected text
+Hhtml_para:Makes selected text into a paragraph
+#Hhtml_under:Underlines selected text
+#Hhtml_comm:Comments selected text
+#Hhtml_tohtml:\sconvert selected text to HTML.\aconvert selected text to text

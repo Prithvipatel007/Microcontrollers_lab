@@ -1,0 +1,7 @@
+DEF PROCDealWith_ColourDbox(event,object,component)
+CASE event OF
+ WHEN ColourDbox_AboutToBeShown
+ WHEN ColourDbox_DialogueCompleted
+ WHEN ColourDbox_ColourSelected
+ENDCASE
+ENDPROC

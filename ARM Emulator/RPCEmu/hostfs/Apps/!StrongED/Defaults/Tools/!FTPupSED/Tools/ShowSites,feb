@@ -1,0 +1,5 @@
+| Show sites directory
+| © StrongED developers
+
+Filer_OpenDir <FTPupSED$SitesDir>
+Filer_OpenDir <StrongED$Tmp_WriteDir>Tools.!FTPupSED.Sites

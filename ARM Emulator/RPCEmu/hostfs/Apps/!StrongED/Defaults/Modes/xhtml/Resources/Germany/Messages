@@ -1,0 +1,11 @@
+Hxhtml_loa:AUSWAHL erzeugt eine Liste aller Anker (Anchors).
+Hhtml_h1:Markiert ausgewählten Text als h1.
+Hhtml_h2:Markiert ausgewählten Text als h2.
+Hhtml_h3:Markiert ausgewählten Text als h3.
+Hhtml_h4:Markiert ausgewählten Text als h4.
+Hhtml_strong:Markiert ausgewählten Text als 'strong'.
+Hhtml_emph:Markiert ausgewählten Text als 'betont'.
+Hhtml_para:Markiert ausgewählten Text als 'paragraph'.
+Hhtml_anchor:AUSWAHL fügt einen Anker ein|MSPEZIAL konvertiert URL + Text in einen Anker.
+Hhtml_object:Markiert ausgewählten Text als 'objekt'.
+

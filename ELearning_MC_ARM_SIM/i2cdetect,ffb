@@ -1,0 +1,18 @@
+DIM buffer% 1
+
+REPEAT
+  PRINT "-------------------------"
+  FOR dev% = 1 TO 126
+    SYS "XIIC_Control", (dev% << 1) + 1, buffer%, 1 TO ; flags%
+    IF ((flags% AND 1) = 0) THEN
+      PRINT "I2C device at address &" + STR$~(dev%)
+    ENDIF
+  NEXT dev%
+
+  PRINT "-------------------------"
+  PRINT "Scan again (y/n)?"
+  key$ = GET$
+  IF key$ <> "Y" AND key$ <> "y" THEN
+    END
+  ENDIF
+UNTIL FALSE

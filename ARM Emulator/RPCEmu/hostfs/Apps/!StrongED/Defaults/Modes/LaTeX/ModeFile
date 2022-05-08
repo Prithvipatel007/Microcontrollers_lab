@@ -1,0 +1,87 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : LaTeX
+#	Purpose :
+#	Author  : Steve Harris
+#	Licence :
+#	Version : 1.00, 22-12-2011
+#
+#-------------------------------------------------------------------------------
+#
+# A simple LaTex mode by Steve Harris
+# Just colours. Nothing else.
+#------------------------------------------------------------------------------
+# 06.01.99 GV Removed duplicate words; titlepage table letter figure equation equation
+# 22-12-11 FG Changed 'Type' to 'CommentType' in SyntaxComment
+#          FG Made up a version number to make it easier to signal changes
+#------------------------------------------------------------------------------
+
+
+SyntaxComment 1
+	CommentType	OneLine
+	StartWith	%
+End
+
+ID_FirstChar	A-Za-z
+ID_Middle	A-Za-z
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	No
+	QuoteQuote	No
+End
+
+SyntaxWords Group1 EndOfID nocase
+	\A \B \C \D \E \F \G \H \I \J \K \L \M
+	\N \O \P \Q \R \S \T \U \V \W \X \Y \Z
+End
+
+SyntaxWords Group2 EndAlways nocase
+	\\ \[ \] \' \( \) \+ \- \< \= \> \`
+	\; \: \, \!
+	\# \$ \& \~ \_ \^
+End
+
+SyntaxWords Group3 EndAlways nocase
+	# $ & ~ _ ^
+End
+
+SyntaxWords Group4 EndAlways case
+
+	document
+	part		paragraph	figure		enumi
+	chapter		subparagraph	table		enumii
+	section		page		footnote	enumiii
+	subsection	equation	mpfootnote	enumiv
+	subsubsection
+
+	article	report	letter	book	slides	10pt	11pt	12pt
+	a4paper	a5paper	b5paper	letterpaper	legalpaper	executivepaper
+	landscape	titlepage	notitlepage	leqno	fleqn
+	openbib	draft	final
+
+	array	center	description	enumerate	eqnarray
+	flushleft	flushright	itemize	list	minipage
+	picture	quotation	quote	tabbing	tabular	thebibliography
+	theorem	verbatim	verse	left	right
+
+	OT1	T1	cmr	cmss	cmtt	bx
+
+	math	displaymath
+
+	arabic	roman	Roman	alph	Alph
+
+	plain	empty	headings	myheadings
+
+	tiny	scriptsize	footnotesize	small	normalsize	large
+	Large	LARGE	huge	Huge
+
+	textrm	textit	emph	textmd	textbf	textup	textsl	textsf	textsc
+	texttt	textnormal	mathrm	mathbf	mathsf	mathtt	mathit	mathnormal
+	mathca	bold	normal
+
+End
+
+Shortcuts
+	é	\\'e
+End

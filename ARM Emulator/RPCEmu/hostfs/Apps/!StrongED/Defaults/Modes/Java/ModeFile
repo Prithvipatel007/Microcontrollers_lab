@@ -1,0 +1,151 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : Java
+#	Purpose : StrongED mode file for Java source files
+#	Author  : © StrongED Developers
+#	Licence : Freeware
+#	Version : 1.01, 01-10-2012
+#
+#------------------------------------------------------------------------------
+# Changes:
+# 24.03.97  Guttorm Vik  First version hastily knocked together.
+# 21.01.98  Peter Naulls F10 now compiles. Added some more shortcuts.
+# 26.07.98  Guttorm Vik  ctrl-Return now includes any leading "/*" or "//" in auto-indent
+# 26.07.98  Guttorm Vik  Added foldparm1
+# 26.07.98  Guttorm Vik  Added "*/" as a reserved word.
+#--- 3.53 released
+# 15.08.98  Peter Naulls Changed 'argv' to 'args' in "m{" shortcut
+# 30.12.98  Guttorm Vik  Removed "*/" as reserved word. Clashed with " .. (char */*parm_name*/)
+# 22.12.11  Fred Graute  Replaced old Tmp$* variables with StrongED$Tmp_* ones
+#           Fred Graute  Changed 'Type' to 'CommentType' in SyntaxComment
+#           Fred Graute  Made up a version number to make it easier to signal changes
+# 01-10-12  Fred Graute  Changed Author field to © StrongED Developers
+#------------------------------------------------------------------------------
+
+HelpPath	Java,
+
+Foldparm1 ("/*{{{","/*}}}",startspace,case)
+
+#-------------------------------------------
+
+Search
+	_Indent2	{" "} [ "/*" | "//" ] {" "}
+End
+
+#-------------------------------------------
+
+ID_FirstChar	A-Za-z_
+ID_Middle	A-Za-z_0-9
+
+SyntaxOptions
+	SingleQuote	Yes
+	DoubleQuote	Yes
+	QuoteChar	\
+	QuoteQuote	No
+	SplitString	Yes
+	HexPrefix	0x
+End
+
+SyntaxComment 1
+	CommentType	Multiline
+	StartWith	/*
+	EndWith		*/
+End
+
+SyntaxComment 2
+	CommentType	OneLine
+	StartWith	//
+End
+
+#--- Group 1: Control
+
+SyntaxWords Group1 case
+	abstract break case catch class continue default do else
+	extends final finally for if implements import instanceof
+	interface native new null package private protected public
+	return static super switch synchronized this throw throws
+	transient try void volatile while
+End
+
+#--- Group 2: Type definitions
+
+SyntaxWords Group2 case
+	boolean byte char double float int long short
+End
+
+#--- Group 3: Constants
+
+SyntaxWords Group3 case
+	false true
+End
+
+# Make sure superfluous comment-end's stick out
+
+SyntaxWords Group4 nocase
+	"*/"
+End
+
+#--- Group 7: Reserved, but not used
+
+SyntaxWords Group7 case
+	byvalue cast const future generic goto inner operator
+	outer rest var
+End
+
+#----------------------------------------------------------
+
+KeyList
+	^‹[		InsertStr("/*")
+	^‹]		InsertStr("*/")
+	^Return		NewLine(indent,_Indent2)
+End
+
+#----------------------------------------------------------
+
+Functions
+
+	Key	‹F2
+	Menu	List of functions ‹F2
+	Icon	LoF
+	Select	ListOfC (All,Sort)
+	Help	Hjav_lof
+
+	Key	‹PgUp
+	Icon	up
+	Select	GotoPrevC (Text)
+	Help	Hjav_up
+
+	Key	‹PgDown
+	Icon	down
+	Select	GotoNextC (Text)
+	Help	Hjav_dn
+
+	Key	F10
+	Menu	Save & Compile      F10
+	Icon	Run
+	Select	SetTmp() Run("Dir <StrongED$Tmp_FilePath>") SaveRun("TaskWindow \"guavac <StrongED$Tmp_FileLeaf> -ext\" -name guavac -display -wimpslot 3000k -quit")
+	Help	Hjav_run
+
+	Key	^G 1
+	Menu	Goto function definition
+	Icon	goto
+	Select	Push GotoFoundC (all)
+	Help	Hjav_go
+
+	Key	^G 2
+	‹Select	Pop
+
+End
+
+#----------------------------------------------------------
+
+Shortcuts
+	w(	while (\@) {\n\i  \@\n\i}
+	f(	for (\@;\@;\@) {\n\i  \@\n\i}
+	s(	switch (\@) {\n\i  case\n\i}
+	c{	class \@ {\n\i  \@\n\i}
+	m{	public static void main(String args[]) {\n\i  \@\n\i}
+	t{	try {\n\i  \@\n\i} catch(Exception e) {\n\i  \n\i}
+	S(	System.out.println(\@);
+	``-	/*----------------------------------------------------------------------------*/
+End

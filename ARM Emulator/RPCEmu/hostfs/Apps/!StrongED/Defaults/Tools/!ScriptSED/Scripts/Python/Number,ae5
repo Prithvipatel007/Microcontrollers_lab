@@ -1,0 +1,16 @@
+#!Python
+
+import sys
+
+inFile = file(sys.argv[1],'r',0)
+outFile = file(sys.argv[2],'w',0)
+
+cnt = 0
+for line in inFile.readlines():
+  cnt = cnt + 1
+  linecnt = str(cnt)
+  linecnt = linecnt.rjust(8)
+  outFile.write(linecnt + ' ' + line)
+
+inFile.close()
+outFile.close()

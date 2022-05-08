@@ -1,0 +1,9 @@
+| Find operating system version
+| © StrongED Developers
+
+SetEval StrongED$OSVsn 600
+RMEnsure UtilityModule 6.00 SetEval StrongED$OSVsn 500
+RMEnsure UtilityModule 5.00 SetEval StrongED$OSVsn 400
+RMEnsure UtilityModule 4.00 SetEval StrongED$OSVsn 350
+RMEnsure UtilityModule 3.50 SetEval StrongED$OSVsn 310
+RMEnsure UtilityModule 3.10 SetEval StrongED$OSVsn 200

@@ -1,0 +1,22 @@
+#! lua
+
+local dedupe = function()
+ local file = arg[1]
+ local infile = io.open(file, "r")
+ local unique = {}
+-- if not infile then
+--    _ERRORMESSAGE("cannot open "..infile)
+--    end
+ repeat
+ local line = infile:read("*l")
+ if (line) then
+   if not (unique[line]) then
+     unique[line] = 1
+     print(line)
+   end
+ end
+ until not line
+ infile:close()
+end -- runscript
+
+dedupe()

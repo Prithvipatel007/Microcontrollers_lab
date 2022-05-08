@@ -1,0 +1,501 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : xhtml
+#	Purpose : xhtml mode for StrongED
+#	Author  : Keith Hopper (original version)
+#	Licence : ?
+#	Version : 1.00, 22-12-2011
+#
+#-------------------------------------------------------------------------------
+# Additional work by :
+# GV    Guttorm Vik <guttorm.vik@eunet.no>
+# PL    Philip Ludlam <pludlam@hotmail.com>
+# MS    Mike Sandells (mike@mike100.demon.co.uk>
+#----------------------------------------------------------------------
+# 03-01-23 KH Developed from HTML mode of 16 Feb 2000 by Mike Sandells
+#             <mike@mike100.demon.co.uk>
+# 22-12-11 FG Replaced old Tmp$* variables with StrongED$Tmp_* ones
+#          FG Changed 'Type' to 'CommentType' in SyntaxComment
+#          FG Changed above header so it's in line with other modes
+#          FG Made up a version number to make it easier to signal changes
+#----------------------------------------------------------------------
+
+HelpPath	StrongHTML,
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteQuote	Yes
+	SplitString	No
+	HexPrefix	#
+End
+
+SyntaxComment
+	CommentType	Multiline
+	StartWith	<!--
+	EndWith		-->
+End
+
+# Id's are used to try and pick up all tags that don't have their
+# own colouring.   It also picks out start of tags such as
+# <a ( as part of <a href=""></a> )
+# Of course it will also pick out non-tags such as <fred>
+
+ID_FirstChar	<
+ID_Middle	/a-z_0-9
+ID_LastChar	a-z_0-9>
+
+
+#--- High level elements - all head elements and including frames.
+
+SyntaxWords Group1 EndAlways
+	<!doctype
+	<html> </html> <html
+	<head> </head> <head
+	<body> </body> <body
+	<link
+	<frame
+	<frameset> </frameset> <frameset
+	<noframes> </noframes> <noframes
+	<meta
+	<base
+	<title> </title> <title
+End
+
+#--- Block presentational and miscellaneous elements
+
+SyntaxWords Group2 EndAlways
+	<hr
+	<tt> </tt>
+	<map> </map> <map
+	<area
+	<small </small>
+	<sup> </sup> <sup
+	<sub> </sub> <sub
+End
+
+#--- Block phrasal elements
+
+SyntaxWords Group3 EndAlways
+	<address> </address> <address
+	<h1> </h1> <h1
+	<h2> </h2> <h2
+	<h3> </h3> <h3
+	<h4> </h4> <h4
+	<h5> </h5> <h5
+	<h6> </h6> <h6
+	<pre> </pre>
+	<blockquote> </blockquote>
+End
+
+#--- Block structural elements - including table elements
+
+SyntaxWords Group4 EndAlways
+	<p> </p> <p
+	<div> </div> <div
+	<table> </table> <table
+	<caption> </caption> <caption
+	<colgroup> </colgroup <colgroup
+	<col> </col <col
+	<thead> </thead <thead
+	<tfoot> </tfoot> <tfoot
+	<tbody> </tbody> <tbody
+	<td> </td> <td
+	<tr> </tr> <tr
+	<th> </th> <th
+End
+
+#--- In-line phrasal elements
+
+SyntaxWords Group5 EndAlways
+	<abbr> </abbr> <abbr
+	<acronym> </acronym> <acronym
+	<cite> </cite> <cite
+	<code> </code> <code
+	<dfn> </dfn> <dfn
+	<kbd> </kbd> <kbd
+	<q> </q> <q
+	<samp> </samp> <samp
+	<var> </var> <var
+	<em> </em> <em
+	<strong> </strong> <strong
+End
+
+#--- In-line structural elements (and ruby!)
+
+SyntaxWords Group6 EndAlways
+	<br
+	<span> </span> <span
+	<bdo> </bdo> <bdo
+	<ins> </ins>
+	<del> </del>
+	<ruby> </ruby> <ruby
+	<rbc> </rbc> <rbc
+	<rtc> </rtc> <rtc
+	<rb> </rb> <rb
+	<rt> </rt> <rt
+	<rp> </rp> <rp
+End
+
+#--- Anchor, form and other external elements
+
+SyntaxWords Group7 EndAlways
+	<? ?>
+	"<a href" "<a id" <a </a>
+	<img src </img>
+	<object </object>
+	<form> </form> <form
+	<label> </label> <label
+	<optgroup> </optgroup> <optgroup
+	<textarea> </textarea> <textarea
+	<fieldset> </fieldset> <fieldset
+	<legend> </legend> <legend
+	<button> </button> <button
+	<input
+	<select </select>
+	<option </option>
+
+End
+
+#--- List elements
+
+SyntaxWords Group8 EndAlways
+	<ul> </ul> <ul
+	<dl> </dl> <dl
+	<ol> </ol> <ol
+	<li> </li> <li
+	<dt> </dt> <dt
+	<dd> </dd> <dd
+
+End
+
+
+#----------------------------------------------------------------------
+
+
+Search
+	entity		"&" {AlphaNum}+ ";"
+	heading1	"<h"  AlphaNum   ">" @0 *  "</" @9
+	heading		"<h"  AlphaNum   ">" @0 * @9 "</"
+	tag		"<" ["\\"] { AlphaNum | "/" }+  ">"
+	_MarkWord	tag | entity | {AlphaNum}+   | {Punct}+
+	_SpellIgnore	("<" ["/"]? {'~<>'}+ ">") | ("&" {AlphaNum}+ ";")
+
+	quote		"\""
+	anchor		"<a" {iswhite}+ * "href=" quote @0 ** quote  ">" @9
+	anchor1		"<a" {iswhite}+ * "href=" quote @0
+	selected_line	{any}+
+
+	url		{AlphaNum}+ ":/" { ["~"] alphanum | '/_.' }+
+	url_text	@1 url @2 {iswhite} @3 {.} @4
+	text		@1 @2 @3 {.} @4
+	hotlist		url_text
+
+	anch_st		"<a" {iswhite}+ * quote
+	anch_end	quote  {iswhite} ">"
+	remove_tag	anch_st | anch_end | tag
+
+#	For 'Escape'
+	speech	&22
+End
+
+Replace
+	h1		"<h1 style=\"text-align:left\">" @@ "</h1>"
+	h1a		"<h1 style=\"text-align:center\">" @@ "</h1>"
+	h2		"<h2 style=\"text-align:left\">" @@ "</h2>"
+	h2a		"<h2 style=\"text-align:center\">" @@ "</h2>"
+	h3		"<h3 style=\"text-align:left\">" @@ "</h3>"
+	h3a		"<h3 style=\"text-align:center\">" @@ "</h3>"
+	h4		"<h4 style=\"text-align:left\">" @@ "</h4>"
+	h4a		"<h4 style=\"text-align:center\">" @@ "</h4>"
+
+	red		"<span style=\"color: #ff0000 ; background-color: transparent\">" @@ "</span>"
+	blue		"<span style=\"color: #3a00aa ; background-color: transparent\">" @@ "</span>"
+	green		"<span style=\"color: #008000 ; background-color: transparent\">" @@ "</span>"
+
+	typewriter	"<tt>" @@ "</tt>"
+	strong		"<strong>" @@ "</strong>"
+	emphasis	"<em>" @@  "</em>"
+	bigger		"<big>" @@  "</big>"
+	smaller		"<small>" @@  "</small>"
+
+	comment		"<!-- " @@ " -->"
+
+	hotlist_r  "<a href=\"" @12  "\">" @34  "</a>"
+	anchor     "<a href=\"\">" @@ "</a>"
+	id		"<a id=\"\">" @@ "</a>"
+	para		"<p>" @@ "</p>"
+	parac		"<p style=\"text-align: center\">" @@ "</p>"
+
+	object		"<object data=\"\" type=\"\">" @@ "</object>"
+End
+
+ClickList Select2
+	http	BroadcastURL("<StrongED$Tmp_MarkWord>")
+END
+
+ClickList Adjust2
+	http	BroadcastURL("<StrongED$Tmp_MarkWord>")
+
+END
+
+KeyList
+	^D	1	"Last updated " DateAndTime ("%we, %dy %mo %ce%yr")
+	^‹D	1	DateAndTime ("%we, %dy of %mo %ce%yr")
+
+#	The lines below setup the file loading definitions
+	^‹T	1	SetTmp() InsertFile ("<StrongED$Tmp_ModePath>.Files.Template")
+	^‹H	1	SetTmp() InsertFile ("<StrongED$Tmp_ModePath>.Files.Header")
+	^‹F	1	SetTmp() InsertFile ("<StrongED$Tmp_ModePath>.Files.Footer")
+End
+
+Functions
+
+	Icon	lof
+	Select 	ListOfFound (anchor1,All,Align,noLine)
+	Menu	List of anchors
+	Help	Hxhtml_loa
+
+	Adjust	ListOfFound (heading1,All,align,noLine)
+
+	Key	‹F10
+	Menu	Save & Render      ‹F10
+	Icon	run
+	Select	SetTmp() SaveDClick ("<StrongED$Tmp_FileName>")
+	Help	Click to save text and launch viewer (‹F3)
+
+	Menu	Create <h1>
+	Icon	xhtml_h1
+	Select	Replace( selected_line,h1 , block , noline)
+	Help	Hxhtml_h1
+
+	Adjust	Replace( selected_line,h1a , block , noline)
+
+	Menu	Create <h2>
+	Icon	xhtml_h2
+	Select	Replace( selected_line,h2 , block , noline)
+	Help	Hxhtml_h2
+
+	Adjust	Replace( selected_line,h2a , block , noline)
+
+	Menu	Create <h3>
+	Icon	xhtml_h3
+	Select	Replace( selected_line,h3 , block , noline)
+	Help	Hxhtml_h3
+
+	Adjust	Replace( selected_line,h3a , block , noline)
+
+	Menu	Create <h4>
+	Icon	xhtml_h4
+	Select	Replace( selected_line,h4 , block , noline)
+	Help	Hxhtml_h4
+
+	Adjust	Replace( selected_line,h4a , block , noline)
+
+	Menu	Emphasise
+	Icon	xhtml_em
+	Select	Replace (selected_line, emphasis, block, noline)
+	Help	Hxhtml_em
+
+	Menu	Strong
+	Icon	xhtml_strong
+	Select	Replace (selected_line, strong, block, noline)
+	Help	Hxhtml_strong
+
+	Menu	Paragraph
+	Icon	xhtml_para
+	Select	Replace (selected_line,para , block ,noline,nocase)
+	Help	Hxhtml_para
+
+	Adjust	Replace (selected_line,parac , block ,noline,nocase)
+
+	Menu	Insert Anchor
+	Icon	xhtml_anchor
+	Select	Replace( selected_line, anchor , block , noline)
+	Help	Hxhtml_anchor
+
+	Adjust	Replace( selected_line, id , block , noline)
+
+	Menu	Insert Object
+	Icon	xhtml_obj
+	Select	Replace( selected_line, anchor , block , noline)
+	Help	Hxhtml_object
+End
+
+
+Shortcuts
+# start of document
+	``f	<?xml version="1.0" encoding="utf-8" ?>\n<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"\n\t"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">\n<html xmlns="http://www.w3.org/1999/xhtml">\n<head>\n\t<title>\@</title>\n\t<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />\n\t<meta name="author" content="Keith Hopper" />\n\t<meta name="generator" content="StrongED 4.65" />\n\t<meta http-equiv="Content-Style-Type" content="text/css" />\n\t<link rel="stylesheet" href="styles/house.css" type="text/css" />\n</head>\n\n<body xml:lang="en">\n\n<h1 id="">\@</h1>\n\n<div>\n<hr />\n<address>Keith Hopper </address>\n</div>\n</body>\n</html>
+
+# lists
+	``ul	<ul>\n\i  <li>\@\n\i</ul>
+	``ol	<ol>\n\i  <li>\@\n\i</ol>
+	``li	<li>\@\n\i<li>
+	<li>+	<li>\@</li>\n\i<li>\@
+
+	``dl	<dl>\n\i\t\@\n</dl>\@
+	``dt	<dt>\@</dt>\n\i\t<dd>\@</dd>\@
+
+# anchors
+	``ai	<a href="\@">\@</a>
+	``ae	<a href="http://\@/\@">\@</a>
+
+# heads
+	``1	<h1 id="\@">\@</h1>\n
+	``2	<h2 id="\@">\@</h2>\n
+	``3	<h3 id="\@">\@</h3>\n
+	``4	<h4 id="\@">\@</h4>\n
+	``5	<h5 id="\@">\@</h5>\n
+	``6	<h6 id="\@">\@</h6>\n
+
+
+# comment :
+	``!	<!-- \@ -->
+
+# tables
+
+	``tab	<table\@>\n\i\t\@\n</table>\@\n
+	``cap	<caption\@>\n\i\t\@\n</caption>\@\n
+	``cg	<colgroup\@>\n\i\t\@\n</colgroup>\@\n
+	``col	<col\@>\n\i\t\@\n</col>\@\n
+	``thd	<thead\@>\n\i\t\@\n</thead>\@\n
+	``tft	<tfoot\@>\n\i\t\@\n</tfoot>\@\n
+	``tb	<tbody\@>\n\i\t\@\n</tbody>\@\n
+	``tr	<tr\@>\n\i\t\@\n</tr>\n
+	``td	<td\@>\n\i\t\@\n</td>\n
+	``th	<th\@>\n\i\t\@\n</th>\n
+
+# misc
+
+	``m	<img  id="\@" src="\@" alt="[\@]">
+	``pp	<p>\@</p>
+
+# character shortcuts   - first the standard xhtml set
+
+	``>	&lt;
+	`<	&rt;
+	``&	&amp;
+
+# now for all the 8859-1 'top bit set' characters
+
+	``	&#x0174;
+	``‚	&#x0175;
+	``…	&#x0176;
+	``†	&#x0177;
+	``Œ	&#x2026;
+	``	&#x2122;
+	``Ž	&#x2030;
+	``	&#x2022;
+	``	&#x2018;
+	``‘	&#x2019;
+	``’	&#x2039;
+	``“	&#x203A;
+	``”	&#x201C;
+	``•	&#x201D;
+	``–	&#x201E;
+	``—	&#x2013;
+	``˜	&#x2014;
+	``™	&#x2012;
+	``š	&#x0152;
+	``›	&#x0153;
+	``œ	&#x2020;
+	``	&#x2021;
+	``ž	&#xFB01;
+	``Ÿ	&#xFB02;
+	``¡	&#x00A1;
+	``¢	&#x00A2;
+	``£	&#x00A3;
+	``¤	&#x20AC;
+	``¥	&#x00A5;
+	``¦	&#x00A6;
+	``§	&#x00A7;
+	``¨	&#x00A8;
+	``©	&#x00A9;
+	``ª	&#x00AA;
+	``«	&#x00AB;
+	``¬	&#x00AC;
+	``­	&#x00AD;
+	``®	&#x00AE;
+	``¯	&#x00AF;
+	``°	&#x00B0;
+	``±	&#x00B1;
+	``²	&#x00B2;
+	``³	&#x00B3;
+	``´	&#x00B4;
+	``µ	&#x00B5;
+	``¶	&#x00B6;
+	``·	&#x00B7;
+	``¸	&#x00B8;
+	``¹	&#x00B9;
+	``º	&#x00BA;
+	``»	&#x00BB;
+	``¼	&#x00BC;
+	``½	&#x00BD;
+	``¾	&#x00BE;
+	``¿	&#x00BF;
+	``À	&#x00C0;
+	``Á	&#x00C1;
+	``Â	&#x00C2;
+	``Ã	&#x00C3;
+	``Ä	&#x00C4;
+	``Å	&#x00C5;
+	``Æ	&#x00C6;
+	``Ç	&#x00C7;
+	``È	&#x00C8;
+	``É	&#x00C9;
+	``Ê	&#x00CA;
+	``Ë	&#x00CB;
+	``Ì	&#x00CC;
+	``Í	&#x00CD;
+	``Î	&#x00CE;
+	``Ï	&#x00CF;
+	``Ð	&#x00D0;
+	``Ñ	&#x00D1;
+	``Ò	&#x00D2;
+	``Ó	&#x00D3;
+	``Ô	&#x00D4;
+	``Õ	&#x00D5;
+	``Ö	&#x00D6;
+	``×	&#x00D7;
+	``Ø	&#x00D8;
+	``Ù	&#x00D9;
+	``Ú	&#x00DA;
+	``Û	&#x00DB;
+	``Ü	&#x00DC;
+	``Ý	&#x00DD;
+	``Þ	&#x00DE;
+	``ß	&#x00DF;
+	``à	&#x00E0;
+	``á	&#x00E1;
+	``â	&#x00E2;
+	``ã	&#x00E3;
+	``ä	&#x00E4;
+	``å	&#x00E5;
+	``æ	&#x00E6;
+	``ç	&#x00E7;
+	``è	&#x00E8;
+	``é	&#x00E9;
+	``ê	&#x00EA;
+	``ë	&#x00EB;
+	``ì	&#x00EC;
+	``í	&#x00ED;
+	``î	&#x00EE;
+	``ï	&#x00EF;
+	``ð	&#x00F0;
+	``ñ	&#x00F1;
+	``ò	&#x00F2;
+	``ó	&#x00F3;
+	``ô	&#x00F4;
+	``õ	&#x00F5;
+	``ö	&#x00F6;
+	``÷	&#x00F7;
+	``ø	&#x00F8;
+	``ù	&#x00F9;
+	``ú	&#x00FA;
+	``û	&#x00FB;
+	``ü	&#x00FC;
+	``ý	&#x00FD;
+	``þ	&#x00FE;
+	``ÿ	&#x00FF;
+
+End

@@ -1,0 +1,23 @@
+| Run file for ScriptSED
+| © StrongED Developers
+
+| Wimp pool sprites
+Iconsprites <Obey$Dir>.!Sprites
+
+| Task directory
+Set ScriptSED$Dir <Obey$Dir>
+Set ScriptSED$Resources <ScriptSED$Dir>
+
+| Language resources
+IfThere <ScriptSED$Dir>.!Languages Then Run <ScriptSED$Dir>.!Languages ScriptSED
+
+| Toolbox modules
+IfThere <ScriptSED$Resources>.Modules Then Obey <ScriptSED$Resources>.Modules
+
+| Load ArmSort module from ArmSort$Dir or your application
+If "<ArmSort$Dir>" <> "" Then RMEnsure ArmSort 4.00 RMLoad <ArmSort$Dir>.ArmSort
+RMEnsure ArmSort 4.00 RMLoad <ScriptSED$Dir>.Tools.ArmSort
+RMEnsure ArmSort 4.00 Error Cannot find ArmSort module v4.00 or later
+
+| Run
+Run <ScriptSED$Dir>.!RunImage

@@ -1,0 +1,15 @@
+# Messages for StrongMen mode
+# © StrongED Developers
+
+HSt_lof:\Sto list all main menu items.|M\Ato list all commands in the file, except #url.
+
+# Syntax colouring groups
+Group1:Main menu items
+Group2:Section markers
+Group3:label markers
+Group4:Commands
+Group5:*-Commands
+Group6:Menu separator
+Group7:Pathname lines
+Group8:Sprite names
+Group9:Key bindings

@@ -1,0 +1,50 @@
+A51 MACRO ASSEMBLER  LED                                                                  09/17/2014 22:32:46 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN LED.OBJ
+ASSEMBLER INVOKED BY: C:\Program Files\Keil\C51\BIN\A51.EXE LED.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     main:
+0000 D290              2             SETB    P1.0            ; LED off (high)
+0002 D2A0              3             SETB    P2.0            ; switch off (high)
+                       4             
+0004                   5     loop:
+0004 30A004            6             JNB             P2.0, led       ; check switch (low) and jump
+0007 D290              7             SETB    P1.0            ; if not : LED off (high)
+0009 80F9              8             JMP             loop
+000B                   9     led:
+000B C290             10             CLR             P1.0            ; LED on (low)
+000D 1111             11             CALL    delay           ; switch de-bounce
+000F 80F3             12             JMP             loop
+                      13             
+0011                  14     delay:
+0011 7864             15             MOV             R0, #100
+0013                  16     loop1:
+0013 D8FE             17             DJNZ    R0, loop1       ; loop until 0
+0015 22               18             RET
+                      19             
+                      20             END
+A51 MACRO ASSEMBLER  LED                                                                  09/17/2014 22:32:46 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   0011H   A   
+LED. . . . . . . .  C ADDR   000BH   A   
+LOOP . . . . . . .  C ADDR   0004H   A   
+LOOP1. . . . . . .  C ADDR   0013H   A   
+MAIN . . . . . . .  C ADDR   0000H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

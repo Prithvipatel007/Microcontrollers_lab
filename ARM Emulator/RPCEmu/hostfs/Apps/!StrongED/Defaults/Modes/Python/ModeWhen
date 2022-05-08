@@ -1,0 +1,4 @@
+Rules Include
+! ae5,**
+! *, **.py.* **/py*
+End

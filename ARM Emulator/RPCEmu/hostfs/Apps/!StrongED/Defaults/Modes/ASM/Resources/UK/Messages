@@ -1,0 +1,6 @@
+Hasm_lof:Click to generate a list of all labels.
+Hasm_up:Click Select to go to previous label.
+Hasm_dn:Click Select to go to next label.
+Hasm_run:Click to Save & Assemble this source.
+Hasm_mak:Click Select to save and launch make file.|MClick Adjust to save and launch build file.|MClick Shift-Select to load make file.|MClick Shift-Adjust to load build file.
+Hasm_go:Select: Goto label if in this text.|MAdjust: Goto label if in any text.|MShift-Select/Shift-Adjust: Return.

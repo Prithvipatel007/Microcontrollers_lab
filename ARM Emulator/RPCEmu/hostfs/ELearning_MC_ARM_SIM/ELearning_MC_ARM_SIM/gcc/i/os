@@ -1,0 +1,2 @@
+.set OS_WriteC , 0x00000000
+.set OS_Write0 , 0x00000002

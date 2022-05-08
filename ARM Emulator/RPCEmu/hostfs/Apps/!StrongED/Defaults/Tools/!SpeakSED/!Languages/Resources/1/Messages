@@ -1,0 +1,5 @@
+# Messages for SpeakSED
+
+_TaskName:SpeakSED
+
+NoeSpeak:SpeakSED is unable to find eSpeak. Make sure it's installed and seen by the Filer. Please see the manual for more details.

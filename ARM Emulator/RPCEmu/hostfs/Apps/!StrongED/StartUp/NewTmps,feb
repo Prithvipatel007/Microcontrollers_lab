@@ -1,0 +1,12 @@
+| Set up macros so that modes that use the new style StrongED$Tmp_* variables
+| continue to work with versions of StrongED that use the old Tmp$* variables
+| © StrongED Developers
+
+SetMacro StrongED$Tmp_FilePath <Tmp$Path>
+SetMacro StrongED$Tmp_FileLeaf <Tmp$Leaf>
+SetMacro StrongED$Tmp_ModePath <Tmp$Mode>
+SetMacro StrongED$Tmp_ModeName <Tmp$Mode>
+SetMacro StrongED$Tmp_ToolPath <Tmp$Tool>
+SetMacro StrongED$Tmp_DragFile <Tmp$Drag>
+SetMacro StrongED$Tmp_MarkWord <Tmp$Word>
+SetMacro StrongED$Tmp_Page <Tmp$Page>

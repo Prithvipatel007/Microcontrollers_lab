@@ -1,0 +1,227 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : ObjAsm
+#	Purpose : StrongED mode file for ObjAsm assembler source files
+#	Author  : © Fred Graute
+#	Licence : Freeware
+#	Version : 1.09, 22-12-2011
+#
+#	Assembly may be started with F10.
+#
+#-------------------------------------------------------------------------------
+# 22-09-2002 FG Added instructions supported by newer processors (MRS, MSR etc).
+#               Suggested by Christopher Bazley.
+# 01-10-2002 FG Commented out PSR specifiers that ARM-ARM declares obsolete.
+# 08-09-2003 FG Added clicklist to load header files (Suggested by Philip Ludlam)
+# 11-03-2003 FG Changed group8 from EndNonID to EndAlways (Suggested by Harriet Bazley)
+# 09-10-2003 FG Added comma to end of helppath
+# 16-11-2003 FG Added SL to APCS-R registers
+#            FG Added vertical bars to GoLabel
+# 04-07-2004 FG Replaced EndTypes for various groups with new ones from 4.67
+#            FG Removed expressions used for colouring of FP instructions
+# 28-12-2005 FG Added support for built-in variables (Group9) Suggested by Philip Ludlam
+#            FG Added shortcut ``* (Suggested by Philip Ludlam)
+#            FG Extended PSR specifiers to cover all combinations
+# 22-12-2011 FG Replaced old Tmp$* variables with StrongED$Tmp_* ones
+#            FG Changed 'Type' to 'CommentType' in SyntaxComment
+#-------------------------------------------------------------------------------
+
+HelpPath	Assembly,Wimp,OS,MiscSWIs,INetSWIs,Toolbox,OSLib,UnixLib,
+
+ID_FirstChar	A-Za-z_$
+ID_Middle	A-Za-z_0-9
+
+Search
+	Bchar		Alpha   |"_"|"`"
+	Bchar2		AlphaNum|"_"|"`"
+	_MarkWord	(Bchar {Bchar2} ["%"|"$"]) | ("&" {Hex}+) | {Digit}+
+	_MoveWord	(Bchar {Bchar2} ["%"|"$"]) | ("&" {Hex}+) | {Digit}+
+	GoLabel		< ["|"] CW ["|"] ~Bchar2
+	Label		< Bchar {Bchar2}
+	Fold_Start	Label
+	Fold_End	("MOV" * "PC,") | ("LDM" * "PC")
+	Get1		[_spct] "GET" | "INCLUDE" _spct @0 {Bchar2}+ ":" {AlphaNum | "."}+ @9
+	Get2		[_spct] "GET" | "INCLUDE" _spct @0 {AlphaNum}+ "." {AlphaNum | "."}+ @9
+End
+
+ClickList
+	Get1	LoadOne("<StrongED$Tmp_MarkWord>")
+	Get2	SetTmp(Get2, "StrongED$Tmp_MarkWord") LoadOne("<StrongED$Tmp_FilePath>.^.<StrongED$Tmp_MarkWord>")
+End
+
+SyntaxOptions
+	SingleQuote	Yes
+	DoubleQuote	Yes
+	QuoteChar	\
+	QuoteQuote	No
+	SplitString	Yes
+	HexPrefix	&
+	BinPrefix	2_
+End
+
+SyntaxComment
+	CommentType	OneLine
+	StartWith	;
+End
+
+# Floating point instructions
+SyntaxWords Group1 EndOfFlt nocase
+	ABS ACS ASN ATN COS EXP LGN LOG MNF MVF NRM RND SIN SQT TAN URD
+	ADF DVF FDV FML FRD MUF POL POW RDF RMF RPW RSF SUF
+	FIX FLT RFS RFC WFC WFS
+	CMF CNF CMFE CNFE
+	LDF STF
+End
+
+# Integer instructions
+SyntaxWords Group2 EndOfAsm nocase
+	ADC ADD AND BIC CMN CMP EOR MLA MOV MUL
+	MVN ORR RSB RSC SBC SUB SWI TEQ TST
+	LDR STR
+	ADR ADRL
+# ARM3 instructions
+	SWP
+# ARM6 instructions
+	MRS MSR
+# ARM7M instructions
+	UMULL SMULL UMLAL SMLAL
+# StrongARM instructions
+#       LDRH STRH LDRSH STRSH LDRSB STRSB
+End
+
+# Branches (both B and BL)
+SyntaxWords Group3 EndOfAsm nocase
+	B
+End
+
+# Load/Store multiple
+SyntaxWords Group4 EndOfAsm nocase
+	LDM STM
+End
+
+SyntaxWords Group5 EndNonID nocase
+	R0 R1 R2 R3 R4 R5 R6 R7 R8 R9 R10 R11 R12 R13 R14 R15
+	F0 F1 F2 F3 F4 F5 F6 F7
+# APCS-R registers
+	A1 A2 A3 A4 V1 V2 V3 V4 V5 V6 SL FP IP SP LR PC
+# PSR specifiers
+	CPSR
+	CPSR_f CPSR_c CPSR_x CPSR_s
+	CPSR_fc CPSR_fx CPSR_fs CPSR_cx CPSR_cs CPSR_xs
+	CPSR_fcx CPSR_fcs CPSR_fxs CPSR_cxs
+	CPSR_fcxs
+	SPSR
+	SPSR_f SPSR_c SPSR_x SPSR_s
+	SPSR_fc SPSR_fx SPSR_fs SPSR_cx SPSR_cs SPSR_xs
+	SPSR_fcx SPSR_fcs SPSR_fxs SPSR_cxs
+	SPSR_fcxs
+End
+
+# Shift operators
+SyntaxWords Group6 EndNonID nocase
+	LSR LSL ASR ASL ROR RRX
+End
+
+# Assembler directives
+SyntaxWords Group7 EndNonID case
+	ALIGN
+	AREA
+	ASSERT
+	DCB
+	DCW
+	DCD
+	DCFD
+	DCFS
+	"END"
+	IF ELSE ENDIF
+	ENTRY
+	EQU
+	EXPORT IMPORT
+	GET INCLUDE
+	GBLA GBLL GBLS
+	KEEP
+	LCLA LCLL LCLS
+	LTORG
+	MACRO MEXIT MEND
+	NOFP
+	OPT
+	ORG
+	RLIST
+	SETA SETL SETS
+	TTL SUBT
+End
+
+# Expressions and operators
+SyntaxWords Group8 EndAlways case
+	:LEFT: :RIGHT: :CC:
+	:LEN: :CHR: :STR:
+	:ROL: :ROR: :SHL: :SHR:
+	:AND: :OR: :EOR: :NOT:
+	:LAND: :LOR: :LEOR: :LNOT:
+	:BASE: :INDEX:
+	:DEF:
+End
+
+# Built-in variables
+SyntaxWords Group9 EndAlways case
+	{PC} .
+	{VAR} @
+	{OPT}
+	{TRUE}
+	{FALSE}
+	{CONFIG}
+	{ENDIAN}
+End
+
+Functions
+	Key	‹F2
+	Menu	List of labels  ‹F2
+	Icon	LoF
+	Help	Hobj_lof
+	Select	ListOfFound (Label,Text,Whole,Line,Case,Sort)
+
+	Adjust	ListOfFound (Label,Text,Whole,Line,Case)
+
+	Key	F10
+	Menu	Save & Assemble     F10
+	Icon	Run
+	Help	Hobj_run
+	Select	SaveDrag("ObjAsm")
+
+	Key	‹^F10
+	Menu	Save & Make      ‹^F10
+	Icon	brick
+	Help	Hobj_mak
+	Select	SetTmp() SaveDClick("<StrongED$Tmp_FilePath>.^.Makefile")
+
+	Adjust	SetTmp() SaveDClick("<StrongED$Tmp_FilePath>.^.Build")
+
+	‹Select	SetTmp() LoadOne("<StrongED$Tmp_FilePath>.^.Makefile")
+
+	‹Adjust	SetTmp() LoadOne("<StrongED$Tmp_FilePath>.^.Build")
+
+	Key	^G
+	Menu	Goto label
+	Icon	goto
+	Help	Hobj_go
+	Select	Push GotoFound(GoLabel,Text,Whole,Line,Case)
+
+	Key	^G 2
+	Adjust	Push GotoFound(GoLabel,All,Whole,Line,Case)
+
+	Key	^‹G
+	‹Select	Pop
+
+	Key	^‹G 2
+	‹Adjust	Pop
+End
+
+Shortcuts
+	STM{	STMFD   R13!,{R0-R12,LR}\n\n\i\@\n\n\iLDMFD   R13!,{R0-R12,PC}^
+	STMS{	STMFD   R13!,{R0-R12,LR}\n\n\i\@\n\n\iLDMFD   R13!,{R0-R12,PC}
+	LDM{	LDMFD   R13!,{R0-R12,PC}^
+	LDMS{	LDMFD   R13!,{R0-R12,PC}
+	``-	;-------------------------------------------------------------------------------\n
+	``=	;===============================================================================\n
+	``*	;*******************************************************************************\n
+End

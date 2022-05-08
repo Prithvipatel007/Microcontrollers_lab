@@ -1,0 +1,31 @@
+| Initiate an FTP upload
+| © StrongED developers
+
+| Unset all FTP vars except SiteScript
+Unset StrongED$FTP_*
+
+| Ensure that an FTP environment has been set up
+IfThere <FTPupSED$Dir>.SiteScript Then Else <FTPupSED$Dir>.Tools.FTPerror 1
+
+| Ensure localpath and localname point to file to upload
+Set StrongED$FTP_LocalName "<StrongED$Tmp_FileLeaf>"
+Set StrongED$FTP_LocalPath "<StrongED$Tmp_FilePath>"
+
+| Run the SiteScript to set remote site variables
+Obey <FTPupSED$Dir>.SiteScript
+
+| Ensure that the remote paths are proper unix names
+Run <FTPupSED$Dir>.Tools.Unixify
+
+| Ensure the desired FTP provider is actually present
+Set StrongED$FTP_Error "Yes"
+If "<StrongED$FTP_Provider>" = "curl" Then IfThere Run:cURL Then Set StrongED$FTP_Error "No"
+If "<StrongED$FTP_Provider>" = "ftpc" Then If "<FTPc$Dir>" <> "" Then Set StrongED$FTP_Error "No"
+IF "<StrongED$FTP_Error>" = "Yes" Then <FTPupSED$Dir>.Tools.FTPerror 2
+
+| Call the desired FTP provider to do the actual upload
+If "<StrongED$FTP_Provider>" = "curl" Then <FTPupSED$Dir>.Tools.cURL
+If "<StrongED$FTP_Provider>" = "ftpc" Then <FTPupSED$Dir>.Tools.FTPc
+
+| Unset all FTP vars except SiteScript
+Unset StrongED$FTP_*

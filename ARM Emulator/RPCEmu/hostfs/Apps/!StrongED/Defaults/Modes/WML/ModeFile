@@ -1,0 +1,210 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : WML
+#	Purpose : StrongED mode file for WML files
+#	Author  : © Rich Goodwin (richard@goodwin.uk.com)
+#	Licence : Freeware
+#	Version : 1.01, 22-12-2011
+#
+#-------------------------------------------------------------------------------
+# 22-12-11 FG replaced old Tmp$* variables with StrongED$Tmp_* ones
+#          FG Changed 'Type' to 'CommentType' in SyntaxComment
+#-------------------------------------------------------------------------------
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteQuote	Yes
+	SplitString	No
+End
+
+SyntaxComment
+	CommentType	Multiline
+	StartWith	<!--
+	EndWith		-->
+End
+
+ID_FirstChar	<
+ID_Middle	/A-Za-z_0-9\ \"\-\.\:\_\=\#\?\&\;\!\$\(\)\*\@\'
+ID_LastChar	>
+
+#--- The 'outer level' tags + headings
+
+SyntaxWords Group1 EndOfID case
+# Header stuff...
+	<wml> </wml>
+	<?xml
+	<!DOCTYPE
+	<meta
+End
+
+SyntaxWords Group2 EndOfID case
+# Decks, cards and tables...
+	<card </card>
+	<template </template>
+	<table> <tr> <td> </td> </tr> </table>
+	<head> </head>
+	<access
+End
+
+SyntaxWords Group3 EndOfID case
+# places to go...
+	<a </a>
+	<go </go>
+	<anchor </anchor>
+	<prev/>
+End
+
+SyntaxWords Group4 EndOfID case
+# formatting...
+	<p </p> <br/>
+End
+
+SyntaxWords Group5 EndOfID case
+# Tasks, timers and stuff...
+	<onevent </onevent>
+	<timer
+	<do </do>
+	<setvar
+	<postfield
+	<noop/>
+	<prev> </prev>
+	<refresh> </refresh>
+End
+
+SyntaxWords Group6 EndAlways case
+# layout...
+	<b> </b> <i> </i>
+	<em> </em> <strong> </strong>
+	<u> </u>
+	<small> </small> <big> </big>
+End
+
+SyntaxWords Group7 EndOfID case
+# user input...
+	<input
+	<fieldset </fieldset>
+	<select </select>
+	<option </option>
+	<optgroup </optgroup>
+End
+
+SyntaxWords Group8 EndOfID case
+# images
+	<img
+End
+
+
+Search
+	heading1	"<card" @0 * @9 ">"
+	tag		"<" ["\\"] { AlphaNum | "/" }+  ">"
+	_MarkWord	tag  | {AlphaNum}+   | {Punct}+
+	_SpellIgnore	("<" "<!--" {'~<>'}+ ">" "-->") | "&nbsp;"
+
+	quote		"\""
+	anchor		"<a" {iswhite}+ * "href" {iswhite} "="  {iswhite}  quote @0 ** quote  ">" @9
+	anchor1		"<a" {iswhite}+ * "href" {iswhite} "="  {iswhite}  quote @0
+	selected_line	{any}+
+
+# match everything sensible but not ,
+#	textstr	 { AlphaNum | '\' _\-' }+
+
+	url		{AlphaNum}+ ":/" { ["~"] alphanum | '/_.-' }+
+	url_text	@1 url @2 {iswhite} @3 {.} @4
+	text		@1 @2 @3 {.} @4
+	hotlist		url_text
+# removing tag
+	anch_st		"<a" {iswhite}+ * quote
+	anch_end	quote  {iswhite} ">"
+	remove_tag	anch_st | anch_end | tag
+End
+
+Replace
+	ital		"<i>" @@ "</i>"
+	center		"</p><p align=\"center\">" @@  "</p><p>"
+	bold		"<b>" @@ "</b>"
+	strong		"<b>" @@ "</b>"
+	emphasis	"<i>" @@  "</i>"
+	bigger		"<big>" @@  "</big>"
+	smaller		"<small>" @@  "</small>"
+	underline	"<u>" @@  "</u>"
+End
+
+ClickList Select2
+	http		BroadcastURL("<StrongED$Tmp_MarkWord>")
+End
+
+ClickList Adjust2
+	http		BroadcastURL("<StrongED$Tmp_MarkWord>")
+End
+
+Functions
+	Icon	lof
+	Select	ListOfFound (heading1,All,Align,noLine,NoCase)
+	Menu	List of headings
+	Help	Select - list of headings|MAdjust - list of Anchors
+#	Adjust	ListOfFound (anchor,All,align,noLine,NoCase)
+
+	Key	‹F10
+	Menu	Save & Render      ‹F10
+	Icon	run
+	Select	SetTmp() SaveDClick ("<StrongED$Tmp_FileName>")
+	Help	Click to save text and launch viewer (‹F3)
+
+	Menu	Add italic
+	Icon	ab_italic
+	Select	NoIndent() GotoBlock_Start() "<i>" GotoBlock_End() "</i>" BlockClear()
+#	Select	Replace( selected_line,ital , block , noline,nocase) GotoBlock_Start() BlockClear()
+	Help	Makes selected text italic
+
+	Adjust	NoIndent() GotoBlock_Start() "<i>" GotoBlock_End() "</i>" BlockClear()
+
+	Menu	Add bold
+	Icon	ab_bold
+	Select	NoIndent() GotoBlock_Start() "<b>" GotoBlock_End() "</b>" BlockClear()
+#	Select	Replace( selected_line,bold , block , noline,nocase) GotoBlock_Start() BlockClear()
+	Help	Makes selected text bold
+
+	Adjust	NoIndent() GotoBlock_Start() "<bold>" GotoBlock_End() "</bold>" BlockClear()
+
+	Menu	Underline
+	Icon	ab_ul
+	Select	NoIndent() GotoBlock_Start() "<u>" GotoBlock_End() "</u>" BlockClear()
+#	Select	Replace( selected_line,underline , block , noline,nocase) GotoBlock_Start() BlockClear()
+	Help	Makes selected text underlined
+
+	Menu	Make bigger
+	Icon	ab_big
+	Select	NoIndent() GotoBlock_Start() "<big>" GotoBlock_End() "</big>" BlockClear()
+#	Select	Replace( selected_line,bigger , block , noline,nocase) GotoBlock_Start() BlockClear()
+	Help	Makes selected text bigger
+
+	Menu	Make smaller
+	Icon	ab_small
+	Select	NoIndent() GotoBlock_Start() "<small>" GotoBlock_End() "</small>" BlockClear()
+#	Select	Replace( selected_line,smaller , block , noline,nocase) GotoBlock_Start() BlockClear()
+	Help	Makes selected text smaller
+
+	Menu	Make centred
+	Icon	ab_center
+	Select	NoIndent() GotoBlock_Start() "</p><p align=\"center\">" GotoBlock_End() "</p><p>" BlockClear()
+#	Select	Replace( selected_line,center , block , noline,nocase) GotoBlock_Start() BlockClear()
+	Help	Makes selected text centred
+
+	Menu	Remove tags
+	Select	Replace( remove_tag,"" , block , noline,nocase)
+	Help	Removes all tags from selected text |M (URL of anchors remain)
+
+	Menu	Escape brackets
+#	Key	‹^F4
+	Select	Replace ("<","&#60;", block ) Replace (">","&#62;", block )
+	Help	replaces  < with escape |M to embed a WML example in WML file
+
+	Menu	Standard header
+	Select	NoIndent() "<?xml version=\"1.0\"?>" NL "<!DOCTYPE wml PUBLIC \"-//WAPFORUM//DTD WML 1.1//EN\" \"http://www.wapforum.org/DTD/wml_1.1.xml\">" NL "<wml><card title=\"Welcome to my page\">" NL "<p>"NL
+	Help	Provides a standard WML page opening
+
+	Menu	Standard footer
+	Select	NoIndent() "</p>" NL "</card></wml>"
+	Help	Provides a standard WML page ending
+End

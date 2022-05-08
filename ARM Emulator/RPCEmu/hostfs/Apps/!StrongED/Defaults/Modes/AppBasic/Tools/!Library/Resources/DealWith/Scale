@@ -1,0 +1,7 @@
+DEF PROCDealWith_Scale(event,object,component)
+CASE event OF
+ WHEN Scale_AboutToBeShown
+ WHEN Scale_DialogueCompleted
+ WHEN Scale_ApplyFactor
+ENDCASE
+ENDPROC

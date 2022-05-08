@@ -1,0 +1,195 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : Ruby
+#	Purpose : StrongED mode file for Ruby files
+#	Author  : © Andrew Hodgkinson
+#	Licence : Freeware
+#	Version : 1.03, 05-12-2011
+#
+# Based on a Ruby syntax definition for Kate, kate.kde.org.
+#
+#-------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+# History
+# =======
+#
+# 30-Jan-2006 (ADH): Created.
+# 31-Jan-2006 (ADH): Correction to ModeWhen file.
+# 16-Apr-2006 (ADH): Final fixes to ModeWhen file. Updated manual.
+# 05-Dec-2011 (FJG): Changed 'Type' to 'CommentType' in SyntaxComment
+#------------------------------------------------------------------------------
+
+ID_FirstChar	A-Za-z_@$
+ID_Middle	A-Za-z_0-9
+ID_LastChar	A-Za-z_0-9!?
+
+SyntaxOptions
+	SingleQuote	Yes
+	DoubleQuote	Yes
+	QuoteChar	\
+	QuoteQuote	No
+	SplitString	No
+	HexPrefix	0x
+End
+
+SyntaxComment 1
+	CommentType	MultiLine
+	StartWith	!--
+	EndWith		-->
+End
+
+SyntaxComment 2
+	CommentType	OneLine
+	StartWith	#
+End
+
+# Keywords
+
+SyntaxWords Group1 case
+	do
+	else
+	break BEGIN END and
+	defined? case begin end ensure
+	elsif
+	for
+	if
+	in
+	include
+	next
+	not
+	or
+	redo
+	rescue
+	retry
+	return
+	then
+	unless
+	until
+	when
+	while
+	yield
+End
+
+# Access control
+
+SyntaxWords Group2 case
+	private_class_method
+	private
+	protected
+	public_class_method
+	public
+End
+
+# Attribute definitions
+
+SyntaxWords Group3 case
+	attr_reader
+	attr_writer
+	attr_accessor
+End
+
+# Entity definitions
+
+SyntaxWords Group4 case
+	alias
+	module
+	class
+	def
+	undef
+End
+
+# Pseudo-variables
+
+SyntaxWords Group5 case
+	self
+	super
+	nil
+	false
+	true
+	caller
+	__FILE__
+	__LINE__
+End
+
+# Default globals
+
+SyntaxWords Group6 case
+	$stdout
+	$defout
+	$stderr
+	$deferr
+	$stdin
+End
+
+# Kernel module methods
+
+SyntaxWords Group7 case
+	abort
+	at_exit
+	autoload
+	autoload?
+	binding
+	block_given?
+	callcc
+	catch
+	chomp
+	chomp!
+	chop
+	chop!
+	eval
+	exec
+	exit
+	exit!
+	fail
+	fork
+	format
+	getc
+	gets
+	global_variables
+	gsub
+	gsub!
+	iterator?
+	lambda
+	load
+	local_variables
+	loop
+	method_missing
+	open
+	p
+	print
+	printf
+	proc
+	putc
+	puts
+	raise
+	rand
+	readline
+	readlines
+	require
+	scan
+	select
+	set_trace_func
+	sleep
+	split
+	sprintf
+	srand
+	sub
+	sub!
+	syscall
+	system
+	test
+	throw
+	trace_var
+	trap
+	untrace_var
+	warn
+End
+
+# Annotations
+
+SyntaxWords Group8 case
+	TODO
+	FIXME
+	NOTE
+End

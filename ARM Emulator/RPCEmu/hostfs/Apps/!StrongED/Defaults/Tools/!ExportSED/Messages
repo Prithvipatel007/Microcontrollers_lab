@@ -1,0 +1,6 @@
+# Messages for ExportSED
+
+_TaskName:ExportSED
+
+NoPath:Please enter a full pathname or drag to a directory
+NoSave:Please ensure path is valid and target is writable

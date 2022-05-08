@@ -1,0 +1,6 @@
+DEF PROCDealWith_ProgInfo(event,object,component)
+CASE event OF
+ WHEN ProgInfo_AboutToBeShown
+ WHEN ProgInfo_DialogueCompleted
+ENDCASE
+ENDPROC

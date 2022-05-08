@@ -1,0 +1,31 @@
+#------------------------------------------------------------------------------#
+#                                                                              #
+#       Name    : Diff                                                         #
+#       Purpose : Diff StrongED mode                                           #
+#       Author  : © Philip Ludlam                                              #
+#       Licence : Freeware                                                     #
+#       Version : 0.09                                                         #
+#       Date    : 14 August 2004                                               #
+#                                                                              #
+#------------------------------------------------------------------------------#
+
+# ModeWhen file for diff mode
+Rules Include
+  fff ffd, **/rej
+> fff ffd, ** ; _diff1
+> fff ffd, ** ; _diff2
+> fff ffd, ** ; _diff3
+> fff ffd, ** ; _diff4
+> fff ffd, ** ; _diff5
+> fff ffd, ** ; _diff6
+End
+
+# Use diff mode if appropriate phrase found
+Match
+	_diff1	[NL] "Diff files '"
+	_diff2	{[~"="* NL]}0:2 "==================================================================="
+	_diff3	{[~"<" * NL]}0:2 "<CVS$BinDir>.cvs diff: "
+	_diff4	"CVS RISC OS port by" | "CVS is ported (" | "cvs server: Diffing "
+	_diff5	{"? " * NL}+ ("cvs server: Diffing " | "Index: ")
+	_diff6	{[~"-" * NL]}0:2 "--- " * NL "+++ "
+End

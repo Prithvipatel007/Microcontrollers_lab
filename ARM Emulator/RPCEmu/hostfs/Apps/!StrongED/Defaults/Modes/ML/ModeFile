@@ -1,0 +1,54 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : ML
+#	Purpose : StrongED mode file for ML files
+#	Author  : © John Whitington 2001
+#	Licence : (?) Freeware
+#	Version : 1.00, 22-12-2011
+#
+#-------------------------------------------------------------------------------
+# 22-12-11 FG Changed 'Type' to 'CommentType' in SyntaxComment
+#          FG Made up a version number to make it easier to signal changes
+#-------------------------------------------------------------------------------
+
+ID_FirstChar	A-Za-z_
+ID_Middle	A-Za-z_0-9
+
+Search
+	FirstChar	'A-Za-z_'
+	MiddleChars	'A-Za-z_0-9'
+	_MarkWord	FirstChar {MiddleChars} {{White} "." {White} FirstChar {MiddleChars}}
+End
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteQuote	Yes
+	SplitString	Yes
+	HexPrefix	0x
+End
+
+SyntaxComment 1
+	CommentType	Multiline
+	StartWith	(*
+	EndWith		*)
+End
+
+SyntaxWords Group1 case
+	abstype and andalso as case datatype do
+	else end eqtype exception fn fun functor
+	handle if in include infix infixr let local
+	nonfix of op open orelse raise rec
+	sharing sig signature struct structure
+	then type val where while with withtype
+End
+
+SyntaxWords Group2 case
+	| -> => * [ ]
+End
+
+SyntaxWords Group3 case
+	'a 'b 'c 'd 'e 'f 'g 'h 'i 'j 'k 'l 'm
+	''a ''b ''c ''d ''e ''f ''g ''h ''i ''j ''k ''l ''m
+	list
+End

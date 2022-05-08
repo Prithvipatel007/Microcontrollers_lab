@@ -1,0 +1,8 @@
+# Messages for Complete
+
+_TaskName:Complete
+
+# Messages for !Run
+
+_OSError:This application is only suitable for use with RISC OS 3.10 or later versions
+_TMError:This application requires %0 %1 to run

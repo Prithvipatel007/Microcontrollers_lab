@@ -1,0 +1,5 @@
+| Boot file for FTPupSED
+| © StrongED Developers
+
+Iconsprites <Obey$Dir>.!Sprites
+Set FTPupSED$Dir <Obey$Dir>

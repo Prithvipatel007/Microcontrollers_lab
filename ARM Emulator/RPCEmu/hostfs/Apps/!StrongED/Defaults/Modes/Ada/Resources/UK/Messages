@@ -1,0 +1,10 @@
+Hada_lof:Click to generate list of all functions.
+Hada_prev:Click SELECT to go to previous function or procedure.|M Click ADJUST to go to next function or procedure.
+Hada_next:Click SELECT to go to next function or procedure.|M Click ADJUST to go to previous function or procedure.
+Hada_def:Click to go to the definition of the function or procedure you're standing on.
+Hada_goto:Click to go to the definition of the type of the variable you're standing on.
+Hada_spec:Click to load the specification of this file.|M <filepath>.^.ads.<filename>
+Hada_make:Click SELECT to compile the whole project.|M Click ADJUST to save first.|M gnatmake runimage |M The project directory has to be the current directory.
+Hada_stx:Click SELECT to check the syntax of the program.|M Click ADJUST to save first. |M gcc -c gnats
+Hada_smt:Click SELECT to run a semantic check of the program.|M Click ADJUST to save first |M gcc -c -gnatc
+Hada_man:SELECT this entry to view the manual for this StrongEd mode.

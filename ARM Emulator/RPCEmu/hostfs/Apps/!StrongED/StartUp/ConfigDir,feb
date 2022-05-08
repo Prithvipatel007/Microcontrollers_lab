@@ -1,0 +1,7 @@
+| Normally StrongED will use Choices:!StrED_cfg to store its settings.
+| If Choices and/or !StrED_cfg isn't there settings are stored inside itself
+| If you want to force where settings are stored then set the variable below
+| to point to the directory to use.
+| © StrongED Developers
+
+Set StrongED$SettingsDir ""

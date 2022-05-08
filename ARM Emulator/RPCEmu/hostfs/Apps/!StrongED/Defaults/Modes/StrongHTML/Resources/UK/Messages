@@ -1,0 +1,14 @@
+# Messages for StrongHTML mode
+
+Hrun:Click to save text and launch viewer (‹F10)
+Hdoc:Select to open doctype dialogue box|MAdjust to write default document header
+Hlink:Select to open linker dialogue box|MAdjust to write default |<A|> tag
+Himage:Select to open image dialogue box|MAdjust to write default |<IMG|> tag
+Htext:Select to popup text menu|MMenu button to popup ColourDbox (HTML colour numbers)|MAdjust to write |<B|> tags|MCtrl-select to write |<I|> tags
+Hlayout:Select to popup layout menu|MAdjust to write |<BR|> (newline) tag|M‹-select to write |<P|> tag|MCtrl-select to write |<CENTER|> tags
+Hlist:Select to popup list menu|MAdjust to write default unordered list|MSelect with menu (middle) button to popup bullet-list dialogue box
+Htable:Select to popup tables dialogue-box|MAdust writes a simple 3x3 table
+Hform:Select to popup forms menu|MAdjust to write |<FORM|> tags|MSelect with middle button to popup dbox for turning images into action buttons
+Hframe:Select to popup frames dialogue box|MAdjust to write |<FRAMESET|> tags
+Hhelp:Select to run StrongHTML+ manual|MAdjust to run StrongHTML manual|MCtrl-select to run Apps !Help
+Hlof:Select - list of headings|MAdjust - list of Anchors

@@ -1,0 +1,9 @@
+|Task directory
+ Set Popup$Dir <Obey$Dir>
+ Set Popup$Resources <Popup$Dir>
+
+|Language resources
+ ifthere <Popup$Dir>.!Languages then Run <Popup$Dir>.!Languages Popup
+
+|Run
+ Filer_Run <Popup$Resources>.Help

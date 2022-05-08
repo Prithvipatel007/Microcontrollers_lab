@@ -1,0 +1,178 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : TaskWindow
+#	Purpose : StrongED mode file for TaskWindows
+#	Author  : © StrongED Developers
+#	Licence : Freeware
+#	Version : 1.01, 01-10-2012
+#
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# 13.10.98 GV The taskwindow mode now behaves more like normal modes do.
+#             Taskwindow now needs to specify which ctrl-keys to send to task
+#             instead of as previously specifying which should *not* be sent..
+#             In addittion, the BaseMode will now be consulted for all keys not
+#             specified here, so, say, "c-Q  KillView()" is no longer needed.
+#             (but we need to make sure we don't have "c-Q ToTask()"... )
+# 24.05.01 CB Added system devices and more filing systems to SyntaxWords.
+#             Added <, £ and > to list of valid file path characters.
+# 01-10-12 FG Changed Author field to © StrongED Developers
+#-------------------------------------------------------------------------------
+
+ModeType TaskWindow
+
+# ID_Middle is used to recognise valid file paths:
+ID_Middle	A-Za-z_0-9./~+\-:?%@#$! ^<>£
+
+KeyList
+#	F7		BlockCopy
+#	‹Copy		CopyCursor_On
+#	Copy		CopyFromCC
+#	Left		CopyCursor_Left
+#	Right		CopyCursor_Right
+#	Up		CopyCursor_Up
+#	Down		CopyCursor_Down
+#	PgUp		PageUp
+#	PgDown		PageDown
+#	Return		CopyCursor_Off NewLine
+#	^Q		KillView
+
+	c-A	ToTask
+	c-B	ToTask
+#	c-C	ToTask
+	c-C	ReleaseShiftCtrl BlockCopy
+	c-D	ToTask
+	c-E	ToTask
+	c-F	ToTask
+	c-G	ToTask
+	c-H	ToTask
+	c-I	ToTask
+	c-J	ToTask
+	c-K	ToTask
+	c-L	ToTask
+	c-M	ToTask
+	c-N	ToTask
+	c-O	ToTask
+	c-P	ToTask
+#	c-Q	ToTask
+	c-R	ToTask
+	c-S	ToTask
+	c-T	ToTask
+	c-U	ToTask
+	c-V	ToTask
+	c-W	ToTask
+	c-X	ToTask
+	c-Y	ToTask
+	c-Z	ToTask
+
+	cs-A	ToTask
+	cs-B	ToTask
+	cs-C	ToTask
+	cs-D	ToTask
+	cs-E	ToTask
+	cs-F	ToTask
+	cs-G	ToTask
+	cs-H	ToTask
+	cs-I	ToTask
+	cs-J	ToTask
+	cs-K	ToTask
+	cs-L	ToTask
+	cs-M	ToTask
+	cs-N	ToTask
+	cs-O	ToTask
+	cs-P	ToTask
+	cs-Q	ToTask
+	cs-R	ToTask
+	cs-S	ToTask
+	cs-T	ToTask
+	cs-U	ToTask
+	cs-V	ToTask
+	cs-W	ToTask
+	cs-X	ToTask
+	cs-Y	ToTask
+	cs-Z	ToTask
+
+	ESC		ToTask
+	TAB		ToTask
+	s-TAB		ToTask
+	cs-TAB		ToTask
+	Backspace	ToTask
+	Delete		ToTask
+	cs-Delete	ToTask
+	Insert		ToTask
+	Home		ToTask
+	Copy		ToTask
+	Left		ToTask
+	Right		ToTask
+	Up		ToTask
+	Down		ToTask
+	PgUp		ToTask
+	PgDown		ToTask
+	s-Left		ToTask
+	s-Right		ToTask
+#	s-Up		ToTask
+#	s-Down		ToTask
+	s-PgUp		ToTask
+	s-PgDown	ToTask
+	c-Left		ToTask
+	c-Right		ToTask
+	c-Up		ToTask
+	c-Down		ToTask
+	c-PgUp		ToTask
+	c-PgDown	ToTask
+
+	F1	ToTask
+	F2	ToTask
+	F3	ToTask
+	F4	ToTask
+	F5	ToTask
+	F6	ToTask
+	F7	ToTask
+	F8	ToTask
+	F9	ToTask
+	F10	ToTask
+End
+
+# OS/BASIC command prompts
+SyntaxWords  Group1 nocase StartofLine EndofLine
+	* >
+End
+
+# Common disc filing systems
+SyntaxWords  Group2 nocase EndofID
+	ADFS: CDFS: IDEFS: SCSI: SCSIFS: IZipFS:
+End
+
+# Command line help system
+SyntaxWords  Group3 nocase StartofLine EndofLine
+	==>
+End
+
+# System devices
+SyntaxWords  Group4 nocase EndofID
+	null:
+	kbd: rawkbd:
+	netprint: printer: rawvdu: vdu:
+# DeviceFS devices (macros)
+	Serial: Parallel: FastParallel:
+End
+
+# Special filing systems
+SyntaxWords  Group5 nocase EndofID
+	devices: devices# Net: Net# Pipe: RAM: Resources:
+	DOOMFS:
+End
+
+Functions
+
+	Menu	Suspend task
+	Select	tw_suspend
+
+	Menu	Resume task
+	Select	tw_resume
+
+	Menu	Kill task
+	Select	tw_kill
+
+End

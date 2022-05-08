@@ -1,0 +1,7 @@
+extern void print(const char *str);
+
+int main (void)
+{
+  print("Hello\n");
+  return 0;
+}

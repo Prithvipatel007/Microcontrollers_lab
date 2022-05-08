@@ -1,0 +1,62 @@
+C51 COMPILER V9.60.0.0   LED_BUTTON                                                        06/13/2020 02:33:27 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE LED_BUTTON
+OBJECT MODULE PLACED IN .\src\LED_Button.OBJ
+COMPILER INVOKED BY: c:\SiliconLabs\SimplicityStudio\v4\developer\toolchains\keil_8051\9.60\BIN\C51.exe D:\ELearning\MC\
+                    -ELearning_MC_8051_LCK\LED_C_Button\src\LED_Button.c OMF2 SMALL DEBUG OBJECTEXTEND ROM(LARGE) WARNINGLEVEL(2) FLOATFUZZY(
+                    -3) OPTIMIZE(8,SPEED) INTVECTOR(0X0000) INTPROMOTE INCDIR(D:\ELearning\MC\ELearning_MC_8051_LCK\LED_C_Button\inc;C:/Silic
+                    -onLabs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7//Device/shared/si8051Base;C:/SiliconLabs/SimplicityStudio/v4/devel
+                    -oper/sdks/8051/v4.1.7//Device/EFM8BB1/inc) PRINT(.\src\LED_Button.lst) COND PAGEWIDTH(120) PAGELENGTH(65) OBJECT(.\src\L
+                    -ED_Button.OBJ)
+
+line level    source
+
+   1          #include <SI_EFM8BB1_Register_Enums.h>
+   2          
+   3          sbit LED = P1^4;
+   4          
+   5          // BUT on INT1=P0.2
+   6          void extint1 (void) interrupt 2 using 3
+   7          {
+   8   1              LED ^= 1;
+   9   1      }
+  10          
+  11          void main (void)
+  12          {
+  13   1              XBR2 |= (1 << 6);       // port power
+  14   1      
+  15   1              WDTCN = 0xDE; WDTCN = 0xAD;             // disable watchdog passcode
+  16   1      
+  17   1              // EFM8 specific irq configuration
+  18   1              // IRQ assign 6:4 INT1=P0.2 2:0 INT0 not assigned
+  19   1              IT01CF |= (2 << 4);
+  20   1      
+  21   1              // 8051 standard irq configuration
+  22   1              TCON |= (1 << 2);       // enable INT1 edge
+  23   1              IE |= (1 << 2 );        // enable INT1 IRQ
+  24   1              IE |= (1 << 7);         // enable global
+  25   1      
+  26   1              while (1)
+  27   1              {
+  28   2                      // wait for interrupt
+  29   2              }
+  30   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     36    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,15 @@
+#!Lua
+
+local number = function(file)
+ local n = 0
+ for line in io.lines(file) do
+   if string.len(line) > 0 then
+     n = n + 1
+     print(string.format("%d %s",n,line))
+   else
+     print(line)  
+   end -- if
+ end -- for
+end -- function
+
+if arg[1] then number(arg[1]) else  print "No file given"  end

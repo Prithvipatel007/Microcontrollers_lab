@@ -1,0 +1,7 @@
+DEF PROCDealWith_WindowRedraw(object,a%,b%,h%)
+REM -------------------------------------------
+REM (a%,b%) is the position (in OS units) of the
+REM lower left-hand corner of the work area
+REM -------------------------------------------
+
+ENDPROC

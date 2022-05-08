@@ -1,0 +1,298 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : BASIC
+#	Purpose : StrongED mode file for BASIC files
+#	Author  : © StrongED Developers
+#	Licence : Freeware
+#	Version : 1.12, 27-12-2015
+#
+#-------------------------------------------------------------------------------
+
+# Changes:
+#-------------------------------------------------------------------------------
+# 17.03.98 GV Missing ")" in _Indent2
+# 29.06.98 GV Standardising use of 'list of functions' button in all modes;
+#          GV Select now gives a list for *this* text, and Adjust for *all* texts
+#          GV Have moved the 'assembly label' lister to shift-Select/Adjust
+# 26.07.98 GV Changed "SWI" to "SWIs" in help path.
+# 22.08.01 FG Updated HelpPath
+# 06.11.04 FG Added function (tied to c-B) to indent file
+# 20.11.04 FG Added LineNumber expression to Search section
+#          FG Changed Func and Func2 expressions to use LineNumber
+#          FG Added function to strip line numbers
+# 11.12.04 FG ID definitions contained characters not allowed in Identifiers
+# 31.12.05 FG Split up group2 into different groups
+# 08.07.06 FG Changed endtype of group3 to EndOfExpr
+#          FG Combined up and down toolbar icons
+#          FG Added MarkConst expression, matches bin, dec and hex constants
+#          FG Added MarkFunc expression, matches procedure/functions names
+#          FG Added MarkVar expression, matches variable names
+#          FG Made _MarkWord and _MoveWord use above expressions
+#          FG Renamed Bchar to IDchar1 and made it a set matching ID_FirstChar
+#          FG Renamed Bchar2 to IDchar2 and made it a set matching ID_Middle
+#          FG Renamed Func2 to GoFunc
+#          FG Moved indent function from c-B to cs-R
+# 27.08.08 FG Moved indent function from cs-R to c-R
+#          FG Added SmartIndent section
+#          FG Added search expressions for SmartIndent
+#          FG Added _Indent expression (the one in BaseMode allows tabs)
+#          FG Tied ReindentText() to Return (provides indent as you type)
+# 26.04.09 FG LineNumber expression now allows no or more than one space
+#          FG Added "LOCAL" to IndentAfter and OutdentLine expressions
+# 21.02.11 FG Added ClickList for library files
+# 11.09.11 FG Updated SyntaxComment 2 block
+#          FG Added MarkStr expression and include it in _MarkWord & _MoveWord
+#          FG Replaced old Tmp$xxx variables with new StrongED$Tmp_xxx ones
+# 01-10-12 FG Changed Author field to © StrongED Developers
+# 19-10-14 FG Added c-E,c-I shortcut, indents the text (using BASIC)
+#          FG Added c-E,c-R shortcut, renumbers the text (using BASIC)
+#          FG Adjusted the fold expressions so they allow line numbers
+#          FG Changed shortcuts 'DF' to 'DF.' and 'DP' to 'DP.'
+#          FG Replaced old ^up-arrow modifiers with new style cs-
+#          FG Added the 'Reporter' manual to the HelpPath
+# 27-12-15 FG Adjusted search expressions to better handle indented lines
+#-------------------------------------------------------------------------------
+
+HelpPath	BASIC,Reporter,Assembly,OS,Wimp,MiscSWIs,InetSocket,InetSWIs,VDU,Toolbox,
+
+#FoldParm1 ("REM {{{", "REM }}}", StartOfLine, Case)
+#FoldParm2(Fold_Start, Fold_End, StartOfLine, Case)
+FoldParm2(Fold_Start,, StartOfLine, Case)
+
+ID_FirstChar	`A-Za-z_
+ID_Middle	`A-Za-z_0-9
+ID_LastChar	$%
+
+#-------------------------------------------------------------------------------
+
+Search
+	IDchar1		'`A-Za-z_'
+	IDchar2		'`A-Za-z_0-9'
+	FuncName	{IDchar2|"@"}+
+	MarkConst	("%" {'01'}+) | ("&" {Hex}+) | {Digit}+
+	MarkFunc	("PROC"|"FN") FuncName
+	MarkStr		"\"" {~"\"" .} "\""
+	MarkVar		(IDchar1 {IDchar2} ["%"|"$"])
+	LineNumber	{" "} {Digit}+ " "
+	Func		[LineNumber] {" "} "DEF" {" "} "PROC"|"FN" @0 FuncName
+	GoFunc		[LineNumber] {" "} @0 "DEF" {" "} CW ~IDchar2
+	Label		[";:"] "." IDchar1 {IDchar2}
+	GoLabel		[";:"] "." CW ~IDchar2
+	EmptyLine	[LineNumber] {" "} NL
+
+	Fold_Start	[LineNumber] {" "} "DEF"
+	Fold_End	[LineNumber] {" "} "ENDPROC" | ("="*>) {EmptyLine}+
+
+	_Indent		{" "}
+	_Indent2	{" "} [ (("REM") | (";"~":")) {" "} ]
+	_MarkWord	MarkFunc | MarkVar | MarkConst
+	_MoveWord	MarkFunc | MarkVar | MarkConst
+
+	Library		"LIBRARY" {" "}+ "\"" @0 * @9 "\""
+
+# expressions for smartindent
+	If		"IF" * "THEN" >
+	For		"FOR" ~(* "NEXT")
+	Repeat		"REPEAT" >
+	While		"WHILE"
+	Case		"CASE" * "OF" >
+	Else		"ELSE" >
+	When		"WHEN"
+	Def		"DEF"
+
+	Endif		"ENDIF"
+	Endwhile	"ENDWHILE"
+	Next		"NEXT"
+	Otherwise	"OTHERWISE"
+	Endcase		"ENDCASE"
+	Until		"UNTIL"
+	Endfunc		"="
+	Endproc		"ENDPROC" >
+	Local		"LOCAL"
+
+	IndentExpr	< {" "} (Def | If | For | Repeat | While | Else | Case | When | Otherwise | Local)
+	OutdentExpr	< {" "} (Endfunc | Endproc | Endif | Endwhile | Next | Else | Endcase | Until | When | Otherwise | Local)
+End
+
+#-------------------------------------------------------------------------------
+
+SmartIndent Case
+	IndentSize	2
+	IndentAfter	IndentExpr
+	OutdentLine	OutdentExpr
+End
+
+#-------------------------------------------------------------------------------
+
+# Immediate commands :
+# APPEND AUTO DELETE EDIT HELP LIST LISTO LOAD LVAR NEW OLD
+# RENUMBER RUN SAVE TWIN TWINO
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteQuote	Yes
+	SplitString	No
+	HexPrefix	&
+	BinPrefix	%
+End
+
+#SyntaxComment 1
+#	CommentType	OneLine
+#	StartWith	;
+#	EndWith		:
+#End
+
+SyntaxComment 2
+	CommentType	OneLine
+	StartWith	REM
+	StartWhere	Anywhere
+End
+
+SyntaxWords Group1 EndAlways case
+	CALL CASE CHAIN CLEAR DATA DEF DIM ELSE END ENDCASE ENDIF
+	ENDPROC ENDWHILE ERROR FOR GOSUB GOTO IF INSTALL LET LIBRARY
+	LOCAL NEXT ON OTHERWISE OVERLAY QUIT REPEAT RESTORE RETURN
+	RUN STOP SYS THEN TRACE UNTIL USR WHEN WHILE
+End
+
+SyntaxWords Group2 EndAlways case
+	ADVAL ASC CHR$ COUNT ERL ERR EVAL HIMEM INSTR LEFT$ LEN LOMEM
+	MID$ MOUSE OF OFF OSCLI PAGE POS REPORT REPORT$ RIGHT$ RND
+	STEP STR$ STRING$ SWAP TIME TO TOP VAL WIDTH
+End
+
+SyntaxWords Group3 EndOfExpr FuncName case
+	PROC FN
+End
+
+SyntaxWords Group4 EndAlways case
+	BY CIRCLE CLG CLS COLOR COLOUR DRAW ELLIPSE FILL GCOL
+	LINE MODE MOVE ORIGIN PLOT POINT RECTANGLE TINT VDU WAIT
+End
+
+SyntaxWords Group5 EndAlways case
+	GET GET$ INPUT INKEY INKEY$ PRINT READ SPC TAB
+	BGET BPUT CLOSE EOF EXT OPENIN OPENOUT OPENUP PTR
+End
+
+SyntaxWords Group6 EndAlways case
+	BEAT BEATS ENVELOPE SOUND STEREO TEMPO VOICE VOICES
+End
+
+SyntaxWords Group7 EndAlways case
+	ABS ACS ASN ATN COS DEG DIV EXP INT LN LOG
+	MOD PI RAD SGN SIN SQR SUM SUMLEN TAN
+End
+
+SyntaxWords Group8 EndAlways case
+	AND EOR FALSE NOT OR TRUE
+End
+
+#-------------------------------------------------------------------------------
+
+KeyList
+#	c-R		Indent ("REM ")
+	cs-R		ReindentText(,Force)
+	c-E,c-R		SetTmp() Replace(_spct,"",,Line) Process(Text,"Run <StrongED$Tmp_ModePath>.Tools.Renumber")
+	c-E,c-I		SetTmp() Replace(_spct,"",,Line) Process(Text,"Run <StrongED$Tmp_ModePath>.Tools.IndentFile")
+	c-D,c-F		InsertStr ("FN_ForceDebug")
+	c-D,c-R		InsertStr ("FN_RestoreDebug")
+	c-D,c-D		InsertStr ("FN_Debug(pass%,\"\")")
+	c-Delete	InsertStr(":") DeleteRight
+	c-Return	NewLine(indent,_Indent2)
+#	Return		ReindentText(Line,Force) NewLine()
+	Return		SetTmp Process(Line,"Run <StrongED$Tmp_ToolPath>.KeywordFix") ReindentText(Line,Force) NewLine()
+#	Return		SetTmp Process(Line,"Run <StrongED$Tmp_ToolPath>.KeywordFix") ReindentText(Line,Force) NewLine() ReindentText(Line,Force) EndOfTline
+#	c-Space		BlockClear Push BlockMark_Continous WordLeft BlockMark_Continous Pop InsertStr(" ") SetTmp Process(Block,"Run <StrongED$Tmp_ToolPath>.KeywordFix") BlockClear
+End
+
+#-------------------------------------------------------------------------------
+
+ClickList
+	Library		Run("Message StrongED_OpenDoc <StrongED$Tmp_MarkWord>")
+End
+
+#-------------------------------------------------------------------------------
+
+Functions
+	Icon		LoF
+	Menu		List DEF PROC/FN  ‹F2
+	Help		HBa_lof
+	Key		s-F2
+	Select		ListOfFound(Func, Text, Align, Line, Case, Sort)
+
+	Adjust		ListOfFound(Func, All, Align, Line, Case, Sort)
+
+	s-Select	ListOfFound(Label, Text, Whole, Line, Case, Sort)
+
+	s-Adjust	ListOfFound(Label, All, Whole, Line, Case, Sort)
+
+	Icon		updown
+	Help		HBa_updn
+	Key		c-PgDown
+	Select		GotoNext(Func, Text, Line, Case)
+
+	Key		c-PgUp
+	Adjust		GotoPrev(Func, Text, Line, Case)
+
+	Key		cs-PgDown
+	s-Select	GotoNext(Label, Text, Line, Case)
+
+	Key		cs-PgUp
+	s-Adjust	GotoPrev(Label, Text, Line, Case)
+
+	Icon		run
+	Menu		Run                F10
+	Help		HBa_run
+	Key		F10
+	Select		SetTmp() RunBasic(Nosave)
+
+	Key		s-F10
+	s-Select	SetTmp() RunBasic(Save)
+
+	Key		c-F10
+	Adjust		SetTmp() RunBasic(Nosave, Quit, Taskwindow)
+
+	Key		cs-F10
+	s-Adjust	SetTmp() RunBasic(Save, Quit, Taskwindow)
+
+	Icon		goto
+	Menu		Goto label/DEF PROC/FN
+	Help		HBa_go
+	Key		c-G
+	Select		Push GotoFound(GoFunc, Text, Whole, Line, Case)
+
+	Key		c-G 2
+	Adjust		Push GotoFound(GoFunc, All, Whole, Line, Case)
+
+	Key		cs-G
+	s-Select	Push GotoFound(GoLabel, Text, Whole, Line, Case)
+
+	Key		cs-G 2
+	s-Adjust	Push GotoFound(GoLabel, All, Whole, Line, Case)
+
+	cs-Select	Pop()
+
+	cs-Adjust	Pop()
+
+	Menu		Strip line numbers
+	Select		Replace(LineNumber, "", Text, Line, NoCase)
+End
+
+#-------------------------------------------------------------------------------
+
+Shortcuts
+	P.	PRINT \@
+	DF.	DEF FN\@\n\n=0
+	DP.	DEF PROC\@\n\nENDPROC
+	CA.	CASE \@ OF\n\i  WHEN \@\n\iENDCASE
+	WH.	WHILE \@\n\i  \@\n\iENDWHILE
+	RE.	REPEAT\n\i  \@\n\iUNTIL ()
+	ERR.	ON ERROR: ON ERROR OFF: PRINT REPORT$;" at line ";ERL:END\n\i\@
+	FO.	FOR \@\n\i  \@\n\iNEXT
+	STM{	STMFD   R13!,{R0-R12,LR}\n\n\i\@\n\n\iLDMFD   R13!,{R0-R12,PC}
+	LDM{	LDMFD   R13!,{R0-R12,PC}
+	``-	REM ----------------------------------------------------------------------------\n
+	``=	REM ============================================================================\n
+End

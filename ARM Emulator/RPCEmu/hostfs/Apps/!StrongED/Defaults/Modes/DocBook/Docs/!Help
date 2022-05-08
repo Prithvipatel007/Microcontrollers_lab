@@ -1,0 +1,116 @@
+
+ DocBook
+~~~~~~~~~
+
+StrongED Mode	DocBook
+Purpose		Provide support for the DocBook language in StrongED
+Version		0.07, 13 July 2003
+Copyright	Philip Ludlam 2003
+
+
+ Installing the StrongED DocBook Mode
+======================================
+
+There are some internal changes between this version and any previous versions. There are also internal differences between this DocBook mode and the one normally supplied with StrongED. Please remove any existing DocBook mode before installing this one.
+  
+Once downloaded the StrongED DocBook Mode needs to be installed in StrongED. To
+do this copy the directory êDocBookë into the !StrED_cfg.Modes directory.
+
+
+ Important
+===========
+
+The DocBook mode makes use of several new features introduced in version 4.65
+Alpha 2 of StrongEd. Please make sure that you are using 4.65 Alpha 2 or later
+before installing this DocBook mode.
+
+
+ Syntax Colouring
+==================
+
+This DocBook mode has only partial support for the latest version of DocBook.
+
+
+ The Toolbar
+=============
+
+1  - Start StrongHelp
+	Loads StrongHelp (if not already running) and searches for a suitable
+	html page for current word or character.
+2  - Show List of files dialogue box
+	Select opens a window listing all the files StrongED has loaded.
+3  - Check Spelling
+	Select opens a window listing all the spelling mistakes in the current
+	document.†Adjust opens the interactive spell checking window.
+4  - Open Choices window
+	Select open the 'Global Choices' window. Adjust open the 'Mode Choices'
+	window.
+5  - Open Save file window
+	Select opens the 'Save text' window. Adjust saves the current document.
+
+6  - Paragraph
+	Defines the selected text as a paragraph.
+
+ The Menu
+==========
+
+1) Change mode
+	Change the mode of the file being displayed.
+2) Choices..
+	Open the mode choices window.
+3) Base functions
+	Opens the Functions menu.
+
+
+ The Keyboard shortcuts
+========================
+
+
+
+ Search and replace expressions
+================================
+
+
+
+ Interactive Help
+==================
+
+The StrongEd DocBook Mode does support interactive help as used by applications
+like Help and BubbleHelp.
+
+
+ To Do
+=======
+
+	Add more features and improve the documentation
+	Translate help information into other languages
+	Convert text to DocBook and visa-versa
+	Add more tags
+
+
+ About the StrongED DocBook Mode
+=================================
+
+The StrongED DocBook Mode is still being developed. I do appreciate ideas for
+its development and bug reports.
+
+The StrongED DocBook Mode is freeware. It may be freely distributed so long
+as no charge is made for the Mode itself (excluding media costs). If you
+distribute the StrongED DocBook Mode on a CD compilation or such-like then
+you must contact me for the latest version.
+
+Permission from me (the author) must be sort before distributing modified
+version of the StrongED DocBook Mode or incorporating any part of the mode
+into any StrongED Mode, or any piece of software.
+
+There is no warranty, either expressed or implied, and the StrongED DocBook
+Mode is not guaranteed fit for use in any situation. I (the author) take no
+responsibility for any (mis)use of the StrongED DocBook Mode by you (the user)
+and can accept no responsibility for any loss or damage incurred by doing so.
+
+The StrongED DocBook Mode and more are available from
+http://www.philipnet.com/ .
+If you find a bug in any of my programs or have ideas for their improvement
+then please contact me at mailto:philip@philipnet.com or through my web site.
+
+© 2003 Philip Ludlam

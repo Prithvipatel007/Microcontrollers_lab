@@ -1,0 +1,34 @@
+DIM CODE% (&100)
+P% = CODE%
+[
+.buffer
+  EQUD  &00000000  ; I2C buffer (byte 3, byte 2, byte 1, byte 0)
+  EQUD  &00000000  ; I2C buffer (byte 7, byte 6, byte 5, byte 4)
+
+.main
+  ; RTC PCF8583 address &50 + write register &00
+  ADR   R1, buffer
+  MOV   R0, #&00
+  STRB  R0, [R1]
+  MOV   R0, #((&50<<1)+0)  ; value %1010000.0
+  ADR   R1, buffer
+  MOV   R2, #1
+  SWI   "IIC_Control"
+
+  ; RTC PCF8583 address &50 + read register &00
+  MOV   R0, #((&50<<1)+1)  ; value %1010000.1
+  ADR   R1, buffer
+  MOV   R2, #1
+  SWI   "IIC_Control"
+
+  ADR   R1, buffer
+  LDRB  R0, [R1]
+
+  MOV   PC, LR  ; return
+]
+REPEAT
+  PRINT USR(main)
+  timeact = TIME + 100
+  REPEAT
+  UNTIL TIME > timeact
+UNTIL FALSE

@@ -1,0 +1,68 @@
+// Newton
+
+// x(n+1)=x(n)-f(x(n))/f'(x(n))
+
+// f(x)=1-2/x^2
+// f(x)'=4/x^3
+
+// x(n+1)=x(n)-(1-2/x(n)^2)/(4/x(n)^3)
+
+#include <stdio.h>
+
+#include "os.h"
+
+int main (void)
+{
+  double x, y;
+  int n;
+
+  // screen coordinates 0-1600 / 0-1200
+  int xk = 0;
+  int yk1 = 0;
+  int yk2 = 0;
+
+  mode("X800 Y600 C16M");
+  clg();
+  // x-axis
+  gcol(2);
+  line(0,600,1600,600);
+  gcol(75);
+
+  printf("Newton\n\n");
+
+  printf("x=1..2\n\n");
+
+  // plot
+  x = 1.0;
+  do
+  {
+    // f(x)
+    y = 1.0 - 2.0/(x*x);
+    x += 0.01;
+
+    if (x > 2.0)
+      break;
+
+    yk2 = (int) (y*600.0) + 600;
+    line(xk, yk1, xk+16, yk2);
+
+    yk1 = yk2;
+    xk += 16;
+  }
+  while (xk < 1600);
+
+  // iterations
+  x = 1.5;
+  n = 0;
+  do
+  {
+    printf("xs(%d)=%lf\n", n, x);
+
+    // x(n+1)=x(n)-f(x(n))/f'(x(n))
+    x = x - (1-2/(x*x))/(4/(x*x*x));
+    n++;
+  }
+  while (n < 5);
+
+  return 0;
+}

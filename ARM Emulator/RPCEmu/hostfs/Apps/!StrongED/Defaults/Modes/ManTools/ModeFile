@@ -1,0 +1,137 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : ManTools
+#	Purpose : Edit ManTools files
+#	Author  : © Fred Graute
+#	Licence : Freeware
+#	Version : 1.00, 25-07-2013
+##
+#-------------------------------------------------------------------------------
+# 21-01-2013 FG Initial version
+#-------------------------------------------------------------------------------
+
+HelpPath	ManTools,
+
+FoldParm1(StartFold,EndFold,,NoCase)
+
+#
+Search
+	StartFold	"<chapter" | "<literal"
+	EndFold		("</chapter" | "</literal") * > {\n}+
+	PlaceHold	{AD}+ "$$"
+End
+
+#
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteQuote	Yes
+	SplitString	Yes
+	HexPrefix	#
+End
+
+# Document header and constants
+SyntaxWords Group1 EndAlways
+	<document
+	<define
+End
+
+# Chapters and literal blocks
+SyntaxWords Group2 EndOfLine
+	<literal> </literal> <literal
+	<chapter> </chapter> <chapter
+End
+
+# Block Level Tags
+SyntaxWords Group3 EndOfLine
+	<definition </definition>
+	<subhead    </subhead>
+	<list       </list>
+End
+
+# Block formatting
+SyntaxWords Group4 EndAlways
+	<box> </box>
+	<codeblock> </codeblock>
+End
+
+# List items
+SyntaxWords Group5 EndAlways
+	<li>
+End
+
+# References and hyperlinks
+SyntaxWords Group6 EndAlways
+	<link </link>
+End
+
+# Semantic tags
+SyntaxWords Group7 EndAlways NoCase
+	<cite> </cite>
+	<code> </code>
+	<command> </command>
+	<em> </em>
+	<entry> </entry>
+	<file> </file>
+	<icon> </icon>
+	<key> </key>
+	<menu> </menu>
+	<mouse> </mouse>
+	<param> </param>
+	<strong> </strong>
+	<window> </window>
+End
+
+# Character entities
+SyntaxWords Group8 EndAlways
+	"&lt;"
+	"&gt;"
+	"&amp;"
+	"&quot;"
+	"&ndash;"
+	"&nbsp;"
+End
+
+# Placeholders
+SyntaxWords Group9 EndOfExpr PlaceHold
+	$$
+End
+
+#
+Functions
+	Icon		text
+	Help		HlpText
+	Select		SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!PopUp")
+
+	Icon		list
+	Help		HlpLists
+	Select		SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!Lists")
+
+	Icon		run
+	Help		HlpRun
+	Select		SetTmp() SaveRun("<ManToolsFE$Dir>.!Run -i <StrongED$Tmp_FileName> -NoIcon")
+#	Select		SetTmp() Process(Text, "<ManToolsFE$Dir>.!Run <StrongED$ScrapDir>.out",,NoReplace)
+End
+
+#
+Shortcuts
+	``ch	<chapter title="\@" file="\@">\n</chapter>
+	``de	<define name="\@" value="\@">
+	``do	<document title="\@">
+	``li	<list type="\@" spacing="\@">
+	``sh	<subhead title="\@">
+
+	``ci	<cite>\@</cite>
+	``co	<code>\@</code>
+	``cmd	<command>\@</command>
+	``em	<em>\@</em>
+	``en	<entry>\@</entry>
+	``fi	<file>\@</file>
+	``ic	<icon>\@</icon>
+	``ke	<key>\@</key>
+	``me	<menu>\@</menu>
+	``mo	<mouse>\@</mouse>
+	``pa	<param>\@</param>
+	``st	<strong>\@</strong>
+	``wi	<window>\@</window>
+End

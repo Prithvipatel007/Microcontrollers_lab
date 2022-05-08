@@ -1,0 +1,14 @@
+#!awk
+# no duplicate lines
+# Idea of Byron Rakitzis
+# Arnold Robbins, arnold@gnu.ai.mit.edu
+
+{
+ if (data[$0]++ == 0)
+     lines[++count] = $0
+}
+
+END {
+      for (i = 1; i <= count; i++)
+          print lines[i]
+    }

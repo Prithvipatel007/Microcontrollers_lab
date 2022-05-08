@@ -1,0 +1,8 @@
+| Boot file for Complete
+| © StrongED Developers
+
+| Task directory
+Set Complete$Dir <Obey$Dir>
+
+| Wimp pool sprites
+Iconsprites <Complete$Dir>.!Sprites

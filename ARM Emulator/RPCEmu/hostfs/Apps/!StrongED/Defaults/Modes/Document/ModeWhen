@@ -1,0 +1,12 @@
+# Display structured application documents
+
+Rules Include
+# ‹, text files, anywhere inside any 'Documents' directory
+!fff,**.Documents.**
+# ‹, text file, called '!Help' anywhere
+!fff,**.!Help
+# ‹, text file, called '!ReadMe' anywhere
+!fff,**.!ReadMe
+# ‹, text file, called 'Manual' anywhere
+!fff,**.Manual
+End

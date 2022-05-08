@@ -1,0 +1,133 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : S-Base
+#	Purpose : StrongED mode file for S-Base's external editor option
+#	Author  : © Robin Hampshire
+#	Licence : Freeware
+#	Version : 0.03, 05-12-2011
+#
+#-------------------------------------------------------------------------------
+# 05-Dec-2011 FG Changed 'Type' to 'CommentType' in SyntaxComment
+#-------------------------------------------------------------------------------
+
+ID_FirstChar	@A-Za-z_
+ID_Middle	A-Za-z_0-9
+
+#----------------------------------------------------------------------
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteQuote	Yes
+	SplitString	No
+	HexPrefix	&
+	BinPrefix	%
+End
+
+HelpPath	S-Base
+
+SyntaxComment 1
+	CommentType	Multiline
+	StartWith	{
+	EndWith		}
+End
+
+SyntaxComment 2
+	CommentType	OneLine
+	Startwith	|
+End
+
+SyntaxWords Group1 case
+
+	archive csv bput close flush import load check insert print save to
+	send set ext pack off on ptr vdu array delete dim lvar use zero
+	bit clear dispose for buffer break card protect element font
+	hide select poll show cursor handle header move table update valuebar
+	case continue exit else endcase endwhile ffor endif
+	if next otherwise repeat resume return run step suspend then until
+	when while local error create circle clg draw gcol
+	origin plot point rectangle delay oscli sys cache index file field
+	reindex sort undelete unlock zap menu pmenu report page
+	entry selector text box new query static drag
+End
+
+SyntaxWords Group2 case
+	@abs @acos @addr @altered @asc @asin @atan @atanq @bget @bitsetcount
+	@bittest @bof @chr @clickelement @clickelementlabel @clickmouse
+	@cos @cosh @cursor @date @datesi @datesn @dec @deg @deleted @dollar
+	@elaltered @element @elementhandle @elementlabel @elementvalue
+	@entry @entryaltered @entrycount @entrytext @eof @errcode @errnum
+	@errstr @exp @ext @formstr @fpeek @handle @hex @indexcount @instr @int
+	@justaltered @key @lastentry @left @len @ln @loadindex @log
+	@ltrim @match @max @mean @menu @menufind @menuselect @mid
+	@min @msg @mult @onespace @openin @openout @openup @order
+	@pad @pi @point @previous @ptr @rad @record @recordsize @recsize
+	@right @rnd @round @sdev @selectedhandle @sgn @sin @sinh @soundex
+	@spc @sqr @string @stringize @sum @sumsq @tan @tanh @time @timedm
+	@timedom @timedow @timedoy @timefod @timefom @timefoy @timeh
+	@timemoy @timemy @times @timesi @timesn @timest @timeu @timey
+	@todate @tof @tolower @toupper @trim @val @vrecsize @str
+	@inkey @fieldcount @fieldnum @filefield @findelem @bitfirstset
+	@clickentry @cursorhandle @elementstatus @adval @applinfo @checkmem
+	@fonthandle @freemem @ipeek @cachehandle @externalhandle @find
+	@findn @lock @next @nextfree @recordcount @version @menuremake
+	@page @pagecount @stop @protectedhandle @ceiling @floor
+	@elementnum @iconnum @indexlabel @totime @monotime
+	@timeform @eval @exec
+
+End
+
+SyntaxWords Group3 case
+	def proc enddef
+End
+
+#----------------------------------------------------------------------
+
+Search
+	procstart	{" "} "def" {" "} "proc"
+	procend		"enddef"
+	Bchar		Alpha|"_"|"`"
+	pr		{" "} "print"{" "}
+	sus		{" "} "suspend" {" "}
+End
+
+FoldParm1 ("|",startofline,case)
+FoldParm2 (procstart, procend, StartOfLine, Case)
+
+KeyList
+	c-R		Indent ("| ")
+	c-P		Newline InsertStr ("print  ")
+	c-S		Newline InsertStr ("suspend  ")
+	c-Return	Newline InsertStr ("  ")
+	sc-Return	Newline CaretLeft CaretLeft
+
+End
+
+Functions
+
+	Key	s-F2
+	Menu	List def proc  ‹F2
+	Icon	LoF
+	Select	ListOfFound (procstart,Text,Align,Line,Case)
+	Help	HBa_lof
+
+	Adjust	ListOfFound (procstart,All,Align,Line,Case)
+
+	^Select	ListOfFound (pr,Text,Align,Line,Case)
+
+	^Adjust	ListOfFound (pr,All,Align,Line,Case)
+
+	‹Select	ListOfFound (sus,Text,Align,Line,Case)
+
+	‹Adjust	ListOfFound (sus,All,Align,Line,Case)
+
+End
+
+Shortcuts
+	def.	def proc \@ \n\i  \@\n\ienddef\n
+	for.	for \@ \n\i  \@\n\inext\n
+	case.	case \@ \n\iwhen \@\n\i  \@\n\iendcase\n
+	repeat.	repeat\n\i  \@\n\iuntil \@\n
+	if.	if \@\n\i  \@\n\iendif\n
+	while.	while \@\n\i  \@\n\iendwhile\n
+	|.	|--------------------------------------------------------------------------\n
+End

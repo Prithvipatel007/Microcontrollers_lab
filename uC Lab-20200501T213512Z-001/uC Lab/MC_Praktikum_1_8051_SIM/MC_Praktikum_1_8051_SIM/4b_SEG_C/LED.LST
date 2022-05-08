@@ -1,0 +1,70 @@
+C51 COMPILER V9.01   LED                                                                   09/17/2014 23:13:31 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE LED
+OBJECT MODULE PLACED IN LED.OBJ
+COMPILER INVOKED BY: C:\Program Files\Keil\C51\BIN\C51.EXE LED.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include <REG51.h>
+   2          
+   3          // ROM
+   4          // 11000000B  : 0
+   5          // 11111001B  : 1
+   6          // 10100100B  : 2
+   7          // 10110000B  : 3
+   8          // 10011001B  : 4
+   9          // 10010010B  : 5
+  10          // 10000010B  : 6
+  11          // 11111000B  : 7
+  12          // 10000000B  : 8
+  13          // 10010000B  : 9
+  14          code unsigned char table[] = {0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90};
+  15          
+  16          sbit CS = P0^7;   // MUX CS
+  17          sbit A0 = P3^3;   // MUX A0
+  18          sbit A1 = P3^4;   // MUX A1
+  19          
+  20          void delay(void)
+  21          {
+  22   1        volatile unsigned char n; // prevent compiler omission
+  23   1        
+  24   1        for (n=0; n<100; n++) {}
+  25   1      }
+  26          
+  27          void main(void)
+  28          {
+  29   1        unsigned char idx;
+  30   1        
+  31   1        CS = 0;     // MUX CS -> SEG off
+  32   1        P1 = 0xFF;  // SEG clear
+  33   1        A0 = 0;     // MUX A0 = 0 -> SEG #1 select
+  34   1        A1 = 0;     // MUX A1 = 0
+  35   1        CS = 1;     // MUX CS -> SEG on
+  36   1        
+  37   1        while (1)
+  38   1        {
+  39   2          for (idx=0; idx<=9; idx++)  // number index
+  40   2          {
+  41   3            P1 = table[idx];  // SEG show number
+  42   3            delay();
+  43   3          }
+  44   2        }
+  45   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     40    ----
+   CONSTANT SIZE    =     10    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+C51 COMPILER V9.01   LED                                                                   09/17/2014 23:13:31 PAGE 2   
+
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

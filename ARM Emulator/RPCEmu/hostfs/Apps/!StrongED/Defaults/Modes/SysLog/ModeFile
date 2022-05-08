@@ -1,0 +1,41 @@
+# ModeFile for SysLog mode
+# See !Help and Version files for author, purpose, version, help, etc
+
+Search
+# below defines 3 digit error ID.
+# This can also be three hyphens if no error ID is specified by the logging application
+	logdigits	*{'\-0-9'}3:3
+End
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteQuote	No
+	SplitString	No
+End
+
+# separate the date and 3 digit error ID from the actual message
+# this assumes the date format is like '15 Jul', i.e. the first digit will always be
+# a 0,1,2 or 3 because it is a day of the month. I don't think it is possible to
+# change the date format in !Syslog anyway.
+SyntaxWords Group1 nocase StartOfLine EndOfExpr logdigits
+	0 1 2 3
+End
+
+# POPstar log stuff
+SyntaxWords Group2 nocase EndAlways
+	"Sending message"
+End
+
+# Problems
+SyntaxWords Group3 nocase EndAlways
+	"Unexpected"
+	"error"
+	"abort"
+	"failed"
+	"timed out"
+	"unable to"
+	"terminate"
+	"invalid"
+	"òŸå"
+End

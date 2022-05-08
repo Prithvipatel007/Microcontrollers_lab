@@ -1,0 +1,394 @@
+# StrongED export format file
+# Format: Impression DDF
+# © StrongED developers
+
+# Start and end of document
+doc_Prologue:
+doc_Epilogue:
+
+# Start and end of styles
+style_Prologue:
+style_Epilogue:
+
+# Style definitions
+def_Style_10:{\ndefine style "BaseStyle";\n font Corpus.Medium;\n fontsize 10pt;\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_11:{\ndefine style "Text";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_12:{\ndefine style "Caret";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_13:{\ndefine style "Block";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_14:{\ndefine style "Mark";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_15:{\ndefine style "Ctrl";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_16:{\ndefine style "Tabs";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_17:{\ndefine style "Identifiers";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_18:{\ndefine style "Functions";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_19:{\ndefine style "Strings";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_1A:{\ndefine style "Comments";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_1B:{\ndefine style "Numbers";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_1C:{\ndefine style "Punctuation";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_1D:{\ndefine style "Group1";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_1E:{\ndefine style "Group2";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_1F:{\ndefine style "Group3";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_20:{\ndefine style "Group4";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_21:{\ndefine style "Group5";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_22:{\ndefine style "Group6";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_23:{\ndefine style "Group7";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_24:{\ndefine style "Group8";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_25:{\ndefine style "Group9";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_26:{\ndefine style "Group10";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_27:{\ndefine style "Group11";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_28:{\ndefine style "Group12";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_29:{\ndefine style "Group13";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_2A:{\ndefine style "Group14";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_2B:{\ndefine style "Group15";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+def_Style_2C:{\ndefine style "Group16";\n fontcolour rgb=(%0);\n backcolour rgb=(%1);\n bold %2;\n italic %3;\n menuitem on}
+
+# Start and end of actual text
+text_Prologue:{"BaseStyle" on}
+text_Epilogue:
+
+# The BaseStyle
+add_Style_10:{"BaseStyle" on}
+rem_Style_10:{"BaseStyle" off}
+
+# The groups
+add_Style_11:{"Text" on}
+rem_Style_11:{"Text" off}
+
+add_Style_12:{"Caret" on}
+rem_Style_12:{"Caret" off}
+
+add_Style_13:{"Block" on}
+rem_Style_13:{"Block" off}
+
+add_Style_14:{"Mark" on}
+rem_Style_14:{"Mark" off}
+
+add_Style_15:{"Ctrl" on}
+rem_Style_15:{"Ctrl" off}
+
+add_Style_16:{"Tabs" on}
+rem_Style_16:{"Tabs" off}
+
+add_Style_17:{"Identifiers" on}
+rem_Style_17:{"Identifiers" off}
+
+add_Style_18:{"Functions" on}
+rem_Style_18:{"Functions" off}
+
+add_Style_19:{"Strings" on}
+rem_Style_19:{"Strings" off}
+
+add_Style_1A:{"Comments" on}
+rem_Style_1A:{"Comments" off}
+
+add_Style_1B:{"Numbers" on}
+rem_Style_1B:{"Numbers" off}
+
+add_Style_1C:{"Punctuation" on}
+rem_Style_1C:{"Punctuation" off}
+
+add_Style_1D:{"Group1" on}
+rem_Style_1D:{"Group1" off}
+
+add_Style_1E:{"Group2" on}
+rem_Style_1E:{"Group2" off}
+
+add_Style_1F:{"Group3" on}
+rem_Style_1F:{"Group3" off}
+
+add_Style_20:{"Group4" on}
+rem_Style_20:{"Group4" off}
+
+add_Style_21:{"Group5" on}
+rem_Style_21:{"Group5" off}
+
+add_Style_22:{"Group6" on}
+rem_Style_22:{"Group6" off}
+
+add_Style_23:{"Group7" on}
+rem_Style_23:{"Group7" off}
+
+add_Style_24:{"Group8" on}
+rem_Style_24:{"Group8" off}
+
+add_Style_25:{"Group9" on}
+rem_Style_25:{"Group9" off}
+
+add_Style_26:{"Group10" on}
+rem_Style_26:{"Group10" off}
+
+add_Style_27:{"Group11" on}
+rem_Style_27:{"Group11" off}
+
+add_Style_28:{"Group12" on}
+rem_Style_28:{"Group12" off}
+
+add_Style_29:{"Group13" on}
+rem_Style_29:{"Group13" off}
+
+add_Style_2A:{"Group14" on}
+rem_Style_2A:{"Group14" off}
+
+add_Style_2B:{"Group15" on}
+rem_Style_2B:{"Group15" off}
+
+add_Style_2C:{"Group16" on}
+rem_Style_2C:{"Group16" off}
+
+
+# Character translations
+Char0:@
+Char1:A
+Char2:B
+Char3:C
+Char4:D
+Char5:E
+Char6:F
+Char7:G
+Char8:H
+Char9:I
+Char10:J
+Char11:K
+Char12:L
+Char13:M
+Char14:N
+Char15:O
+Char16:P
+Char17:Q
+Char18:R
+Char19:S
+Char20:T
+Char21:U
+Char22:V
+Char23:W
+Char24:X
+Char25:Y
+Char26:Z
+Char27:[
+Char28:\
+Char29:]
+Char30:^
+Char31:_
+Char32: 
+Char33:!
+Char34:{\34}
+Char35:#
+Char36:$
+Char37:%
+Char38:&
+Char39:{\39}
+Char40:(
+Char41:)
+Char42:*
+Char43:+
+Char44:,
+Char45:-
+Char46:.
+Char47:/
+Char48:0
+Char49:1
+Char50:2
+Char51:3
+Char52:4
+Char53:5
+Char54:6
+Char55:7
+Char56:8
+Char57:9
+Char58::
+Char59:;
+Char60:<
+Char61:=
+Char62:>
+Char63:?
+Char64:@
+Char65:A
+Char66:B
+Char67:C
+Char68:D
+Char69:E
+Char70:F
+Char71:G
+Char72:H
+Char73:I
+Char74:J
+Char75:K
+Char76:L
+Char77:M
+Char78:N
+Char79:O
+Char80:P
+Char81:Q
+Char82:R
+Char83:S
+Char84:T
+Char85:U
+Char86:V
+Char87:W
+Char88:X
+Char89:Y
+Char90:Z
+Char91:[
+Char92:\
+Char93:]
+Char94:^
+Char95:_
+Char96:`
+Char97:a
+Char98:b
+Char99:c
+Char100:d
+Char101:e
+Char102:f
+Char103:g
+Char104:h
+Char105:i
+Char106:j
+Char107:k
+Char108:l
+Char109:m
+Char110:n
+Char111:o
+Char112:p
+Char113:q
+Char114:r
+Char115:s
+Char116:t
+Char117:u
+Char118:v
+Char119:w
+Char120:x
+Char121:y
+Char122:z
+Char123:{\123}
+Char124:|
+Char125:{\125}
+Char126:~
+Char127:?
+Char128:{\128}
+Char129:{\129}
+Char130:{\130}
+Char131:{\131}
+Char132:{\132}
+Char133:{\133}
+Char134:{\134}
+Char135:{\135}
+Char136:{\136}
+Char137:{\137}
+Char138:{\138}
+Char139:{\139}
+Char140:{\140}
+Char141:{\141}
+Char142:{\142}
+Char143:{\143}
+Char144:{\144}
+Char145:{\145}
+Char146:{\146}
+Char147:{\147}
+Char148:{\148}
+Char149:{\149}
+Char150:{\150}
+Char151:{\151}
+Char152:{\152}
+Char153:{\153}
+Char154:{\154}
+Char155:{\155}
+Char156:{\156}
+Char157:{\157}
+Char158:{\158}
+Char159:{\159}
+Char160:{\160}
+Char161:{\161}
+Char162:{\162}
+Char163:{\163}
+Char164:{\164}
+Char165:{\165}
+Char166:{\166}
+Char167:{\167}
+Char168:{\168}
+Char169:{\169}
+Char170:{\170}
+Char171:{\171}
+Char172:{\172}
+Char173:{\173}
+Char174:{\174}
+Char175:{\175}
+Char176:{\176}
+Char177:{\177}
+Char178:{\178}
+Char179:{\179}
+Char180:{\180}
+Char181:{\181}
+Char182:{\182}
+Char183:{\183}
+Char184:{\184}
+Char185:{\185}
+Char186:{\186}
+Char187:{\187}
+Char188:{\188}
+Char189:{\189}
+Char190:{\190}
+Char191:{\191}
+Char192:{\192}
+Char193:{\193}
+Char194:{\194}
+Char195:{\195}
+Char196:{\196}
+Char197:{\197}
+Char198:{\198}
+Char199:{\199}
+Char200:{\200}
+Char201:{\201}
+Char202:{\202}
+Char203:{\203}
+Char204:{\204}
+Char205:{\205}
+Char206:{\206}
+Char207:{\207}
+Char208:{\208}
+Char209:{\209}
+Char210:{\210}
+Char211:{\211}
+Char212:{\212}
+Char213:{\213}
+Char214:{\214}
+Char215:{\215}
+Char216:{\216}
+Char217:{\217}
+Char218:{\218}
+Char219:{\219}
+Char220:{\220}
+Char221:{\221}
+Char222:{\222}
+Char223:{\223}
+Char224:{\224}
+Char225:{\225}
+Char226:{\226}
+Char227:{\227}
+Char228:{\228}
+Char229:{\229}
+Char230:{\230}
+Char231:{\231}
+Char232:{\232}
+Char233:{\233}
+Char234:{\234}
+Char235:{\235}
+Char236:{\236}
+Char237:{\237}
+Char238:{\238}
+Char239:{\239}
+Char240:{\240}
+Char241:{\241}
+Char242:{\242}
+Char243:{\243}
+Char244:{\244}
+Char245:{\245}
+Char246:{\246}
+Char247:{\247}
+Char248:{\248}
+Char249:{\249}
+Char250:{\250}
+Char251:{\251}
+Char252:{\252}
+Char253:{\253}
+Char254:{\254}
+Char255:{\255}

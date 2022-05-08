@@ -1,0 +1,28 @@
+Rules Exclude
+  fff,**.!StrongED.Defaults.Modes.**
+  fff,**.!StrED_cfg.UserPrefs.Modes.**
+End
+
+Rules Include
+  fff, **.apis.*/rb
+  fff, **.controllers.*/rb
+  fff, **.helpers.*/rb
+  fff, **.models.*/rb
+
+> ffd, **.apis.*/rb        ; Dummy
+> ffd, **.controllers.*/rb ; Dummy
+> ffd, **.helpers.*/rb     ; Dummy
+> ffd, **.models.*/rb      ; Dummy
+
+  fff, **.rhtml.*
+  fff, **/rhtml
+
+! *,   **/rhtml
+
+> ffd, **.rhtml.* ; Dummy
+> ffd, **/rhtml   ; Dummy
+End
+
+Match
+  Dummy Any
+End

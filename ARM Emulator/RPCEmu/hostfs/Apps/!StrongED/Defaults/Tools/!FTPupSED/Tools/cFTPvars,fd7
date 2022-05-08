@@ -1,0 +1,24 @@
+| Show FTP upload setup
+| © StrongED developers
+
+| Unset all StrongED's FTP related variables
+Unset StrongED$FTP_*
+
+| Ensure that an FTP environment has been set up
+IfThere <FTPupSED$Dir>.SiteScript Then Else <FTPupSED$Dir>.Tools.FTPerror 1
+
+| Ensure localpath and localname point to file to upload
+Set StrongED$FTP_LocalName "<StrongED$Tmp_FileLeaf>"
+Set StrongED$FTP_LocalPath "<StrongED$Tmp_FilePath>"
+
+| Run the SiteScript to set remote site variables
+Obey <FTPupSED$Dir>.SiteScript
+
+| Ensure that the remote paths are proper unix names
+Run <FTPupSED$Dir>.Tools.Unixify
+
+| Show the variables for the current site
+Show StrongED$FTP_*
+
+| Unset all StrongED's FTP related variables
+Unset StrongED$FTP_*

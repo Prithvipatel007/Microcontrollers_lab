@@ -1,0 +1,13 @@
+| Help file for SpeakSED
+| © StrongED Developers
+
+| Task directory
+Set SpeakSED$Dir <Obey$Dir>
+Set SpeakSED$Resources <SpeakSED$Dir>
+
+| Language resources
+IfThere <SpeakSED$Dir>.!Languages Then Run <SpeakSED$Dir>.!Languages SpeakSED
+
+| Run manual or help file
+If "<Alias$@RunType_3d6>"  = "" Then Filer_Run <SpeakSED$Resources>.Help
+If "<Alias$@RunType_3d6>" <> "" Then Filer_Run <SpeakSED$Resources>.SpeakSED

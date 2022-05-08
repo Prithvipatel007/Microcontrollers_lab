@@ -1,0 +1,18 @@
+Rules Exclude
+  *, **.!StrongED.**
+  *, **.!StrED_cfg.**
+End
+
+Rules Include
+  fff, **.!Manuals.**
+  fff, **.Modes.*.Resources.*.ModeHelp.*
+> fff, ** ; _parent
+> ffd, ** ; _parent
+> ffd, **.!Manuals.** ; _dummy
+> ffd, **.Modes.*.Resources.*.ModeHelp.* ; _dummy
+End
+
+Match
+	_dummy	Any
+	_parent	** "#Parent"
+End

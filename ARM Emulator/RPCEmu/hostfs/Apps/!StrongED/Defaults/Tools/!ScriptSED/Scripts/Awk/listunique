@@ -1,0 +1,14 @@
+#!awk
+# list non duplicate lines
+# Idea of Byron Rakitzis
+# Arnold Robbins, arnold@gnu.ai.mit.edu
+
+{
+  again[$0]++
+}
+
+END {
+      for (x in again)
+        if (again[x] == 1)
+          print x
+    }

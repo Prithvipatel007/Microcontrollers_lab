@@ -1,0 +1,7 @@
+# BASIC and BasASM
+
+HBa_lof:SELECT erzeugt eine Liste aller Prozeduren und Funktionen.
+HBa_up:SELECT geht zur letzten Funktion, ADJUST zum letzten Assembler-Wort.
+HBa_dn:SELECT geht zur nächsten Funktion, ADJUST zum nächsten Assembler-Wort.
+HBa_run:SELECT übersetzt (tokenise) das Programm und startet es.|MADJUST  startet das Programm in einem TaskWindow.|MMit der Umschalttaste wird zuerst gespeichert.
+HBa_go:SELECT: Gehe zu Prozedur/Funktion.|MADJUST: Gehe zu Marke (Label).

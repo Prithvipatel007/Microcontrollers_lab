@@ -1,0 +1,312 @@
+
+xhtml
+~~~~~~
+
+StrongED Mode 	xhtml
+Purpose 	Provide support for xhtml mark-up in StrongED
+Version 	0.01, Thursday, 23 January, 2003
+Author 		Keith Hopper, © 2003
+
+
+ Installing the StrongED xhtml Mode
+===================================
+
+Once downloaded the StrongED xhtml Mode needs to be installed in StrongED. To
+do this you need to copy the mode directory into the !StrED_cfg.UserPrefs.Modes
+directory. You then need quit and restart StrongED.
+
+
+ Important
+===========
+
+The xhtml mode makes use of several new features introduced in version 4.53 of
+StrongEd. Please make sure that you are using 4.53 or later before installing
+this xhtml mode.
+
+
+Syntax Groups
+==============
+
+This xhtml mode has support for xhtml 1.1
+
+The xhtml elements and tags have been split into logical groups. These groups
+generally break along the lines of the xhtml module structure. They are:
+
+1.   High level elements - all head elements and including frames.
+
+2.   Block presentational and miscellaneous elements.
+
+3.   Block phrasal elements.
+
+4.   Block structural elements - including table elements.
+
+5.   In-line phrasal elements.
+
+6.   In-line structural elements (and ruby!).
+
+7.   Anchor, form and other external elements (inc. processing instructions).
+
+8.   List elements.
+
+These groups should be coloured to suit individual style.
+
+ The Toolbar
+=============
+
+1  - Start StrongHelp
+	Loads StrongHelp (if not already running) and searches for a suitable
+	xhtml page for current word or character.
+2  - Show List of files dialogue box
+	Select opens a window listing all the files StrongED has loaded.
+3  - Check Spelling
+	Select opens a window listing all the spelling mistakes in the current
+	document. Adjust opens the interactive spell checking window.
+4  - Open Choices window
+	Select open the 'Global Choices' window. Adjust open the 'Mode Choices'
+	window.
+5  - Open Save file window
+	Select opens the 'Save text' window. Adjust saves the current document.
+
+6  - Show List Of Headings/Links
+	Select opens a window listing all the headings in the document. Adjust
+	opens a window listing all the links in the document.
+7  - Run xhtml file
+	Select will try to open the current file in a web browser.
+8  - Heading 1
+	Will set the style of current text to heading number 1.
+9  - Heading 2
+	Will set the style of current text to heading number 2.
+10 - Heading 3
+	Will set the style of current text to heading number 3.
+10 - Heading 4
+	Will set the style of current text to heading number 3.
+11 - Emphasis
+	Select will set the style of current text as emphasis. 
+12 - Strong
+	Select will set the style of current text as strong.
+13 - Paragraph
+	Select defines the selected text as a left-aligned paragraph,
+	Adjust defines the selected text as a centred paragraph.
+14 - Anchor
+	Select changes the selected text into a hyperlink. Adjust allows you
+	to set an anchor marker point in the document.
+13 - Object
+	Allows you to set the selected text as content of an object.
+
+
+ The Menu
+==========
+
+1.   Change mode
+	Change the mode of the file being displayed.
+2.   Choices..
+	Open the mode choices window.
+3.   Base functions
+	Opens the Functions menu.
+
+4.   List of anchors
+	This opens a window listing all the headings in the document.
+5.   Save & render
+	This will try to open the current file in a web browser.
+6.   Create h1 from selected text.
+7.   Create h2 from selected text.
+8.   Create h3 from selected text.
+9.   Create h4 from selected text.
+10.   Emphasise selected text.
+11.   Make selected text strong.
+12.   Make selected text a paragraph.
+11.   Make selected text an anchor.
+11.   Make selected text an object.
+
+
+ The Keyboard shortcuts
+========================
+
+The HTML mode provides several shortcuts that you can use to make HTML editing
+easier. They are as follow:
+
+^D : Insert a 'last updated' text.
+
+^‹D : Insert the current date
+
+^‹T : Insert a complete xhtml 1.1 document template file.
+	NOTE You may wish to modify in detail the file Files.Template in the
+	Mode directory.
+
+^‹H : Insert an xhtml 1.1 document header.
+	NOTE You may wish to modify in detail the file Files.Header in the
+	Mode directory.
+
+^‹F : Insert an xhtml 1.1 document footer.
+	NOTE You may wish to modify in detail the file Files.Footer in the
+	Mode directory.
+
+
+ Search and replace expressions
+================================
+
+The HTML mode defines several search expressions.
+They are all listed below:
+
+entity
+	"&" {AlphaNum}+ ";"
+
+heading1
+	"<h"  AlphaNum   ">" @0 *  "</" @9
+
+heading
+	"<h"  AlphaNum   ">" @0 * @9 "</"
+
+tag
+	"<" ["\\"] { AlphaNum | "/" }+  ">"
+
+_MarkWord
+	tag | entity | {AlphaNum}+   | {Punct}+
+
+_SpellIgnore
+	("<" ["/"]? {'~<>'}+ ">") | ("&" {AlphaNum}+ ";")
+
+quote
+	"\""
+
+anchor
+	"<a" {iswhite}+ * "href=" quote @0 ** quote  ">" @9
+
+anchor1
+	"<a" {iswhite}+ * "href=" quote @0
+
+selected_line
+	{any}+
+
+url
+	{AlphaNum}+ ":/" { ["~"] alphanum | '/_.' }+
+
+url_text
+	@1 url @2 {iswhite} @3 {.} @4
+
+text
+	@1 @2 @3 {.} @4
+
+hotlist
+	url_text
+
+anch_st
+	"<a" {iswhite}+ * quote
+
+anch_end
+	quote  {iswhite} ">"
+
+remove_tag
+	anch_st | anch_end | tag
+
+speech
+	&22
+
+
+The HTML mode defines several replace expressions.
+They are all listed below:
+
+h1
+	"<h1 style=\"text-align:left\">" @@ "</h1>"
+
+h1a
+	"<h1 style=\"text-align:center\">" @@ "</h1>"
+
+h2
+	"<h2 style=\"text-align:left\">" @@ "</h2>"
+
+h2a
+	"<h2 style=\"text-align:center\">" @@ "</h2>"
+
+h3
+	"<h3 style=\"text-align:left\">" @@ "</h3>" 
+
+h3a
+	"<h3 style=\"text-align:center\">" @@ "</h3>" 
+
+h4
+	"<h4 style=\"text-align:left\">" @@ "</h4>"
+
+h4a
+	"<h4 style=\"text-align:center\">" @@ "</h4>"
+
+red
+	"<span style=\"color: #ff0000 ; background-color: transparent\">" @@ "</span>"
+
+blue
+	"<span style=\"color: #3a00aa ; background-color: transparent\">" @@ "</span>"
+
+green
+	"<span style=\"color: #008000 ; background-color: transparent\">" @@ "</span>"
+
+typewriter
+	"<tt>" @@ "</tt>"
+
+strong
+	"<strong>" @@ "</strong>"
+
+emphasis
+	"<em>" @@  "</em>"
+
+bigger
+	"<big>" @@  "</big>"
+
+smaller
+	"<small>" @@  "</small>"
+
+comment
+	"<!-- " @@ " -->"
+
+hotlist_r
+	"<a href=\"" @12  "\">" @34  "</a>"
+
+anchor
+	"<a href=\"\">" @@ "</a>"
+
+id
+	"<a id=\"\">" @@ "</a>"
+
+para
+	"<p>" @@ "</p>"
+
+parac
+	"<p style=\"text-align: center\">" @@ "</p>"
+
+object
+	"<object data=\"\" type=\"\">" @@ "</object>"
+
+
+ Interactive Help
+==================
+
+The StrongEd xhtml Mode does support interactive help as used by applications
+like Help and BubbleHelp.
+
+
+To Do
+=======
+
+	Improve the documentation
+	Translate help information into other languages
+
+
+About the StrongED xhtml Mode
+==============================
+
+The StrongED xhtml Mode is still being developed. It will be revised when xhtml
+version 2.0 becomes a W3C Recommendation.
+
+The StrongED xhtml Mode is freeware. It may be freely distributed so long as no
+charge is made for the program itself (excluding media costs). If you
+distribute the StrongED xhtml Mode as part of a software compilation then the
+author should be contacted for the latest version.
+
+There is no warranty, either expressed or implied, and the StrongED xhtml Mode
+is not guaranteed fit for use for any particular purpose. The author takes no
+responsibility for any (mis)use of the StrongED xhtml Mode and can accept
+no responsibility for any loss or damage incurred by doing so.
+
+The StrongED xhtml Mode will be available from the StrongEd web site.  The
+author may be contacted by e-mail as kh@waikato.ac.nz.
+
+© 2003 Keith Hopper

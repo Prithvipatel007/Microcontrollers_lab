@@ -1,0 +1,7 @@
+Havr_lof:Click to generate list of all functions.
+Havr_up:Click to go to previous function
+Havr_dn:Click to go to next function
+Havr_ld:Click to load the header file under cursor.
+Havr_run:Click to save text and send it to the c compiler.
+Havr_mak:Click to save text and launch Make.
+Havr_go:Click to go to the definition of the function you're standing on.

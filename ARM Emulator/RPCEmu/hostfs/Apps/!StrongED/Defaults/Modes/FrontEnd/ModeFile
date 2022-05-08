@@ -1,0 +1,116 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : FrontEnd
+#	Purpose : StrongED mode file for FrontEnd description files
+#	Author  : © Bent Bracke bbracke@web.de
+#	Licence : Freeware mode file for FrontEnd Descripton files
+#	Version : 1.4, 22-12-2011
+#
+#-------------------------------------------------------------------------------
+#
+# 10-02-2002 BB First version : Syntax colouring, shortcuts, folding
+#                               Functions: ListOf, Goto previous, Goto next, Run
+# 28-02-2002 BB Fixed error in deselections shortcut
+# 12-02-2003 BB Added number to syntaxgroup3
+# 13-02-2003 BB Fixed duplicate shortcut (^d)
+# 22-12-2011 FG Replaced old Tmp$* variables with new StrongED$Tmp_* ones
+#            FG Moved Help in Functions section in front of Select line
+#            FG Changed 'Type' to 'CommentType' in SyntaxComment
+#-------------------------------------------------------------------------------
+
+ID_FirstChar	A-Za-z_
+ID_Middle	A-Za-z_
+ID_LastChar	A-Za-z_
+
+SyntaxComment 1
+	CommentType	OneLine
+	StartWith	#
+End
+
+SyntaxOptions
+	SingleQuote	Yes
+	DoubleQuote	Yes
+	QuoteChar	\
+	QuoteQuote	No
+	SplitString	Yes
+End
+
+SyntaxWords Group1 case
+	tool_details_start tool_details_end
+	metaoptions_start metaoptions_end
+	fileoutput_start fileoutput_end
+	dbox_start dbox_end
+	menu_start menu_end
+	icons_start icons_end
+	defaults make_defaults
+	imports_start imports_end
+	order_is
+	deselections_start deselections_end
+	exclusions_start exclusions_end  make_excludes
+	make_order_is
+End
+
+SyntaxWords Group2 case
+	name command_is version wimpslot filetype has_extended_cmdline
+	has_text_window display_dft_is has_summary_window has_auto_save has_auto_run
+	output_option_is output_dft_string output_dft_is
+End
+
+SyntaxWords Group3 case
+	text summary on off from k string
+	produces_output produces_no_output
+	followed_by separator_is increases decreases extends
+	deselects excludes number
+End
+
+SyntaxWords Group4 case
+	icons maps_to drag_to inserts prefix_by not_saved
+End
+
+SyntaxWords Group5 case
+	menu sub_menu icn max min by to
+End
+
+SyntaxWords Group6 case
+	any iconbar output leafname
+End
+
+Search
+	frontend_func		(*"_start")
+End
+
+FoldParm1 ("_start","_end",,case)
+
+Functions
+	Key	‹F2
+	Menu	List of functions ‹F2
+	Icon	LoF
+	Help	Hfe_lof
+	Select	ListOfFound(frontend_func,,,Line)
+
+	Key	‹PgUp
+	Icon	up
+	Help	Hfe_up
+	Select	GotoPrev (frontend_func,Text,Line,Case)
+
+	Key	‹PgDown
+	Icon	down
+	Help	Hfe_dn
+	Select	GotoNext (frontend_func,Text,Line,Case)
+
+	Key	F10
+	Menu	Run F10
+	Icon	Run
+	Help	Hfe_run
+	Select	SetTmp() SaveRun("<StrongED$Tmp_FilePath>.!Run")
+End
+
+Shortcuts
+	^t	tool_details_start\n\i   \@;\n\itool_details_end\n
+	^m	metaoptions_start\n\i   \@;\n\imetaoptions_end\n
+	^b	dbox_start\n\i   \@;\n\idbox_end\n
+	^f	fileoutput_start\n\i   \@;\n\ifileoutput_end\n
+	^d	deselections_start\n\i   \@;\n\ideselections_end\n
+	^i	imports_start\n\i   \@;\n\iimports_end\n
+	^ic	icons_start\n\i   \@;\n\icons_end\n
+End

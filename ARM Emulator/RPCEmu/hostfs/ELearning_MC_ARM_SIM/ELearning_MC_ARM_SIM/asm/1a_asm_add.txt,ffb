@@ -1,0 +1,10 @@
+DIM CODE% (&100)
+P% = CODE%
+[
+  MOV   R0, #32
+  ADD   R0, R0, #1
+
+  MOV   PC, LR  ; return
+
+]
+PRINT "R0 = " USR(CODE%)

@@ -1,0 +1,108 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : C64
+#	Purpose : StrongED mode file for Hypra-ass assembler source files
+#	Author  : © Fred Graute
+#	Licence : Freeware
+#	Version : 1.01, 21-12-2011
+#
+#	This modefile is only of interest to anyone who knows the C64.
+#	It is intended for use with sources in Hypra-ass format.
+#	Hypra-ass is a freeware assembler for the C64.
+#
+#-------------------------------------------------------------------------------
+# 21-12-2011 FG Changed 'Type' to 'CommentType' in SyntaxComment
+#-------------------------------------------------------------------------------
+
+ID_FirstChar	A-Za-z_
+ID_Middle	A-Za-z_0-9
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteChar	\
+	QuoteQuote	No
+	SplitString	Yes
+	HexPrefix	$
+	BinPrefix	%
+End
+
+SyntaxComment 1
+	CommentType	OneLine
+	StartWith	;
+End
+
+# Instructions
+SyntaxWords Group1 EndNonID nocase
+	ADC AND ASL BIT CLC CLD CLI CLV
+	CMP CPX CPY DEC DEX DEY EOR
+	INC INX INY LDA LDX LDY LSR
+	NOP ORA PHA PHP PLA PLP ROL ROR
+	SBC SEC SED SEI STA STX STY
+	TAX TAY TSX TXA TXS TYA
+End
+
+# Branches
+SyntaxWords Group2 EndNonID nocase
+	BCC BCS BEQ BNE BVC BVS BPL BMI
+End
+
+# Instructions that change flow
+SyntaxWords Group3 EndNonID nocase
+	BRK
+	JMP JSR
+	RTI RTS
+End
+
+# Addressing modes
+SyntaxWords Group4 EndAlways nocase
+	(
+	,X
+	,Y
+	),Y
+	,X)
+	)
+End
+
+# Assembler directives
+SyntaxWords Group5 EndAlways nocase
+	.BA
+	.EQ .GL .SY
+	.BY .WO .TX
+	.AP .CO .OB .LI
+	.ON .GO .IF .EL .EI
+	.MA .RT ...MAKRO
+	.EN .ST .DP
+End
+
+Search
+	Bchar		Alpha   |"_"|"`"
+	Bchar2		AlphaNum|"_"|"`"
+	GoLabel		< CW ~Bchar2
+	Label		< Bchar {Bchar2}
+End
+
+Functions
+	Key	‹F2
+	Menu	List of labels  ‹F2
+	Icon	LoF
+	Help	Click to get a list of all labels.
+	Select	ListOfFound (Label,Text,Whole,Line,Case,Sort)
+
+	Adjust	ListOfFound (Label,Text,Whole,Line,Case)
+
+	Key	^G
+	Menu	Goto label
+	Icon	goto
+	Help	HBa_go
+	Select	Push GotoFound (GoLabel,Text,Whole,Line,Case)
+
+	Key	^G 2
+	Adjust	Pop
+
+	Key	^‹G
+	‹Select	Push GotoFound (GoLabel,All,Whole,Line,Case)
+
+	Key	^‹G 2
+	‹Adjust	Pop
+End

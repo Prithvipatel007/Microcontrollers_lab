@@ -1,0 +1,28 @@
+#! lua
+ -- mailstrip   strip out unwanted headers
+ -- GCW 19/09/07
+ do
+  local keep = {  -- keep only these
+      Date = true;
+      From = true;
+      To = true;
+      Subject = true;
+      ["Reply-To"] = true;
+      } -- edit this table
+  local count,pat,cont,msgline,head = 0,"^([^:]+):","^[\t%s]"
+  for line in io.lines(arg[1]) do
+    if msgline then print(line)
+    else
+      head = line:match(pat)
+      if head then
+       if keep[head] then
+        print(line)
+        count = count + 1
+       end -- if
+      elseif not line:match(cont) and count >= #keep then
+        print(line)
+        msgline = true
+      end -- if
+    end -- if
+  end -- for
+ end -- do

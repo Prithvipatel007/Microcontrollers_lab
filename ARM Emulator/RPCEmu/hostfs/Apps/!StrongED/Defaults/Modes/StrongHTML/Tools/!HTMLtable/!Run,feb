@@ -1,0 +1,1 @@
+Set HTMLtable$Dir <Obey$Dir>Obey <Obey$Dir>.ModulesSet HTMLtable$Scrap <Obey$Dir>.scrapfileWimpSlot -Min 64k -Max 64kRun <HTMLtable$Dir>.!RunImage

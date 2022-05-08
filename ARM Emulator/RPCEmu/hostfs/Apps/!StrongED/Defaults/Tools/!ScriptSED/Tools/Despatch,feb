@@ -1,0 +1,45 @@
+| Apply Mode 3.0
+| Despatch on script language
+| G.C.W. & F.J.G. (27/5/07)
+| 24/9/17 added lua filetype
+
+| Ensure no script language is set
+Unset StrongED$Script_Language
+
+| Create some handy variables
+Set StrongED$Script_Script  %0
+Set StrongED$Script_ToolDir <StrongED$Tmp_ToolPath>
+Set StrongED$Script_Infile  <StrongED$ScrapDir>.out
+Set StrongED$Script_Outfile <StrongED$ScrapDir>.in
+
+| First try to determine script language from filetype
+Run <StrongED$Script_ToolDir>.!ScriptSED.Tools.ftype <StrongED$Script_Script>
+
+| Set script language if it's a known filetype
+If "<StrongED$Script_Filetype>" = "18C" Then Set StrongED$Script_Language "lua"
+If "<StrongED$Script_Filetype>" = "FFB" Then Set StrongED$Script_Language "basic"
+If "<StrongED$Script_Filetype>" = "AE5" Then Set StrongED$Script_Language "python"
+|If "<StrongED$Script_Filetype>" = "400" Then Set StrongED$Script_Language "forth"
+
+| If filetype didn't work see if the file starts with #! language
+If "<StrongED$Script_Language>" = "" Then Run <StrongED$Script_ToolDir>.!ScriptSED.Tools.language <StrongED$Script_Script>
+
+| If we haven't got a language then report an error
+If "<StrongED$Script_Language>" = "" Then Error Unable to determine script language for <StrongED$Script_Script>
+
+| Create a variable pointing to the target language
+Set StrongED$Script_Target <StrongED$Script_ToolDir>.!ScriptSED.Languages.<StrongED$Script_Language>
+
+| If we have an obeyfile to call this language then run it, else raise an error
+IfThere <StrongED$Script_Target> Then Run <StrongED$Script_Target> Else Error Don't know how to call <StrongED$Script_Language>
+
+| Ensure that Outfile is of type text
+IfThere <StrongED$Script_Outfile> Then Settype <StrongED$Script_Outfile> text
+
+| Tidy up
+|Unset StrongED$Script_Script
+|Unset StrongED$Script_ToolDir
+|Unset StrongED$Script_Infile
+|Unset StrongED$Script_Outfile
+|Unset StrongED$Script_Language
+|Unset StrongED$Script_Target

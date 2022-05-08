@@ -1,0 +1,6 @@
+Rules Include
+  fff,**.sa.*
+  fff,**/sa
+  fff,**/sam
+  fff,**/module
+End

@@ -1,0 +1,14 @@
+| Name of this script
+Set StrongED$FTP_SiteScript "DummySite"
+
+| Name of the application to use for uploads
+Set StrongED$FTP_Provider   "FTPc"
+
+| Location of local copy of the website
+Set StrongED$FTP_LocalRoot  "ADFS::4.$.MySite"
+
+| Details of remote website
+Set StrongED$FTP_RemoteURL  "ftp://yourdomain/"
+Set StrongED$FTP_UserName   "JustMe"
+Set StrongED$FTP_Password   "anything"
+Set StrongED$FTP_RemoteRoot "webpages"

@@ -1,0 +1,394 @@
+# StrongED export format file
+# Format: Ovation DDL
+# © StrongED developers
+
+# Start and end of document
+doc_Prologue:\n
+doc_Epilogue:\n
+
+# Start and end of styles
+style_Prologue:\n
+style_Epilogue:\n
+
+# Style definitions
+def_Style_10:FONT_9d7f={font "Corpus.Medium"}\nSTYLE_10={style "Bodytext"\n{keypress ""}\n{scope 1}\n FONT_9d7f\n{textsize 10000}\n}\n\n
+def_Style_11:fgCOL_11={colour "fg_Text" {rgb %0}}\nbgCOL_11={colour "bg_Text" {rgb %1}}\nSTYLE_11={style "Text"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_11 0x10000 0}\n{background bgCOL_11 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_12:fgCOL_12={colour "fg_Caret" {rgb %0}}\nbgCOL_12={colour "bg_Caret" {rgb %1}}\nSTYLE_12={style "Caret"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_12 0x10000 0}\n{background bgCOL_12 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_13:fgCOL_13={colour "fg_Block" {rgb %0}}\nbgCOL_13={colour "bg_Block" {rgb %1}}\nSTYLE_13={style "Block"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_13 0x10000 0}\n{background bgCOL_13 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_14:fgCOL_14={colour "fg_Mark" {rgb %0}}\nbgCOL_14={colour "bg_Mark" {rgb %1}}\nSTYLE_14={style "Mark"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_14 0x10000 0}\n{background bgCOL_14 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_15:fgCOL_15={colour "fg_Ctrl" {rgb %0}}\nbgCOL_15={colour "bg_Ctrl" {rgb %1}}\nSTYLE_15={style "Ctrl"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_15 0x10000 0}\n{background bgCOL_15 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_16:fgCOL_16={colour "fg_Tabs" {rgb %0}}\nbgCOL_16={colour "bg_Tabs" {rgb %1}}\nSTYLE_16={style "Tabs"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_16 0x10000 0}\n{background bgCOL_16 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_17:fgCOL_17={colour "fg_Identifiers" {rgb %0}}\nbgCOL_17={colour "bg_Identifiers" {rgb %1}}\nSTYLE_17={style "Identifiers"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_17 0x10000 0}\n{background bgCOL_17 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_18:fgCOL_18={colour "fg_Functions" {rgb %0}}\nbgCOL_18={colour "bg_Functions" {rgb %1}}\nSTYLE_18={style "Functions"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_18 0x10000 0}\n{background bgCOL_18 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_19:fgCOL_19={colour "fg_Strings" {rgb %0}}\nbgCOL_19={colour "bg_Strings" {rgb %1}}\nSTYLE_19={style "Strings"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_19 0x10000 0}\n{background bgCOL_19 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_1A:fgCOL_1A={colour "fg_Comments" {rgb %0}}\nbgCOL_1A={colour "bg_Comments" {rgb %1}}\nSTYLE_1A={style "Comments"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_1A 0x10000 0}\n{background bgCOL_1A 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_1B:fgCOL_1B={colour "fg_Numbers" {rgb %0}}\nbgCOL_1B={colour "bg_Numbers" {rgb %1}}\nSTYLE_1B={style "Numbers"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_1B 0x10000 0}\n{background bgCOL_1B 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_1C:fgCOL_1C={colour "fg_Punctuation" {rgb %0}}\nbgCOL_1C={colour "bg_Punctuation" {rgb %1}}\nSTYLE_1C={style "Punctuation"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_1C 0x10000 0}\n{background bgCOL_1C 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_1D:fgCOL_1D={colour "fg_Group1" {rgb %0}}\nbgCOL_1D={colour "bg_Group1" {rgb %1}}\nSTYLE_1D={style "Group1"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_1D 0x10000 0}\n{background bgCOL_1D 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_1E:fgCOL_1E={colour "fg_Group2" {rgb %0}}\nbgCOL_1E={colour "bg_Group2" {rgb %1}}\nSTYLE_1E={style "Group2"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_1E 0x10000 0}\n{background bgCOL_1E 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_1F:fgCOL_1F={colour "fg_Group3" {rgb %0}}\nbgCOL_1F={colour "bg_Group3" {rgb %1}}\nSTYLE_1F={style "Group3"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_1F 0x10000 0}\n{background bgCOL_1F 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_20:fgCOL_20={colour "fg_Group4" {rgb %0}}\nbgCOL_20={colour "bg_Group4" {rgb %1}}\nSTYLE_20={style "Group4"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_20 0x10000 0}\n{background bgCOL_20 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_21:fgCOL_21={colour "fg_Group5" {rgb %0}}\nbgCOL_21={colour "bg_Group5" {rgb %1}}\nSTYLE_21={style "Group5"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_21 0x10000 0}\n{background bgCOL_21 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_22:fgCOL_22={colour "fg_Group6" {rgb %0}}\nbgCOL_22={colour "bg_Group6" {rgb %1}}\nSTYLE_22={style "Group6"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_22 0x10000 0}\n{background bgCOL_22 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_23:fgCOL_23={colour "fg_Group7" {rgb %0}}\nbgCOL_23={colour "bg_Group7" {rgb %1}}\nSTYLE_23={style "Group7"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_23 0x10000 0}\n{background bgCOL_23 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_24:fgCOL_24={colour "fg_Group8" {rgb %0}}\nbgCOL_24={colour "bg_Group8" {rgb %1}}\nSTYLE_24={style "Group8"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_24 0x10000 0}\n{background bgCOL_24 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_25:fgCOL_25={colour "fg_Group9" {rgb %0}}\nbgCOL_25={colour "bg_Group9" {rgb %1}}\nSTYLE_25={style "Group9"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_25 0x10000 0}\n{background bgCOL_25 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_26:fgCOL_26={colour "fg_Group10" {rgb %0}}\nbgCOL_26={colour "bg_Group10" {rgb %1}}\nSTYLE_26={style "Group10"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_26 0x10000 0}\n{background bgCOL_26 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_27:fgCOL_27={colour "fg_Group11" {rgb %0}}\nbgCOL_27={colour "bg_Group11" {rgb %1}}\nSTYLE_27={style "Group11"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_27 0x10000 0}\n{background bgCOL_27 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_28:fgCOL_28={colour "fg_Group12" {rgb %0}}\nbgCOL_28={colour "bg_Group12" {rgb %1}}\nSTYLE_28={style "Group12"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_28 0x10000 0}\n{background bgCOL_28 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_29:fgCOL_29={colour "fg_Group13" {rgb %0}}\nbgCOL_29={colour "bg_Group13" {rgb %1}}\nSTYLE_29={style "Group13"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_29 0x10000 0}\n{background bgCOL_29 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_2A:fgCOL_2A={colour "fg_Group14" {rgb %0}}\nbgCOL_2A={colour "bg_Group14" {rgb %1}}\nSTYLE_2A={style "Group14"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_2A 0x10000 0}\n{background bgCOL_2A 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_2B:fgCOL_2B={colour "fg_Group15" {rgb %0}}\nbgCOL_2B={colour "bg_Group15" {rgb %1}}\nSTYLE_2B={style "Group15"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_2B 0x10000 0}\n{background bgCOL_2B 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+def_Style_2C:fgCOL_2C={colour "fg_Group16" {rgb %0}}\nbgCOL_2C={colour "bg_Group16" {rgb %1}}\nSTYLE_2C={style "Group16"\n{keypress ""}\n{scope 1}\n{foreground fgCOL_2C 0x10000 0}\n{background bgCOL_2C 0x10000 0}\n{bold %2}\n{italic %3}\n}\n\n
+
+# Start and end of actual text
+text_Prologue:STORY_100={story\n{adduserstyle STYLE_10}
+text_Epilogue:{endoftext}\n}
+
+# The BaseStyle
+add_Style_10:{adduserstyle Style_10}
+rem_Style_10:{remuserstyle Style_10}
+
+# The groups
+add_Style_11:{adduserstyle STYLE_11}
+rem_Style_11:{remuserstyle STYLE_11}
+
+add_Style_12:{adduserstyle STYLE_12}
+rem_Style_12:{remuserstyle STYLE_12}
+
+add_Style_13:{adduserstyle STYLE_13}
+rem_Style_13:{remuserstyle STYLE_13}
+
+add_Style_14:{adduserstyle STYLE_14}
+rem_Style_14:{remuserstyle STYLE_14}
+
+add_Style_15:{adduserstyle STYLE_15}
+rem_Style_15:{remuserstyle STYLE_15}
+
+add_Style_16:{adduserstyle STYLE_16}
+rem_Style_16:{remuserstyle STYLE_16}
+
+add_Style_17:{adduserstyle STYLE_17}
+rem_Style_17:{remuserstyle STYLE_17}
+
+add_Style_18:{adduserstyle STYLE_18}
+rem_Style_18:{remuserstyle STYLE_18}
+
+add_Style_19:{adduserstyle STYLE_19}
+rem_Style_19:{remuserstyle STYLE_19}
+
+add_Style_1A:{adduserstyle STYLE_1A}
+rem_Style_1A:{remuserstyle STYLE_1A}
+
+add_Style_1B:{adduserstyle STYLE_1B}
+rem_Style_1B:{remuserstyle STYLE_1B}
+
+add_Style_1C:{adduserstyle STYLE_1C}
+rem_Style_1C:{remuserstyle STYLE_1C}
+
+add_Style_1D:{adduserstyle STYLE_1D}
+rem_Style_1D:{remuserstyle STYLE_1D}
+
+add_Style_1E:{adduserstyle STYLE_1E}
+rem_Style_1E:{remuserstyle STYLE_1E}
+
+add_Style_1F:{adduserstyle STYLE_1F}
+rem_Style_1F:{remuserstyle STYLE_1F}
+
+add_Style_20:{adduserstyle STYLE_20}
+rem_Style_20:{remuserstyle STYLE_20}
+
+add_Style_21:{adduserstyle STYLE_21}
+rem_Style_21:{remuserstyle STYLE_21}
+
+add_Style_22:{adduserstyle STYLE_22}
+rem_Style_22:{remuserstyle STYLE_22}
+
+add_Style_23:{adduserstyle STYLE_23}
+rem_Style_23:{remuserstyle STYLE_23}
+
+add_Style_24:{adduserstyle STYLE_24}
+rem_Style_24:{remuserstyle STYLE_24}
+
+add_Style_25:{adduserstyle STYLE_25}
+rem_Style_25:{remuserstyle STYLE_25}
+
+add_Style_26:{adduserstyle STYLE_26}
+rem_Style_26:{remuserstyle STYLE_26}
+
+add_Style_27:{adduserstyle STYLE_27}
+rem_Style_27:{remuserstyle STYLE_27}
+
+add_Style_28:{adduserstyle STYLE_28}
+rem_Style_28:{remuserstyle STYLE_28}
+
+add_Style_29:{adduserstyle STYLE_29}
+rem_Style_29:{remuserstyle STYLE_29}
+
+add_Style_2A:{adduserstyle STYLE_2A}
+rem_Style_2A:{remuserstyle STYLE_2A}
+
+add_Style_2B:{adduserstyle STYLE_2B}
+rem_Style_2B:{remuserstyle STYLE_2B}
+
+add_Style_2C:{adduserstyle STYLE_2C}
+rem_Style_2C:{remuserstyle STYLE_2C}
+
+
+# Character translations
+Char0:@
+Char1:A
+Char2:B
+Char3:C
+Char4:D
+Char5:E
+Char6:F
+Char7:G
+Char8:H
+Char9:"{tab}"
+Char10:J
+Char11:K
+Char12:L
+Char13:M
+Char14:N
+Char15:O
+Char16:P
+Char17:Q
+Char18:R
+Char19:S
+Char20:T
+Char21:U
+Char22:V
+Char23:W
+Char24:X
+Char25:Y
+Char26:Z
+Char27:[
+Char28:\\
+Char29:]
+Char30:^
+Char31:_
+Char32: 
+Char33:!
+Char34:\"
+Char35:#
+Char36:$
+Char37:%
+Char38:&
+Char39:'
+Char40:(
+Char41:)
+Char42:*
+Char43:+
+Char44:,
+Char45:-
+Char46:.
+Char47:/
+Char48:0
+Char49:1
+Char50:2
+Char51:3
+Char52:4
+Char53:5
+Char54:6
+Char55:7
+Char56:8
+Char57:9
+Char58::
+Char59:;
+Char60:<
+Char61:=
+Char62:>
+Char63:?
+Char64:@
+Char65:A
+Char66:B
+Char67:C
+Char68:D
+Char69:E
+Char70:F
+Char71:G
+Char72:H
+Char73:I
+Char74:J
+Char75:K
+Char76:L
+Char77:M
+Char78:N
+Char79:O
+Char80:P
+Char81:Q
+Char82:R
+Char83:S
+Char84:T
+Char85:U
+Char86:V
+Char87:W
+Char88:X
+Char89:Y
+Char90:Z
+Char91:[
+Char92:\\
+Char93:]
+Char94:^
+Char95:_
+Char96:`
+Char97:a
+Char98:b
+Char99:c
+Char100:d
+Char101:e
+Char102:f
+Char103:g
+Char104:h
+Char105:i
+Char106:j
+Char107:k
+Char108:l
+Char109:m
+Char110:n
+Char111:o
+Char112:p
+Char113:q
+Char114:r
+Char115:s
+Char116:t
+Char117:u
+Char118:v
+Char119:w
+Char120:x
+Char121:y
+Char122:z
+Char123:\{
+Char124:|
+Char125:\}
+Char126:~
+Char127:?
+Char128:Ä
+Char129:Å
+Char130:Ç
+Char131:É
+Char132:Ñ
+Char133:Ö
+Char134:Ü
+Char135:á
+Char136:à
+Char137:â
+Char138:ä
+Char139:ã
+Char140:å
+Char141:ç
+Char142:é
+Char143:è
+Char144:ê
+Char145:ë
+Char146:í
+Char147:ì
+Char148:î
+Char149:ï
+Char150:ñ
+Char151:ó
+Char152:ò
+Char153:ô
+Char154:ö
+Char155:õ
+Char156:ú
+Char157:ù
+Char158:û
+Char159:ü
+Char160:†
+Char161:°
+Char162:¢
+Char163:£
+Char164:§
+Char165:•
+Char166:¶
+Char167:ß
+Char168:®
+Char169:©
+Char170:™
+Char171:´
+Char172:¨
+Char173:≠
+Char174:Æ
+Char175:Ø
+Char176:∞
+Char177:±
+Char178:≤
+Char179:≥
+Char180:¥
+Char181:µ
+Char182:∂
+Char183:∑
+Char184:∏
+Char185:π
+Char186:∫
+Char187:ª
+Char188:º
+Char189:Ω
+Char190:æ
+Char191:ø
+Char192:¿
+Char193:¡
+Char194:¬
+Char195:√
+Char196:ƒ
+Char197:≈
+Char198:∆
+Char199:«
+Char200:»
+Char201:…
+Char202: 
+Char203:À
+Char204:Ã
+Char205:Õ
+Char206:Œ
+Char207:œ
+Char208:–
+Char209:—
+Char210:“
+Char211:”
+Char212:‘
+Char213:’
+Char214:÷
+Char215:◊
+Char216:ÿ
+Char217:Ÿ
+Char218:⁄
+Char219:€
+Char220:‹
+Char221:›
+Char222:ﬁ
+Char223:ﬂ
+Char224:‡
+Char225:·
+Char226:‚
+Char227:„
+Char228:‰
+Char229:Â
+Char230:Ê
+Char231:Á
+Char232:Ë
+Char233:È
+Char234:Í
+Char235:Î
+Char236:Ï
+Char237:Ì
+Char238:Ó
+Char239:Ô
+Char240:
+Char241:Ò
+Char242:Ú
+Char243:Û
+Char244:Ù
+Char245:ı
+Char246:ˆ
+Char247:˜
+Char248:¯
+Char249:˘
+Char250:˙
+Char251:˚
+Char252:¸
+Char253:˝
+Char254:˛
+Char255:ˇ

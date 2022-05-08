@@ -1,0 +1,136 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : StrongMen
+#	Purpose : StrongED mode for StrongMen
+#	Author  : © Fred Graute
+#	Licence : Freeware
+#	Version : 1.05, 07-06-2015
+#
+#-------------------------------------------------------------------------------
+# 14-02-11 FG Initial version: Nothing fancy, just basic syntax colouring
+# 25-04-11 FG Added HelpPath, simply points at StrongMen's StrongHelp manual
+#             Added expressions and clicklist to get help on various linetypes
+# 29-06-11 FG Amended FSName expression to allow []$, now matches Resources:$.x
+#             HelpPath now uses full path so StrongHelp can load it if needed
+# 23-05-12 FG Changed Group4 to use list of commands, no more incorrect matches
+#          FG Changed Group2, Group3 and Group4 to case insensitive
+# 10-01-14 FG Added #ListTree command to SyntaxWords and Search sections
+# 07-06-15 FG Added Fat32fs, SCSI and SDFS to SyntaxWords Group 7
+#          FG Removed StartSpace from Group 7, can be preceded by sprite name
+#          FG Added Group 8 to colour sprite names (must start with 'sm')
+#          FG Added Group 9 to colour key bindings, c-, s-, cs-, sc-
+#          FG Changed EndType of Groups 5 & 7 so Group 9 works
+#-------------------------------------------------------------------------------
+
+HelpPath	StrongMenRes:StrongMen
+FoldParm1	(StartFold,,,NoCase)
+
+#-------------------------------------------------------------------------------
+
+Search
+	Section		< {isalpha}+
+	Marker		"#" ("NewUrl" | "Label" | "Hist" )
+	FSName		( {AlphaNum}+ ":" {'A-Za-z_0-9.[]$/~+\-:;?@=&%'}+)
+	Command		"#" ("Url" | "Type" | "EditMenu" | "ListDir" | "ListTree" | "OpenFiles" | "Nil")
+
+	StartFold	< ~NL {' \t'} ~"# " * >
+	EndFold		NL NL
+
+	SpriteName	["!"] {AD | "_"}+ ";"
+	PathName	{~(\c | ' ') .}+
+	NoCtrl		{~(\c) .}+
+
+# Expressions to match the different linetypes so we can open the relevant helppage
+	CommandLine	< * >
+	CommentLine	< "# " * >
+	MarkerLine	< * Marker * >
+	SeparatorLine	< {White} "-" * >
+	PathnameLine	< {White} FSName * >
+End
+
+#------------------------------------------------------------------------------
+
+ID_FirstChar		a-zA-Z0-9
+ID_Middle		a-zA-Z0-9
+
+SyntaxComment 1
+	CommentType	OneLine
+	StartWith	"# "
+	StartWhere	StartLine
+End
+
+# Main menu items
+SyntaxWords Group1 StartOfLine NoCase EndOfLine
+	a b c d e f g h i j k l m
+	n o p q r s t u v w x y z
+End
+
+# Markers that start a section
+SyntaxWords Group2 StartSpace NoCase EndOfLine
+	"#Hist"
+	"#NewUrl"
+End
+
+# Markers
+SyntaxWords Group3 StartSpace NoCase EndOfLine
+	"#Label"
+End
+
+# Commands
+SyntaxWords Group4 NoCase EndOfLine
+	"#EditMenu"
+	"#ListDir"
+	"#ListTree"
+	"#Nil"
+	"#OpenFiles"
+	"#Type"
+	"#Url"
+End
+
+# *-commands
+SyntaxWords Group5 EndOfExpr NoCtrl
+	"*"
+End
+
+# Menu separator
+SyntaxWords Group6 StartSpace EndOfLine
+	"-"
+End
+
+# Pathname lines
+SyntaxWords Group7 EndOfExpr PathName
+	"ADFS:" "Fat32fs:" "RAM:"
+	"Resources:" "SCSI:" "SDFS:"
+End
+
+# Item sprite
+SyntaxWords Group8 StartSpace EndOfExpr SpriteName
+	"sm"
+End
+
+# Key bindings
+SyntaxWords Group9 EndOfID
+	"c-" "s-" "cs-" "sc-"
+End
+
+#------------------------------------------------------------------------------
+
+Functions
+	Icon	lof
+	Menu	List of sections
+	Help	HSt_lof
+	Select	ListOfFound(Section, Text, Whole, Line, NoCase)
+
+	Adjust	ListOfFound(Command, Text, Whole, NoLine, NoCase)
+End
+
+#-------------------------------------------------------------------------------
+
+ClickList s-Select2
+# Note, order is important. In particular CommandLine must be last
+	SeparatorLine	SetTmp() Run("*Message Help_Word StrongMenRes:StrongMen Separator")
+	PathnameLine	SetTmp() Run("*Message Help_Word StrongMenRes:StrongMen Pathname")
+	MarkerLine	SetTmp() Run("*Message Help_Word StrongMenRes:StrongMen Marker")
+	CommentLine	SetTmp() Run("*Message Help_Word StrongMenRes:StrongMen Comment")
+	CommandLine	SetTmp() Run("*Message Help_Word StrongMenRes:StrongMen Command")
+End

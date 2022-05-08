@@ -1,0 +1,12 @@
+# Obey mode
+
+Hobey_run:Click Select to save & run the obeyfile|mClick Adjust to run the obeyfile.|MNote that the file must already have a valid pathname for this to work.
+
+Group1:* Commands
+Group2:Control cmds
+Group3:Error command
+Group4:Eval operators
+Group5:Pathnames
+Group6:GSTrans'ed strings
+Group7:Command options
+Group8:Common sysvars

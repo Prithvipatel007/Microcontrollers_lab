@@ -1,0 +1,14 @@
+DEF PROCDealWith_DataImport(message,file$,filetype%)
+REM ------------------------------------------
+REM Importing data from another application
+REM ------------------------------------------
+CASE message OF
+ WHEN Message_DataSave
+  REM If you want to load file then send acknowledgement
+  PROCMessage_SendViaWimpScrap : REM N.B. File is loaded from <Wimp$Scrap>
+ WHEN Message_DataLoad
+   REM Now load file and send acknowledgement
+   REM <---- insert code here ---->
+   PROCMessage_DataLoadAck
+ENDCASE
+ENDPROC

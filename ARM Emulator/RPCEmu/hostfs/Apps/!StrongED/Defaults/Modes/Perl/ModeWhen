@@ -1,0 +1,17 @@
+Rules Exclude
+  fff,**.!StrongED.Defaults.Modes.**
+  fff,**.!StrED_cfg.UserPrefs.Modes.**
+End
+
+Rules Include
+!Perl
+! 102,**
+  fff,**.Perl.* **/pl
+> *, ** ; _perl
+End
+
+#	Use Perl if #!Perl is found at start of a line
+
+Match
+	_perl		"#!" * "perl"
+End

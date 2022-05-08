@@ -1,0 +1,20 @@
+| Normally StrongED will only claim certain actions when they haven't yet been
+| claimed by another application. Alter the Unclaim file in UserPrefs to force
+| the use of StrongED for these actions.
+| © StrongED Developers
+
+| Unclaim various actions such as OLE-edits and TaskWindow.
+IfThere StrongED_Read:StartUp.Unclaim Then Obey StrongED_Read:StartUp.Unclaim
+
+| Claim file Type and external edits.
+If "<Alias$@RunType_FFF>" = "" Then Set Alias$@RunType_FFF Run <StrongED$Dir>.!Run %%*0
+If "<Alias$@EditType_FFF>" = "" Then Set Alias$@EditType_FFF Run <StrongED$Dir>.!Run %%*0
+
+| Claim linked and embedded objects.
+If "<OLEServer$Type_FFF>" = "" Then Set OLEServer$Type_FFF -N StrongED -R /<StrongED$Dir>
+IF "<OLEServer$Type_FFB>" = "" Then Set OLEServer$Type_FFB -N StrongED -R /<StrongED$Dir>
+
+| Register as TaskWindow server.
+If "<Alias$TaskWindow>" = "" Then RMEnsure StrongTask 1.02 RMLoad <StrongED$Dir>.Tools.StrongTask
+If "<Alias$TaskWindow>" = "" Then Set Alias$TaskWindow "StrongTask %%*0"
+If "<TaskWindow$Server>" = "" Then Set TaskWindow$Server <StrongED$Dir>

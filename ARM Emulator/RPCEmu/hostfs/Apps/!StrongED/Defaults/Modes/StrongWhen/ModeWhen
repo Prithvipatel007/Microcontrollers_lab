@@ -1,0 +1,4 @@
+Rules Include
+  fff, **.!StrongED.Defaults.Modes.**.ModeWhen
+  fff, **.!StrED_cfg.UserPrefs.Modes.**.ModeWhen
+End

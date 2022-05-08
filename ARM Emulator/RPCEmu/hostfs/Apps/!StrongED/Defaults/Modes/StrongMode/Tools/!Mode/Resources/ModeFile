@@ -1,0 +1,49 @@
+#===============================================================================
+#	Name    : 
+#	Purpose : 
+#	Author  : © 
+#	Licence : Freeware
+#	Version : 1.00, dd-mm-yy
+#
+#===============================================================================
+
+FoldParm1 ("#-",,StartOfLine)
+
+#- Help Path
+
+HelpPath	
+
+Search
+	
+End
+
+#- Shortcuts for the various sections inside a modefile
+
+Shortcuts
+
+End
+
+#- ID's
+
+ID_FirstChar	A-Za-z_
+ID_Middle	A-Za-z_0-9
+
+#- Syntax options
+
+SyntaxOptions
+
+End
+
+#- Syntax words
+
+SyntaxWords
+
+End
+
+
+
+#- Functions
+
+Functions
+
+End

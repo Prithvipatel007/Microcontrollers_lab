@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;LED_Timer/src/LED.c&apos; to &apos;LED_Timer.c&apos;" description="Rename resource &apos;LED.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/LED.c" name="LED_Timer.c" stamp="1592006378052" updateReferences="true"/>
+</session>

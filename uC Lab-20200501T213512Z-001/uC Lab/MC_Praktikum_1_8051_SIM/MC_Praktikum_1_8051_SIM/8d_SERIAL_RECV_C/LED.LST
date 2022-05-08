@@ -1,0 +1,59 @@
+C51 COMPILER V9.01   LED                                                                   09/21/2014 22:48:01 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE LED
+OBJECT MODULE PLACED IN LED.OBJ
+COMPILER INVOKED BY: C:\Program Files\Keil\C51\BIN\C51.EXE LED.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include <REG51.h>
+   2          
+   3          unsigned char receive(void)
+   4          {
+   5   1        unsigned char ch;
+   6   1      
+   7   1        while (!RI);      // wait until received
+   8   1        RI=0;
+   9   1      
+  10   1        ch = SBUF;
+  11   1      
+  12   1        return ch;
+  13   1      }
+  14          
+  15          void main(void)
+  16          {
+  17   1        unsigned char ch;
+  18   1      
+  19   1        SCON=0x50;      // USART mode %01 = 8-bit data + enable receiver
+  20   1        PCON=0x80;      // set double baud rate
+  21   1        TMOD=0x20;      // timer 1 mode 2
+  22   1        TH1=-12;        // timer 1 = -12: baud = 2400: double = 4800
+  23   1        TL1=-12;        // timer 1 sync
+  24   1        TR1=1;          // timer 1 start
+  25   1      
+  26   1        ch = 0;
+  27   1        while (ch!=0x8D)
+  28   1        {
+  29   2          ch = receive();
+  30   2          P1 = ch & 0x7F;   // clear parity bit and show on LEDs
+  31   2        }
+  32   1      
+  33   1        while (1)
+  34   1        {
+  35   2        }
+  36   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     44    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

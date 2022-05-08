@@ -1,0 +1,168 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        09/21/2014  18:02:01  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\PROGRAM FILES\KEIL\C51\BIN\BL51.EXE LED.obj, ASM.obj TO LED
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  LED.obj (LED)
+  ASM.obj (ASM)
+  C:\PROGRAM FILES\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  LED (LED)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     005FH     UNIT         ?PR?KEYPAD?ASM
+            CODE    085FH     002CH     UNIT         ?PR?MAIN?LED
+            CODE    088BH     000CH     UNIT         ?C_C51STARTUP
+            CODE    0897H     000AH     UNIT         ?CO?LED
+
+
+
+OVERLAY MAP OF MODULE:   LED (LED)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?LED
+
+?PR?MAIN?LED
+  +--> ?PR?KEYPAD?ASM
+  +--> ?CO?LED
+
+
+
+SYMBOL TABLE OF MODULE:  LED (LED)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        LED
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/21/2014  18:02:01  PAGE 2
+
+
+  C:0897H         PUBLIC        table
+  B:0080H.7       PUBLIC        CS
+  C:085FH         PUBLIC        main
+  B:00B0H.3       PUBLIC        A0
+  B:00B0H.4       PUBLIC        A1
+  -------         PROC          MAIN
+  -------         DO            
+  D:0007H         SYMBOL        num
+  -------         ENDDO         
+  C:085FH         LINE#         22
+  C:085FH         LINE#         23
+  C:085FH         LINE#         26
+  C:0861H         LINE#         27
+  C:0864H         LINE#         28
+  C:0866H         LINE#         29
+  C:0868H         LINE#         30
+  C:086AH         LINE#         32
+  C:086AH         LINE#         33
+  C:086AH         LINE#         34
+  C:086DH         LINE#         36
+  C:0870H         LINE#         37
+  C:0875H         LINE#         39
+  C:0889H         LINE#         40
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        LED
+
+  -------         MODULE        ASM
+  C:0800H         SEGMENT       ?PR?KEYPAD?ASM
+  C:0800H         PUBLIC        KEYPAD
+  N:0000H         SYMBOL        ASM
+  C:0859H         SYMBOL        KEY0
+  C:083BH         SYMBOL        KEY1
+  C:083EH         SYMBOL        KEY2
+  C:0841H         SYMBOL        KEY3
+  C:0844H         SYMBOL        KEY4
+  C:0847H         SYMBOL        KEY5
+  C:084AH         SYMBOL        KEY6
+  C:084DH         SYMBOL        KEY7
+  C:0850H         SYMBOL        KEY8
+  C:0853H         SYMBOL        KEY9
+  C:085CH         SYMBOL        KEYDASH
+  C:0856H         SYMBOL        KEYSTAR
+  D:0080H         SYMBOL        P0
+  C:082FH         SYMBOL        ROW0
+  C:0821H         SYMBOL        ROW1
+  C:0813H         SYMBOL        ROW2
+  C:0805H         SYMBOL        ROW3
+  C:0800H         LINE#         9
+  C:0802H         LINE#         10
+  C:0805H         LINE#         12
+  C:0807H         LINE#         13
+  C:080AH         LINE#         14
+  C:080DH         LINE#         15
+  C:0810H         LINE#         16
+  C:0813H         LINE#         18
+  C:0815H         LINE#         19
+  C:0818H         LINE#         20
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/21/2014  18:02:01  PAGE 3
+
+
+  C:081BH         LINE#         21
+  C:081EH         LINE#         22
+  C:0821H         LINE#         24
+  C:0823H         LINE#         25
+  C:0826H         LINE#         26
+  C:0829H         LINE#         27
+  C:082CH         LINE#         28
+  C:082FH         LINE#         30
+  C:0831H         LINE#         31
+  C:0834H         LINE#         32
+  C:0837H         LINE#         33
+  C:083AH         LINE#         35
+  C:083BH         LINE#         38
+  C:083DH         LINE#         39
+  C:083EH         LINE#         41
+  C:0840H         LINE#         42
+  C:0841H         LINE#         44
+  C:0843H         LINE#         45
+  C:0844H         LINE#         47
+  C:0846H         LINE#         48
+  C:0847H         LINE#         50
+  C:0849H         LINE#         51
+  C:084AH         LINE#         53
+  C:084CH         LINE#         54
+  C:084DH         LINE#         56
+  C:084FH         LINE#         57
+  C:0850H         LINE#         59
+  C:0852H         LINE#         60
+  C:0853H         LINE#         62
+  C:0855H         LINE#         63
+  C:0856H         LINE#         65
+  C:0858H         LINE#         66
+  C:0859H         LINE#         68
+  C:085BH         LINE#         69
+  C:085CH         LINE#         71
+  C:085EH         LINE#         72
+  -------         ENDMOD        ASM
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0095H BYTE ( 7%) *
+******************************************************************************
+
+Program Size: data=9.0 xdata=0 code=164
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

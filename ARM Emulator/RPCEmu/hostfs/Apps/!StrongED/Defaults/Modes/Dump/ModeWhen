@@ -1,0 +1,44 @@
+# Use Dumpmode outright for Absolute, Module and Utility files
+# and also for all files that produce a match for _dumptest
+# Files that are typed Data but start with normal text will be
+# excluded, they can then be picked by BaseMode, or another mode
+
+Rules Exclude
+> dfe, ** ; _texttest
+> ffd, ** ; _texttest
+> fff, **.Messages; _dummy
+End
+
+Rules Include
+  dfe, **
+! ff8, **
+! ffa, **
+! ffc, **
+  ffd, **
+> ~f7c f7d ff3 ff8 ffa ffc, ** ; _dumptest
+End
+
+# Use Dumpmode if, after skipping the first 4 chars, there are no more
+# than 4 "normal" characters, followed by a ctrl char.
+
+Match
+	_dummy		Any
+	_dump0		'\x09\x0a\x0d\x20-\x7e\x80-\xff'
+	_dumptest	{.}4:4 {_dump0}0:4 ~_dump0 any
+	_texttest	~_dumptest
+End
+
+# Use Word for StrongED's Options and Choices files
+# use ASM for Absolute, Module and Utility files
+# use Byte for all other filetypes that are opened in Dump mode
+# Display types: 0 = byte, 1 = half, 2 = word, 3 = ascii, 4 = asm
+
+Display
+  ffd, **.!StrED_cfg.UserPrefs.Options ; 2
+  ffd, **.!StrongED.Defaults.Options ; 2
+  ffd, **.!StrED_cfg.UserPrefs.Modes.*.Choices ; 2
+  ffd, **.!StrongED.Defaults.Modes.*.Choices ; 2
+  ffd, **.StrongED.in ; 4
+  ff8 ffa ffc, ** ; 4
+ ~ff8 ffa ffc, ** ; 0
+End

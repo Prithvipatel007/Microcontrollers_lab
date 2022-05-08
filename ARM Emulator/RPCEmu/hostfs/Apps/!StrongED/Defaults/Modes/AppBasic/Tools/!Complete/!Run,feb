@@ -1,0 +1,18 @@
+| Run file for Complete
+| © StrongED Developers
+
+| Task directory
+Set Complete$Dir <Obey$Dir>
+Set Complete$Resources <Complete$Dir>
+
+| Wimp pool sprites
+Iconsprites <Complete$Dir>.!Sprites
+
+| Language resources
+IfThere <Complete$Dir>.!Languages Then Run <Complete$Dir>.!Languages Complete
+
+| Toolbox modules
+IfThere <Complete$Resources>.Modules Then Obey <Complete$Resources>.Modules
+
+| Run application
+Run <Complete$Dir>.!RunImage

@@ -1,0 +1,18 @@
+| Run file for SpeakSED
+| © StrongED Developers
+
+| Wimp pool sprites
+IconSprites <Obey$Dir>.!Sprites
+
+| Task directory
+Set SpeakSED$Dir <Obey$Dir>
+Set SpeakSED$Resources <SpeakSED$Dir>
+
+| Language resources
+IfThere <SpeakSED$Dir>.!Languages Then Run <SpeakSED$Dir>.!Languages SpeakSED
+
+| Toolbox modules
+IfThere <SpeakSED$Resources>.Modules Then Obey <SpeakSED$Resources>.Modules
+
+| Run
+Run <SpeakSED$Dir>.!RunImage

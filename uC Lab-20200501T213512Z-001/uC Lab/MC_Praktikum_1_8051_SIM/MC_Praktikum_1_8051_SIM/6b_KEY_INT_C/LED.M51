@@ -1,0 +1,100 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        03/19/2016  22:26:57  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE LED.obj TO LED
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  LED.obj (LED)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  LED (LED)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0010H                  *** GAP ***
+            CODE    0013H     0003H     ABSOLUTE     
+                    0016H     07EAH                  *** GAP ***
+            CODE    0800H     001DH     UNIT         ?PR?EXTINT1?LED
+            CODE    081DH     0010H     UNIT         ?PR?MAIN?LED
+            CODE    082DH     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   LED (LED)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?LED
+
+
+
+SYMBOL TABLE OF MODULE:  LED (LED)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        LED
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  B:0090H.0       PUBLIC        LED1
+  B:0090H.1       PUBLIC        LED2
+  B:0090H.2       PUBLIC        LED3
+  D:00A8H         PUBLIC        IE
+  B:0080H.6       PUBLIC        KEY1
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/19/2016  22:26:57  PAGE 2
+
+
+  B:0080H.5       PUBLIC        KEY2
+  B:0080H.4       PUBLIC        KEY3
+  C:081DH         PUBLIC        main
+  B:0080H.3       PUBLIC        ROW1
+  D:0088H         PUBLIC        TCON
+  C:0800H         PUBLIC        extint1
+  -------         PROC          EXTINT1
+  C:0800H         LINE#         14
+  C:0802H         LINE#         16
+  C:0805H         LINE#         17
+  C:080AH         LINE#         18
+  C:080DH         LINE#         19
+  C:0812H         LINE#         20
+  C:0815H         LINE#         21
+  C:081AH         LINE#         22
+  -------         ENDPROC       EXTINT1
+  -------         PROC          MAIN
+  C:081DH         LINE#         24
+  C:081DH         LINE#         25
+  C:081DH         LINE#         26
+  C:0820H         LINE#         27
+  C:0823H         LINE#         28
+  C:0826H         LINE#         30
+  C:0829H         LINE#         31
+  C:082BH         LINE#         33
+  C:082BH         LINE#         34
+  C:082BH         LINE#         35
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        LED
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0030H BYTE ( 2%) *
+******************************************************************************
+
+Program Size: data=9.0 xdata=0 code=63
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

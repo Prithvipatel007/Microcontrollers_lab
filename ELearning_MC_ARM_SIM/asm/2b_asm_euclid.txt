@@ -1,0 +1,26 @@
+DIM CODE% (&100)
+P% = CODE%
+[
+.table
+  EQUD  15
+  EQUD  9
+
+.gcd
+  CMPS  R0, R1
+  SUBGT R0, R0, R1
+  SUBLE R1, R1, R0
+  BNE   gcd
+  MOV   PC, LR
+
+.main
+  STMDB SP!, {LR}  ; push return address to stack
+
+  ADR   R12, table    ; pointer to table
+  LDMIA R12, {R0-R1}  ; load two values from table
+
+  BL    gcd
+
+  LDMIA SP!, {PC}  ; pop return address from stack (PC = LR return)
+
+]
+PRINT "R0 = " USR(main)

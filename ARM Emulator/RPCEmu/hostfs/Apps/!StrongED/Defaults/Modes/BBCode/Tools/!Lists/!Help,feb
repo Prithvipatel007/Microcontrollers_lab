@@ -1,0 +1,9 @@
+|Task directory
+ Set Lists$Dir <Obey$Dir>
+ Set Lists$Resources <Lists$Dir>
+
+|Language resources
+ ifthere <Lists$Dir>.!Languages then Run <Lists$Dir>.!Languages Lists
+
+|Run
+ Filer_Run <Lists$Resources>.Help

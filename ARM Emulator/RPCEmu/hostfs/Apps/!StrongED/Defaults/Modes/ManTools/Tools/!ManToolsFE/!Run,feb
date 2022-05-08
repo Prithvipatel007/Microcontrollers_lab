@@ -1,0 +1,15 @@
+|Wimp pool sprites
+ Iconsprites <Obey$Dir>.!Sprites
+
+|Task directory
+ Set ManToolsFE$Dir <Obey$Dir>
+ Set ManToolsFE$Resources <ManToolsFE$Dir>
+
+|Language resources
+ ifthere <ManToolsFE$Dir>.!Languages then Run <ManToolsFE$Dir>.!Languages ManToolsFE
+
+|Toolbox modules
+ ifthere <ManToolsFE$Resources>.Modules then Obey <ManToolsFE$Resources>.Modules
+
+|Run
+ Run <ManToolsFE$Dir>.!RunImage %*0

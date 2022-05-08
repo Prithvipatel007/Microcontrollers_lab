@@ -1,0 +1,5 @@
+Rules Include
+! *, **/php*
+! *, **/inc
+! 18a, **
+End

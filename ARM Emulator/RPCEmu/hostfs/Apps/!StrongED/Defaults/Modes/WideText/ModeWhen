@@ -1,0 +1,4 @@
+Rules Include
+  fff,**.Messages
+  fff,**.!StrongED.Reg
+End

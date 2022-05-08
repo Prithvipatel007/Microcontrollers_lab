@@ -1,0 +1,176 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        09/21/2014  22:22:35  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\PROGRAM FILES\KEIL\C51\BIN\BL51.EXE LED.obj TO LED
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  LED.obj (LED)
+  C:\PROGRAM FILES\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  LED (LED)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0004H     UNIT         ?DT?LED
+            DATA    000CH     0002H     UNIT         _DATA_GROUP_
+                    000EH     0012H                  *** GAP ***
+            BIT     0020H.0   0000H.2   UNIT         ?BI?LED
+                    0020H.2   0000H.6                *** GAP ***
+            IDATA   0021H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0008H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+                    000EH     07F2H                  *** GAP ***
+            CODE    0800H     002DH     UNIT         ?PR?T0EVENT?LED
+            CODE    082DH     0023H     UNIT         ?PR?MAIN?LED
+            CODE    0850H     001CH     UNIT         ?PR?BATHSTART?LED
+            CODE    086CH     0018H     UNIT         ?PR?DELAY?LED
+            CODE    0884H     000CH     UNIT         ?PR?T0START?LED
+            CODE    0890H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   LED (LED)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?LED
+
+?PR?MAIN?LED                   -----    -----
+  +--> ?PR?T0START?LED
+  +--> ?PR?BATHSTART?LED
+  +--> ?PR?DELAY?LED
+
+?PR?DELAY?LED                  000CH    0002H
+
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/21/2014  22:22:35  PAGE 2
+
+
+
+SYMBOL TABLE OF MODULE:  LED (LED)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        LED
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  B:0090H.0       PUBLIC        LED1
+  B:0090H.1       PUBLIC        LED2
+  C:0800H         PUBLIC        T0Event
+  D:00A8H         PUBLIC        IE
+  C:086CH         PUBLIC        delay
+  C:0850H         PUBLIC        BathStart
+  C:0884H         PUBLIC        T0Start
+  B:0080H.6       PUBLIC        KEY1
+  C:082DH         PUBLIC        main
+  B:0080H.3       PUBLIC        ROW3
+  D:0089H         PUBLIC        TMOD
+  D:0008H         PUBLIC        counter1
+  D:000AH         PUBLIC        counter2
+  D:008CH         PUBLIC        TH0
+  B:0020H.0       PUBLIC        flag1
+  B:0020H.1       PUBLIC        flag2
+  B:0088H.4       PUBLIC        TR0
+  -------         PROC          DELAY
+  -------         DO            
+  D:000CH         SYMBOL        n
+  -------         ENDDO         
+  C:086CH         LINE#         11
+  C:086CH         LINE#         12
+  C:086CH         LINE#         15
+  C:0883H         LINE#         16
+  -------         ENDPROC       DELAY
+  -------         PROC          T0START
+  C:0884H         LINE#         18
+  C:0884H         LINE#         19
+  C:0887H         LINE#         20
+  C:088AH         LINE#         21
+  C:088DH         LINE#         22
+  C:088FH         LINE#         23
+  -------         ENDPROC       T0START
+  -------         PROC          T0EVENT
+  C:0800H         LINE#         25
+  C:0802H         LINE#         26
+  C:0805H         LINE#         27
+  C:0805H         LINE#         28
+  C:0812H         LINE#         29
+  C:0812H         LINE#         30
+  C:0814H         LINE#         31
+  C:0816H         LINE#         32
+  C:0816H         LINE#         33
+  C:0816H         LINE#         34
+  C:0819H         LINE#         35
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/21/2014  22:22:35  PAGE 3
+
+
+  C:0819H         LINE#         36
+  C:0826H         LINE#         37
+  C:0826H         LINE#         38
+  C:0828H         LINE#         39
+  C:082AH         LINE#         40
+  C:082AH         LINE#         41
+  C:082AH         LINE#         42
+  -------         ENDPROC       T0EVENT
+  -------         PROC          BATHSTART
+  C:0850H         LINE#         44
+  C:0850H         LINE#         45
+  C:0853H         LINE#         46
+  C:0853H         LINE#         47
+  C:0855H         LINE#         48
+  C:0857H         LINE#         49
+  C:085DH         LINE#         50
+  C:085EH         LINE#         52
+  C:085EH         LINE#         53
+  C:0861H         LINE#         54
+  C:0861H         LINE#         55
+  C:0863H         LINE#         56
+  C:0865H         LINE#         57
+  C:086BH         LINE#         58
+  C:086BH         LINE#         59
+  C:086BH         LINE#         60
+  -------         ENDPROC       BATHSTART
+  -------         PROC          MAIN
+  C:082DH         LINE#         62
+  C:082DH         LINE#         63
+  C:0830H         LINE#         64
+  C:0833H         LINE#         65
+  C:0836H         LINE#         66
+  C:0838H         LINE#         67
+  C:083AH         LINE#         68
+  C:083CH         LINE#         69
+  C:083FH         LINE#         70
+  C:083FH         LINE#         71
+  C:083FH         LINE#         72
+  C:0848H         LINE#         73
+  C:0848H         LINE#         74
+  C:084BH         LINE#         75
+  C:084EH         LINE#         76
+  C:084EH         LINE#         77
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        LED
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0093H BYTE ( 7%) *
+******************************************************************************
+
+Program Size: data=15.2 xdata=0 code=162
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

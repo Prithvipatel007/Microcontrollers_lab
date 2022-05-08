@@ -1,0 +1,30 @@
+#! lua
+
+assert(riscos.version,"SearchDir requires RiscLua 5.00 or later")
+local cfg = assert(dofile "<DigDirSED$Dir>.config", "Bad config syntax")
+
+
+do
+  local pattern = "abc123%d"
+
+  function caseless(pat)
+    pat = string.gsub(pat, '%%(%a)', function (v) return "%"..string.byte(v) end)
+    pat = string.gsub(pat, '(%a)', function (v) return '['..string.upper(v)..string.lower(v)..']' end)
+    pat = string.gsub(pat, '%%(%d+)', function (v) return "%"..string.char(v) end)
+    return pat
+  end -- function
+
+  print(caseless(pattern))
+
+end -- do
+
+
+--function gisub(s, pat, repl, n)
+--    pat = gsub(pat, '(%a)',
+--               function (v) return '['..strupper(v)..strlower(v)..']' end)
+--    if n then
+--        return gsub(s, pat, repl, n)
+--    else
+--        return gsub(s, pat, repl)
+--    end
+--end

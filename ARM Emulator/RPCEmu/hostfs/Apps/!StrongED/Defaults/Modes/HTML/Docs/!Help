@@ -1,0 +1,259 @@
+
+ HTML
+~~~~~~
+
+StrongED Mode	HTML
+Purpose		Provide support for the HTML language in StrongED
+Version		0.40 Beta, 13 July 2003
+Copyright	Philip Ludlam 2003
+
+
+ Installing the StrongED HTML Mode
+===================================
+
+Once downloaded the StrongED HTML Mode needs to be installed in StrongED. To
+do this copy the directory ê!StrED_cfgë over your existing copy of
+ê!StrED_cfgë (usually found in !Boot.Choices or
+!Boot.Choices.Users.<user_name> .
+
+
+ Important
+===========
+
+The HTML mode makes use of several new features introduced in version 4.65
+Alpha 2 of StrongEd. Please make sure that you are using 4.65 Alpha 2 or later
+before installing this HTML mode.
+
+
+ Features
+==========
+
+** New **
+
+With this version shift double-clicking on an URL (in the form of a href="å",
+src="å" or in a PHP include(), include_once(), require() or require_once()
+call) will result in the URL being downloaded if required and opened for
+editing by a suitable application.
+
+To get external files the program wget (supplied with the mode) is invoked. To
+quote from it's Readme file: [Wget] is 32-bit compatible, and is suitable for
+all RISC OS ARM6, ARM7, StrongARM and XScale machines. It may not be suitable
+for earlier machines.
+If someone can confirm whether it works on RISC OS 3.1 or not please let both
+me and Chocky know. Thanks.
+
+
+ Syntax Colouring
+==================
+
+This HTML mode has support for HTML 3.2 and has partial support for HTML 4.
+
+The HTML tags have been split into groups. These groups are:
+1) Document structure, headers and frames
+	Suggested colour: light green
+2) Headings
+	Suggested colour: light green
+3) Text style
+	Suggested colour: dark green
+4) Formatting tags: lists, forms and tables
+	Suggested colour: red
+5) Entry tags: lists, forms and tables
+	Suggested colour: dark green
+6) Anchor links and object tags
+	Suggested colour: dark blue on light grey
+7) Embedded scripts
+	Suggested colour: medium grey
+Any other HTML tags will also be coloured.
+
+Other suggested colours:
+Strings: dark blue
+Numbers: black
+Comments: light blue (cyan)
+Ids (other HTML tags): dark grey
+
+Please note that these suggestions are designed for a black text and white
+background display. Feel free to customise them to your colour scheme.
+
+
+ The Toolbar
+=============
+
+1  - Start StrongHelp
+	Loads StrongHelp (if not already running) and searches for a suitable
+	html page for current word or character.
+2  - Show List of files dialogue box
+	Select opens a window listing all the files StrongED has loaded.
+3  - Check Spelling
+	Select opens a window listing all the spelling mistakes in the current
+	document.†Adjust opens the interactive spell checking window.
+4  - Open Choices window
+	Select open the 'Global Choices' window. Adjust open the 'Mode Choices'
+	window.
+5  - Open Save file window
+	Select opens the 'Save text' window. Adjust saves the current document.
+
+6  - Show List Of Headings/Links
+	Select opens a window listing all the headings in the document. Adjust
+	opens a window listing all the links in the document.
+7  - Run HTML file
+	Select will try to open the current file in a web browser.
+8  - Heading 1
+	Will set the style of current text to heading number 1.
+9  - Heading 2
+	Will set the style of current text to heading number 2.
+10 - Heading 3
+	Will set the style of current text to heading number 3.
+11 - Bold/Strong
+	Select will set the style of current text as bold. Adjust will set the
+	style of current text as strong.
+12 - Italic/Emphasis
+	Select will set the style of current text as italic. Adjust will set
+	the style of current text as emphasis. 
+13 - Font
+	Allows you to set the font properties of the selected text.
+14 - Paragraph
+	Defines the selected text as a paragraph.
+15 - Anchor
+	Select changes the selected text into a hyperlink. Adjust allows you
+	to set a marker point in the document.
+
+
+ The Menu
+==========
+
+1) Change mode
+	Change the mode of the file being displayed.
+2) Choices..
+	Open the mode choices window.
+3) Base functions
+	Opens the Functions menu.
+
+4) List of headings
+	This opens a window listing all the headings in the document.
+5) Save & render
+	This will try to open the current file in a web browser.
+6) Escape brackets
+	Alters the selected text so that browsers will show the HTML code.
+	It turns < to &lt; , > to &gt; and " to &quot;.
+7) Load selected file
+	Loads selected file. For now it must be in same directory as current
+	file.
+8) Remove tags
+	Removes HTML tags.
+90 Comment section
+	Changes the selected text into a comment.
+
+
+ The Keyboard shortcuts
+========================
+
+The HTML mode provides several shortcuts that you can use to make HTML editing
+easier. They are as follow:
+
+ãF3  : Save & render
+	Select will try to open the current file in a web browser.
+ã^F4 : Escape brackets
+	Changes the selected text so that browsers will show the HTML code.
+	It turns < to &lt; , > to &gt; and " to &quot;
+
+
+ Search and replace expressions
+================================
+
+The HTML mode defines several search expressions.
+They are all listed below:
+
+
+
+The HTML mode defines several replace expressions.
+They are all listed below:
+
+h1
+	"<h1>" @@ "</h1>"
+h2
+	"<h2>" @@ "</h2>"
+h3
+	"<h3>" @@ "</h3>"
+h4
+	"<h4>" @@ "</h4>"
+
+italic
+	"<i>" @@ "</i>"
+bold
+	"<b>" @@ "</b>"
+strong
+	"<strong>" @@ "</strong>"
+emphasis
+	"<em>" @@ "</em>"
+comment
+	"<!-- " @@ " -->"
+
+center
+	"<center>" @@  "</center>"
+red
+	"<font color=#ff0000>" @@ "</font>"
+blue
+	"<font color=#3a00aa>" @@ "</font>"
+green
+	"<font color=#008000>" @@ "</font>"
+
+quote
+	"\""
+
+hotlist_r
+	"<a href=\"" @12  "\">" @34  "</a>" nl
+anchor
+	"<a href=\"\">" @@ "</a>"
+name
+	"<a name=\"\">" @@ "</a>"
+font
+	"<font size= color=\"#\">" @@ "</font>"
+para
+	"<p>" @@ "</p>"
+
+
+ Interactive Help
+==================
+
+The StrongEd HTML Mode does support interactive help as used by applications
+like Help and BubbleHelp.
+
+
+ To Do
+=======
+
+	Add more features and improve the documentation
+	Translate help information into other languages
+	Convert text to HTML and visa-versa
+
+
+ About the StrongED HTML Mode
+==============================
+
+The StrongED HTML Mode is still being developed. I do appreciate ideas for its
+development and bug reports.
+
+The program 'wget' supplied with the mode in
+!StrED_cfg.UserPrefs.Modes.HTML.Tools does not fall under this licence and is
+subject to the GPL (see the accompanying file GPL for the details of that
+licence).
+
+The StrongED HTML Mode is freeware. It may be freely distributed so long as no
+charge is made for the Mode itself (excluding media costs). If you distribute
+the StrongED HTML Mode on a CD compilation or such-like then you must contact
+me for the latest version.
+
+Permission from me (the author) must be sort before distributing modified
+version of the StrongED HTML Mode or incorporating any part of the mode into
+any StrongED Mode, or any piece of software.
+
+There is no warranty, either expressed or implied, and the StrongED HTML Mode
+is not guaranteed fit for use in any situation. I (the author) take no
+responsibility for any (mis)use of the StrongED HTML Mode by you (the user)
+and can accept no responsibility for any loss or damage incurred by doing so.
+
+The StrongED HTML Mode and more are available from http://www.philipnet.com/ .
+If you find a bug in any of my programs or have ideas for their improvement
+then please contact me at mailto:philip@philipnet.com or through my web site.
+
+© 2003 Philip Ludlam

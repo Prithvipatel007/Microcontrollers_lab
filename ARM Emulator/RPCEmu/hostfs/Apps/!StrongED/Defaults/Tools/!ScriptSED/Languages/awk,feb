@@ -1,0 +1,5 @@
+| StrongED script binding for awk
+| © StrongED developers
+
+awk -f <StrongED$Script_Script> <StrongED$Script_Infile> > <StrongED$Script_Outfile>
+

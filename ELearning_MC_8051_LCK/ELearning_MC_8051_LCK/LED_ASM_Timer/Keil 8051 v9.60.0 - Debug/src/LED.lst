@@ -1,0 +1,135 @@
+AX51 MACRO ASSEMBLER  LED                                                                   06/13/20 02:32:23 PAGE     1
+
+
+MACRO ASSEMBLER AX51 V3.15.3.0
+OBJECT MODULE PLACED IN .\src\LED.OBJ
+ASSEMBLER INVOKED BY: c:\SiliconLabs\SimplicityStudio\v4\developer\toolchains\keil_8051\9.60\BIN\AX51.exe D:\ELearning\M
+                      C\ELearning_MC_8051_LCK\LED_ASM_Timer\src\LED.asm ERRORPRINT SET(SMALL,SILABS_STARTUP=1) DEBUG MAC
+                      RO NOMOD51 INCDIR(C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7//Device/shared/si8
+                      051Base;C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7//Device/EFM8BB1/inc) PRINT(.
+                      \src\LED.lst) COND SYMBOLS PAGEWIDTH(120) PAGELENGTH(65) OBJECT(.\src\LED.OBJ) 
+
+LOC    OBJ             LINE     SOURCE
+
+                          1     ;$include (REG51.inc)
+                    +1    2     ;-------------------------------------------------------------------------------
+                    +1    3     ; Copyright 1995-1996 KEIL Software, Inc.
+                    +1    4     ; 8051 Processor Declarations
+                    +1    5     ;-------------------------------------------------------------------------------
+                    +1    6  +1 $save 
+                    +1   82  +1 $restore 
+                    +1   83     
+                         84     
+                         85     
+ 00E3                    86     XBR2 EQU 0E3H
+                         87     
+000000                   88     ORG 0000H
+000000 8012              89             JMP             main
+                         90     
+                         91     ; timer0 irq handler
+00000B                   92     ORG 000BH
+00000B B294              93             CPL             P1.4            ; toggle LED
+                         94     
+00000D 758C80            95             MOV             TH0, #80H       ; timer 0 reload
+000010 758A00            96             MOV             TL0, #00H
+                         97     
+000013 32                98             RETI
+                         99     
+000014                  100     main:
+000014 75E340           101             MOV             XBR2, #01000000B        ; port power
+                        102     
+                        103             ; timer 0
+000017 438901           104             ORL             TMOD, #00000001B        ; timer 0 mode 1
+00001A 758C80           105             MOV             TH0, #80H                       ; timer 0 load
+00001D 758A00           106             MOV             TL0, #00H
+                        107     
+                        108             ; 8051 standard irq configuration
+000020 75A882           109             MOV             IE, #10000010B          ; enable timer 0 IRQ and enable global
+                        110     
+000023 D28C             111             SETB    TR0                                     ; timer 0 start
+000025                  112     loop:
+000025 80FE             113             JMP             loop
+                        114     
+                        115             END
+AX51 MACRO ASSEMBLER  LED                                                                   06/13/20 02:32:23 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E                    T Y P E  V A L U E     ATTRIBUTES
+
+AC. . . . . . . . . . . .  B  ADDR  00D0H.6   A   
+ACC . . . . . . . . . . .  D  ADDR  00E0H     A   
+B . . . . . . . . . . . .  D  ADDR  00F0H     A   
+CY. . . . . . . . . . . .  B  ADDR  00D0H.7   A   
+DPH . . . . . . . . . . .  D  ADDR  0083H     A   
+DPL . . . . . . . . . . .  D  ADDR  0082H     A   
+EA. . . . . . . . . . . .  B  ADDR  00A8H.7   A   
+ES. . . . . . . . . . . .  B  ADDR  00A8H.4   A   
+ET0 . . . . . . . . . . .  B  ADDR  00A8H.1   A   
+ET1 . . . . . . . . . . .  B  ADDR  00A8H.3   A   
+EX0 . . . . . . . . . . .  B  ADDR  00A8H.0   A   
+EX1 . . . . . . . . . . .  B  ADDR  00A8H.2   A   
+F0. . . . . . . . . . . .  B  ADDR  00D0H.5   A   
+IE. . . . . . . . . . . .  D  ADDR  00A8H     A   
+IE0 . . . . . . . . . . .  B  ADDR  0088H.1   A   
+IE1 . . . . . . . . . . .  B  ADDR  0088H.3   A   
+INT0. . . . . . . . . . .  B  ADDR  00B0H.2   A   
+INT1. . . . . . . . . . .  B  ADDR  00B0H.3   A   
+IP. . . . . . . . . . . .  D  ADDR  00B8H     A   
+IT0 . . . . . . . . . . .  B  ADDR  0088H.0   A   
+IT1 . . . . . . . . . . .  B  ADDR  0088H.2   A   
+LOOP. . . . . . . . . . .  C  ADDR  0025H     R   SEG=?CO?LED?0
+MAIN. . . . . . . . . . .  C  ADDR  0014H     R   SEG=?CO?LED?0
+OV. . . . . . . . . . . .  B  ADDR  00D0H.2   A   
+P . . . . . . . . . . . .  B  ADDR  00D0H.0   A   
+P0. . . . . . . . . . . .  D  ADDR  0080H     A   
+P1. . . . . . . . . . . .  D  ADDR  0090H     A   
+P2. . . . . . . . . . . .  D  ADDR  00A0H     A   
+P3. . . . . . . . . . . .  D  ADDR  00B0H     A   
+PCON. . . . . . . . . . .  D  ADDR  0087H     A   
+PS. . . . . . . . . . . .  B  ADDR  00B8H.4   A   
+PSW . . . . . . . . . . .  D  ADDR  00D0H     A   
+PT0 . . . . . . . . . . .  B  ADDR  00B8H.1   A   
+PT1 . . . . . . . . . . .  B  ADDR  00B8H.3   A   
+PX0 . . . . . . . . . . .  B  ADDR  00B8H.0   A   
+PX1 . . . . . . . . . . .  B  ADDR  00B8H.2   A   
+RB8 . . . . . . . . . . .  B  ADDR  0098H.2   A   
+RD. . . . . . . . . . . .  B  ADDR  00B0H.7   A   
+REN . . . . . . . . . . .  B  ADDR  0098H.4   A   
+RI. . . . . . . . . . . .  B  ADDR  0098H.0   A   
+RS0 . . . . . . . . . . .  B  ADDR  00D0H.3   A   
+RS1 . . . . . . . . . . .  B  ADDR  00D0H.4   A   
+RXD . . . . . . . . . . .  B  ADDR  00B0H.0   A   
+SBUF. . . . . . . . . . .  D  ADDR  0099H     A   
+SCON. . . . . . . . . . .  D  ADDR  0098H     A   
+SM0 . . . . . . . . . . .  B  ADDR  0098H.7   A   
+SM1 . . . . . . . . . . .  B  ADDR  0098H.6   A   
+SM2 . . . . . . . . . . .  B  ADDR  0098H.5   A   
+SP. . . . . . . . . . . .  D  ADDR  0081H     A   
+T0. . . . . . . . . . . .  B  ADDR  00B0H.4   A   
+T1. . . . . . . . . . . .  B  ADDR  00B0H.5   A   
+TB8 . . . . . . . . . . .  B  ADDR  0098H.3   A   
+TCON. . . . . . . . . . .  D  ADDR  0088H     A   
+TF0 . . . . . . . . . . .  B  ADDR  0088H.5   A   
+TF1 . . . . . . . . . . .  B  ADDR  0088H.7   A   
+TH0 . . . . . . . . . . .  D  ADDR  008CH     A   
+TH1 . . . . . . . . . . .  D  ADDR  008DH     A   
+AX51 MACRO ASSEMBLER  LED                                                                   06/13/20 02:32:23 PAGE     3
+
+TI. . . . . . . . . . . .  B  ADDR  0098H.1   A   
+TL0 . . . . . . . . . . .  D  ADDR  008AH     A   
+TL1 . . . . . . . . . . .  D  ADDR  008BH     A   
+TMOD. . . . . . . . . . .  D  ADDR  0089H     A   
+TR0 . . . . . . . . . . .  B  ADDR  0088H.4   A   
+TR1 . . . . . . . . . . .  B  ADDR  0088H.6   A   
+TXD . . . . . . . . . . .  B  ADDR  00B0H.1   A   
+WR. . . . . . . . . . . .  B  ADDR  00B0H.6   A   
+XBR2. . . . . . . . . . .  N  NUMB  00E3H     A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S).

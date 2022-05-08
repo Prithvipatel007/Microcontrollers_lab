@@ -1,0 +1,90 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : Make
+#	Purpose : StrongED mode file for Makefiles
+#	Author  : © Fred Graute
+#	Licence : Freeware
+#	Version : 1.06, 22-12-2011
+#
+#	Nothing fancy, just basic syntax colouring.
+#
+#-------------------------------------------------------------------------------
+# 16-11-03 FG Added '{' and '}' to group 6
+# 16-11-03 FG Added group9; conditional directives. It's commented out as prior
+#             to 4.67 only 8 groups were supported. It can be used on 4.67 though
+# 22-12-11 FG Replaced old Tmp$* variables with new StrongED$Tmp_* ones
+#          FG Changed 'Type' to 'CommentType' in SyntaxComment
+#-------------------------------------------------------------------------------
+
+ID_FirstChar	A-Za-z
+ID_Middle	A-Za-z_0-9+
+
+SyntaxComment 1
+	CommentType	OneLine
+	StartWith	#
+End
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteQuote	No
+	SplitString	No
+End
+
+SyntaxWords Group1 nocase EndOfID
+	c.
+End
+
+SyntaxWords Group2 nocase EndOfID
+	h.
+End
+
+SyntaxWords Group3 nocase EndOfID
+	o.
+End
+
+SyntaxWords Group4 nocase EndOfID
+	s.
+End
+
+SyntaxWords Group5 nocase EndOfID
+	-
+End
+
+SyntaxWords Group6 nocase EndOfID
+	(
+	)
+	{
+	}
+End
+
+SyntaxWords Group7 nocase EndOfID
+	<
+	>
+End
+
+SyntaxWords Group8 nocase EndNonID
+	cc
+	cmhg
+	Libfile
+	Link
+	ObjAsm
+	Squeeze
+End
+
+#SyntaxWords Group9 nocase EndNonID
+#	ifeq
+#	ifneq
+#	ifdef
+#	ifndef
+#	else
+#	endif
+#End
+
+Functions
+	Menu	Save & run   F10
+	Icon	Run
+	Help	Hmake_run
+	Key	F10
+	Select	SetTmp() SaveRun("Filer_Run <StrongED$Tmp_FileName>")
+End

@@ -1,0 +1,49 @@
+C51 COMPILER V9.60.0.0   LED                                                               07/03/2020 22:11:26 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE LED
+OBJECT MODULE PLACED IN LED.OBJ
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE LED.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include <REG51.h>
+   2          
+   3          sbit ADC_WR = P3^6;
+   4          sbit ADC_RD = P3^7;
+   5          sbit ADC_INTR = P3^2;
+   6          sbit DAC_WR = P0^7; 
+   7          
+   8          
+   9          void main(void){
+  10   1        while (1)
+  11   1        {
+  12   2          ADC_WR = 0;   // enables ADC write
+  13   2          ADC_WR = 1;   // disables ADC write
+  14   2          
+  15   2          while(ADC_INTR);  // ADC_INTR pin used for polling
+  16   2          
+  17   2          ADC_RD = 0;     // enables ADC read
+  18   2          P1 = P2;      // stores data for the write process
+  19   2          ADC_RD = 1;     // disables ADC read
+  20   2          
+  21   2          DAC_WR = 0;     // enables writing
+  22   2          DAC_WR = 1;     // diables writing
+  23   2          
+  24   2        }
+  25   1      }
+  26          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     20    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

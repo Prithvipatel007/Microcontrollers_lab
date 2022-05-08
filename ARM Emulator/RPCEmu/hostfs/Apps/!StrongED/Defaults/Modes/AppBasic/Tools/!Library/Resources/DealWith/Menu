@@ -1,0 +1,8 @@
+DEF PROCDealWith_Menu(event,object,component)
+CASE event OF
+ WHEN Menu_AboutToBeShown
+ WHEN Menu_HasBeenHidden
+ WHEN Menu_SubMenu
+ WHEN Menu_Selection
+ENDCASE
+ENDPROC

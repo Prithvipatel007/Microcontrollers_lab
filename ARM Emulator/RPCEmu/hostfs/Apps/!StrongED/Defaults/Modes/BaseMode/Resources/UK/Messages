@@ -1,0 +1,19 @@
+# Messages for BaseMode
+# © StrongED Developers
+
+HBM_help:SELECT gives help on mode.|MCtrl-SELECT gives help on BaseMode.|MCtrl-Shift-SELECT gives help on StrongED.|MADJUST gives info on char under caret.|MCtrl-ADJUST looks up word under caret.|MCtrl-Shift-ADJUST gives info on file.
+#HBM_help:\Sget help on mode.|MCtrl-\Sget help on BaseMode.|MCtrl-Shift-\Sget help on StrongED.|M\Aget info on char at caret.|MCtrl-\Alook up word at caret.|MCtrl-Shift-\Aget info on file.
+HBM_low:SELECT opens/closes the List of Windows window.|MADJUST opens the File history box.
+HBM_spell:SELECT spell checks whole text.|MADJUST opens the spell window.
+HBM_opt:SELECT opens/closes the Global Choices window,|MADJUST opens/closes the Mode Choices window.
+HBM_save:SELECT opens the savebox.|MADJUST saves the text without asking.|MNote: ADJUST can only be used if the file already has a valid path.|MCtrl-SELECT opens the Export dialogue box.
+HBM_undo:SELECT undoes the last edit operation.|MADJUST redoes the last undone operation.
+HBM_speak:SELECT open the speak dialogue box.
+HBM_refresh:SELECT opens the Refresh dialogue box.|MADJUST refreshes the file immediately without prompting.|MEVEN when the file has been edited!
+#HBM_apply:Drag a script here to apply it to this text.|MCtrl-DRAG displays the result in a new window.|MShift-DRAG replaces the text with the result.|MCtrl-Shift-DRAG applies the script to all texts.|MSELECT opens the scripts directory (if set).
+HBM_apply:SELECT opens scripts directory.|MDragging a script here applies it to a document -|MShift-DRAG replaces document with result.|MCtrl-DRAG puts result in a new window.|MCtrl-Shift-DRAG applies to all documents, replacing each one.
+
+HBM_trim:Removes spaces from the end of lines
+HBM_ltrim:Removes spaces from the start of each line
+HBM_join:Join lines together
+HBM_split:Split lines

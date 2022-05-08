@@ -1,0 +1,1 @@
+<StrongED$Tmp_ModePath>.Tools.wget -S -o <StrongED$ScrapDir>.head -O <StrongED$ScrapDir>.wget %*0

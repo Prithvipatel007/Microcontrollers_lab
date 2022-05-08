@@ -1,0 +1,187 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    :
+#	Purpose : Mode for Povray 3.xx
+#	Author  :
+#	Licence :
+#	Version : 1.00, 22-12-2011
+#
+#-------------------------------------------------------------------------------
+# 22-12-11 FG Replaced old Tmp$* variables with StrongED$Tmp_* ones
+#          FG Changed 'Type' to 'CommentType' in SyntaxComment
+#          FG Moved Help in Functions section in front of Select line
+#          FG Made up a version number to make it easier to signal changes
+#-------------------------------------------------------------------------------
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteQuote	Yes
+	SplitString	No
+End
+
+SyntaxComment
+	CommentType	OneLine
+	StartWith	//
+End
+
+
+#--- 	Povray objects
+
+SyntaxWords Group1
+	atmosphere bicubic_patch blob box cone cylinder
+	difference height_field intersection lathe merge
+	mesh object plane polygon prism sor sphere
+	superellipsoid text torus triangle union
+End
+
+#--- attributes
+
+SyntaxWords Group2
+	adaptive ambient ambient_settings angle aperture
+	area_light assumed_gamma blue blur_samples brick
+	checker color color_map conic_sweep cubic_spline
+	diffuse fade_distance fade_power falloff finish
+	focal_point frequency green hexagon linear_spline
+	linear_sweep location look_at looks_like
+	max_trace_level metallic no_shadow normal
+	open orthographic phong pigment
+	quadratic_spline radius red reflection
+	rgb roughness shadowless specular spotlight
+	texture tga threshold tightness ttf turbulence
+	u_step v_step wrinkles
+End
+
+#--- POV code
+
+SyntaxWords Group3
+	#include #declare #version
+End
+
+
+#----------------------------------------------------------------------
+
+
+Functions
+
+	Menu	Camera
+	Icon	camera
+	Help	click Select/Adjust for a camera
+	Select	InsertFile("<StrongED$Tmp_ModePath>.Files.camera")
+
+	Adjust	InsertFile("<StrongED$Tmp_ModePath>.Files.cameraF")
+
+	Menu	Light
+	Icon	Light
+	Help	click Select for a lightsource
+	Select	InsertFile("<StrongED$Tmp_ModePath>.Files.light")
+
+	Menu	Sphere
+	Icon	sphere
+	Help	click Select for a sphere
+	Select	InsertFile("<StrongED$Tmp_ModePath>.Files.sphere")
+
+	Menu	Box
+	Icon	box
+	Help	click Select for a box
+	Select	InsertFile("<StrongED$Tmp_ModePath>.Files.box")
+
+	Menu	Cylinder
+	Icon	cylinder
+	Help	click Select for a cylinder
+	Select	InsertFile("<StrongED$Tmp_ModePath>.Files.cylinder")
+
+	Menu	Cone
+	Icon	cone
+	Help	click Select for a cone
+	Select	InsertFile("<StrongED$Tmp_ModePath>.Files.cone")
+
+	Menu	Torus
+	Icon	torus
+	Help	click Select for a torus
+	Select	InsertFile("<StrongED$Tmp_ModePath>.Files.torus")
+
+	Adjust	InsertFile("<StrongED$Tmp_ModePath>.Files.torusF")
+
+	Menu	Blob
+	Icon	blob
+	Help	click Select for a blob
+	Select	InsertFile("<StrongED$Tmp_ModePath>.Files.blob")
+
+	Menu	Plane
+	Icon	plane
+	Help	click Select for a plane
+	Select	InsertFile("<StrongED$Tmp_ModePath>.Files.plane")
+
+	Menu	Triangle
+	Icon	triangle
+	Help	click Select for a triangle
+	Select	InsertFile("<StrongED$Tmp_ModePath>.Files.triangle")
+
+	Menu	Disc
+	Icon	disc
+	Help	click Select for a disc
+	Select	InsertFile("<StrongED$Tmp_ModePath>.Files.disc")
+
+	Menu	Color
+	Icon	color
+	Help	click Select for colors
+	Select	InsertFile("<StrongED$Tmp_ModePath>.Files.color")
+
+	Menu	Texture
+	Icon	texture
+	Help	click Select for textures
+	Select	InsertFile("<StrongED$Tmp_ModePath>.Files.texture")
+
+	Icon	100x100
+	Help	start POVray with the actually script at 100x100 pixels SELECT - low quality (fast) ADJUST high quality (slow)
+	Select	SettMP() SaveRun ("pov:povray +Lpov:include +I<StrongED$Tmp_FileName> +O<pov$path><StrongED$Tmp_FileLeaf> +FT -w100 -h100")
+
+	Adjust	SettMP() SaveRun ("pov:povray +Lpov:include +I<StrongED$Tmp_FileName> +O<pov$path><StrongED$Tmp_FileLeaf> +FT -w100 -h100 +a0.6")
+
+	Icon	320x256
+	Help	start POVray with the actually script at 320x256 pixels SELECT - low quality (fast) ADJUST high quality (slow)
+	Select	SetTmp() SaveRun ("pov:povray +Lpov:include +I<StrongED$Tmp_FileName> +O<pov$path><StrongED$Tmp_FileLeaf> +FT -w320 -h256")
+
+	Adjust	SetTmp() SaveRun ("pov:povray +Lpov:include +I<StrongED$Tmp_FileName> +O<pov$path><StrongED$Tmp_FileLeaf> +FT -w320 -h256 +a0.6")
+
+	Icon	640x480
+	Help	start POVray with the actually script at 640x480 pixels SELECT - low quality (fast) ADJUST high quality (slow)
+	Select	SetTmp() SaveRun ("pov:povray +Lpov:include +I<StrongED$Tmp_FileName> +O<pov$path><StrongED$Tmp_FileLeaf> +FT -w640 -h480")
+
+	Adjust	SetTmp() SaveRun ("pov:povray +Lpov:include +I<StrongED$Tmp_FileName> +O<pov$path><StrongED$Tmp_FileLeaf> +FT -w640 -h480 +a0.6")
+
+	Icon	800x600
+	Help	start POVray with the actually script at 800x600 pixels SELECT - low quality (fast) ADJUST high quality (slow)
+	Select	SetTmp() SaveRun ("pov:povray +Lpov:include +I<StrongED$Tmp_FileName> +O<pov$path><StrongED$Tmp_FileLeaf> +FT -w800 -h600")
+
+	Adjust	SetTmp() SaveRun ("Dir <StrongED$Tmp_FilePath>") Run ("pov:povray +Lpov:include +I<StrongED$Tmp_FileName> +O<pov$path><StrongED$Tmp_FileLeaf> +FT -w800 -h600 +a0.6")
+
+	Icon	directory
+	Help	open the output (image) directory
+	Select	Dclick("pov:tga")
+
+	Menu	1024 x 768 low quality
+	Select	SettMP() SaveRun ("pov:povray +Lpov:include +I<StrongED$Tmp_FileName> +O<pov$path><StrongED$Tmp_FileLeaf> +FT -w1024 -h768")
+
+	Menu	1024 x 768 high quality
+	Select	SettMP() SaveRun ("pov:povray +Lpov:include +I<StrongED$Tmp_FileName> +O<pov$path><StrongED$Tmp_FileLeaf> +FT -w1024 -h768 +a0.6")
+
+	Menu	1280 x 1024 low quality
+	Select	SettMP() SaveRun ("pov:povray +Lpov:include +I<StrongED$Tmp_FileName> +O<pov$path><StrongED$Tmp_FileLeaf> +FT -w1280 -h1024")
+
+	Menu	1280 x 1024 high quality
+	Select	SettMP() SaveRun ("pov:povray +Lpov:include +I<StrongED$Tmp_FileName> +O<pov$path><StrongED$Tmp_FileLeaf> +FT -w1280 -h1024 +a0.6")
+
+	Menu	1600 x 1200 low quality
+	Select	SettMP() SaveRun ("pov:povray +Lpov:include +I<StrongED$Tmp_FileName> +O<pov$path><StrongED$Tmp_FileLeaf> +FT -w1600 -h1200")
+
+	Menu	1600 x 1200 high quality
+	Select	SettMP() SaveRun ("pov:povray +Lpov:include +I<StrongED$Tmp_FileName> +O<pov$path><StrongED$Tmp_FileLeaf> +FT -w1600 -h1200 +a0.6")
+End
+
+KeyList
+	^I	1	"#include "
+	^D	1	"#declare "
+	^P	1	"pigment {   }"
+End

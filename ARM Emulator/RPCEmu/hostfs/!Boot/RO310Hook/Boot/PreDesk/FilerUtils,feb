@@ -1,0 +1,4 @@
+|
+| Obey file to patch Filer (pre 1.78 only)
+|
+RMEnsure Filer 1.78 RMLoad System:Modules.FilerUtils

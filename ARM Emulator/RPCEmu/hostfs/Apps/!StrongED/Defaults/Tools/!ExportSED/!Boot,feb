@@ -1,0 +1,6 @@
+| Boot file for ExportSED.
+| © StrongED Developers.
+
+| Application directory and sprites
+Set ExportSED$Dir <Obey$Dir>
+Iconsprites <ExportSED$Dir>.!Sprites

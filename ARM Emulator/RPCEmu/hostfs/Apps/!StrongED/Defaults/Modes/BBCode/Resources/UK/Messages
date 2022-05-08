@@ -1,0 +1,18 @@
+# Messages for BBCode mode
+# © StrongED Developers
+
+HlpText:\Sopen a menu with text style options.|MChoose one of the menu items to apply a style to the selected text.
+HlpLists:\Sopen a menu with various list options.|MChoose one of the menu items to make a list of the selected text.
+HlpSmilies:\Sopen a palette of different smilies.|MChoose one of the icons to insert a smiley into the text.
+
+# Syntax colouring groups
+Group1:Bold
+Group2:Italic
+Group3:Underline
+Group4:Email
+Group5:Code
+Group6:URL
+Group7:Img
+Group8:Color
+Group9:Size
+Group10:Lists

@@ -1,0 +1,25 @@
+Rules Exclude
+  fff,**.!StrongED.Defaults.Modes.**
+  fff,**.!StrED_cfg.UserPrefs.Modes.**
+
+  # Exclude items to go to RubyRails
+
+  fff ffd, **.apis.*/rb
+  fff ffd, **.controllers.*/rb
+  fff ffd, **.helpers.*/rb
+  fff ffd, **.models.*/rb
+End
+
+Rules Include
+  fff, **.rb.*
+  fff, **/rb
+
+! *,   **/rb
+
+> ffd, **.rb.* ; Dummy
+> ffd, **/rb   ; Dummy
+End
+
+Match
+  Dummy Any
+End

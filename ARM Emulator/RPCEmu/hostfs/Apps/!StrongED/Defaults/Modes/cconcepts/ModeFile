@@ -1,0 +1,109 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : CConcepts
+#	Purpose : This mode tries to match Impression's key bindings
+#	Author  : Dag HÂkon Myrdal (dhmyrdal@pvv.unit.no)
+#	Licence :
+#	Version : 1.00, 22-12-2011
+#
+#-------------------------------------------------------------------------------
+#
+# This mode implements changes to the keys used in StrongED
+# to match, to some extent, the ones chosen by CC in Impression.
+#
+#------------------------------------------------------------------------------
+# Changes:
+# 14-01-99 GV Commented out the ^@ and ^ã_ key bindings, as KeyExtend can't do them
+# 22-12-11 FG Made up a version number to make it easier to signal changes
+#------------------------------------------------------------------------------
+
+KeyList
+#	^A 1		DeleteRight
+#	^A 2		MarkWord  CB_Copy  MarkWord  BlockDelete
+#	^A 3		MarkLine  CB_Copy  MarkLine  BlockDelete
+	^B		InsertStr("{BaseStyle on}")
+	^C		CB_Copy  BlockClear
+	^D 1		MarkWord CB_Copy MarkWord BlockDelete
+	^E		InsertStr("{Kern+}")
+	^F		InsertStr("{Spell}")
+	^G		InsertStr("{NextFrame}")
+	^H		DeleteLeft
+	^I		CreateView	#should have been insertframe...
+	^J		InsertStr("{VKern+}")
+	^K		BlockDelete
+	^L		DeleteLine
+	^N		PageDown
+	^O		BlockMark_Continous InsertStr("{Toggle Frame outline}")
+	^P		PageUp
+	^Q 1		MarkWord
+	^Q 2		MarkToEnd_tl
+	^Q 3		MarkLine
+	^Q 4		MarkText
+	^R		InsertStr("{Kern-}")
+	^S		SwapcaseChar
+	^T		MarkText
+	^U		InsertStr("{VKern-}")
+	^V		CB_Paste
+	^W		MarkWord
+	^X		CB_Copy  BlockDelete
+	^Z 1		BlockClear
+	^Z 2		CB_Purge
+#	^@		StartOfTLine  MarkToEnd_tl
+
+	^ãA		BlockMark_Continous InsertStr("{AlterChapter}")
+	^ãB		NextWindow	;should have been "put to back"
+	^ãC		KillView
+	^ãD 1		DateAndTime("%DY.%MN.%YR")
+	^ãD 2		DateAndTime ("%24:%MI")
+	^ãE		InsertStr("{Ruler }")
+	^ãF		InsertStr("{EmbedFrame}")
+	^ãG		dbox_GotoLine
+	^ãH		InsertStr("è")
+	^ãI		InsertStr("{tab}")
+	^ãJ		InsertStr("{Script Super}")
+	^ãK		InsertStr("{Script Sub}")
+	^ãL		InsertStr("{LineSpacing}")
+	^ãN		InsertStr("{New ruler }")
+	^ãP		BlockMark_Continous InsertStr("{toggle PageRulers}")
+	^ãQ		Transpose(-1)
+	^ãR		BlockMark_Continous InsertStr("{InsertRepeatFrame}")
+	^ãS 1		InsertStr("{fontsize}")
+	^ãS 2		InsertStr("{font}")
+	^ãT		dbox_SaveText
+	^ãU		InsertStr("{underline}")
+	^ãW		dbox_GotoLine
+	^ãZ		KillView
+#	^ã_		InsertStr("ò")
+
+#	^ãC		BlockCopy
+	^ãV		BlockMove
+#	^ãX		BlockDelete
+#	^ãZ		BlockClear
+
+	Insert		CB_Paste
+	BackSpace	DeleteLeft
+	Delete		DeleteLeft
+	Copy		DeleteRight
+	PgUp		PageUp
+	PgDown		PageDown
+	Home		StartOfText
+	Print		Print
+#	ãPrint		PrintBlock
+
+	F1 1		InsertStr("{\"Main Heading\" on}")
+	F1 2		InsertStr("{\"Main Heading\"}")
+	F2 1		InsertStr("{\"Sub-Heading\" on}")
+	F2 2		InsertStr("{\"Sub-Heading\"}")
+	F5		InsertStr("{justify left}")
+	F6		InsertStr("{justify centre}")
+	F7		InsertStr("{justify right}")
+	F8		InsertStr("{justify full}")
+	F9 1		InsertStr("{\"Italic\" on}")
+	F9 2		InsertStr("{\"Italic\"}")
+	F10 1		InsertStr("{\"Index\" on}")
+	F10 2		InsertStr("{\"Index\"}")
+	^ãF4 1		InsertStr("{\"Bold\" on}")
+	^ãF4 2		InsertStr("{\"Bold\"}")
+	^ãF10 1		InsertStr("{\"Hanging indent\" on}")
+	^ãF10 2		InsertStr("{\"Hanging indent\"}")
+End

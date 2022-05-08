@@ -1,0 +1,17 @@
+# Messages for ManTools mode
+# © StrongED Developers
+
+HlpText:\Sopen a menu with text style options.|MChoose one of the menu items to apply a style to the selected text.
+HlpLists:\Sopen a menu with various list options.|MChoose one of the menu items to make a list of the selected text.
+HlpRun:\Ssave the text and open a dialogue box.|MIn the dialogue box choose the desired output format.|MThen enter a filename and drag the icon to a directory viewer.
+
+# Syntax colouring groups
+Group1:Document & Define
+Group2:Chapters & Literal
+Group3:Block level tags
+Group4:Block formatting
+Group5:List items
+Group6:Reference links
+Group7:Semantic tags
+Group8:Char entities
+Group9:Placeholders

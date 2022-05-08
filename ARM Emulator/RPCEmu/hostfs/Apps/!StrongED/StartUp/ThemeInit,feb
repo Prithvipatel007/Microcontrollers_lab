@@ -1,0 +1,13 @@
+| Theme file for StrongED
+| © StrongED Developers
+
+| Load the sprites that we need
+IconSprites <StrongED$Dir>.Resources.Global.!Sprites
+
+| See if there are theme related sprites
+Set StrongED$ThemeDir <Theme$Path>.Apps.StrongED
+If "<Theme$Current>" = "" Then Unset StrongED$ThemeDir
+If "<Theme$Current>" = "[No Theme]" Then Unset StrongED$ThemeDir
+IfThere <StrongED$ThemeDir>.!Sprites* Then Else Unset StrongED$ThemeDir
+If "<StrongED$ThemeDir>" <> "" Then IconSprites <StrongED$ThemeDir>.!Sprites
+

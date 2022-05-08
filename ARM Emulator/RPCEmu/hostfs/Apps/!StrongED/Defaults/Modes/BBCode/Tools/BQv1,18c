@@ -1,0 +1,44 @@
+#!lua
+
+breakquote = function()
+ local infile = arg[1]
+-- if not infile then
+--    _ERRORMESSAGE("cannot open "..infile)
+--    end
+  quotes = {}
+  for line in io.lines(infile) do
+    print(line)
+    match = line:gmatch("%[/?quote[^%]]*%]")
+    repeat
+      found = match(line)
+      if found then
+        if found == "[/quote]" then
+          table.remove(quotes, table.maxn(quotes))
+        else
+          table.insert(quotes,found)
+        end -- if
+      end -- if
+    until not found
+  end -- for
+
+  cmd = "Message StrongED_ExecCmds StartOfWLine CaretUp CaretUp"
+  for n = 1,table.maxn(quotes) do
+    print("[/quote]")
+    cmd = cmd.." CaretUp"
+  end -- for
+  print()
+  print()
+  print()
+  for i,v in pairs(quotes) do
+    if v then
+      print(v)
+    end -- if
+  end -- for
+  local !,r in swi
+  block = block.new(256)
+  block(0,cmd)
+  r[0] = block
+  swi.! "OS_CLI"
+end -- breakquote
+
+breakquote()

@@ -1,0 +1,334 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : AppBasic
+#	Purpose : Enhanced StrongED BASIC mode for application files
+#	Author  : © Joe Taylor + original mode © Guttorm Vik
+#	Licence : Freeware
+#	Version : 1.12, 30-04-2015
+#
+#-------------------------------------------------------------------------------
+
+# Changes: (From Basic Mode)
+#----------------------------------------------------------------------
+# 17.03.98 Missing ")" in _Indent2
+# 29.06.98 Standardising use of 'list of functions' button in all modes;
+#          Select now gives a list for *this* text, and Adjust for *all* texts
+#          Have moved the 'assembly label' lister to shift-Select/Adjust
+# 26.07.98 Changed "SWI" to "SWIs" in help path.
+# 22.08.01 Updated HelpPath
+# 05.12.05 FG Added WritableField_ to groups 5 & 6
+# 10.08.06 FG Added Button_ to group 5
+# 04.02.07 FG Added keybinding for Complete utility
+# 26.04.09 FG Added expressions for SmartIndent
+# 20.12.09 FG Changed PROCPROCGadget to PROCGadget
+# 09.09.11 FG ** carried over changes below from Basic mode **
+#          FG Added MarkConst expression, matches bin, dec and hex constants
+#          FG Added MarkFunc expression, matches procedure/functions names
+#          FG Added MarkVar expression, matches variable names
+#          FG Made _MarkWord and _MoveWord use above expressions
+#          FG Renamed Bchar to IDchar1 and made it a set matching ID_FirstChar
+#          FG Renamed Bchar2 to IDchar2 and made it a set matching ID_Middle
+#          FG Added LineNumber expression to Search section
+#          FG Renamed Func2 to GoFunc
+#          FG Added _Indent expression (the one in BaseMode allows tabs)
+#          FG Added ClickList for library files
+# 10.09.11 FG Updated SyntaxComment 2 block to use new style paramater names
+#          FG Added MarkStr expression and include it in _MarkWord & _MoveWord
+#          FG Renamed IndentAfter & OutdentLine expr to IndentExpr & OutdentExpr
+# 04.10.11 FG Added FNMenu_, PROCTabs_ and PROCTreeView_ to group 6
+#          FG Added ToolAction_ and TreeView_ to group 5
+# 21.12.11 FG Replaced deprecated NL() with NewLine()
+#          FG Changed 'Type' to 'CommentType' in SyntaxComment
+# 29.12.11 FG Fixed Select action of appbasic icon
+# 18.01.12 FG Added Tabs_ & TextArea_ to Group5
+# 30.04.15 FG Switched over SyntaxComment 1 with SyntaxComment 2
+#          FG Changed shortcuts 'DF' to 'DF.' and 'DP' to 'DP.'
+#          FG Replaced old ^up-arrow modifiers with new style cs-
+#----------------------------------------------------------------------
+
+HelpPath	BASIC,AppBasic,Assembly,OS,Wimp,MiscSWIs,InetSocket,InetSWIs,VDU,Toolbox,
+
+FoldParm1 ("REM Toolbox application", "END",startofline,case)
+FoldParm2 (fold_start, fold_end,startofline,case)
+
+ID_FirstChar	`A-Za-z_
+ID_Middle	`A-Za-z_0-9
+ID_LastChar	$%
+
+#-------------------------------------------------------------------------------
+
+Search
+	IDchar1		'`A-Za-z_'
+	IDchar2		'`A-Za-z_0-9'
+	FuncName	{IDchar2|"@"}+
+	MarkConst	("%" {'01'}+) | ("&" {Hex}+) | {Digit}+
+	MarkFunc	("PROC"|"FN") FuncName
+	MarkStr		"\"" {~"\"" .} "\""
+	MarkVar		(IDchar1 {IDchar2} ["%"|"$"])
+	LineNumber	{" "} {Digit}+ {" "}
+	Func		[LineNumber] "DEF" {" "} "PROC"|"FN" @0 FuncName
+	GoFunc		[LineNumber] @0 "DEF" {" "} CW ~IDchar2
+	Label		[";:"] "." IDchar1 {IDchar2}
+	GoLabel		[";:"] "." CW ~IDchar2
+
+	Fold_Start	"DEF"
+	Fold_End	"ENDPROC" | ("="*>) {NL}+
+
+	_Indent		{" "}
+	_Indent2	{" "} [ (("REM") | (";"~":")) {" "} ]
+	_MarkWord	MarkFunc | MarkVar | MarkConst
+	_MoveWord	MarkFunc | MarkVar | MarkConst
+
+	Library		"LIBRARY" {" "}+ "\"" @0 * @9 "\""
+
+# expressions for smartindent
+	If		"IF" * "THEN" >
+	For		"FOR"
+	Repeat		"REPEAT" >
+	While		"WHILE"
+	Case		"CASE" * "OF" >
+	Else		"ELSE" >
+	When		"WHEN"
+	Def		"DEF"
+
+	Endif		"ENDIF"
+	Endwhile	"ENDWHILE"
+	Next		"NEXT"
+	Otherwise	"OTHERWISE"
+	Endcase		"ENDCASE"
+	Until		"UNTIL"
+	Endfunc		"="
+	Endproc		"ENDPROC" >
+	Local		"LOCAL"
+
+	IndentExpr	< {" "} (Def | If | For | Repeat | While | Else | Case | When | Otherwise | Local)
+	OutdentExpr	< {" "} (Endfunc | Endproc | Endif | Endwhile | Next | Else | Endcase | Until | When | Otherwise | Local)
+End
+
+#-------------------------------------------------------------------------------
+
+SmartIndent Case
+	IndentSize	2
+	IndentAfter	IndentExpr
+	OutdentLine	OutdentExpr
+End
+
+#-------------------------------------------------------------------------------
+# Immediate commands :
+# APPEND AUTO DELETE EDIT HELP LIST LISTO LOAD LVAR NEW OLD
+# RENUMBER RUN SAVE TWIN TWINO
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteQuote	Yes
+	SplitString	No
+	HexPrefix	&
+	BinPrefix	%
+End
+
+SyntaxComment 1
+	CommentType	OneLine
+	StartWith	"REM"
+	StartWhere	Anywhere
+End
+
+#SyntaxComment 2
+#	CommentType	OneLine
+#	StartWith	;
+#	EndWith		:
+#End
+
+# Basic keywords
+SyntaxWords Group1 EndAlways case
+	CALL CASE CHAIN CLEAR DATA DEF DIM ELSE END ENDCASE ENDIF
+	ENDPROC ENDWHILE ERROR FOR GOSUB GOTO IF INSTALL LET LIBRARY
+	LOCAL NEXT ON OTHERWISE OVERLAY QUIT REPEAT RESTORE RETURN
+	RUN STOP SYS THEN TRACE UNTIL USR WHEN WHILE FINISHED WIMP ID
+End
+
+# More Basic keywords
+SyntaxWords Group2 EndAlways case
+	ABS ACS ADVAL AND ASC ASN ATN BEAT BEATS BGET BPUT CHR$ CIRCLE
+	CLG CLOSE CLS COLOR COLOUR COS COUNT DEG DIV DRAW ELLIPSE
+	ENVELOPE EOF EOR ERL ERR EVAL EXP EXT FALSE FILL GCOL GET HIMEM
+	INKEY INPUT INSTR INT LEFT$ LEN LINE LN LOG LOMEM MID$ MOD MODE
+	MOUSE MOVE NOT OF OFF OPENIN OPENOUT OPENUP OR ORIGIN OSCLI PAGE
+	PI PLOT POINT POS PRINT PTR RAD READ RECTANGLE REPORT REPORT$
+	RIGHT$ RND SGN SIN SOUND SPC SQR STEP STEREO STR$ STRING$ SUM
+	SUMLEN SWAP TAB TAN TEMPO TIME TINT TO TOP TRUE VAL VDU VOICE
+	VOICES WAIT WIDTH
+End
+
+# Basic PROCs & FNs
+SyntaxWords Group3 EndOfID case
+	PROC FN
+End
+
+# Event handlers
+SyntaxWords Group4 EndOfID case
+	PROCDealWith_
+End
+
+# Event names
+SyntaxWords Group5 EndOfID case
+	Toolbox_
+	Button_ ColourDbox_ ColourMenu_ DCS_ FileInfo_ FontDbox_
+	FontMenu_ Iconbar_ Menu_ PrintDbox_ ProgInfo_ Quit_ SaveAs_
+	Scale_ Window_
+
+	ActionButton_ Adjuster_ Draggable_ NumberRange_ OptionButton_
+	Popup_ RadioButton_ ScrollList_ Slider_ StringSet_ Tabs_
+	TextArea_ ToolAction_ TreeView_ WritableField_
+End
+
+# AppBasic PROCs & FNs
+SyntaxWords Group6 EndOfID case
+	FNUtils_ PROCUtils_ FNMenu_ PROCData_
+
+	PROCToolbox_
+	PROCColourDbox_ PROCColourMenu_ PROCDCS_ PROCFileInfo_ PROCFontDbox_
+	PROCFontMenu_ PROCIconbar_ PROCMenu_ PROCPrintDbox_ PROCProgInfo_
+	PROCQuit_ PROCSaveAs_ PROCScale_ PROCWindow_
+
+	PROCGadget_
+	PROCActionButton_ PROCAdjuster_ PROCButton_ PROCDisplayField_
+	PROCDraggable_ PROCNumberRange_ PROCOptionButton_ PROCPopup_
+	PROCRadioButton_ PROCScrollList_ PROCSlider_ PROCStringSet_
+	PROCTabs_ PROCTextArea_ PROCToolAction_ PROCTreeView_ PROCWritableField_
+End
+
+#-------------------------------------------------------------------------------
+
+KeyList
+#	c-R		Indent ("REM ")
+	F1		Helpword
+	cs-R		ReindentText(,Force)
+	c-D,c-F		InsertStr("FN_ForceDebug")
+	c-D,c-R		InsertStr("FN_RestoreDebug")
+	c-D,c-D		InsertStr("FN_Debug(pass%,\"\")")
+	c-Delete	InsertStr(":") DeleteRight
+	c-Return	NewLine(indent,_Indent2)
+#	Return		ReindentText(Line,Force) NewLine()
+	c-Space		Push WordLeft SetTmp() MarkWord() Pop Run("Run <StrongED$Tmp_ModePath>.Tools.!Complete")
+	Return		SetTmp Process(Line,"Run <StrongED$Tmp_ToolPath>.KeywordFix") ReindentText(Line,Force) NewLine()
+End
+
+#-------------------------------------------------------------------------------
+
+ClickList
+	Library		Run("Message StrongED_OpenDoc <StrongED$Tmp_MarkWord>")
+End
+
+#----------------------------------------------------------------------
+
+Functions
+	Menu		List DEF PROC/FN  ‹F2
+	Icon		LoF
+	Help		HBa_lof
+	Key		s-F2
+	Select		ListOfFound (Func,Text,Align,Line,Case,Sort)
+
+	Adjust		ListOfFound (Func,All,Align,Line,Case,Sort)
+
+	s-Select	ListOfFound (";:.",Text,After,Line,Case,Sort)
+
+	s-Adjust	ListOfFound (";:.",All,After,Line,Case,Sort)
+
+	Icon		up
+	Help		HBa_up
+	Key		s-PgUp
+	Select		GotoPrev (Func,Text,Line,Case)
+
+	Key		c-PgUp
+	Adjust		GotoPrev (";:.",Text,Line,Case)
+
+	Icon		down
+	Help		HBa_dn
+	Key		s-PgDown
+	Select		GotoNext (Func,Text,Line,Case)
+
+	Key		c-PgDown
+	Adjust		GotoNext (";:.",Text,Line,Case)
+
+#==========================
+#
+# AppBasic additions begin
+#
+#==========================
+
+	Key		c-G
+	Menu		Goto label/DEF PROC/FN
+	Icon		goto
+	Help		HBa_go
+	Select		Push GotoFound (GoFunc,All,Whole,Line,Case)
+
+	Key		cs-G
+	Adjust		Push GotoFound (GoLabel,All,Whole,Line,Case)
+
+	Key		c-G 2
+	s-Select	Pop
+
+	Key		cs-G 2
+	s-Adjust	Pop
+
+	Icon		appbasic
+	Help		HBa_appbasic
+#	Select		SetTmp() Drag("AppBasic")
+	Select		SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.SetApp")
+
+	s-Select	SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.LoadApp")
+
+	Adjust		SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.AddRem") StartOfText() InsertFile("Pipe:File")
+
+	Key		s-F10
+	s-Adjust	LoadOne("<tmp$file>")
+
+	Icon		library
+	Help		HBa_library
+	Select		Run("unset stronged$appbasic") GStrans("<stronged$appbasic>") SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!Library")
+
+	Adjust		Run("if \"<stronged$appbasic>\"=\"\" then set stronged$appbasic PROCUtils_Alert(\"hello_world\")") GSTrans("<stronged$appbasic>") NewLine() Run("unset stronged$appbasic")
+
+	s-Adjust	Run("if \"<stronged$appbasic>\"=\"\" then set stronged$appbasic PROCUtils_Alert(\"hello_world\")") GSTrans("<stronged$appbasic>") NewLine() Run("unset stronged$appbasic")
+
+	Drag		SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!Library.AddMenu")
+
+	Icon		toolbox
+	Help		HBa_toolbox
+	Select		SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!Toolbox")
+
+	Adjust		SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!Toolbox")
+
+	s-Select	SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!Toolbox.InsertQuit")
+
+	Key		cs-Tab
+	cs-Adjust	InsertFile("<stronged$appbasic>") Run("unset stronged$appbasic")
+
+
+
+#==========================
+#
+# End of AppBasic additions
+#
+#==========================
+
+End
+
+#-------------------------------------------------------------------------------
+
+Shortcuts
+	P.	PRINT \@
+	DF.	DEF FN\@\n\n=0
+	DP.	DEF PROC\@\n\nENDPROC
+	CA.	CASE \@ OF\n\i  WHEN \@\n\iENDCASE
+	WH.	WHILE \@\n\i  \@\n\iENDWHILE
+	RE.	REPEAT\n\i  \@\n\iUNTIL ()
+	ERR.	ON ERROR: ON ERROR OFF: PRINT REPORT$;" at line ";ERL:END\n\i\@
+	FO.	FOR \@\n\i  \@\n\iNEXT
+	STM{	STMFD   R13!,{R0-R12,LR}\n\n\i\@\n\n\iLDMFD   R13!,{R0-R12,PC}
+	LDM{	LDMFD   R13!,{R0-R12,PC}
+	``-	REM ----------------------------------------------------------------------------\n
+	``=	REM ============================================================================\n
+	``*	REM ****************************************************************************\n
+End

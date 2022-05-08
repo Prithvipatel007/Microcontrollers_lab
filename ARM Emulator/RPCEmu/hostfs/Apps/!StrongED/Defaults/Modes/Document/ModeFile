@@ -1,0 +1,164 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : Document
+#	Purpose : Display application documents
+#	Author  : Steve Drain
+#	Licence :
+#	Version : 1.00, 22-12-2011
+#
+#-------------------------------------------------------------------------------
+# 22-12-11 FG Indent lines so it's in line with other ModeFiles
+#          FG Put quotes around hardspaces in group 7
+#          FG Replaced depredated NL with NewLine
+#          FG Changed 'Type' to 'CommentType' in SyntaxComment
+#          FG Made up a version number to make it easier to signal changes
+#-------------------------------------------------------------------------------
+
+#-Options
+# HelpPath	ModeED StrongED
+
+	FoldParm1	(fold1start,fold1end,StartOfLine,NoCase)
+	FoldParm2	(fold2start,fold2end,StartSpace,NoCase)
+
+	ID_FirstChar	A-Za-z_0-9
+	ID_Middle	A-Za-z_0-9
+	ID_LastChar	A-Za-z_0-9
+
+#-Comments
+SyntaxComment 1
+#	CommentType	OneLine
+#	StartWith
+#	EndWith
+End
+
+SyntaxComment 2
+	CommentType	OneLine
+	StartWith
+#	EndWith
+End
+
+#-Numbers
+SyntaxOptions
+	HexPrefix	&
+End
+
+#-Group 1	Title	black
+SyntaxWords Group1 NoCase StartOfLine EndOfLine
+	_
+End
+
+#-Group 2	Heading	grey5
+SyntaxWords Group2 NoCase StartOfLine EndOfLine
+	=
+End
+
+#-Group 3	SubHead	grey4
+SyntaxWords Group3 NoCase StartOfLine EndOfLine
+	-
+End
+
+#-Group 4	Fold1	blue
+SyntaxWords Group4 NoCase StartOfLine EndOfLine
+	[ ]
+End
+
+#-Group 5	Fold2	sky
+SyntaxWords Group5 NoCase StartOfLine EndOfLine
+	{ }
+End
+
+#-Group 6	Bullet1	grey4
+SyntaxWords Group6 NoCase StartSpace EndOfLine
+	.
+End
+
+#-Group 7	Bold	grey4
+SyntaxWords Group7 EndOfID NoCase
+	"  "
+End
+
+#-Group 8	Code	grey3
+SyntaxWords Group8 NoCase StartOfLine EndOfLine
+	>
+End
+
+#-Search
+Search
+	fold1start	"["
+	fold1end	"]"
+	fold2start	"{"
+	fold2end	"}"
+End
+
+#-Keylist
+KeyList
+	 ^[		"[" NewLine "]" NewLine
+	^‹[		"{" NewLine "}" NewLine
+	 ^]		"]" NewLine "[" NewLine
+	^‹]		"}" NewLine "{" NewLine
+#	 ^[		"[" NewLine "]" CaretUp
+#	^‹[		"{" NewLine "}" CaretUp
+#	 ^]		"]" NewLine "[" CaretLeft
+#	^‹]		"}" NewLine "{" CaretLeft
+#	 ‹PGDOWN	NIL
+#	 ‹PGUP		NIL
+#	^‹PGDOWN	NIL
+#	^‹PGUP		NIL
+End
+
+#-KeyFunctions
+Functions
+	Help		\Smove on to the next primary fold|M\Amove on to the next secondary fold
+	Icon		fold_down
+	Menu		Next fold    PageDown
+	Key		PGDOWN
+	Select		GotoNext (fold1start,Text,Line,Case) UnfoldText FoldText OpenFold
+
+	Key		^PGDOWN
+	Adjust		GotoNext (fold2start,Text,Line,Case) UnfoldText FoldText OpenFold
+
+	Help		\Smove to the previous primary fold|M\Amove to the previous secondary fold
+	Icon		fold_up
+	Menu		Prev. fold PageUp
+	Key		PGUP
+	Select		GotoPrev (fold1start,Text,Line,Case) UnfoldText FoldText OpenFold
+
+	Key		^PGUP
+	Adjust		GotoPrev (fold2start,Text,Line,Case) UnfoldText FoldText OpenFold
+
+	Help		\Sclose fold|M\Aclose all folds
+	Icon		fold_close
+	Key		KPMIN
+	Select		CloseFold
+
+	Key		^KPMIN
+	Adjust		UnfoldText FoldText
+
+	Help		\Sopen fold|M\Aunfold whole text
+	Icon		fold_open
+	Key		KPPLUS
+	Select		OpenFold
+
+	Key		^KPPLUS
+	Adjust		FoldText UnfoldText
+
+	Help		Hnws_join
+	Icon		wrap
+	Key		^P
+	Select		Replace (_wrap,_rwrap,,Noline)
+
+	Key		^‹P
+	Adjust		Replace (_wrap,_rwrap,text,Noline)
+
+	Help		Hnws_splt
+	Icon		unwrap
+	Key		^U
+	Select		unwrap(,70)
+
+	Key		^‹U
+	Adjust		unwrap(text,70)
+End
+
+#-Shortcuts
+Shortcuts
+End

@@ -1,0 +1,11 @@
+Rules Include
+  fff, **.*/s
+  fff, **.s.*
+@ fff, **.h.* ; .^.s.*
+@ fff, **.hdr.* ; .^.s.*
+> fff, ** ; _armaylser
+End
+
+Match
+	_armaylser	"; Armalyser analysis of "
+End

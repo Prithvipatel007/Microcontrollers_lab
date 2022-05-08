@@ -1,0 +1,7 @@
+# Syntax colouring groups
+Group1:Statements
+Group2:Inbuilt FNs, events
+Group3:Constants, Keywords
+Group4:Inblt obj, meth, prop
+Group5:Custom obj, meth, prop
+Group6:Operators

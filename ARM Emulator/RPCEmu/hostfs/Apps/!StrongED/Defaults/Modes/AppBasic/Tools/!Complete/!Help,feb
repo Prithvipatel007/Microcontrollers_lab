@@ -1,0 +1,12 @@
+| Help file for Complete
+| © StrongED Developers
+
+| Task directory
+Set Complete$Dir <Obey$Dir>
+Set Complete$Resources <Complete$Dir>
+
+| Language resources
+IfThere <Complete$Dir>.!Languages Then Run <Complete$Dir>.!Languages Complete
+
+| Run
+Filer_Run <Complete$Resources>.Complete

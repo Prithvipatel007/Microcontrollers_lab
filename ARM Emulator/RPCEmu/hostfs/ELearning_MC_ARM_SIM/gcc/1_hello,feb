@@ -1,0 +1,6 @@
+echo gcc compiling ...
+dir <Obey$Dir>
+wimpslot 20000000
+gcc -mlibscl c.1_hello
+settype a/out absolute
+a/out

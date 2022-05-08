@@ -1,0 +1,95 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : Messages
+#	Purpose : StrongED mode file for Messages files
+#	Author  : © Fred Graute
+#	Licence : Freeware
+#	Version : 1.00, 23-01-02
+#
+#	Nothing fancy, just basic syntax colouring.
+#
+#-------------------------------------------------------------------------------
+
+HelpPath	OS,Wimp,MiscSWIs,InetSocket,InetSWIs,VDU,Toolbox,C-Toolbox,C,
+
+Search
+#	startfold	("|<!")
+#	endfold		("|!>")
+	GSTrans		{~">" ~White .}+ ">"
+	_SpellIgnore	<{'A-Za-z0-9_?'}+ ":" | $
+	Shortcut	Any
+End
+
+ID_FirstChar	A-Za-z_0-9
+ID_Middle	A-Za-z_0-9?/
+#ID_LastChar	:
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	No
+	QuoteChar	\
+	QuoteQuote	No
+	SplitString	No
+	HexPrefix	0x
+End
+
+SyntaxComment 1
+	CommentType	OneLine
+	StartWhere	StartLine
+	StartWith	#
+End
+
+# Message tokens
+SyntaxWords Group1 StartOfLine EndOfID nocase
+	0 1 2 3 4 5 6 7 8 9
+	a b c d e f g h j
+	i k l m n o p q r
+	s t u v w x y z
+	?
+End
+
+# Shortcuts
+SyntaxWords Group2 EndOfExpr Shortcut nocase
+	\
+	`
+End
+
+# Parameter substitution
+SyntaxWords Group3 EndOfID nocase
+	%
+End
+
+# Control characters
+SyntaxWords Group4 EndAlways nocase
+	|I
+	|J
+	|M
+End
+
+# Token - value separator
+SyntaxWords Group5 EndAlways nocase
+	:
+End
+
+# Pick these up if they're normal text
+SyntaxWords Group6 EndAlways nocase
+	": "
+	"% "
+	"\\ "
+End
+
+## GSTrans'ed strings
+#SyntaxWords Group7 nocase EndOfExpr GSTrans
+#	<
+##	>
+#End
+
+Functions
+	Key	‹F2
+	Menu	List tokens
+	Icon	LoF
+	Select	ListOfFound(_SpellIgnore,Text,Whole,Line,NoCase,Sort)
+	Help	Hmsg_lof
+
+	Adjust	ListOfFound(_SpellIgnore,All,Whole,Line,NoCase,Sort)
+End

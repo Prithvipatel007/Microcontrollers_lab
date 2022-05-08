@@ -1,0 +1,19 @@
+Rules Include
+! f80, **
+! *, **/dsl
+! *, **.dsl.*
+! *, **.dsl.h.*
+! *, **.dsl.s.*
+! *, **/xml
+! *, **.xml.**
+> *, **; _docbook
+End
+
+Rules Exclude
+!, **.!StrongED.**
+!, **.!StrED_cfg.**
+End
+
+Match
+	_docbook	** "PUBLIC" {White|NL}+ "\"-//OASIS//DTD DocBook XML V"
+End

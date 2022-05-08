@@ -1,0 +1,6 @@
+Rules Include
+  fff,**.adb.*
+  fff,**/adb
+  fff,**.ads.*
+  fff,**/ads
+End

@@ -1,0 +1,12 @@
+# Messages file for SvrSetup
+_TaskName:Screensaver settings
+_Purpose:Setting of screensaver options
+_Author:© 7th software, 2010
+_Version:0.04 (04-Feb-10)
+
+# Standard miscellaneous messages
+reportt:Message from Configure
+
+# Error messages
+NotEnoughMemory:There is not enough memory to do that operation.
+ChoicesFileNotOpen:Couldn't open choices file.

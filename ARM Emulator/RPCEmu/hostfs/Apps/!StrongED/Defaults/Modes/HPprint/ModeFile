@@ -1,0 +1,105 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : HPprint
+#	Purpose : StrongED ModeFile for Hewlett Packard PCL/PJL Printouts (&FF3 &F7D &F7C)
+#	Author  : Jon Keates
+#	Licence : Freeware
+#	Version : 0.02, 10-07-02
+#
+#-------------------------------------------------------------------------------
+# Changes:
+# 21 Oct 2000 : First version
+# 10 Jul 2002 : Added PJL colouring and _hpend _pjend searches
+#----------------------------------------------------------------------
+
+HelpPath	WimpKeys
+
+ID_Middle	A-Z0-9 :=
+
+SyntaxOptions
+	SingleQuote	Yes
+	DoubleQuote	Yes
+	QuoteQuote	No
+	SplitString	No
+#	HexPrefix	\x
+End
+
+Search
+#	_hpseq		\x1b{'%&()*+\-.0-9=@A-Za-z'}+
+	_hpend		{'+\-\.0-9a-z'}+ 'A-Z'|"@"
+#	_pjend		* '\x00-\x1f'
+	_pjend		{.}
+	_topbt		"\x80-\xFF"
+End
+
+# Format commands
+SyntaxWords Group1 case EndOfExpr _hpend
+	&
+End
+
+# Primary font
+SyntaxWords Group2 case EndOfExpr _hpend
+	(
+End
+
+# Secondary font
+SyntaxWords Group3 case EndOfExpr _hpend
+	)
+End
+
+# Printer control
+SyntaxWords Group4 case EndOfExpr _hpend
+	* %
+End
+
+SyntaxWords Group5 case EndOfExpr _pjend
+	"%-12345X" "%-12345X@PJL"
+End
+
+SyntaxWords Group6 case StartOfLine EndOfID
+#SyntaxWords Group6 case StartOfLine EndOfExpr _pjend
+	"@PJL SET" "@PJL DEFAULT"
+End
+
+SyntaxWords Group7 case EndOfExpr _pjend
+#	 "@PJL ENTER" "@PJL INITIALIZE" "@PJL RESET"
+	 "@PJL "
+End
+
+
+#----------------------------------------------------------------------
+
+KeyList
+	^E,^E		GSTrans ("<1B>")
+
+End
+
+#----------------------------------------------------------------------
+
+Functions
+
+	Key	‹F2
+	Menu	List Escapes  ‹F2
+	Icon	LoF
+	Select	ListOfFound ("\x1B",Text,From,Line,Case)
+	Help	HBa_lof
+
+	Adjust	ListOfFound ("\x1B",All,From,Line,Case)
+
+	Key	‹PgUp
+	Icon	up
+	Select	GotoPrev ("\x1B",Text,Line,Case)
+	Help	HBa_up
+
+	Key	^PgUp
+	Select	GotoPrev ("\x1B",Text,Line,Case)
+
+	Key	‹PgDown
+	Icon	down
+	Select	GotoNext ("\x1B",Text,Line,Case)
+	Help	HBa_dn
+
+	Key	^PgDown
+	Select	GotoNext ("\x1B",Text,Line,Case)
+
+End

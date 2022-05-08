@@ -1,0 +1,9 @@
+|Task directory
+ Set Smilies$Dir <Obey$Dir>
+ Set Smilies$Resources <Smilies$Dir>
+
+|Language resources
+ ifthere <Smilies$Dir>.!Languages then Run <Smilies$Dir>.!Languages Smilies
+
+|Run
+ Filer_Run <Smilies$Resources>.Help

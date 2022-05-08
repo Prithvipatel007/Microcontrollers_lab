@@ -1,0 +1,6 @@
+Rules Include
+  fff, **.*/a
+  fff, **.a.*
+@ fff, **.hdr.*; .^.a.*
+@ fff, **.h.*; .^.a.*
+End

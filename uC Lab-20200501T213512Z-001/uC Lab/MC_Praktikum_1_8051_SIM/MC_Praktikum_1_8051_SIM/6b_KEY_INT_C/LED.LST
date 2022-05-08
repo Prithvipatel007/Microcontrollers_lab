@@ -1,0 +1,59 @@
+C51 COMPILER V9.54   LED                                                                   03/19/2016 22:26:57 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE LED
+OBJECT MODULE PLACED IN LED.OBJ
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE LED.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include <REG51.h>
+   2          
+   3          sbit LED1 = P1^0;
+   4          sbit LED2 = P1^1;
+   5          sbit LED3 = P1^2;
+   6          
+   7          sbit KEY1 = P0^6;
+   8          sbit KEY2 = P0^5;
+   9          sbit KEY3 = P0^4;
+  10          
+  11          sbit ROW1 = P0^3;
+  12          
+  13          // INT1
+  14          void extint1(void) interrupt 2 using 3
+  15          {
+  16   1        if (! KEY1)   // key1 pressed (=0)
+  17   1          LED1 ^= 1;
+  18   1        if (! KEY2)   // key2 pressed (=0)
+  19   1          LED2 ^= 1;
+  20   1        if (! KEY3)   // key3 pressed (=0)
+  21   1          LED3 ^= 1;
+  22   1      }
+  23          
+  24          void main(void)
+  25          {
+  26   1        TCON |= (1 <<(2));  // enable INT1 edge
+  27   1        IE |= (1 << (2));   // enable INT1 IRQ
+  28   1        IE |= (1 << (7));   // enable global
+  29   1        
+  30   1        P0 |= 0x7F;         // all key lines high %0111|1111
+  31   1        ROW1 = 0;           // row3 line low
+  32   1        
+  33   1        while (1)   // wait for IRQ
+  34   1        {
+  35   2        }
+  36   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     45    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

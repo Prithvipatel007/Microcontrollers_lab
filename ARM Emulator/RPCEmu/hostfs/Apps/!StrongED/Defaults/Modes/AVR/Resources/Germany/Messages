@@ -1,0 +1,7 @@
+Havr_lof:SELECT erzeugt eine Liste aller Funktionen.
+Havr_up:SELECT geht zur letzten Funktion.
+Havr_dn:SELECT geht zur nächsten Funktion.
+Havr_ld:SELECT lädet die Header-Datei unter der Einfügemarke.
+Havr_run:SELECT speichert und kompiliert den Text.
+Havr_mak:SELECT speichert den Text und startet Make.
+Havr_go:SELECT geht zur Definition auf der die Einfügemarke steht.

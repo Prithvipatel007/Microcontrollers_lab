@@ -1,0 +1,9 @@
+| Report an FTP upload failure
+| © StrongED developers
+
+| Unset all FTP vars
+Unset StrongED$FTP_*
+
+| Display the error message
+If %*0 = 1 Then Error 0 "Please click Select over the FTPupSED icon and use the window produced to choose a site to upload to."
+If %*0 = 2 Then Error 0 "Unable to upload file, Provider could not be found."

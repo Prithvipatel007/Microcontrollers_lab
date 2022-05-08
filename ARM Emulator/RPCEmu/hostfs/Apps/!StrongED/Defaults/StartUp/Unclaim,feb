@@ -1,0 +1,10 @@
+| Normally StrongED will only claim certain actions when they haven't yet been
+| claimed by another application. To force the use of StrongED for any of these | actions uncomment one or more of the following lines.
+| © StrongED Developers
+
+Unset Alias$@RunType_FFF
+|Unset Alias$@EditType_FFF
+|Unset OLEServer$Type_FFF
+|Unset OLEServer$Type_FFB
+|Unset TaskWindow$Server
+|Unset Alias$TaskWindow

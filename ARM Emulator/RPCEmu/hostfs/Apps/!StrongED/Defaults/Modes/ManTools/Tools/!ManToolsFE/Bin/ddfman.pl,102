@@ -1,0 +1,311 @@
+#!/usr/bin/perl -w
+#
+# Copyright 2004-2012, Stephen Fryatt (info@stevefryatt.org.uk)
+#
+# This file is part of ManTools:
+#
+#   http://www.stevefryatt.org.uk/software/
+#
+# Licensed under the EUPL, Version 1.1 only (the "Licence");
+# You may not use this work except in compliance with the
+# Licence.
+#
+# You may obtain a copy of the Licence at:
+#
+#   http://joinup.ec.europa.eu/software/page/eupl
+#
+# Unless required by applicable law or agreed to in
+# writing, software distributed under the Licence is
+# distributed on an "AS IS" basis, WITHOUT WARRANTIES
+# OR CONDITIONS OF ANY KIND, either express or implied.
+#
+# See the Licence for the specific language governing
+# permissions and limitations under the Licence.
+
+# DDFMan -- Convert help-markup into DDF files.
+#
+# Usage: DDFMan -I<infile> -O<outfile> [-D<var>=<val> ...]
+
+use strict;
+
+use constant TRUE		=> 1;
+use constant FALSE		=> 0;
+
+use constant LIST_NONE		=> 0;
+use constant LIST_BULLET	=> 1;
+use constant LIST_NUMERIC	=> 2;
+use constant LIST_UPPER		=> 3;
+use constant LIST_LOWER		=> 4;
+
+# The output type for literals in the file.
+
+my $mode="DDF";
+
+# Formatting variables.
+
+my $output_all_lines = FALSE;
+
+my %defs = ("title", "");
+
+my @indent = (0);
+my @line_spacing = (1);
+my @list_value = (0);
+my @list_type = (LIST_NONE);
+
+# Set the entities that we recognise.  NB: this list must contain them in a plain text form.
+
+my %entities = (
+	"lt",		"<",
+	"gt",		">",
+	"quot",		"\"",
+	"ndash",	"{\\151}",
+	"nbsp",		"{\\160}",
+	"msep",		"{font Selwyn}{\\213}{font}",
+	"amp",		"\e"	# & goes to ESC, then is converted back to &
+);
+
+# Process the command line arguments.
+
+my $infile = undef;
+my $outfile = undef;
+
+if (scalar(@ARGV) > 2) {
+	# Too many arguments, so assume the new format.
+
+	foreach my $arg (@ARGV) {
+		if ($arg =~ /^-I(.+)/) {
+			$infile = $1;
+		} elsif ($arg =~ /^-O(.+)/) {
+			$outfile = $1;
+		} elsif ($arg =~ /^-D([^=]+)=(.*)/) {
+			$defs{$1} = $2;
+		}
+	}
+} else {
+	# Default to the parameters being <infile> <outfile> for backwards
+	# compatibility.
+
+	$infile = $ARGV[0];
+	$outfile = $ARGV[1];
+}
+
+if (!defined($infile) || !defined($outfile)) {
+	die "Missing input or output filename parameters.\n";
+}
+
+# Open the input and output files -- there is only one output file used.
+
+open(INPUT, $infile) || die "Can't open input file $infile: $!\n";
+open(OUTPUT, ">".$outfile) || die "Can't open output file $outfile: $!\n";
+
+# Read the lines in one at a time and process them.
+
+while (defined(my $line = <INPUT>)) {
+	chomp($line);
+
+	# Convert { into their DDF equivalent now.
+
+	$line =~ s/{/{\\123}/g;
+
+	if ($line =~ /^\s*<([^<>]*)>\s*$/) {
+		my %params = parse_tag($1);
+
+		if ($params{'tag_name'} eq 'define') {
+			# If it's already defined, then either we've defined it twice in the file,
+			# or the file definition has been overridden by a command line definition.
+
+			if (defined($params{'name'}) && defined($params{'value'}) && !defined($defs{$params{'name'}})) {
+				$defs{$params{'name'}} = $params{'value'};
+			}
+		} elsif ($params{'tag_name'} eq 'chapter') {
+			if (!defined($params{'title'})) {
+				$params{'title'} = "Chapter";
+			}
+
+			print OUTPUT "{nextframe}\n";
+			print OUTPUT "{\"Main Heading\" on}".$params{'title'}."{\"Main Heading\" off}\n";
+		} elsif ($params{'tag_name'} eq 'literal') {
+			my $literal_line = "";
+
+			if (!defined($params{'mode'})) {
+				$params{'mode'} = "";
+			}
+
+			while (defined ($literal_line = <INPUT>) && $literal_line !~ /^<\/literal>$/) {
+				if (uc($params{'mode'}) eq uc($mode)) {
+					while ($literal_line =~ /\$\$([a-z]+?)\$\$/) {
+						$literal_line = "$`$defs{$1}$'";
+					}
+
+					print OUTPUT $literal_line;
+				}
+			}
+		} elsif ($params{'tag_name'} eq 'subhead') {
+			if (!defined($params{'title'})) {
+				$params{'title'} = "Subheading";
+			}
+
+			print OUTPUT "{\"Sub Heading\" on}".$params{'title'}."{\"Sub Heading\" off}\n";
+		} elsif ($params{'tag_name'} eq 'codeblock') {
+			print OUTPUT "{\"Code Block\" on}";
+			$output_all_lines = TRUE;
+		} elsif ($params{'tag_name'} eq '/codeblock') {
+			print OUTPUT "{\"Code Block\" off}";
+			$output_all_lines = FALSE;
+		} elsif ($params{'tag_name'} eq 'box') {
+			print OUTPUT "{\"Box\" on}";
+		} elsif ($params{'tag_name'} eq '/box') {
+			print OUTPUT "{\"Box\" off}";
+		} elsif ($params{'tag_name'} eq 'list') {
+			if (defined($params{'spacing'}) && $params{'spacing'} == 1) {
+				push(@line_spacing, 1);
+			} else {
+				push(@line_spacing, 0);
+			}
+
+			if (defined($params{'type'})) {
+				if ($params{'type'} eq 'num') {
+					push(@list_type, LIST_NUMERIC);
+					push(@list_value, 1);
+					push(@indent, $indent[-1] + 1);
+				} elsif ($params{'type'} eq 'upper') {
+					push(@list_type, LIST_UPPER);
+					push(@list_value, 1);
+					push(@indent, $indent[-1] + 1);
+				} elsif ($params{'type'} eq 'lower') {
+					push(@list_type, LIST_LOWER);
+					push(@list_value, 1);
+					push(@indent, $indent[-1] + 1);
+				} else {
+					push(@list_type, LIST_BULLET);
+					push(@list_value, 0);
+					push(@indent, $indent[-1] + 1);
+				}
+			} else {
+				push(@list_type, LIST_BULLET);
+				push(@list_value, 0);
+				push(@indent, $indent[-1] + 1);
+			}
+
+			print OUTPUT "{\"List ".$indent[-1]."\" on}";
+		} elsif ($params{'tag_name'} eq '/list') {
+			print OUTPUT "{\"List ".$indent[-1]."\" off}";
+
+			pop(@line_spacing);
+			pop(@indent);
+			pop(@list_type);
+			pop(@list_value);
+		} elsif ($params{'tag_name'} eq 'definition') {
+			if (!defined($params{'target'})) {
+				$params{'target'} = "Definition";
+			}
+			print OUTPUT "{\"Definition Head\" on}".$params{'target'}."{\"Definition Head\" off}\n{\"Definition Body\" on}";
+		} elsif ($params{'tag_name'} eq '/definition') {
+			print OUTPUT "{\"Definition Body\" off}";
+		}
+	} elsif ($line !~ /^\s*$/  || $output_all_lines) {
+		print OUTPUT output_line($line, $indent[-1], $line_spacing[-1], $list_type[-1], \$list_value[-1]);
+	}
+}
+
+
+# -------------------------------------------------------------------------------------------------
+# Process a line of text from the file, parsing any in-line commands and formatting it for the
+# current file type.
+#
+# Param: $line			The line of text to be written.
+# Param: $indent		The current indent value.
+# Param: $spacing		The current line spacing value.
+# Param: $list_type		The current list type.
+# Param: $list_value		Reference to the current list value, which could be updated.
+# Return: 			The formatted line.
+
+sub output_line
+{
+	my ($line, $indent, $spacing, $list_type, $list_value) = @_;
+
+	$line =~ s/<cite>(.*?)<\/cite>/\{"Cite" on}$1\{"Cite" off}/g;			# Citation
+	$line =~ s/<code>(.*?)<\/code>/\{"Code" on}$1\{"Code" off}/g;			# Inline code
+	$line =~ s/<command>(.*?)<\/command>/\{"Command" on}$1\{"Command" off}/g;	# Inline code - enclose in ""
+	$line =~ s/<em>(.*?)<\/em>/\{"Emphasis" on}$1\{"Emphasis" off}/g;		# Emphasis - To Upper
+	$line =~ s/<entry>(.*?)<\/entry>/\{"Entry" on}$1\{"Entry" off}/g;		# User entry - enclose in ""
+	$line =~ s/<file>(.*?)<\/file>/\{"Filename" on}$1\{"Filename" off}/g;		# Filename - no effect
+	$line =~ s/<icon>(.*?)<\/icon>/\{"Icon" on}$1\{"Icon" off}/g;			# Icon labels - enclose in ''
+	$line =~ s/<key>(.*?)<\/key>/ucfirst $1/eg;					# Key names - initial capital
+	$line =~ s/<menu>(.*?)<\/menu>/\{"Menu" on}$1\{"Menu" off}/g;			# Menu entries - enclose in ''
+	$line =~ s/<mouse>(.*?)<\/mouse>/ucfirst $1/eg;					# Mouse buttons - initial capital
+	$line =~ s/<param>(.*?)<\/param>/\{"Parameter" on}$1\{"Parameter" off}/g;	# Command parameter - no effect
+	$line =~ s/<strong>(.*?)<\/strong>/\{"Strong" on}$1\{"Strong" off}/g;		# Strong Emphasis - To Upper
+	$line =~ s/<window>(.*?)<\/window>/\{"Window" on}$1\{"Window" off}/g;		# Window names - no effect
+
+	# Hyperlinks are unsupported, so just remove them.
+
+	$line =~ s/<link.*?>(.*?)<\/link>/$1/g;
+
+	# Finally, expand all the entities out.
+
+	while ($line =~ /&(.*?);/) {
+		$line = "$`$entities{$1}$'";
+	}
+
+	$line =~ s/\e/&/g; # Restore the &s after the entities have gone.
+
+	# Bullet the start of the line if necessary
+
+	if ($line =~ /^<li>/) {
+		if ($list_type != LIST_NONE) {
+			if ($list_type == LIST_BULLET) {
+				$line =~ s/^<li>\s*/"††è{tab}"/e;
+			} elsif ($list_type == LIST_NUMERIC) {
+				$line =~ s/^<li>\s*/sprintf ("%2d. ", $$list_value++)."{tab}"/e;
+			} elsif ($list_type == LIST_UPPER) {
+				$line =~ s/^<li>\s*/sprintf ("%2c) ", 64 + $$list_value++)."{tab}"/e;
+			} elsif ($list_type == LIST_LOWER) {
+				$line =~ s/^<li>\s*/sprintf ("%2c) ", 96 + $$list_value++)."{tab}"/e;
+			}
+		} else {
+			$line =~ s/^<li>\s*//;
+		}
+	} elsif ($list_type != LIST_NONE) {
+		$line = "{tab}".$line;
+	}
+
+	# Remove any trailing whitespace from the line
+
+	$line =~ s/\s*$//;
+
+	return $line."\n";
+}
+
+
+# -------------------------------------------------------------------------------------------------
+# Parse a teg, returning a hash containing a set of attribute/value pairs.
+# The tag is given an attribute name "tag_name".
+#
+# Param: $tag			The tag to be parsed (eg. "p name="value"").
+# Return:			A hash of tag name and attribute values.
+
+sub parse_tag
+{
+	my ($tag) = @_;
+	my (%attributes, @items, $item, $name, $value);
+
+	# Convert the spaces outside of quotes into \n and split on these.
+
+	$tag =~ s/\s+([^="]*?=)/\n$1/g;
+	@items = split(/\n/, $tag);
+
+	foreach $item (@items) {
+		($name, $value) = split(/=/, $item);
+
+		if (defined($value) && $value ne "") {
+			$value =~ s/^\s*"(.*)"\s*$/$1/; # Strip quotes and external whitespace.
+			$attributes{$name} = $value;
+		} else {
+			$attributes{'tag_name'} = $name;
+		}
+	}
+
+	return %attributes;
+}
+

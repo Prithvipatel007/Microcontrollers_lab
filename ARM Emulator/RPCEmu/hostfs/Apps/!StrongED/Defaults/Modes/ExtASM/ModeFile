@@ -1,0 +1,91 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : ExtASM
+#	Purpose : StrongED mode file for ExtASM assembler source files
+#	Author  : © Terje Slettebø
+#	Licence :
+#	Version : 1.00, 22-12-2011
+#
+#-------------------------------------------------------------------------------
+# 22-12-11 FG Made up a version number to make it easier to signal changes
+#          FG Move Help line in Functions section in front of Select line
+#          FG Changed 'Type' to 'CommentType' in SyntaxComment
+#-------------------------------------------------------------------------------
+
+#	Assembly may be started with F10.
+#
+#	If you start the labels for the assembly procedures/functions with ':.'
+#	instead of '.' then you can list them easily with shift-F2.
+
+HelpPath	Assembly,Wimp,OS,MiscSWIs,INetSWIs,Toolbox,
+
+SyntaxOptions
+	SingleQuote	Yes
+	DoubleQuote	Yes
+	QuoteChar	\
+	QuoteQuote	No
+	SplitString	Yes
+	HexPrefix	0x
+End
+
+SyntaxComment
+	CommentType	OneLine
+	StartWith	;
+End
+
+SyntaxWords Group1 EndAsm nocase
+	ADC ADD AND BIC CMN CMP EOR MLA MOV MUL
+	MVN ORR RSB RSC SBC SUB SWI TEQ TST
+	LDR STR
+	ADR
+End
+
+SyntaxWords Group2 EndSTM nocase
+	LDM STM
+End
+
+SyntaxWords Group3 EndNonID nocase
+	R0 R1 R2 R3 R4 R5 R6 R7 R8 R9 R10 R11 R12 R13 R14 R15
+	PC SP LR
+End
+
+SyntaxWords Group4 EndBL nocase
+	B
+End
+
+SyntaxWords Group5 EndNonID nocase
+	EQUS EQUD EQUB DCB DCD
+	#name #base #type #load #exec #include #set
+	#fpset #strset #if #else #endif #rept
+	#endr #fppool #format #smile #speed #area
+	#end #import #export #entry #%
+End
+
+SyntaxWords Group6 EndNonID nocase
+	LSR LSL ASR ASL ROR ROL RRX
+End
+
+SyntaxWords Group7 EndofID nocase
+	:.
+End
+
+SyntaxWords Group8 StartSpace EndofID nocase
+	.
+End
+
+Functions
+	Key	‹F2
+	Menu	List of functions  ‹F2
+	Help	Click to get a list of all functions.
+	Select	ListOfFound(":.",Text,Whole,Line,NoCase)
+
+	Key	F10
+	Menu	Save & Assemble     F10
+	Help	Click to Save & Assemble this source.
+	Select	SaveDrag("extASM")
+
+	Key	‹F10
+	Menu	Save & Make AOF    ‹F10
+	Help	Click to Save & Assemble file to AOF format.
+	Select	SaveDrag("extAOF")
+End

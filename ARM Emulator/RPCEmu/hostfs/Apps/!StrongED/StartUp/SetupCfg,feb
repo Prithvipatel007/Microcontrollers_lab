@@ -1,0 +1,56 @@
+| Set up StrongED's read and write paths
+| StrongED$WrapWidth = 196
+| © StrongED Developers
+
+| Initialise variables
+Set StrED_cfg$Dir ""
+Set StrongED$UserPrefsDir ""
+
+| We're going to need IfThere and Repeat so make sure they're available
+RMEnsure UtilityModule 3.50 If "<Alias$IfThere>" = "" Then Set Alias$IfThere <StrongED$Dir>.Tools.IfThere %%*0
+
+| Check there is a Defaults directory inside !StrongED, if there isn't then it's an error
+IfThere <StrongED$Dir>.Defaults Then Set StrongED$DefaultsDir <StrongED$Dir>.Defaults Else Error 0 StrongED's Defaults directory not found.
+
+| See if Ctrl is pressed if so then Ctrl$Pressed will be != 0
+IfThere <StrongED$Dir>.Tools.TestCtrl Then Run <StrongED$Dir>.Tools.TestCtrl Else SetEval Ctrl$Pressed 0
+
+| See if we can find StrED_cfg and if so set StrED_cfg$Dir to point to it. If Ctrl$Pressed != 0 then only check the directory StrongED is in,
+| this makes it easy to see if errors are due to customisation, by keeping/placing a vanilla StrED_cfg in the same directory as StrongED.
+If "<StrED_cfg$Dir>" = "" AND <Ctrl$Pressed> = 0 Then IfThere <Choices$Write>.!StrED_cfg Then Set StrED_cfg$Dir <Choices$Write>.!StrED_cfg
+If "<StrED_cfg$Dir>" = "" AND <Ctrl$Pressed> = 0 Then IfThere <StrongED$SettingsDir>.!StrED_cfg Then Set StrED_cfg$Dir <StrongED$SettingsDir>.!StrED_cfg
+If "<StrED_cfg$Dir>" = "" Then IfThere <StrongED$Dir>.^.!StrED_cfg Then Set StrED_cfg$Dir <StrongED$Dir>.^.!StrED_cfg
+
+| Find version of current StrED_cfg, if it is too old then instruct user to run !UpdateCfg
+If "<StrED_cfg$Dir>" <> "" Then IfThere <StrED_cfg$Dir>.!Version Then Obey <StrED_cfg$Dir>.!Version Else SetEval StrED_cfg$Vsn 100
+If "<StrED_cfg$Dir>" <> "" Then If StrED_cfg$Vsn < 103 Then Error 0 Your copy of !StrED_cfg is out of date and needs to be updated. Contact the Developer(s) for advice.
+
+| If there is a !StrED_cfg then it must contain a directory UserPrefs, if it doesn't then it's an error
+If "<StrED_cfg$Dir>" <> "" Then IfThere <StrED_cfg$Dir>.UserPrefs Then Set StrongED$UserPrefsDir <StrED_cfg$Dir>.UserPrefs
+If "<StrED_cfg$Dir>" <> "" Then If "<StrongED$UserPrefsDir>" = "" Then Error 0 StrED_cfg's UserPrefs directory could not be found.
+
+| We can now set up StrongED's read and write paths
+If "<StrongED$UserPrefsDir>" = "" Then Set StrongED_Write$Path <StrongED$DefaultsDir>. Else Set StrongED_Write$Path <StrongED$UserPrefsDir>.
+If "<StrongED$UserPrefsDir>" = "" Then Set StrongED_Read$Path <StrongED$DefaultsDir>. Else Set StrongED_Read$Path <StrongED$UserPrefsDir>.,<StrongED$DefaultsDir>.
+
+| Make sure there is a SpellCheck directory in UserPrefs, and move UserDicts directory inside it
+If "<StrongED$UserPrefsDir>" = "" Then Else IfThere <StrongED$UserPrefsDir>.SpellCheck Then Else CDir <StrongED$UserPrefsDir>.SpellCheck
+If "<StrongED$UserPrefsDir>" = "" Then Else IfThere <StrongED$UserPrefsDir>.UserDicts Then Else CDir <StrongED$UserPrefsDir>.SpellCheck.UserDicts
+If "<StrongED$UserPrefsDir>" = "" Then Else IfThere <StrongED$UserPrefsDir>.UserDicts Then Rename <StrongED$UserPrefsDir>.UserDicts <StrongED$UserPrefsDir>.SpellCheck.UserDicts
+
+| Make sure there is a StartUp directory in UserPrefs, and move old Init, ClaimFiles files inside it
+If "<StrongED$UserPrefsDir>" = "" Then Else IfThere <StrongED$UserPrefsDir>.StartUp Then Else CDir <StrongED$UserPrefsDir>.StartUp
+If "<StrongED$UserPrefsDir>" = "" Then Else IfThere <StrongED$UserPrefsDir>.Init Then Rename <StrongED$UserPrefsDir>.Init <StrongED$UserPrefsDir>.StartUp.UserInit
+If "<StrongED$UserPrefsDir>" = "" Then Else IfThere <StrongED$UserPrefsDir>.ClaimFiles Then Rename <StrongED$UserPrefsDir>.ClaimFiles <StrongED$UserPrefsDir>.StartUp.ClaimFiles
+
+| Make sure there are copies of the Unclaim & UserInit files in the UserPrefs.StartUp directory
+If "<StrongED$UserPrefsDir>" = "" Then Else IfThere <StrongED$UserPrefsDir>.StartUp.Unclaim Then Else Copy <StrongED$DefaultsDir>.StartUp.Unclaim <StrongED$UserPrefsDir>.StartUp.Unclaim F~C~V
+If "<StrongED$UserPrefsDir>" = "" Then Else IfThere <StrongED$UserPrefsDir>.StartUp.UserInit Then Else Copy <StrongED$DefaultsDir>.StartUp.UserInit <StrongED$UserPrefsDir>.StartUp.UserInit F~C~V
+
+| Unset these variables as we no longer need them
+Unset StrED_cfg$Dir
+Unset StrongED$DefaultsDir
+Unset StrongED$SettingsDir
+Unset StrongED$UserPrefsDir
+
+

@@ -1,0 +1,4 @@
+Hfe_lof:SELECT erzeugt eine Liste aller Funktionen.
+Hfe_up:SELECT geht zur letzten Funktion.
+Hfe_dn:SELECT geht zur nächsten Funktion.
+Hfe_run:SELECT speichert und kompiliert den Text.

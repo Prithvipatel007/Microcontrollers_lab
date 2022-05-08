@@ -1,0 +1,5 @@
+# ModeWhen file for VBScript mode
+
+Rules Include
+! *, **/vbs
+End

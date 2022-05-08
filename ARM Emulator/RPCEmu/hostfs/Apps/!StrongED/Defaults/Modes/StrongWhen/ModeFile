@@ -1,0 +1,55 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : StrongWhen
+#	Purpose : StrongED mode file for ModeWhen
+#	Author  : © Fred Graute
+#	Licence : Freeware
+#	Version : 1.02, 01-05-2011
+#
+#-------------------------------------------------------------------------------
+# 01-01-06 FG Added above header
+# 01-05-11 FG Tied Comment 1 to start of line
+#-------------------------------------------------------------------------------
+
+SyntaxComment 1
+	CommentType	Oneline
+	StartWhere	StartLine
+	StartWith	#
+End
+
+SyntaxWords Group1 StartOfLine EndAlways nocase
+	Match
+	Rules
+	"End"
+End
+
+SyntaxWords Group2 EndAlways nocase
+	Exclude
+	Include
+End
+
+# normal rules - checked on double-click and drag
+SyntaxWords Group3 StartOfLine EndOfLine
+	" "
+End
+
+# drag rules - only checked when file is dragged
+SyntaxWords Group4 StartOfLine EndOfLine
+	!
+End
+
+# path rules - bases mode on location of associated file
+SyntaxWords Group5 StartOfLine EndOfLine
+	@
+End
+
+# match rules - checks contents after loading
+SyntaxWords Group6 StartOfLine EndOfLine
+	>
+End
+
+Shortcuts
+	``ri	Rules Include\n\@\nEnd
+	``re	Rules Exclude\n\@\nEnd
+	``ma	Match\n\@\nEnd
+End

@@ -1,0 +1,105 @@
+#-------------------------------------------------------------------------------
+#
+#	Name      : AWK
+#	Purpose   : StrongED mode file for awk scripts
+#	Author    : G.C.Wraith
+#	Licence   : Freeware
+#	Version   : 0.04, 22-12-2011
+#
+#	ModeWhen  :
+#
+#		AWK
+#		! 187,**
+#		  fff,**/awk
+#		> fff,** ; _awk
+#
+#	Tools    : Setawk      (Awkify)
+#-------------------------------------------------------------------------------
+# 22.12.11 FG Replaced old Tmp$* variables with new StrongED$Tmp_* ones
+#          FG Changed 'Type' to 'CommentType' in SyntaxComment
+#-------------------------------------------------------------------------------
+
+# HelpPath
+
+ID_FirstChar	A-Za-z_$
+ID_Middle	A-Za-z_0-9
+
+SyntaxComment 1
+	CommentType	OneLine
+	StartWith	#
+End
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteQuote	Yes
+	SplitString	No
+	QuoteChar	\
+#	HexPrefix	&
+#	BinPrefix	%
+End
+
+SyntaxWords Group1 EndAlways StartSpace case
+	BEGIN END func function
+End
+
+SyntaxWords Group2 EndNonID case
+	FS NF ARGC ARGIND ARGV CONVFMT FIELDWIDTHS
+	ENVIRON ERRNO FILENAME FNR IGNORECASE
+	NR OFMT OFS ORS RS RT
+	RSTART RLENGTH SUBSEP
+End
+
+SyntaxWords Group3 EndNonID case
+	getline next nextfile print printf
+End
+
+SyntaxWords Group4 EndNonID case
+	atan2 cos exp int log rand sin sqrt srand systime strftime
+	close fflush system
+End
+
+SyntaxWords Group5 EndNonID case
+	gensub gsub index length match split sprintf
+	sub substr tolower toupper
+End
+
+SyntaxWords Group6 EndNonID case
+	if else while do for break continue in
+	delete exit return
+End
+
+Search
+	_MarkWord	{AlphaNum|"_$"}+ | {Punct}+
+	awkfunc		{" "}"func"{"tion"}" " @0 {AlphaNum|"_"}+
+	awkfunc2	{" "}"func"{"tion"}" " CW "("
+End
+
+FoldParm1 (awkfunc,,StartOfLine,case)
+
+Functions
+
+	Key	F10
+	Menu	Run  F10
+	Icon	Run
+	Select	SetTmp() SaveRun("<StrongED$Tmp_ToolPath>.setawk")
+	Help	Click to save and make file the current awk program
+
+	Key	‹F2
+	Menu	List of functions ‹F2
+	Icon	LoF
+	Select	ListOfFound(awkfunc,,,Line)
+	Help	HCM_lof
+
+	Key	^G
+	Menu	Goto function
+	Icon	goto
+	Select	Push GotoFound (awkfunc2,All,Whole,NoLine,Case)
+	Help	HBa_go
+
+	Key	^G 2
+	Adjust	Pop
+
+End
+
+

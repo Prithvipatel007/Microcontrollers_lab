@@ -1,0 +1,14 @@
+| Name of this script
+Set StrongED$FTP_SiteScript "TestCurl"
+
+| Name of the application to use for uploads
+Set StrongED$FTP_Provider   "cURL"
+
+| Location of local copy of the website
+Set StrongED$FTP_LocalRoot  "ADFS::HardDisc4.$.web"
+
+| Details of remote website
+Set StrongED$FTP_RemoteURL  "ftp://ftp.gradwell.net/"
+Set StrongED$FTP_UserName   "fred"
+Set StrongED$FTP_Password   "smith"
+Set StrongED$FTP_RemoteRoot "/"

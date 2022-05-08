@@ -1,0 +1,8 @@
+| Add a site to FTPupSED
+| © StrongED developers
+
+| Ensure all StrongED$FTP_ vars are unset
+Unset StrongED$FTP_*
+
+| Copy file pointed to by Tmp$Drag to sites directory
+Copy <StrongED$Tmp_DragFile> <StrongED$Tmp_WriteDir>Tools.!FTPupSED.Sites.* ~C~V~R

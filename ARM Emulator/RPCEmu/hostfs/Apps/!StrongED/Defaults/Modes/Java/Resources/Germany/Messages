@@ -1,0 +1,5 @@
+Hjav_lof:SELECT erzeugt eine Liste aller Funktionen.
+Hjav_up:SELECT geht zur letzten Funktion.
+Hjav_dn:SELECT geht zur nächsten Funktion.
+Hjav_run:SELECT speichert und kompiliert den Text.
+Hjav_go:SELECT geht zur Definition auf der die Einfügemarke steht.

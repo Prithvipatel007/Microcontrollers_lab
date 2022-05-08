@@ -1,0 +1,10 @@
+DEF PROCDealWith_PrintDbox(event,object,component)
+CASE event OF
+ WHEN PrintDbox_AboutToBeShown
+ WHEN PrintDbox_DialogueCompleted
+ WHEN PrintDbox_SetUpAboutToBeShown
+ WHEN PrintDbox_Save
+ WHEN PrintDbox_SetUp
+ WHEN PrintDbox_Print
+ENDCASE
+ENDPROC

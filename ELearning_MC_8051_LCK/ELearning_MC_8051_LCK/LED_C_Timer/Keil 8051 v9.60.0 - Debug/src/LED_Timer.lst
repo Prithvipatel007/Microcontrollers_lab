@@ -1,0 +1,67 @@
+C51 COMPILER V9.60.0.0   LED_TIMER                                                         06/13/2020 02:33:58 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE LED_TIMER
+OBJECT MODULE PLACED IN .\src\LED_Timer.OBJ
+COMPILER INVOKED BY: c:\SiliconLabs\SimplicityStudio\v4\developer\toolchains\keil_8051\9.60\BIN\C51.exe D:\ELearning\MC\
+                    -ELearning_MC_8051_LCK\LED_C_Timer\src\LED_Timer.c OMF2 SMALL DEBUG OBJECTEXTEND ROM(LARGE) WARNINGLEVEL(2) FLOATFUZZY(3)
+                    - OPTIMIZE(8,SPEED) INTVECTOR(0X0000) INTPROMOTE INCDIR(D:\ELearning\MC\ELearning_MC_8051_LCK\LED_C_Timer\inc;C:/SiliconL
+                    -abs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7//Device/shared/si8051Base;C:/SiliconLabs/SimplicityStudio/v4/develope
+                    -r/sdks/8051/v4.1.7//Device/EFM8BB1/inc) PRINT(.\src\LED_Timer.lst) COND PAGEWIDTH(120) PAGELENGTH(65) OBJECT(.\src\LED_T
+                    -imer.OBJ)
+
+line level    source
+
+   1          #include <SI_EFM8BB1_Register_Enums.h>
+   2          
+   3          sbit LED = P1^4;
+   4          
+   5          void timer0 (void) interrupt 1 using 3
+   6          {
+   7   1              LED ^= 1;
+   8   1      
+   9   1              // timer 0 reload
+  10   1              TH0 = 0x80;                     // fast
+  11   1              // TH0 = 0x00;                  // slow
+  12   1              TL0 = 0x00;
+  13   1      }
+  14          
+  15          void main (void)
+  16          {
+  17   1              XBR2 |= (1 << 6);       // port power
+  18   1      
+  19   1              // timer 0
+  20   1              TMOD |= (1 << 0);       // timer 0 mode 1
+  21   1              TH0 = 0x80;                     // fast
+  22   1              // TH0 = 0x00;                  // slow
+  23   1              TL0 = 0x00;
+  24   1      
+  25   1              // 8051 standard irq configuration
+  26   1              IE |= (1 << 1);         // enable timer 0 IRQ
+  27   1              IE |= (1 << 7);         // enable global
+  28   1      
+  29   1              TCON_TR0 = 1;           // timer 0 start
+  30   1      
+  31   1              while (1)
+  32   1              {
+  33   2                      // wait for interrupt
+  34   2              }
+  35   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     41    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

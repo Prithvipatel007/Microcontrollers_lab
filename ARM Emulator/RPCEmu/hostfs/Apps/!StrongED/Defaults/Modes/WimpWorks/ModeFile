@@ -1,0 +1,211 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : WimpWorks
+#	Purpose : StrongED mode file for WimpWorks files
+#	Author  : (c) Jaffa Software 2002. All rights reserved.
+#	Licence : Artistic licence
+#	Version : 1.09, 01-09-2012
+#
+#-------------------------------------------------------------------------------
+# http://www.jaffasoft.co.uk/
+#-------------------------------------------------------------------------------
+
+HelpPath	WimpWorks,BASIC,Assembly,Wimp,MiscSWIs,OS,SWI,
+
+#FoldParm1 ("REM {{{", "REM }}}",startofline,case)
+FoldParm2 (fold_start, fold_end,startofline,case)
+
+ID_FirstChar	A-Za-z_
+ID_Middle	A-Za-z_0-9
+ID_LastChar	$%
+
+#-------------------------------------------------------------------------------
+
+Search
+	IDchar1		'`A-Za-z_'
+	IDchar2		'`A-Za-z_0-9'
+	FuncName	{IDchar2|"@"}+
+	MarkConst	("%" {'01'}+) | ("&" {Hex}+) | {Digit}+
+	MarkFunc	("PROC"|"FN") FuncName
+	MarkStr		"\"" {~"\"" .} "\""
+	MarkVar		(IDchar1 {IDchar2} ["%"|"$"])
+	LineNumber	{" "} {Digit}+ {" "}
+	Func		[LineNumber] "DEF" {" "} "PROC"|"FN" @0 FuncName
+	GoFunc		[LineNumber] @0 "DEF" {" "} CW ~IDchar2
+	Label		[";:"] "." IDchar1 {IDchar2}
+	GoLabel		[";:"] "." CW ~IDchar2
+
+	Fold_Start	"DEF" {" "} ("RUN" | "TASK" | "MENU" | "SUBR" | "WEM")
+	Fold_End	("ENDRUN" | "ENDTASK" | "ENDMENU" | "ENDSUBR" | "ENDWEM") {NL}+
+#	Fold_End	"ENDPROC" | ("="*>) {NL}+
+
+	_Indent		{" "}
+	_Indent2	{" "} [ (("REM") | (";"~":")) {" "} ]
+	_MarkWord	MarkFunc | MarkVar | MarkConst
+	_MoveWord	MarkFunc | MarkVar | MarkConst
+
+	Library		"LIBRARY" {" "}+ "\"" @0 * @9 "\""
+
+# expressions for smartindent
+	If		"IF" * "THEN" >
+	For		"FOR" ~(* "NEXT")
+	Repeat		"REPEAT" >
+	While		"WHILE"
+	Case		"CASE" * "OF" >
+	Else		"ELSE" >
+	When		"WHEN"
+	Def		"DEF"
+
+	Endif		"ENDIF"
+	Endwhile	"ENDWHILE"
+	Next		"NEXT"
+	Otherwise	"OTHERWISE"
+	Endcase		"ENDCASE"
+	Until		"UNTIL"
+	Endfunc		"="
+	Endproc		"ENDPROC" >
+	Endsubr		("ENDRUN" | "ENDTASK" | "ENDMENU" | "ENDSUBR" | "ENDWEM") >
+	Local		"LOCAL"
+
+	IndentExpr	< {" "} (Def | If | For | Repeat | While | Else | Case | When | Otherwise | Local)
+	OutdentExpr	< {" "} (Endfunc | Endproc | Endsubr | Endif | Endwhile | Next | Else | Endcase | Until | When | Otherwise | Local)
+End
+
+#-------------------------------------------------------------------------------
+
+SmartIndent Case
+	IndentSize	2
+	IndentAfter	IndentExpr
+	OutdentLine	OutdentExpr
+End
+
+#-------------------------------------------------------------------------------
+
+# Immediate commands :
+# APPEND AUTO DELETE EDIT HELP LIST LISTO LOAD LVAR NEW OLD
+# RENUMBER RUN SAVE TWIN TWINO
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteQuote	Yes
+	SplitString	No
+	HexPrefix	&
+	BinPrefix	%
+End
+
+SyntaxComment 1
+	CommentType	OneLine
+	StartWith	"'"
+End
+
+SyntaxComment 2
+	CommentType	OneLine
+	StartWith	REM
+End
+
+SyntaxWords Group1 EndAlways case
+	CALL CASE CHAIN CLEAR DATA DEF DIM ELSE END ENDCASE ENDIF
+	ENDPROC ENDWHILE ERROR FOR GOSUB GOTO IF INSTALL LET LIBRARY
+	LOCAL NEXT ON OTHERWISE OVERLAY QUIT REPEAT RESTORE RETURN
+	RUN STOP SYS THEN TRACE UNTIL USR WHEN WHILE
+End
+
+SyntaxWords Group2 EndAlways case
+	ABS ACS ADVAL AND ASC ASN ATN BEAT BEATS BGET BPUT CHR$ CLG
+	CLOSE CLS COLOR COLOUR COS COUNT DEG DIV ENVELOPE EOF EOR ERL
+	ERR EVAL EXP EXT FALSE FILL GCOL GET HIMEM INKEY INPUT INSTR
+	INT LEFT$ LEN LN LOG LOMEM MID$ MOD MODE MOUSE MOVE NOT OF OFF
+	OPENIN OPENOUT OPENUP OR ORIGIN OSCLI PAGE PI PLOT POINT POS
+	PRINT PTR RAD READ REPORT REPORT$ RIGHT$ RND SGN SIN SOUND SPC
+	SQR STEP STEREO STR$ STRING$ SUM SUMLEN SWAP TAB TAN TEMPO TIME
+	TINT TO TOP TRUE VAL VDU VOICE VOICES WAIT WIDTH
+End
+
+SyntaxWords Group3 EndOfID case
+	PROC FN
+End
+
+SyntaxWords Group4 EndAlways case
+	ADDITEM AFTER BUSYOFF BUSYON CENTREWIN CHANGEITEM CLAIMMORE
+	CLEARALL CLOSEDOWN CLOSEMSGBOX CLOSESAVE CLOSEWINDOW DELETEICON
+	DELETEMENU ENDDRAG EVERY EXECCMD GETCARET HIDEICON HOUROFF HOURON
+	HOURPERCENT HOURSMASH ICONINFO LIMIT LINK LOADACK MAKESLIDER
+	MEMCOPY MOVEICON MOVEWINDOW OPENMENU OPENPOPUP OPENSAVE OPENWINDOW
+End
+
+SyntaxWords Group5 EndAlways case
+	REDEFINE REDRAW RELEASE REPLY RESIZEICON SETCARET SETICON
+	SETICONCOLOUR SETSAVE SETSIZE SETSLIDER SETSTATE SETTITLE
+	SETVALID SHADEICON SHELL SPRITE STARTDRAG UNLINK WARNING
+	WINDOWPOS WINDOWSIZE WPUT
+End
+
+SyntaxWords Group6 EndAlways case
+	CEILING CLAIM COMMAND COPYICON ENCODE FULLNAME GROUPSTATE
+	HEAPSIZE ICONBAR ICONHIDDEN ICONSHADED ITEMSHADED ITEMTICKED
+	LCASE LEAFNAME LOADTEMPLATE LTRIM MESSAGE NEWMENU OPENQUERY
+	OSVAR POLL READICON READSLIDER READSTATE READTITLE ROUND RTRIM
+	STDBOX SUBST SURE SYSDATE SYSTIME TASKHANDLE TASKINFO TASKNAME
+	TOKEN TRANSLATE TRIM UCASE WGET ZSTRING
+End
+
+SyntaxWords Group7 EndAlways case
+	CIRCLE CIRCLEFILL CLWIN DRAW ELLIPSE ELLIPSEFILL INTERSECTS LINE
+	RECTANGLE RECTANGLEFILL TEXT
+End
+
+SyntaxWords Group8 EndAlways case
+	CIRCLE_OBJECT CIRCLEFILL_OBJECT CLEAR_OBJECT CREATEGFXOBJECT
+	DRAW_OBJECT ELLIPSEFILL_OBJECT ELLIPSE_OBJECT LINE_OBJECT
+	RECTANGLEFILL_OBJECT RECTANGLE_OBJECT REDRAWGFXOBJECT
+	REMOVEGFXOBJECT SPRITE_OBJECT TEXT_OBJECT
+End
+
+
+SyntaxWords Group9 EndOfLine case
+	"DEF RUN" "DEF TASK" "DEF MENU" "DEF SUBR" "DEF WEM"
+	ENDRUN ENDTASK ENDMENU ENDSUBR ENDWEM
+End
+
+#-------------------------------------------------------------------------------
+
+KeyList
+	cs-R		ReindentText(,Force)
+	c-Delete	InsertStr(":") DeleteRight
+	c-Return	NewLine(indent,_Indent2)
+	Return		SetTmp Process(Line,"Run <StrongED$Tmp_ToolPath>.KeywordFix") ReindentText(Line,Force) NewLine()
+End
+
+#-------------------------------------------------------------------------------
+
+ClickList
+	Library		Run("Message StrongED_OpenDoc <StrongED$Tmp_MarkWord>")
+End
+
+#-------------------------------------------------------------------------------
+
+Functions
+	Key	^F3
+	Menu	Save & Close        ^F3
+	Icon	run
+	Select	SaveRun("||") KillView
+	Help	Saves the file and sends it back to WimpWorks.
+End
+
+#-------------------------------------------------------------------------------
+
+Shortcuts
+	P.	PRINT \@
+	DF	DEF FN\@\n\n=0
+	DP	DEF PROC\@\n\nENDPROC
+	CA.	CASE \@ OF\n\i  WHEN \@\n\iENDCASE
+	WH.	WHILE \@\n\i  \@\n\iENDWHILE
+	RE.	REPEAT\n\i  \@\n\iUNTIL ()
+	ERR.	LOCAL ERROR\nON ERROR LOCAL RESTORE ERROR:ENDPROC\n\i\@
+	FO.	FOR \@\n\i  \@\n\iNEXT
+	STM{	STMFD    R13!,{R0-R12,LR}\n\n\i\@\n\n\iLDMFD    R13!,{R0-R12,PC}
+	LDM{	LDMFD    R13!,{R0-R12,PC}
+	``-	' ----------------------------------------------------------------------------\n
+	``=	' ============================================================================\n
+End

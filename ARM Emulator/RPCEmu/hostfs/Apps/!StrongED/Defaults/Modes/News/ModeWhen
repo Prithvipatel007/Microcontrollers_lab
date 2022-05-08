@@ -1,0 +1,23 @@
+Rules Exclude
+  fff,**.!StrongED.Defaults.Modes.**
+  fff,**.!StrED_cfg.UserPrefs.Modes.**
+End
+
+Rules Include
+! b86,**
+  fff,**.News.**
+  fff,**.MBox
+  fff,**.Mail*
+  fff,**.OLEfiles.mar*
+  fff,**.OLEfiles.TM*
+  fff,**.TTFN_*
+- fff,**.TTFN_*
+  fff,(Pluto)**
+> fff, ** ; _newstest
+End
+
+#	Use newsmode if there is a line starting with "From:"
+
+Match
+	_newstest	** ( < "From:")
+End

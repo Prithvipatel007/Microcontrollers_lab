@@ -1,0 +1,17 @@
+This directory contains files and directories relating to spell checking.
+Files in this directory should not be altered, if you do want to change
+any of these files then copy the file to the corresponding location in
+StrED_cfg first. For example, to override StartSpell first copy it to
+the directory StrED_cfg.UserPrefs.SpellCheck, then modify it.
+
+SpellMod   - The module used by StrongED to perform spell checking.
+             The module is copyright XAT, it must not distributed
+             or passed on in any way without their permission.
+             Thanks to XAT for allowing its inclusion in StrongED.
+
+StartSpell - This is run when you first use spell checking from StrongED.
+             It will load the spell module when it isn't already loaded.
+             It can also be used to perform additional spell checking
+             related initialisation.
+
+UserDicts  - Holds user dictionaries created/modified from StrongED. 

@@ -1,0 +1,71 @@
+DIM CODE% (&100)
+P% = CODE%
+[
+  ; function delay (parameter passed in R0)
+.delay
+  STMDB SP!, {R1}
+  MOV   R1, #1
+  MOV   R1, R1, LSL R0  ; do x cycles
+.delay_loop
+  SUBS  R1, R1, #1
+  BNE   delay_loop
+  LDMIA SP!, {R1}
+  MOV   PC, LR          ; return
+
+  ; procedure disc (for LED)
+.disc
+  STMDB SP!, {R0-R2}
+  MOV   R0, #(152+4)
+  MOV   R1, #20
+  MOV   R2, #20
+  SWI   "OS_Plot"       ; disc xk1 yk1
+  MOV   R0, #(152+5)
+  MOV   R1, #30
+  MOV   R2, #30
+  SWI   "OS_Plot"       ; disc xk2 yk2
+  LDMIA SP!, {R0-R2}
+  MOV   PC, LR          ; return
+
+  ; function colour (parameter passed in R0)
+.colour
+  STMDB SP!, {R1}
+  MOV   R1, R0
+  MOV   R0, #18
+  SWI   "OS_WriteC"
+  MOV   R0, #0
+  SWI   "OS_WriteC"
+  MOV   R0, R1
+  SWI   "OS_WriteC"     ; gcol colour
+  LDMIA SP!, {R1}
+  MOV   PC, LR          ; return
+
+.main
+  STMDB SP!, {LR}       ; push return address to stack
+.main_loop
+  MOV   R0, #&79        ; check key pressed
+  MOV   R1, #(1<<7)+25  ; key_left
+  SWI   "OS_Byte"       ; CAUTION - overwrites R2
+  CMPS  R1, #&FF        ; if pressed
+  ; LED red
+  MOVEQ R0, #3
+  BLEQ  colour
+  BLEQ  disc            ; show
+
+  MOV   R0, #&79        ; check key pressed
+  MOV   R1, #(1<<7)+121 ; key_right
+  SWI   "OS_Byte"       ; CAUTION - overwrites R2
+  CMPS  R1, #&FF        ; if pressed
+  ; LED black
+  MOVEQ R0, #0
+  BLEQ  colour
+  BLEQ  disc            ; show
+
+  MOV   R0, #25
+  BL    delay
+
+  SWI   "OS_ReadEscapeState"  ; if ESC pressed then break
+  BCC   main_loop
+
+  LDMIA SP!, {PC}       ; pop return address from stack (PC = LR return)
+]
+CALL main

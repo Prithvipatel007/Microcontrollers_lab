@@ -1,0 +1,72 @@
+# ModeLock
+# Version = 101
+# StrongED$WrapWidth = 96
+# Do not alter this header manually!
+#
+#ModeName	Extramode	ModeInit	OnLoad		Process		Run
+
+BaseMode	N		A		A		A		Y
+Ada		Y		A		A		A		A
+AppBasic	N		A		A		A		A
+ASM		Y		A		A		A		A
+AVR		Y		A		A		A		A
+AWK		Y		A		A		A		A
+Basalt		Y		A		A		A		A
+BasAsm		N		A		A		A		A
+BASIC		N		A		A		Y		A
+BBCode		Y		A		A		A		A
+C		N		A		A		A		Y
+C64		Y		A		A		A		A
+cconcepts	Y		A		A		A		A
+Charm		N		A		A		A		A
+Diff		Y		A		A		A		A
+DocBook		Y		A		A		A		A
+Document	Y		A		A		A		A
+DrWimp		N		A		A		A		A
+Dump		N		A		A		A		A
+EXIFinfo	Y		A		A		A		A
+ExtASM		Y		A		A		A		A
+External	Y		A		A		A		A
+Forth		Y		A		A		A		A
+Freetext	Y		A		A		A		A
+FrontEnd	Y		A		A		A		A
+FTPupload	Y		A		A		A		A
+Haskell		Y		A		A		A		A
+HPprint		Y		A		A		A		A
+HTML		N		A		A		A		A
+Java		Y		A		A		A		A
+JavaScript	Y		A		A		A		A
+LaTeX		Y		A		A		A		A
+Lua		N		A		A		A		A
+Make		Y		A		A		A		A
+ManTools	Y		A		A		A		A
+Message		N		A		A		A		A
+ML		Y		A		A		A		A
+Modula2		Y		A		A		A		A
+News		N		A		A		A		A
+Obey		N		A		A		A		A
+ObjAsm		N		A		A		A		A
+Pascal		Y		A		A		A		A
+Perl		Y		A		A		A		A
+PHP		Y		A		A		A		A
+POVray3		Y		A		A		A		A
+Python		Y		A		A		A		A
+Ruby		Y		A		A		A		A
+RubyRails	Y		A		A		A		A
+S-Base		Y		A		A		A		A
+Sather		Y		A		A		A		A
+SQL		Y		A		A		A		A
+StrongHelp	N		A		A		A		A
+StrongHTML	N		A		A		A		A
+StrongMen	Y		A		A		A		A
+StrongMode	N		A		A		A		A
+StrongWhen	N		A		A		A		A
+SysLog		Y		A		A		A		A
+TaskWindow	N		A		A		A		A
+Throwback	Y		A		A		A		A
+VBScript	Y		A		A		A		A
+WideText	Y		A		A		A		A
+WimpWorks	N		A		A		A		A
+WML		Y		A		A		A		A
+xhtml		Y		A		A		A		A
+XML		Y		A		A		A		A

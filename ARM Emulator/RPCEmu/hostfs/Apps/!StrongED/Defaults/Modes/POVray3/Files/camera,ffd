@@ -1,0 +1,5 @@
+camera {
+  location < ,  ,  >
+  look_at  < ,  ,  >
+
+}

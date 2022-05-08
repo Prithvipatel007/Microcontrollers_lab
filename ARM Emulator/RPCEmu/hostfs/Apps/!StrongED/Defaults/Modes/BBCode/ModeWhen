@@ -1,0 +1,7 @@
+Rules Include
+> *, **; _quote
+End
+
+Match
+	_quote	"[quote" * "]"
+End

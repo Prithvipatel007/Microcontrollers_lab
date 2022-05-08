@@ -1,0 +1,61 @@
+VBScript StrongED Mode
+======================
+
+This mode for StrongED can be used to view and edit Microsoft Visual Basic Scripting Edition (VBScript) files. It is up to date for version 5 of VBScript.
+
+VBScript files usually have a VBS filename extension. Therefore, files with the "/vbs" suffix in the RISC OS filer will automatically be loaded in VBScript mode; otherwise you will need to manually select VBScript mode after loading or creating a file in StrongED.
+
+When saving, the files are simply categorized as text type for RISC OS purposes.
+
+As far as I know, VBScript can ONLY be executed by Microsoft Internet Explorer or Microsoft Windows native script host, or embedded in certain applications. VBScripts do not run in other PC web browsers, and certainly not under RISC OS!
+
+This mode would probably go some way to assist viewing of Microsoft Visual Basic (VB) or Visual Basic for Applications (VBA) source code, although I have not tested it for these purposes.
+
+VBScripts can be embedded in HTML files. In this case, they will be probably simply be shown in one colour only (or as comments) in StrongED's HTML mode. Change to 'VBScript' mode to see the syntax colouring of the script part, and change back to HTML mode when finished. To avoid this problem if developing HTML pages, put all your scripts (VBScript and/or Javascript) in separate files with the correct extensions, and simply refer to these files in the HTML pages.
+
+For the version of this mode, refer to the latest number in the 'version' text file, in the same directory as this !Help file.
+
+Installation
+============
+
+Copy the directory êVBScriptë into ê!StrED_cfg.UserPrefs.Modesë, which is usually found in '$.!Boot.Choices' or '$.!Boot.Choices.Users.<user_name>'
+
+Syntax Colouring
+================
+
+The defaults supplied with this mode are given below, but any of them can be changed from within StrongED's modal configuration window, in the 'Colours' section. The background is very dark grey (whether or not 'Alternative colour scheme' is selected in StrongED's global choices 'display' section).
+
+Syntax
+Colouring
+Choices
+Button(s)	Description				Default Colours
+===============	=======================================	===================
+Comments	Comments				Yellow on dark blue
+
+		Variables, Custom functions or subs,
+Identifiers	and custom objects,methods & properties	Green
+
+Group 4		Inbuilt objects, methods & properties	Salmon pink
+Group 2		Inbuilt functions and events		Red
+Group 1		Statements				Cream
+Group 3+Numbers	Constants, keywords and numbers		Yellow
+Strings		Strings					Light Blue
+Punct.		Brackets, Concentation, Punctuation	White
+Group 6		Operators				Magenta
+
+Note: Group 5 was intended to represent custom objects, methods and properties but this only works in some cases at the time of writing. It is coloured fawn brown.
+
+
+Author
+======
+by Ewen Pring
+
+You are welcome to contact me if you have any suggestions for this mode. The best way to do this is to go to www.timebus.co.uk, find the section of the web site for contacting Timebus Travel, and send an email to the address given there.
+
+Licence
+=======
+
+I assert no copyright except to request that if anybody makes any changes to any of the files distributed in this archive, that they also increment the version number in the 'version' file accordingly, along with their name, date and a description of the changes made.
+
+                                                                     2004-06-21
+                                                                     2005-11-06

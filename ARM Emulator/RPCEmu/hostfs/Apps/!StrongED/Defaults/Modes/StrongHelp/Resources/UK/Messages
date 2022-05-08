@@ -1,0 +1,9 @@
+Hshlp_bld:\Smake the selected text bold|M\Aget a list of all bold text
+
+# Syntax colouring groups
+Group1:Commands
+Group2:Link start
+Group3:Link end
+Group4:Link Command
+Group6:Command group
+Group8:Escaped chars

@@ -1,0 +1,128 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : Sather
+#	Purpose : StrongED mode file for Sather files
+#	Author  : © Keith Hopper
+#	Licence : (?) Freeware
+#	Version : 1.00, 22-12-2011
+#
+# -- amended for Version 1.1.   Help not yet written!
+#
+#-------------------------------------------------------------------------------
+# 17.07.01 FG Shortcut changed from $;- to ``-
+# 22-12-11 FG Changed 'Type' to 'CommentType' in SyntaxComment
+#          FG Moved Help in Functions section in front of Select line
+#          FG Made up a version number to make it easier to signal changes
+#-------------------------------------------------------------------------------
+
+# HelpPath	Assembly,SWI,
+
+ID_FirstChar	$A-Za-z_
+ID_Middle	A-Za-z_0-9
+ID_LastChar	!
+
+#----------------------------------------------------------------------
+
+Search
+	_Indent2	{" "} [ (" ;"~":") {" "} ]
+	Bchar		Alpha|"_"
+	_private	{" "}"private"
+	_name		?{(AlphaNum | '_')}["!"]
+	_params		{NL}{" "}"("**")"
+	_return		{NL}{" "}":"{" "}_name{"{"**"}"}
+	_pre		{NL}{" "}"pre"**{" "}
+	_post		{NL}{" "}"post"**{" "}
+	_is		{NL}{" "}"is"(" "|NL)
+	_newline	NL
+	_externclass	"external"[{" "}_name]
+	_classkind	{" "}("abstract"|_externclass|"partial"|"immutable")
+	_classname	["$"]?{(AlphaNum | '_')}
+	_method		NL[_private]{" "} @0_name@9{White}[_params] [_return](_pre|_post|_is)
+	_class		<[_classkind]{" "}"class"{" "}@0_classname@9
+	_MarkWord	(["$"] Bchar {Bchar|Digit} ["!"]) | ("&" {Hex}+) | {Digit}+
+	_MoveWord	(["$"] Bchar {Bchar|Digit} ["!"]) | ("&" {Hex}+) | {Digit}+
+	_foldstart	"is" | "if" | "loop" | "case" | "typecase" | "lock" | "par"
+	_foldend	"end"
+	_comment_start	"--"
+End
+
+#----------------------------------------------------------------------
+
+SyntaxOptions
+	SingleQuote	Yes
+	DoubleQuote	Yes
+	QuoteQuote	Yes
+	QuoteChar	\
+	SplitString	No
+End
+
+SyntaxComment 1
+	CommentType	OneLine
+	StartWith	--
+End
+
+
+SyntaxWords Group1 EndNonID case
+	BIT BOOL CHAR STR CARD FIELD INT INTI FLT FLTD FLTI $OB REFERENCE
+	AREF AVAL TUP SYS ARRAY EXT_OB FLTX FLTDX GATE $LOCK MUTEX $PORT
+	$REHASH ITER ROUT SAME
+End
+
+SyntaxWords Group2 EndNonID case
+	and any assert attr bind case class clusters cohort
+	const else elsif end external far fork guard if inout
+	include initial is lock loop near once or out par parloop
+	post pre private protect readonly return
+	shared spread stub sync then typecase unlock
+	when while with partial abstract immutable
+End
+
+SyntaxWords Group3 EndNonID case
+	aget aset div is_eq is_geq is_gt is_leq is_lt is_neq
+	minus mod negate not plus pow times
+End
+
+SyntaxWords Group4 EndNonID case
+	clusters! create invariant main raise yield new quit break!
+	while! until!
+End
+
+SyntaxWords Group5 EndNonID case
+	self true false exception result void setbit clearbit
+End
+
+FoldParm1 (_comment_start,_newline,,case)
+FoldParm2 (_foldstart,_foldend,,case)
+
+KeyList
+	^R		Indent ("--   ")
+	^Return		NewLine(indent,_Indent2)
+End
+
+Functions
+
+	Key	‹PgUp
+	Icon	up
+	Help	Click to go to previous routine/iter.
+	Select	GotoPrev (_method,Text,NoLine,Case)
+
+	Key	‹PgDown
+	Icon	down
+	Help	Click to go to next routine/iter.
+	Select	GotoNext (_method,Text,NoLine,Case)
+
+	Key	‹F2
+	Menu	List of methods ‹F2
+	Icon	LoF
+	Help	Click to generate list of all routines/iters.
+	Select	ListOfFound (_method,All,Align,NoLine,Case,Sort)
+
+	Adjust	ListOfFound (_class,All,Whole,NoLine,Case,NoSort)
+
+End
+
+
+Shortcuts
+	``-	-------------------------------------------------------------------------------
+End
+

@@ -1,0 +1,128 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : Pascal
+#	Purpose : StrongED mode file for Pascal source files
+#	Author  : © StrongED Developers
+#	Licence : Freeware
+#	Version : 1.01, 01-10-2012
+#
+#-------------------------------------------------------------------------------
+# 22-12-11 FG Replaced old Tmp$* variables with StrongED$Tmp_* ones
+#             Changed 'Type' to 'CommentType' in SyntaxComment
+#             Made up a version number to make it easier to signal changes
+# 01-10-12 FG Made up other header fields to make things a bit more clear
+#-------------------------------------------------------------------------------
+# Here's a quick mode file I cooked together for Pascal.
+# Please note; 1: I'm very rusty on the Pascal syntax.
+#              2: I've tested a simple F10-compile with the Acorn
+#                 pascal compiler, but no more than that.
+#              3: Pascal can have recursive comments, but the new
+#                 version of StrongED doesn't support it yet, so
+#                 the comment-type is set to regular 'multiline'
+#-------------------------------------------------------------------------------
+
+Search
+
+	id		Alpha | '_' {AlphaNum | '_'}
+	funcproc	{' '|'\t'} ( "procedure" | "function" ) {' '|'\t'} @0 id
+	gfuncproc	{' '|'\t'} ( "procedure" | "function" ) {' '|'\t'} CW
+End
+
+FoldParm2 (funcproc,,Startofline,nocase)
+
+ID_FirstChar	A-Za-z_
+ID_Middle	A-Za-z_0-9
+
+SyntaxOptions
+	SingleQuote	Yes
+	DoubleQuote	No
+	QuoteQuote	Yes
+	SplitString	No
+End
+
+SyntaxComment 1
+	CommentType	Multiline
+	StartWith	(*
+	EndWith		*)
+End
+
+SyntaxWords Group1 nocase
+	label constant type var
+	forward
+End
+
+SyntaxWords Group2 nocase
+	char integer real boolean
+	packed array
+	set file
+End
+
+SyntaxWords Group3 nocase
+	begin end
+	if then else
+	for do
+	repeat until
+	while
+	goto
+	case of
+	with
+	procedure
+	function
+# moved these here because I want them to match 'end' in colour
+	program
+	record
+End
+
+SyntaxWords Group4 nocase
+	div mod and not or nil true false
+End
+
+SyntaxWords Group5 nocase StartSpace
+	#ifdef #ifndef #else #endif
+	#pragma #line #error #define #undef
+End
+
+Keylist
+	^‹[	InsertStr("(*")
+	^‹]	InsertStr("*)")
+End
+
+Functions
+
+	Key	‹F2
+	Menu	List of procedures/functions
+	Help	Hpas_lop
+	Select	ListOfFound (funcproc,All,Align,Line,NoCase)
+
+	Key	‹PgUp
+	Icon	up
+	Help	HCM_up
+	Select	GotoPrev (funcproc,Text,line,nocase)
+
+	Key	‹PgDown
+	Icon	down
+	Help	HCM_dn
+	Select	GotoNext (funcproc,Text,line,nocase)
+
+	Key	F10
+	Menu	Just Compile      F10
+	Icon	Run
+	Help	Hpas_run
+	Select	SaveDrag ("pascal")
+
+	Key	‹^F10
+	Menu	Save & Make      ‹^F10
+	Icon	brick
+	Help	Hpas_mak
+	Select	SetTmp() SaveDClick ("<StrongED$Tmp_FilePath>.^.Makefile")
+
+	Key	^G 1
+	Menu	Goto function/procedure definition
+	Icon	goto
+	Help	HCM_go
+	Select	Push GotoFound (gfuncproc,all,align,line,nocase,nosort)
+
+	Key	^G 2
+	‹Select	Pop
+
+End

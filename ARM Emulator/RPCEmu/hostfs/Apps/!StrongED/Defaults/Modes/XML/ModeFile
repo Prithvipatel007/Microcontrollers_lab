@@ -1,0 +1,81 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : XML
+#	Purpose : StrongED mode file for XML files
+#	Author  : © Fred Graute
+#	Licence : Freeware
+#	Version : 1.02, 05-12-2011
+#
+#	Nothing fancy, just basic syntax colouring.
+#
+#-------------------------------------------------------------------------------
+#
+# 14-10-2004 KH Added QName and special prefixes for xmlns and xml
+# 05-12-2011 FG Changed 'Type' to 'CommentType' in SyntaxComment
+#
+#-------------------------------------------------------------------------------
+
+ID_FirstChar	_A-za-z
+ID_Middle	_A-za-z0-9\-
+
+Search
+	NCName		("_"|?){("_"|"-"|?|#)}
+	lc_prefix	NCName":"
+	QName		[lc_prefix]NCName
+End
+
+SyntaxOptions
+	SingleQuote	Yes
+	DoubleQuote	Yes
+	HexPrefix	x
+End
+
+SyntaxComment 1
+	CommentType	MultiLine
+	StartWith	<!--
+	EndWith		-->
+End
+
+
+# Element names are all QNames!
+
+SyntaxWords Group1 EndOfExpr QName
+	<
+	</
+End
+
+
+# End tags or empty tag ends coloured this way!
+
+SyntaxWords Group2 EndAlways
+	>
+	/>
+End
+
+
+# Basic SGML hangovers! - Doc types, entities defined in prologues plus CDATA sections
+
+SyntaxWords Group3 EndofID
+	<!
+End
+
+
+# Processing instructions
+
+SyntaxWords Group4 EndOfID
+	<?
+	?>
+End
+
+# Predefined names
+
+SyntaxWords Group5 EndOfId
+	xmlns xml
+End
+
+# Predefined attributes
+
+SyntaxWords Group6 EndOfId
+	lang space base
+End
+

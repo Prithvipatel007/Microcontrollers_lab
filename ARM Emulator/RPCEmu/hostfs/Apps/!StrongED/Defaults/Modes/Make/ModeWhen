@@ -1,0 +1,5 @@
+Rules Include
+! fe1,**
+  fff,**.Makefile
+  fff,**.TemplateMF
+End

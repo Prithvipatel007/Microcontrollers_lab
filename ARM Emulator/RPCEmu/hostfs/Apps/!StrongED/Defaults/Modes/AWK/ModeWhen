@@ -1,0 +1,11 @@
+Rules Include
+! 187,**
+  fff,**/awk
+> fff,** ; _awk
+End
+
+#	Use awk if #!awk is found at start of line
+
+Match
+	_awk		< "#!" {White} "awk"
+End

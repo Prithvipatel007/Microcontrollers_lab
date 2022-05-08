@@ -1,0 +1,11 @@
+DEF PROCDealWith_DataImport(message,file$,filetype%)
+REM ----------------------------------------------------
+REM Importing data from a double-clicked file (broadcast)
+REM -----------------------------------------------------
+CASE message OF
+ WHEN Message_DataOpen
+  REM Load file and send acknowledgement
+  REM <---- insert code here ---->
+  PROCMessage_DataLoadAck
+ENDCASE
+ENDPROC

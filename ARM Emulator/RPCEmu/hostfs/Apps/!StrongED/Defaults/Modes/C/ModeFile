@@ -1,0 +1,272 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : C
+#	Purpose : StrongED mode file for C source files
+#	Author  : © StrongED Developers
+#	Licence : Freeware
+#	Version : 1.09, 03-06-2013
+#
+#	Compilation may be started with F10.
+#
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# Changes:
+# 10.06.98 GV Made "{" a shortcut, which expands to brace set and places caret in the middle. (hmm)
+# 16.06.98 GV Made "*/" a Syntaxword (group4), so it sticks out if the "/*" is missing.
+# 29.06.98 GV Changed ListOfC button to not sort (since functions are often grouped logically)
+#          GV In addition, Select now only searches *this* text, and adjust searches *all* texts.
+#          GV Removed the ^H key binding for the 'load headerfile' function. This is now better
+#             catered for by the clicklist (ctrl-Home or just doubleclick with mouse)
+# 04.07.98 GV Dropped the ()'s from include1/2. Can now write A * @5 B
+# 09.07.98 GV Removed the "{" shortcut again. Too damn annoying.
+#          GV Added an "i(" shortcut
+# 26.07.98 GV Ctrl-Return will include any "/*" in its auto-indent.
+# 22.10.98 GV Removed "*/" as reserved word. Clashed with " .. (char */*parm_name*/)
+# 03.01.99 GV Removed duplicate 'do' and 'default' from Group1
+# 21.07.00 CH Added #warning and #elif to the directives group (carl)
+# 22.08.01 ?? Updated HelpPath
+# 03.11.02 ?? Updated HelpPath again
+# 22.07.03 FG Group3 (preprocessor directives) now uses expression
+#          FG Group1 was missing "case", part of switch..case..default
+# 31.12.05 FG Added _ParPrefix to allow comments to be reformatted using hardwrap
+# 04.07.06 FG Changed include1 and include2 for use with Andrew Hodgkinson's tools
+#          FG Changed clicklist entries for include1 and include2 accordingly
+#          FG Moved support for Philip Ludlam's LoadHdr to c-Select2 clicklist
+#          FG Combined goto next/previous function in a single toolbar icon
+#          FG Added option to look in current file only to Goto function definition
+#          FG Added SmartIndent section, commented out initially
+# 07.10.11 FG Changed SyntaxComment groups to use new style parameter names
+#          FG Changed Functions section to use new style Tmp$ variables
+#          FG Changed cs-B so that the block selected includes both braces
+# 12.11.11 FG Replaced old Tmp$* variables with new StrongED$Tmp_* ones
+# 01.10.12 FG Changed Author field to © StrongED Developers
+# 30.05.13 FG Changed 'Function' search expression as suggested by Rik Griffin
+#          FG More changes to 'Function' expression, Rik's was still too limited
+#          FG Added FoldParm2, uses new 'FoldFunc' expr for folding C functions
+# 03.06.13 FG Added DrWimpC to the HelpPath,
+#-------------------------------------------------------------------------------
+
+HelpPath	DrWimpC,C-Version5,C++,C,OS,Wimp,MiscSWIs,InetSWIs,InetSocket,VDU,Toolbox,Desk,OSLib,UnixLib,
+
+Foldparm1	("/*{{{", "/*}}}", StartSpace, Case)
+FoldParm2	(FoldFunc, FoldFunc, StartOfLine, Case)
+
+#-------------------------------------------------------------------------------
+
+Search
+#	include1	[_spct] "#include" _spct "<" [_spct] @0 * @9 ".H" [_spct] ">"
+#	include2	[_spct] "#include" _spct '"' [_spct] @0 * @9 ".H" [_spct] '"'
+
+	include1	[_spct] "#include" _spct ('"') [_spct] @0 * @9 ('"')
+	include2	[_spct] "#include" _spct ('<') [_spct] @0 * @9 ('>')
+	include3	[_spct] "#include" _spct '"' [_spct] @0 * @9 ".H" [_spct] '"'
+
+	isblock		inblock .
+	iscomment	"/*"
+	wholecomment	"/*" ** "*/"
+	preprocessor_	{" "} ("include" | "ifdef" | "ifndef" | "if" | "else" | "endif" | "pragma" | "line" | "error" | "define" | "undef" | "warning" | "elif")
+	preprocessor	"#" preprocessor_
+
+	FuncType	< {{'\t *'} {\i}+ {\s} ~"("}+ {\s} {'*'} {\s}
+	FoldFunc	FuncType {"("} @0 {\i}+ {")"} {\s} {\( {" "}}+ ~";" ** \{ @9
+	Function	FuncType {"("} @0 {\i}+ @9 {")"} {\s} {\( {" "}}+ ~";" ** \{
+	GoFunction	FuncType {"("} @0 CursorWord @9 {")"} {\s} {\( {" "}}+ ~";" ** \{
+
+	Spaces		{' '}
+	Comments	{"//"}
+	_ParPrefix	< Spaces Comments @1 @2 Spaces
+	_Indent2	{" "} [ "/*" | "//" ] {" "}
+
+# expressions for smart indent
+	If		("if" {" "} "(" * ")" >)
+	Else		(["}"] {" "} "else")
+	Case		("case" * ":") | ("default" * ":")
+	IndentAfter	< {" "} ( If | Else | Case)
+	OutdentLine	< {" "} ( Else | Case)
+End
+
+#-------------------------------------------------------------------------------
+
+ClickList
+#	include1	LoadOne ("C:H.<StrongED$Tmp_MarkWord>")
+#	include2	LoadOne ("<StrongED$Tmp_FilePath>.^.H.<StrongED$Tmp_MarkWord>")
+	include1	SetTmp(include1, "StrongED$Tmp_MarkWord") Run("<StrongED$Tmp_ModePath>.Tools.LoadHdrLcl")
+	include2	SetTmp(include2, "StrongED$Tmp_MarkWord") Run("<StrongED$Tmp_ModePath>.Tools.LoadHdrGbl")
+	iscomment	NoIndent MarkWord(WholeComment) GotoBlock_End CaretLeft CaretLeft DeleteRight DeleteRight GotoBlock_Start DeleteRight DeleteRight BlockClear
+	isblock		NoIndent GotoBlock_Start "/*" GotoBlock_End "*/"
+End
+
+#-------------------------------------------------------------------------------
+
+ClickList c-Select2
+	include3	SetTmp(include3, "StrongED$Tmp_MarkWord") Run("<StrongED$Tmp_ModePath>.Tools.LoadHdr")
+End
+
+#-------------------------------------------------------------------------------
+
+ID_FirstChar	A-Za-z_
+ID_Middle	A-Za-z_0-9
+
+SyntaxOptions
+	SingleQuote	Yes
+	DoubleQuote	Yes
+	QuoteChar	\
+	QuoteQuote	No
+	SplitString	Yes
+	HexPrefix	0x
+	Functions	Spaces
+End
+
+SyntaxComment 1
+	CommentType	MultiLine
+	StartWith	/*
+	EndWith		*/
+End
+
+SyntaxComment 2
+	CommentType	OneLine
+	StartWith	//
+End
+
+SyntaxWords Group1 case
+	continue
+	for while break return goto
+	if else switch do default case
+End
+
+SyntaxWords Group2 case
+	auto register static extern typedef
+	void char short int long float double signed unsigned
+	const volatile
+	struct union
+End
+
+SyntaxWords Group3 nocase EndOfExpr preprocessor_
+	#
+End
+
+SyntaxWords Group4 nocase EndAlways
+	& *
+End
+
+SyntaxWords Group5 case
+	namespace public private friend operator class :: ~
+End
+
+
+## Make sure superfluous comment-end's stick out
+#
+#SyntaxWords Group6 nocase
+#	"*/"
+#End
+
+#-------------------------------------------------------------------------------
+
+SmartIndent NoCase
+	IndentSize	2
+	IndentChar	{
+	OutdentChar	}
+	IndentAfter	IndentAfter
+	OutdentLine	OutdentLine
+End
+
+#-------------------------------------------------------------------------------
+
+KeyList
+	cs-[		InsertStr("/*")
+	cs-]		InsertStr("*/")
+#	Return		Clicklist("indent")
+	c-Return	NewLine(indent,_Indent2)
+
+	cs-B		Push BlockClear() BlockMark_Continuous() GotoBracket BlockMark_Continuous() GotoBlock_Start CaretLeft BlockMark_Continuous() Pop
+
+	cs-R		ReindentText(,Force)
+	Return		ReindentText(Line,Force) NewLine()
+End
+
+#-------------------------------------------------------------------------------
+
+Functions
+	Icon		LoF
+	Menu		List of functions ‹F2
+	Help		HCM_lof
+	Key		‹F2
+	Select		ListOfC(Text)
+
+	Adjust		ListOfC(All)
+
+	‹Select		ListOfFound( Function, Text, Whole, NoLine, Case, Nosort )
+
+	‹Adjust		ListOfFound( Function, All, Whole, NoLine, Case, Nosort )
+
+	Icon		updown
+	Help		HCM_updn
+	Key 		^PgDown
+	Select		GotoNextC(Text)
+
+	Key 		^PgUp
+	Adjust		GotoPrevC(Text)
+
+	Key		^‹PgDown
+	‹Select		Push GotoNext( Function, Text, NoLine, Case)
+
+	Key		^‹PgUp
+	‹Adjust		Push GotoPrev( Function, Text, NoLine, Case)
+
+	Icon		load
+	Menu		Load H.*
+	Help		HCM_load
+#	Key		^H
+	Select		SetTmp() LoadOne("<StrongED$Tmp_FilePath>.^.H.<StrongED$Tmp_MarkWord>","C:H.<StrongED$Tmp_MarkWord>")
+
+	Icon		Run
+	Menu		Save & Compile      F10
+	Help		HCM_run
+	Key		F10
+#	Select		SaveDrag ("cc")
+	Select		SetTmp() SaveRun("taskwindow \"gcc <StrongED$Tmp_FileName> -mthrowback\" -wimpslot 8000K")
+
+	Icon		brick
+	Menu		Save & Make      ‹^F10
+	Help		HCM_mak
+	Key		^‹F10
+	Select		SetTmp() SaveDClick("<StrongED$Tmp_FilePath>.^.Makefile")
+
+	Icon		goto
+	Menu		Goto function definition
+	Help		HCM_go
+	Key		^G 1
+	Select		Push GotoFoundC(Text)
+
+	Key		^G 2
+	Adjust		Push GotoFoundC(All)
+
+	Key		^‹G 1
+	‹Select		Push GotoFound( GoFunction, Text, Whole, NoLine, Case, NoSort)
+
+	Key		^‹G 2
+	‹Adjust		Push GotoFound( GoFunction, All, Whole, NoLine, Case, NoSort )
+
+	^‹Select	Pop()
+
+	^‹Adjust	Pop()
+End
+
+#-------------------------------------------------------------------------------
+
+Shortcuts
+	w(	while (\@) {\n\i  \@\n\i}
+	f(	for (\@;\@;\@) {\n\i  \@\n\i}
+	s(	switch (\@) {\n\i  case \@\n\i}
+	p(	printf("\@");
+	i(	if(\@) \@
+	#<	#include <\@.h>\n\@
+	#"	#include "\@.h"\n\@
+	``-	/*----------------------------------------------------------------------------*/
+	``/	/*--- \@  */
+	``*	/* \@  */
+	``{	{\n\@\n}\n
+End
+
+#-------------------------------------------------------------------------------

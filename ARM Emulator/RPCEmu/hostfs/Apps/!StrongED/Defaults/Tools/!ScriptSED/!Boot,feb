@@ -1,0 +1,7 @@
+| Boot file for ScriptSED
+| © StrongED Developers
+
+Set ScriptSED$Dir <Obey$Dir>
+Iconsprites <ScriptSED$Dir>.!Sprites22
+
+Set StrongED$ScriptsDir <ScriptSED$Dir>.Scripts

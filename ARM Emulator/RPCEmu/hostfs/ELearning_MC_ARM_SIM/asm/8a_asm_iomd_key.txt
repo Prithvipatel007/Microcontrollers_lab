@@ -1,0 +1,51 @@
+DIM CODE% (&100)
+P% = CODE%
+[
+.iomdbase
+  EQUD  &03200000  ; from datasheet
+.logical
+  EQUD  0
+
+  ; function delay (parameter passed in R0)
+.delay
+  STMDB SP!, {R1}
+  MOV   R1, #1
+  MOV   R1, R1, LSL R0  ; do x cycles
+.delay_loop
+  SUBS  R1, R1, #1
+  BNE   delay_loop
+  LDMIA SP!, {R1}
+  MOV   PC, LR          ; return
+
+.main
+  STMDB SP!, {LR}       ; push return address to stack
+
+  MOV   R0, #24
+  BL    delay
+
+  ADR   R0, logical
+  LDR   R12, [R0]
+
+  SWI   "OS_EnterOS"     ; supervisor mode
+  LDRB  R0, [R12, #&04]  ; KBDDAT &04 keyboard
+  SWI   "OS_LeaveOS"
+
+  LDMIA SP!, {PC}       ; pop return address from stack (PC = LR return)
+
+  ; protected memory access
+.init
+  MOV   R0, #&0D        ; physical to logical address map (permanent)
+  LDR   R1, iomdbase    ; physical address
+  MOV   R2, #&100       ; logical address space size 256 bytes
+  SWI   "OS_Memory"     ; MMU
+  MOV   R12, R3         ; returned logical address pointer
+
+  ADR   R0, logical
+  STR   R12, [R0]
+
+  MOV   PC, LR          ; return
+]
+CALL init
+REPEAT
+  PRINT "R0 = " USR(main)
+UNTIL FALSE

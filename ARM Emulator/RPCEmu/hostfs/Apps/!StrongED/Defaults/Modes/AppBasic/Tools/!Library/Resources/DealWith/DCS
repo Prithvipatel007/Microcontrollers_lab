@@ -1,0 +1,9 @@
+DEF PROCDealWith_DCS(event,object,component)
+CASE event OF
+ WHEN DCS_AboutToBeShown
+ WHEN DCS_Discard
+ WHEN DCS_Save
+ WHEN DCS_DialogueCompleted
+ WHEN DCS_Cancel
+ENDCASE
+ENDPROC

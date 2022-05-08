@@ -1,0 +1,289 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : BasAsm
+#	Purpose : StrongED mode file for BASIC assembler source files
+#	Author  : © StrongED Developers
+#	Licence : Freeware
+#	Version : 1.05, 01-10-2012
+#
+#	Assembly may be started with F10.
+#
+#-------------------------------------------------------------------------------
+
+# Changes:
+#-------------------------------------------------------------------------------
+# 04-07-04 FG Replaced EndTypes for various groups with new ones from 4.67
+# 28-12-05 FG Extended PSR specifiers to cover all combinations
+# 04-07-06 FG Added LineNumber expression to Search section
+#          FG Changed Func and Func2 expressions to use LineNumber
+#          FG Removed expressions used for colouring of FP instructions
+#          FG Combined up and down toolbar icons
+#          FG Added MarkConst expression, matches bin,dec and hex constants
+#          FG Added MarkFunc expression, matches procedure/functions names
+#          FG Added MarkVar expression, matches variable names
+#          FG Made _MarkWord and _MoveWord use above expressions
+#          FG Renamed Bchar to IDchar1 and made it a set matching ID_FirstChar
+#          FG Renamed Bchar2 to IDchar2 and made it a set matching ID_Middle
+#          FG Renamed Func2 to GoFunc
+# 26-04-09 FG Added option to only list labels starting with ':;.'
+# 21-12-11 FG Replaced all old Tmp$* variables with new StrongED$Tmp_* ones
+#          FG Changed 'Type' to 'CommentType' in SyntaxComment
+# 01-10-12 FG Changed Author field to © StrongED Developers
+#-------------------------------------------------------------------------------
+
+HelpPath	BASIC,Assembly,OS,Wimp,MiscSWIs,InetSWIs,Toolbox,OSLib,UnixLib,
+
+FoldParm1 (Fold_Start,Fold_End)
+#FoldParm2 (Label,"STM*PC",StartOfLine)
+
+ID_FirstChar	`A-Za-z_
+ID_Middle	`A-Za-z_0-9
+ID_LastChar	$%
+
+#-------------------------------------------------------------------------------
+
+Search
+	IDchar1		'`A-Za-z_'
+	IDchar2		'`A-Za-z_0-9'
+	FuncName	{IDchar2|"@"}+
+	MarkConst	("%" {'01'}+) | ("&" {Hex}+) | {Digit}+
+	MarkFunc	("PROC"|"FN") FuncName
+	MarkVar		(IDchar1 {IDchar2} ["%"|"$"])
+	LineNumber	{" "} {Digit}+ " "
+	Func		[LineNumber] "DEF" {" "} "PROC"|"FN" @0 FuncName
+	GoFunc		[LineNumber] @0 "DEF" {" "} CW ~IDchar2
+	Label		[";:"] "." IDchar1 {IDchar2}
+	GoLabel		[";:"] "." CW ~IDchar2
+	Routine		";:." IDchar1 {IDchar2}
+
+	Fold_Start	Label
+	Fold_End	("MOV" * "PC,") | ("LDM" * "PC")
+
+	_Indent2	{" "} [ (("REM") | (";"~":")) {" "} ]
+	_MarkWord	MarkFunc | MarkVar | MarkConst
+	_MoveWord	MarkFunc | MarkVar | MarkConst
+
+#------ The following are used in the clicklist to 'toggle' various strings
+
+	C_SWI		"SYS" | "SWI" [??] _spct '"' @0 * (@9 '"')
+	C_LDM		"LDM"
+	C_STM		"STM"
+	C_LDMpc		"LDM" @1 * (@2 "PC}" ["^"])
+	C_STMlr		"STM" @1 * (@2 "LR}")
+	C_LDR		"LDR"
+	C_STR		"STR"
+	C_ADD		"ADD"
+	C_SUB		"SUB"
+	C_MOV		"MOV"
+	C_MVN		"MVN"
+End
+
+#-------------------------------------------------------------------------------
+
+# Immediate commands :
+# APPEND AUTO DELETE EDIT HELP LIST LISTO LOAD LVAR NEW OLD
+# RENUMBER RUN SAVE TWIN TWINO
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteQuote	Yes
+	SplitString	No
+	HexPrefix	&
+	BinPrefix	%
+End
+
+SyntaxComment 1
+	CommentType	OneLine
+	StartWith	;
+	EndWith		:
+End
+
+#SyntaxComment 2
+#	CommentType	OneLine
+#	StartWith	REM
+#End
+
+SyntaxWords Group1 EndOfAsm nocase
+	ADC ADD AND BIC CLZ CMN CMP EOR MLA MOV MUL
+	MVN ORR RSB RSC SBC SUB SWI TEQ TST
+#	LDR STR
+	ADR
+# ARM3 instructions
+	SWP
+# ARM6 instructions
+	MRS MSR
+# ARM7M instructions
+	UMULL SMULL UMLAL SMLAL
+# StrongARM instructions
+#	LDRH STRH LDRSH STRSH LDRSB STRSB
+End
+
+# Load/Store multiple
+SyntaxWords Group2 EndOfAsm nocase
+	LDM STM
+End
+
+# Register names
+SyntaxWords Group3 EndNonID nocase
+	R0 R1 R2 R3 R4 R5 R6 R7 R8 R9 R10 R11 R12 R13 R14 R15
+	F0 F1 F2 F3 F4 F5 F6 F7
+# APCS-R registers
+	A1 A2 A3 A4 V1 V2 V3 V4 V5 V6 IP FP SP LR PC
+# PSR specifiers
+	CPSR
+	CPSR_f CPSR_c CPSR_x CPSR_s
+	CPSR_fc CPSR_fx CPSR_fs CPSR_cx CPSR_cs CPSR_xs
+	CPSR_fcx CPSR_fcs CPSR_fxs CPSR_cxs
+	CPSR_fcxs
+	SPSR
+	SPSR_f SPSR_c SPSR_x SPSR_s
+	SPSR_fc SPSR_fx SPSR_fs SPSR_cx SPSR_cs SPSR_xs
+	SPSR_fcx SPSR_fcs SPSR_fxs SPSR_cxs
+	SPSR_fcxs
+End
+
+# Branches
+SyntaxWords Group4 EndOfAsm nocase
+	B
+End
+
+# Directives
+SyntaxWords Group5 EndNonID nocase
+	OPT ALIGN
+	DCB DCW DCD EQUB EQUW EQUD EQUS
+End
+
+# Shifts and Rotates
+SyntaxWords Group6 EndNonID nocase
+	LSR LSL ASR ASL ROR RRX
+End
+
+SyntaxWords Group7 EndOfFlt nocase
+#	:.
+	ABS ACS ASN ATN COS EXP LGN LOG MNF MVF NRM RND SIN SQT TAN URD
+	ADF DVF FDV FML FRD MUF POL POW RDF RMF RPW RSF SUF
+	FIX FLT RFS RFC WFC WFS
+	CMF CNF CMFE CNFE
+	LDF STF
+End
+
+# Labels
+SyntaxWords Group8 StartSpace EndOfID nocase
+	.
+End
+
+# Single register load/store
+SyntaxWords Group9 EndOfAsm nocase
+	LDR STR
+End
+
+#----------------------------------------------------------------------
+
+Replace
+	R_LDMpc		"LDM" @12 "PC}^"
+	R_STMlr		"STM" @12 "LR}"
+End
+
+Clicklist Toggle
+	C_SWI		HelpString("SWI <StrongED$Tmp_MarkWord>",GSTrans)
+	C_STMlr		ToggleStr(R_LDMpc)
+	C_LDMpc		ToggleStr(R_STMlr)
+	C_STM		ToggleStr("LDM")
+	C_LDM		ToggleStr("STM")
+	C_STR		ToggleStr("LDR")
+	C_LDR		ToggleStr("STR")
+	C_ADD		ToggleStr("SUB")
+	C_SUB		ToggleStr("ADD")
+	C_MOV		ToggleStr("MVN")
+	C_MVN		ToggleStr("MOV")
+End
+
+#----------------------------------------------------------------------
+
+KeyList
+	^D,^F		InsertStr ("FN_ForceDebug")
+	^D,^R		InsertStr ("FN_RestoreDebug")
+	^D,^D		InsertStr ("FN_Debug(pass%,\"\")")
+	^Delete		InsertStr(":") DeleteRight
+	^Return		NewLine(indent,_Indent2)
+End
+
+#----------------------------------------------------------------------
+
+Functions
+	Icon		LoF
+	Menu		List DEF PROC/FN  ‹F2
+	Help		HBa_lof
+	Key		‹F2
+	Select		ListOfFound(Label,Text,Whole,Line,Case,Sort)
+
+	Adjust		ListOfFound(Label,All,Whole,Line,Case,Sort)
+
+	‹Select		ListOfFound(Func,Text,Whole,Line,Case,Sort)
+
+	‹Adjust		ListOfFound(Func,All,Whole,Line,Case,Sort)
+
+	^Select		ListOfFound(Routine,Text,Whole,Line,Case,Sort)
+
+	^Adjust		ListOfFound(Routine,All,Whole,Line,Case,Sort)
+
+	Icon		updown
+	Help		HBa_updn
+	Key		^PgDown
+	Select		GotoNext(Label,Text,Line,Case)
+
+	Key		^PgUp
+	Adjust		GotoPrev(Label,Text,Line,Case)
+
+	Key		^‹PgDown
+	‹Select		GotoNext(Func,Text,Line,Case)
+
+	Key		^‹PgUp
+	‹Adjust		GotoPrev(Func,Text,Line,Case)
+
+	Icon		run
+	Menu		Run                F10
+	Help		HBa_run
+	Key		F10
+	Select		SetTmp() RunBasic()
+
+	Key		‹F10
+	‹Select		SetTmp() RunBasic(Save)
+
+	Key		^F10
+	Adjust		SetTmp() RunBasic(,,Taskwindow)
+
+	Key		^‹F10
+	‹Adjust		SetTmp() RunBasic(Save,,Taskwindow)
+
+	Icon		goto
+	Menu		Goto label/DEF PROC/FN
+	Help		HBa_go
+	Key		^G
+	Select		Push GotoFound(GoLabel,Text,Whole,Line,Case)
+
+	Key		^G 2
+	Adjust		Push GotoFound(GoLabel,All,Whole,Line,Case)
+
+	Key		^‹G
+	‹Select		Push GotoFound(GoFunc,Text,Whole,Line,Case)
+
+	Key		^‹G 2
+	‹Adjust		Push GotoFound(GoFunc,All,Whole,Line,Case)
+
+	^‹Select	Pop()
+
+	^‹Adjust	Pop()
+End
+
+#----------------------------------------------------------------------
+
+Shortcuts
+	STM{	STMFD   R13!,{R0-R12,LR}\n\n\i\@\n\n\iLDMFD   R13!,{R0-R12,PC}
+	STMS{	STMFD   R13!,{R0-R12,LR}\n\n\i\@\n\n\iLDMFD   R13!,{R0-R12,PC}^
+	LDM{	LDMFD   R13!,{R0-R12,PC}
+	LDMS{	LDMFD   R13!,{R0-R12,PC}^
+	``-	;-------------------------------------------------------------------------------\n
+	``=	;===============================================================================\n
+End

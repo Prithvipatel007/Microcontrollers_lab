@@ -1,0 +1,50 @@
+#!lua
+
+sendmsg = function(cmd)
+  local block = block.new(256)
+  block(0,cmd)
+  swi.r[0] = block
+  swi.! "OS_CLI"
+end -- sendmsg
+
+breakquote = function()
+  local infile = arg[1]
+  local outfile = io.open("Pipe:Test", "w")
+  local cmd = ''
+  local quotes = {}
+  local newline = ' Newline'
+  local caretup = ' CaretUp'
+  local endquote = ' InsertStr("[/quote]") Newline'
+-- if not infile then
+--    _ERRORMESSAGE("cannot open "..infile)
+--    end
+  for line in io.lines(infile) do
+    match = line:gmatch("%[/?quote[^%]]*%]")
+    repeat
+      found = match(line)
+      if found then
+        if found == "[/quote]" then
+          table.remove(quotes, table.maxn(quotes))
+        else
+          table.insert(quotes,found)
+        end -- if
+      end -- if
+    until not found
+  end -- for
+
+  for i,v in pairs(quotes) do
+    v = v:gsub('"', '\\"')
+    cmd = cmd..' InsertStr("'..v..'") Newline'
+  end -- for
+
+  n = table.maxn(quotes)
+  cmd = endquote:rep(n)..newline:rep(3)..cmd..caretup:rep(n+2)
+
+  outfile:write(cmd)
+  outfile:close()
+
+  sendmsg('Message StrongED_ExecFile Pipe:Test')
+
+end -- breakquote
+
+breakquote()

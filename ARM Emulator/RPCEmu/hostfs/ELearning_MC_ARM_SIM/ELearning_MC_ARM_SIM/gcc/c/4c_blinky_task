@@ -1,0 +1,39 @@
+#include <time.h>
+
+#include "os.h"
+
+void delay(int val)
+{
+  int cnt = clock();
+
+  while (1)
+  {
+    if (clock() > (cnt + val))
+      return;
+
+    taskyield();
+  }
+}
+
+void main (void)
+{
+  int num;
+
+  taskstart("Blinky");
+
+  for (num=0; num<10; num++)
+  {
+    // LED red
+    gcol(3);
+    disc(20, 20, 30, 30);
+
+    delay(50);
+
+    // LED black
+    gcol(0);
+    disc(20, 20, 30, 30);
+
+    delay(50);
+  }
+  taskend();
+}

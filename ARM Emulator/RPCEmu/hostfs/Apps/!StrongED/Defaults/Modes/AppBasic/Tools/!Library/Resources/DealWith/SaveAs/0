@@ -1,0 +1,18 @@
+DEF PROCDealWith_SaveAs(event,object,component)
+REM -----------------------------------------------
+REM  SaveAs protocol when Toolbox handles everything
+REM ----------------------------------------------
+CASE event OF
+ WHEN SaveAs_AboutToBeShown
+      REM This where to call PROCs (if necessary) such as
+      REM PROCSaveAs_SetFileSize,PROCSaveAs_SetFileName
+      REM PROCSaveAs_SetFileType and PROCSaveAs_SelectionAvailable
+      
+      PROCSaveAs_SetDataAddress(object,data,size)
+      
+ WHEN SaveAs_SaveCompleted
+      REM Maybe mark document as 'unmodified'
+ WHEN SaveAs_DialogueCompleted
+      REM Do any tidying up here
+ENDCASE
+ENDPROC

@@ -1,0 +1,65 @@
+_!Document
+
+[Introduction
+
+ This is !Document, a StrongED mode to display application document files.
+
+ It is intended to help a user to follow sectioned text by providing colouring and folding.
+]
+[Using Document mode
+
+ The changes from BaseMode are:
+
+.PageDown	=	Move to the next primary fold, open it and close the rest
+.PageUp		=	Move to the previous primary fold, open it and close the rest
+
+.^PageDown	=	Move to the next secondary fold, open it and close the rest
+.^PageUp	=	Move to the previous secondary fold, open it and close the rest
+
+ Note: PageDown/Up here refer to the keys next to End/Home; the keypad keys 3 and 9 are used by StrongED for itself.
+
+ The buttonbar gives access to these actions:
+
+.SELECT+Down/Up arrow	=	 PageDown/Up
+.ADJUST+Down/Up arrow	=	^PageDown/Up
+
+ It also gives access to the standard keypad fold actions:
+
+.SELECT+Left/Right arrow	=	Keypad Minus/Plus	(close/open fold)
+.ADJUST+Left/Right arrow	=	^Keypad Minus/Plus	(fold/unfold text)
+
+ PageDown/Up only are on the mode menu.
+]
+[Writing Documents
+
+ The text is divided into paragraphs, which are not wrapped. The first character of a paragraph is a tag used to specify its type. The colouring can be changed from the Mode Choices dialogue.
+
+=	char	Group	Type			Colour
+.	_		1		Title			Black
+.	=		2		Heading			Grey5
+.	-		3		Subheading		Grey4
+.	[ ]		4		Primary fold	Blue
+.	{ }		5		Secondary fold	Sky blue
+.	.		6		Bullet			Grey2
+.	HS		7		Bold word		Grey5
+.	>		8		Code line		Grey2
+.	SP		id		Normal text		Grey3
+
+ HS is a hard space, produced with Alt-Spacebar, and is intended to be used in a paragraph of normal text to make the next word bold.
+
+ SP is an ordinary space and should be put at the start of a paragraph of normal text to make stripping the tags easier. It is not strictly neccessary. All normal text has the 'id' syntax colouring not 'text'. 'Strings','Numbers' and 'Punctuation' should have the same colour as 'id'.
+]
+[Folding
+
+ StrongED folds are set up for text between '[  ]' and '{  }'. It is intended that '{}' will be nested inside '[]' as secondary and primary folds.
+
+ The key combinations '^[' and '^‹[' produce pairs of brackets ready to type into.
+]
+[Stripping the tags
+
+You may wish to use the text in another display program. To strip the tags it is only necessary to remove the first character of each line. In Edit this is done by marking the whole text and using Indent (^F4) with a parameter of -1.
+]
+[Automatic mode selection
+
+The text file 'ModeWhen', inside this application, contains a fragment to append to StrongED's 'ModeWhen' file to make the selection of !Document mode automatic for text files inside any 'Documents' directory and for '!Help' and '!ReadMe' files. This should not affect normal files, but comment-out lines if any feature is not wanted.
+]

@@ -1,0 +1,146 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : Python
+#	Purpose : StrongED mode file for Python source files
+#	Author  : © Laurence Tratt 1997 - 1999
+#	Licence : (?) Freeware
+#	Version : 0.15, 14-11-2011
+#
+#-------------------------------------------------------------------------------
+# 14-04-11 FG No functional changes, just tidy up
+# 14-11-11 FG Removed EndType from SyntaxComment1, can't use exprissions
+#          FG Use <StrongED$Tmp_FileName> to refer to current file
+#-------------------------------------------------------------------------------
+
+HelpPath	Python,
+
+ID_FirstChar	A-Za-z_
+ID_Middle	A-Za-z_0-9
+
+FoldParm1(ClassStart, ClassEnd, StartOfLine, case)
+FoldParm2(MethodStart, MethodEnd, StartSpace, case)
+
+#-------------------------------------------------------------------------------
+
+Search
+	ClassStart	("class" * ":")
+	ClassEnd	< NL NL
+	MethodStart	("def" * ":")
+	MethodEnd	< NL
+
+	Class		< {" "} "class " * ":"
+	Method		< {" "} "def " * ":"
+	GoClass		"class" * CW * ":"
+
+	FirstChar	'A-Za-z_'
+	MiddleChars	'A-Za-z_0-9'
+	_MarkWord	FirstChar {MiddleChars} {{White} "." {White} FirstChar {MiddleChars}}
+End
+
+#-------------------------------------------------------------------------------
+
+SyntaxOptions
+	SingleQuote	Yes
+	DoubleQuote	Yes
+	QuoteQuote	Yes
+	SplitString	Yes
+	HexPrefix	0x
+End
+
+SyntaxComment 1
+	CommentType	OneLine
+	StartWhere	Anywhere
+	StartWith	#
+End
+
+SyntaxComment 2
+	CommentType	MultiLine
+	StartWhere	Anywhere
+	StartWith	"\"\"\""
+	EndWith		"\"\"\""
+End
+
+# Control flow
+SyntaxWords Group1 case
+	if break continue elif else except finally assert
+	for raise try while pass return import from
+End
+
+# Definitions
+SyntaxWords Group2 case
+	def class lambda global
+End
+
+# Expressions
+SyntaxWords Group3 case
+	and not or is in
+End
+
+SyntaxWords Group4 case
+	None self
+End
+
+# Built-in functions / commands
+SyntaxWords Group5 case
+	abs apply callable chr cmp coerce compile complex delattr dir
+	divmod eval execfile filter float getattr globals hasattr hash
+	hex id input int intern isinstance issubclass len list locals
+	long map max min oct open ord pow range raw_input reduce
+	reload repr round setattr slice str tuple type vars xrange
+	__import__ del
+End
+
+#-------------------------------------------------------------------------------
+
+KeyList
+End
+
+#-------------------------------------------------------------------------------
+
+Functions
+	Icon	LoF
+	Help	Hpy_lof
+	Select	dbox_ListOfFound()
+
+	Key	‹F2
+	^Select	ListOfFound(Class,Text,Whole,,,Sort)
+
+	^Adjust	ListOfFound(Class,All,Whole,,,Sort)
+
+	Key	‹F3
+	‹Select	ListOfFound(Method,Text,Whole,,,Sort)
+
+	‹Adjust	ListOfFound(Method,All,Whole,,,Sort)
+
+	Key	F10
+	Menu	Save and run
+	Icon	Run
+	Help	Hpy_run
+	Select	SetTmp() SaveRun("<StrongED$Tmp_FileName>")
+
+	Key	^G
+	Menu	Goto label/DEF PROC/FN
+	Icon	goto
+	Help	Hpy_go
+	Select	Push GotoFound(GoClass,Text,Whole,Line,Case) Position(Top,5)
+
+	Key	^‹G
+	Adjust	Push GotoFound(GoClass,All,Whole,Line,Case)
+
+	Key	^G 2
+	‹Select	Pop
+
+	Key	^‹G 2
+	‹Adjust	Pop
+
+	Menu	List of classes in this text ‹F2
+	Select	ListOfFound(Class,Text,Whole,,,Sort)
+
+	Menu	List of methods in this text ‹F3
+	Select	ListOfFound(Method,Text,Whole,,,Sort)
+End
+
+#-------------------------------------------------------------------------------
+
+Shortcuts
+End

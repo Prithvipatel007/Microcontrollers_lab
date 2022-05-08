@@ -1,0 +1,32 @@
+#-------------------------------------------------------------------------------
+#
+# Name     :  FTPupload
+# Purpose  :  Demonstrate FTP uploads using StrongED
+# Author   :  Stuart Halliday & Fred Graute
+# Licence  :  Freeware
+# Version  :  1.03, 10-11-2011
+# Email    :
+# Webpage  :
+#
+#-------------------------------------------------------------------------------
+# xx-yy-zz ?? Modified so system variables are only set during uploads
+#          FG Now uses the new FTPupload application
+# 10-11-11 FG Application renamed to FTPupSED (in-line with other add-ons)
+#          FG FTPupSED changed so additional sites can be added in UserPrefs
+#          FG Write SiteScript file to StrongED$Tmp_WriteDir, not FTPupSED$Dir
+#          FG Replaced all old Tmp$* variables with new StrongED$Tmp_* ones
+#-------------------------------------------------------------------------------
+
+Functions
+	Icon		ftp_up
+	Help		Hftp_up
+	Select		SetTmp() SaveText() Run("Run <StrongED$Tmp_ToolPath>.!FTPupSED SelectSite")
+
+	Adjust		SetTmp() SaveText() Run("Run <StrongED$Tmp_ToolPath>.!FTPupSED UploadFile")
+
+	^Select		SetTmp() Run("Run <StrongED$Tmp_ToolPath>.!FTPupSED ShowSites")
+
+	^Adjust		SetTmp() Run("Run <StrongED$Tmp_ToolPath>.!FTPupSED VerifySite")
+
+	^Drag		SetTmp() Run("Run <StrongED$Tmp_ToolPath>.!FTPupSED AddNewSite")
+End

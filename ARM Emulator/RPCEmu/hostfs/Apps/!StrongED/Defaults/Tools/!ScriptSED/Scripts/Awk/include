@@ -1,0 +1,43 @@
+#! awk
+# Expand @include directives recursively.
+# Cycles are trapped.
+
+# Put directive '@include <filename>' by itself
+# at the beginning of a line in your text.
+# Applying this script will replace the
+# directive by the contents of <filename>.
+ 
+BEGIN {
+  stkptr = 0
+  if ((infile = ARGV[1]) == "")
+  {
+   print "No awk program set\n"
+   exit 1
+  }
+  inc[stkptr] = infile
+  for (; stkptr >= 0; stkptr--)
+  {
+   while ((getline < inc[stkptr]) > 0)
+   {
+    if (tolower($1) != "@include")
+    {
+     print
+     continue
+    }
+    infile = $2
+    if (infile == "")
+    {
+     printf("igawk:%s:%d cannot find %s\n", inc[stkptr], FNR, $2) 
+     continue
+    }
+    if (! (infile in seen))
+    {
+     seen[infile] = inc[stkptr]
+     inc[++stkptr] = infile
+    }
+    else
+     print $2, "included in", inc[stkptr], "already included in", seen[infile]
+   }
+   close(inc[stkptr])
+  }
+}

@@ -1,0 +1,122 @@
+===========================================================================
+    SpeakSED
+===========================================================================
+
+
+Introduction
+============
+
+    SpeakSED allows you to use eSpeak, by Jonathan Duddington, to read
+    StrongED texts aloud.
+
+    For this to work eSpeak must be installed on your system and seen by
+    the Filer. See the Installation section below for details.
+
+
+Installation
+============
+
+    You don't have to install SpeakSED itself as it comes included with
+    StrongED but you may have to install eSpeak which is used by SpeakSED to
+    do the actual speaking.
+
+Installing eSpeak
+
+    To install eSpeak you'll first need to download the RISC OS version from
+    the <eSpeak website=>#url http://espeak.sourceforge.net> (eSpeak
+    requires RISC OS 3.6 or later with 16 bit sound system enabled).
+
+    After downloading, copy !eSpeak to a location, of your choosing, on your
+    harddisc. Double-click eSpeak to load the Speak module. You can now use
+    SpeakSED to read StrongED texts out loud through eSpeak.
+
+    If you want to use SpeakSED regularly without having to Double-click
+    eSpeak each time you can either:
+
+    - Add eSpeak to Boot -> Look at
+
+      Open the root directory of your harddisc and double-click '!Boot'. In
+      the window that opens, click on 'Boot' and then click 'Look at'. Drag
+      the eSpeak application to the 'look at' window.
+
+    - Add eSpeak to Boot.Resources
+
+      Open the root directory of your harddisc and double-click '!Boot'
+      with Shift held down to open the '!Boot' directory. Next open the
+      'Resources' directory and drag the eSpeak application to this
+      directory.
+
+
+How to use
+==========
+
+    Using SpeakSED is very simple. Clicking on the 'Speak' icon on
+    StrongED's toolbar opens the SpeakSED window.
+
+    Click the 'Speak' button to start the text being read out loud. Click
+    the same button again, now labeled 'Mute', to stop.
+
+    The 'Close' button will close the window. This will also stop the
+    speech, if active.
+
+
+Configuration
+=============
+
+    SpeakSED provides access to some of eSpeak's command line options.
+    These are the voice, the speed and the volume used when a text is spoken.
+
+    To make changes to the settings permanent click on the 'Save' button.
+
+
+Licence
+=======
+
+    SpeakSED is released as Free Software. It must only be distributed in
+    its original form and there must be no charge for it (except possibly
+    for covering media costs).
+
+    Note that this software is provided in good faith and no guarantee is
+    provided for suitability or reliably. The author shall not be held
+    responsible for any loss of data, or other problems arising from the use
+    of this program.
+
+
+Contact
+=======
+
+    If you have any comments, questions, suggestions or bug reports
+    relating to SpeakSED then please use either the mailing list
+    (preferred) or the email address listed below.
+
+  New versions
+
+    New versions of SpeakSED are normally shipped with the main StrongED
+    application.
+
+  Mailing list
+
+    Please use the StrongED mailing list if you have any questions
+    relating to SpeakSED.
+
+    For a standard subscription send a blank email to
+    StrongED+subscribe@Torrens.org.uk. The StrongED mailing list, run by
+    Richard Torrens, offers several other subscribe options.
+
+  Email
+
+    If you feel there's a need to contact me directly then please mail to:
+    fjgraute@planet.nl
+
+
+History
+=======
+
+  v1.01 (05 Oct 2014) - Better error message
+
+    è When eSpeak wasn't available the error 'SWI name not known in Speak'
+      was raised which wasn't very user friendly. Now a more informative
+      message is shown and the SpeakSED manual is opened.
+
+  v1.00 (20 Sep 2011) - First working version
+

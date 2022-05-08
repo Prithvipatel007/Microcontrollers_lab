@@ -1,0 +1,46 @@
+| Run file for StrongED.
+| © StrongED Developers.
+
+| Call !Boot just to make sure
+Obey <Obey$Dir>.!Boot
+
+| StrongED needs at least RISC OS 3.10 to run.
+If StrongED$OSVsn < 310 Then Error 0 StrongED needs RISC OS 3.10 or later.
+
+| Don't use dynamic areas on RISC OS 3.1x or 5.xx.
+If StrongED$OSVsn >= 350 Then Set StrongED$UseDA 1 Else Set StrongED$UseDA 0
+If StrongED$OSVsn >= 500 AND StrongED$OSVsn < 600 Then Set StrongED$UseDA 0
+
+| StrongED uses CallASWI so make sure it's available.
+RMEnsure UtilityModule 3.70 RMEnsure CallASWI 0.02 RMLoad System:Modules.CallASWI
+RMEnsure UtilityModule 3.70 RMEnsure CallASWI 0.02 Error StrongED requires CallASWI 0.02 or later
+
+| Ensure we have a scrap directory.
+If "<Wimp$ScrapDir>" = "" Then Error 0 Please locate !Scrap
+IfThere <Wimp$ScrapDir>.StrongED Then Else CDir <Wimp$ScrapDir>.StrongED
+Set StrongED$ScrapDir <Wimp$ScrapDir>.StrongED
+
+| Ensure the modules StrongED needs are loaded.
+RMEnsure Dialogue    1.12 RMLoad <StrongED$Dir>.Tools.Dialogue
+RMEnsure BasicRunner 2.01 RMLoad <StrongED$Dir>.Tools.BasicRun
+RMEnsure StrongTask  1.02 RMLoad <StrongED$Dir>.Tools.StrongTask
+RMEnsure KeyExtend   0.19 RMLoad <StrongED$Dir>.Tools.KeyExtend
+Desktop_KeyExtend
+
+| Cater for old style Tmp$* variables used in older modes.
+Obey <StrongED$Dir>.StartUp.OldTmps
+
+| Initialisation stuff that the user may want to alter.
+Obey StrongED_Read:StartUp.UserInit
+
+| Run ResFind to figure out which set of resources to use.
+WimpSlot -min 64k -max 64k
+Run <StrongED$Dir>.Tools.ResFind StrongED
+
+| Find out some information about BASIC.
+WimpSlot -min 64k -max 64k
+Run <StrongED$Dir>.Tools.Export
+
+| Finally set wimpslot and run StrongED.
+WimpSlot -min 512k -max 512k
+Run <StrongED$Dir>.!RunImage %*0

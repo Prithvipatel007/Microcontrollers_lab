@@ -1,0 +1,156 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : Forth
+#	Purpose : Mode file for StrongED (Forthmacs environment editor)
+#	Author  : Hanno Schwalm, schwalm@bre.winnet.de (Org: Schwalm Forthware)
+#	Licence : ?
+#	Version : 1.00, 22-12-2011
+#
+#-------------------------------------------------------------------------------
+# 22-12-11 FG Changed 'Type' to 'CommentType' in SyntaxComment
+#          FG Use StrongED$Tmp_FileName to point to current file
+#          FG Tabified the ModeFile so it matches other modes
+#          FG Changed above header so it's in line with other modes
+#          FG Made up a version number to make it easier to signal changes
+#-------------------------------------------------------------------------------
+
+# Now change the colouring in StrongED according to these recommendations
+# or leave that if you don't want syntax colouring.
+# Text -    black on white
+# Carret -  red on red
+# block -   black on grey
+# mark -    white on red
+# control - red on white
+# id -      black on white
+# strings - black on white
+#   strings can't be safely defined as the syntax varies very much
+# comm -    light grey on white
+# numbers - black on white
+#   numbers can be in any number base so ...
+# punct. -  black on white . no use in Forth
+# 1 -       lightblue on white
+# 2 -       green on white
+# 3 -       red on white
+# 4 -       orange on white
+# 5 -       black on white, this defines non-comment \ combinations
+# 6 -       grey on white - comment
+# 7 -       black on white, non-comment ( combinations
+# 8 -       black on white, non comment (s combinations
+
+Foldparm1 ("\\ \<","\\ \>",,case)
+Foldparm2 (":","\;",,case)
+
+# Forthmacs - as all Forths - uses ONLY and ALL whitespaces as 'word-limiting'
+# characters. ALL other characters belong to a word.
+Search
+	_MarkWord	{'~\x00-\x20\x7F\xa0'}+
+End
+
+ID_FirstChar	A-Za-z_0-9.:,;\-\_#'\+*~\?\/&%$§"!^°@|[](){}ß<>
+ID_Middle	A-Za-z_0-9.:,;\-\_#'\+*~\?\/&%$§"!^°@|[](){}ß<>
+
+
+# These seem to be used for defining quote-meanings, there is no real
+# use in Forth.
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	No
+	QuoteQuote	No
+	SplitString	No
+	HexPrefix	$
+	BinPrefix	%
+End
+
+# There a 4 Forth comment types available.
+# 1-2 The words (s and ( both start comments. These comments can be multiline
+# and end at the next available ) character. This character can be anywhere
+# in the same file and can be found in ANY character combination
+# 3 The word \ begins a comment the comment ends at the end-of-line
+# 4 fexit begins a comment, the comment ends at the end-of-file. This is used
+# very rarely, so no need to implement.
+# So far, Multiline comments 1-2 are not accepted, but this is also almost
+# never used in practice
+SyntaxComment 1
+	CommentType	Multiline
+	StartWith	"( "
+	EndWith		)
+End
+
+SyntaxComment 2
+	CommentType	Multiline
+	StartWith	"(s "
+	EndWith		)
+End
+
+# The first four syntax groups define common Forth keywords
+SyntaxWords Group1 EndNonID case
+	do ?do loop +loop leave ?leave if else then ?exit exit unnest
+	begin until again repeat while
+	of case endof endcase
+End
+
+SyntaxWords Group2 EndNonID case
+	: constant variable create code label nuser auser tuser
+	user value locals| 2variable 2constant defer vocabulary
+	pointer buffer: field struct task: action: action-name
+	mlabel syscall: alias libcall: environment:
+End
+
+SyntaxWords Group3 EndNonID case
+	needs \needs [ifdef] [else] [then] [ifndef] [if]
+	headers headerless headerless0 \rel \abs \ttc \dtc \itc \t32 \t16
+End
+
+SyntaxWords Group4 EndNonID case
+	does> ; ;code end-code c; code[ ]code next return immediate
+	decimal hex
+End
+
+SyntaxWords Group5 EndofID case
+	\a \b \c \d \e \f \g \h \i \j \k \l \m
+	\n \o \p \q \r \s \t \u \v \w \x \y \z
+	\A \B \C \D \E \F \G \H \I \J \K \L \M
+	\N \O \P \Q \R \S \T \U \V \W \X \Y \Z
+	\1 \2 \3 \4 \5 \6 \7 \8 \9 \0 \= \+ \- \_
+	\? \! \" \$ \% \* \/ \~ \# \' \( \) \[ \]
+	\{ \} \< \> \| \; \: \. \,
+End
+
+SyntaxWords Group6 EndofLine
+	\
+End
+
+#SyntaxWords Group7 EndofID case
+#	(a (b (c (d (e (f (g (h (i (j (k (l (m
+#	(n (o (p (q (r (t (u (v (w (x (y (z
+#	(A (B (C (D (E (F (G (H (I (J (K (L (M
+#	(N (O (P (Q (R (S (T (U (V (W (X (Y (Z
+#	(1 (2 (3 (4 (5 (6 (7 (8 (9 (0 (= (+ (- (_
+#	(? (! (" ($ (% (* (/ (~ (# (' (( () ([ (]
+#	({ (} (< (> (| (; (: (. (,
+#End
+#SyntaxWords Group8 EndofID case
+#	(sa (sb (sc (sd (se (sf (sg (sh (si (sj (sk (sl (sm
+#	(sn (so (sp (sq (sr (st (su (sv (sw (sx (sy (sz
+#	(sA (sB (sC (sD (sE (sF (sG (sH (sI (sJ (sK (sL (sM
+#	(sN (sO (sP (sQ (sR (sS (sT (sU (sV (sW (sX (sY (sZ
+#	(s1 (s2 (s3 (s4 (s5 (s6 (s7 (s8 (s9 (s0 (s= (s+ (s- (s_
+#	(s? (s! (s" (s$ (s% (s* (s/ (s~ (s# (s' (s(s (s) (s[ (s]
+#	(s{ (s} (s< (s> (s| (s; (s: (s. (s,
+#End
+
+Functions
+	Key	‹^H
+	Menu	Help Search ‹^H
+	Icon	sm!Help
+	Help	Online help about word under cursor
+	Select	SetTmp() Run ("Forthmacs:risc_os.bin.search xxx") DClick ("<Forthmacs$Dir>.docs.html.searchfile")
+
+	Key	F10
+	Menu	Save & fload      F10
+	Icon	Run
+	Help	Click to save file and fload it.
+	Select	SaveRun ("Forthmacs:risc_os.bin.run.forth <StrongED$Tmp_FileName>")
+End
+
+

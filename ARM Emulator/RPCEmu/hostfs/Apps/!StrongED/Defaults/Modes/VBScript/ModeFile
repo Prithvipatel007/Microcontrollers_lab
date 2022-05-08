@@ -1,0 +1,238 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : VBScript
+#	Purpose : VBScript StrongED mode file for .VBS files
+#	Author  : Ewen Pring
+#	Licence :
+#	Version : 1.00, 22-12-2011
+#
+#-------------------------------------------------------------------------------
+# 22-12-11 FG Changed 'Type' to 'CommentType' in SyntaxComment
+#          FG Made up a version number to make it easier to signal changes
+#-------------------------------------------------------------------------------
+
+# Known problems/ feature requests
+#
+# -Custom methods and properties (group 5) are not recognised if there is more than one string in group 4 starting with the same letter
+
+ID_FirstChar	A-Za-z_öäüÖÄÜ
+ID_Middle	A-Za-z_0-9öäüÖÄÜ ^
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteQuote	No
+	SplitString	No
+End
+
+SyntaxComment 1
+	CommentType	Oneline
+	StartWith	"rem "
+End
+
+SyntaxComment 2
+	CommentType	Oneline
+	StartWith	"'"
+End
+
+# statements
+SyntaxWords Group1 nocase EndNonID
+# following are statements only
+	call
+	class
+	const
+	dim redim preserve
+	do loop until
+	while wend
+	erase
+	execute executeglobal
+	exit
+	"end"
+	for each in next to step
+	function sub
+	if then else elseif
+	"on error" "resume next" "goto 0"
+	"option explicit"
+	private public default
+	"property get"
+	"property let"
+	"property set"
+	randomize
+	"select case" case
+	set new
+	stop
+	with
+End
+
+# inbuilt functions and events
+SyntaxWords Group2 nocase EndNonID
+# following are inbuilt functions only
+	abs array asc atn cBool cByte cBur cDate cDbl chr cInt cLng cos createObject cSng cStr date dateAdd dateDiff datePart dateSerial dateValue day escape eval exp filter formatCurrency formatDateTime formatNumber formatPercent getLocale getObject getRef hex hour inputBox instr instrRev int fix isArray isDate isEmpty isNull isNumeric isObject join lBound lCase left len loadPicture log lTrim rTrim trim mid minute month monthName msgBox now oct replace rgb right rnd round scriptEngine scriptEngineBuildVersion scriptEngineMajorVersion scriptEngineMinorVersion second setLocale sgn sin space split sqr strComp string strReverse tan time timer timeSerial timeValue typeName uBound uCase unEscape varType weekday weekdayName year
+# following are events only
+	Class_Initialize Class_Terminate
+End
+
+# constants and keywords
+SyntaxWords Group3 nocase EndNonID
+# following are constants only
+	vbBlack vbRed vbGreen vbYellow vbBlue vbMagenta vbCyan vbWhite
+	vbBinaryCompare vbTextCompare
+	vbSunday vbMonday vbTuesday vbWednesday vbThursday vbFriday vbSaturday vbUseSystemDayOfWeek vbFirstJan1 vbFirstFourDays vbFirstFullWeek
+	vbGeneralDate vbLongDate vbShortDate vbLongTime vbShortTime
+	vbObjectError
+	vbOKOnly vbOKCancel vbAbortRetryIgnore vbYesNoCancel vbYesNo vbRetryCancel vbCritical vbQuestion vbExclamation vbInformation vbDefaultButton1 vbDefaultButton2 vbDefaultButton3 vbDefaultButton4 vbApplicationModal vbSystemModal vbOK vbCancel vbAbort vbRetry vbIgnore vbYes vbNo
+	vbCr vbCrLf vbFormFeed vbLf vbNewLine vbNullChar vbNullString vbTab vbVerticalTab
+	vbUseDefault vbTrue vbFalse
+	vbEmpty vbNull vbInteger vbLong vbSingle vbDouble vbCurrency vbDate vbString vbObject vbError vbBoolean vbVariant vbDataObject vbDecimal vbByte vbarray
+# following are keywords only
+	Empty False Nothing Null True
+End
+
+# inbuilt objects, methods and properties
+SyntaxWords Group4 nocase EndAlways
+# following are objects only
+	Debug
+	Match
+	RegEx
+	Err
+# following are methods only
+	.Add
+	.AddCode
+	.BuildPath
+	.Clear
+	.Close
+	.Copy
+	.CopyFile
+	.CopyFolder
+	.CreateFolder
+	.CreateTextFile
+	.Delete
+	.DeleteFile
+	.DeleteFolder
+	.DriveExists
+	.Execute
+	.Exists
+	.FileExists
+	.FolderExists
+	.GetAbsolutePathName
+	.GetBaseName
+	.GetDrive
+	.GetDriveName
+	.GetExtensionName
+	.GetFile
+	.GetFileVersion
+	.GetFileName
+	.GetFolder
+	.GetParentFolderName
+	.GetSpecialFolder
+	.GetStandardStream
+	.GetTempName
+	.Items
+	.Keys
+	.Move
+	.MoveFile
+	.MoveFolder
+	.OpenAsTextStream
+	.OpenTextFile
+	.Raise
+	.Read
+	.ReadAll
+	.ReadLine
+	.Remove
+	.RemoveAll
+	.Replace
+	.Run
+	.Skip
+	.SkipLine
+	.Test
+	.Write
+	.WriteBlankLines
+	.WriteLine
+# following are properties only
+	.AtEndOfLine
+	.AtEndOfStream
+	.Attributes
+	.AvailableSpace
+	.Column
+	.CompareMode
+	.Count
+	.DateCreated
+	.DateLastAccessed
+	.DateLastModified
+	.Description
+	.Drive
+	.DriveLetter
+	.Drives
+	.DriveType
+	.Files
+	.FileSystem
+	.FirstIndex
+	.FreeSpace
+	.Global
+	.HelpContext
+	.HelpFile
+	.IgnoreCase
+	.IsReady
+	.IsRootFolder
+	.Item
+	.Key
+	.Length
+	.Line
+	.Name
+	.Number
+	.ParentFolder
+	.Path
+	.Pattern
+	.RootFolder
+	.SerialNumber
+	.ShareName
+	.ShortName
+	.ShortPath
+	.Size
+	.Source
+	.SubFolders
+	.TotalSize
+	.Type
+	.Value
+	.VolumeName
+End
+
+# custom methods and properties
+SyntaxWords Group5 nocase EndOfID
+	.
+End
+
+# Operators
+SyntaxWords Group6 nocase EndAlways
+# following are logical operators only
+	"or "
+	"not "
+	"and "
+	"xor "
+# following are arithmetic operators only
+	"^"
+	"*"
+	"/"
+	\
+	"mod "
+	"+"
+	"-"
+# following are comparison operators
+	>
+	<
+	=
+End
+
+Search
+	Func	"function" | "sub"
+End
+
+Functions
+
+	Key	‹F2
+	Menu	List functions and subs (alphabetic)  ‹F2
+	Icon	funcsub
+#	Help	HBa_lof
+	Select	ListOfFound (Func,Text,Align,Line,NoCase,Sort)
+
+End

@@ -1,0 +1,8 @@
+Rules Exclude
+# Any exclude rules go here
+End
+
+Rules Include
+! *, **
+  fff, **
+End

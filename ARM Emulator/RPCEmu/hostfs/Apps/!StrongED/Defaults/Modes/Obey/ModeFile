@@ -1,0 +1,197 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : Obey
+#	Purpose : StrongED ModeFile for Obey files
+#	Author  : © D. Wagner
+#	Licence : (?) Freeware
+#	Version : 1.03, 21-12-2011
+#
+#-------------------------------------------------------------------------------
+#
+# -- History -----------------------------------------------------------------
+# 16.06.97 DW First version by D.Wagner
+# 04.11.98 GV Trimmed the set of reserved words and translated to english
+# 19.01.99 GV Added ADFS:: SCSI:: RAM:: to the list of reserved words
+# 02.07.00 JW Added IDEFS:: IZipFS::
+# 25.05.01 CB Added hard space and ^ to valid filepath characters.
+#             Extra filing systems, system paths, and a few more *commands.
+#             Moved IfThere, Repeat and RMEnsure with other flow-ctrl commands
+#             New case-sensitive SyntaxWords group for *Eval operators.
+# 11.07.01 FG Created a separate SyntaxWords group for Error
+#             Created a SyntaxWords group to pick up GSTrans'ed strings
+#             Made matching of commands in Group 1 case-insensitive
+#             Turned off SingleQuote strings & QuoteQuote
+#             Added HelpPath
+# 29.10.01 FG Added "< " and "> " to eval operators
+# 22.09.02 FG Added function to run file
+# 16.11.03 FG Added QuoteChar to SyntaxOptions
+# 16.11.03 FG Instead of Obeying the file it is now Run
+# 21.12.11 FG Replaced old Tmp$* variables with new StrongED$Tmp_* ones
+#          FG Changed 'Type' to 'CommentType' in SyntaxComment
+# ----------------------------------------------------------------------------
+#    StrongED$FoldParm1 = ("#-",,Startofline)
+
+
+HelpPath	StarCmds,
+
+
+#--- ID-Definition
+
+ID_FirstChar	A-Za-z_öäüÖÄÜ
+ID_Middle	A-Za-z_0-9/~+\-:?%@#$!öäüÖÄÜ ^
+
+
+#--- Search
+
+Search
+	SysAllowed	{'A-Za-z_0-9./~+\-:;?@=&%'}+
+	Pathname	"<" SysAllowed "$dir>" [SysAllowed]
+	SysVar		SysAllowed "$" SysAllowed
+	SysVarDir	SysAllowed "$dir"
+End
+
+
+KeyList
+#	c-Space		BlockClear Push BlockMark_Continous WordLeft BlockMark_Continous Pop InsertStr(" ") SetTmp Process(Block,"Run <StrongED$Tmp_ToolPath>.KeywordFix") BlockClear
+	c-Space		InsertStr(" ") Push WordLeft MarkWord Pop SetTmp Process(Block,"Run <StrongED$Tmp_ToolPath>.KeywordFix") BlockClear
+End
+
+#--- Clicklist
+#    Note: Pathname is checked in both lists, because when using filer_run the
+#    filer checks if shift is down to decide what to do. (ie shift-dclick on
+#    a pathname to load file into StrongED, noshift will run it instead.)
+
+ClickList select2
+	Pathname	Run ("Do Filer_Run <StrongED$Tmp_MarkWord>")
+	SysVarDir	Run ("Filer_OpenDir |<<StrongED$Tmp_MarkWord>>")
+End
+
+ClickList s-Select2
+	Pathname	Run ("Do Filer_Run <StrongED$Tmp_MarkWord>")
+	SysVar		Run ("Error 0 Variable \"<StrongED$Tmp_MarkWord>\" value: |<<StrongED$Tmp_MarkWord>> ")
+End
+
+#--- Functions
+
+Functions
+	Key		F10
+	Menu		Save & Run
+	Icon		Run
+	Help		Hobey_run
+	Select		SetTmp() SaveDClick("<StrongED$Tmp_FileName>")
+#	Select		SetTmp() SaveRun("Run <StrongED$Tmp_FileName>")
+
+	Adjust		SetTmp() Run("IfThere <StrongED$Tmp_FileName> Then Run <StrongED$Tmp_FileName>")
+
+	c-Select	SetTmp() Process(,"Run <StrongED$Tmp_ModePath>.Tools.Newfile",,NoReplace)
+
+	c-Adjust	SetTmp() Process(,"Run <StrongED$Tmp_ModePath>.Tools.Newfile2",,NoReplace)
+End
+
+
+#--- SyntaxOptions
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteQuote	No
+	QuoteChar	\
+	SplitString	No
+End
+
+SyntaxComment 1
+	CommentType	Oneline
+	StartWith	|
+End
+
+
+#--- Obey-Commands
+#    (Only a minimal set, so the data structure doesn't get too big)
+
+SyntaxWords Group1 nocase EndNonID
+	/
+	Access AddApp AddMap AddTinyDir Alphabet Alphabets Append Audio
+	Back BackDrop Backup BASIC BASIC64 BlankTime BreakClr BreakList
+	BreakSet Build Bye
+	Cache Cat CDir ChangeDynamicArea ChannelVoice CheckMap Close
+	Compact Configure Continue Copy CopyBoot Count Create
+	Debug Defect Delete Desktop Dir Dismount DosMap Drive Dump
+	Echo EnumDir Eval Ex Exec
+	FileInfo Filer_Action Filer_Boot Filer_CloseDir Filer_OpenDir Filer_Run
+	Filters FontCat FontInstall FontLibrary FontList FontRemove Format Free
+	FS FSLock_ChangePassword FSLock_Lock FSLock_Status FSLock_Unlock FX
+	Go GOS
+	Help
+	IconSprites Ignore InetConfig InetInfo Info InitStore
+	Key Keyboard
+	LCat LEx Lib List ListPS Load LoadFontCache LoadModeFile Logon
+	Map Memory MemoryA MemoryI ModelList Modules Mount
+	NameDis Net NetMap NetProbe NetStat NoDir NoLib NoUrd
+	Obey Obey2 Opt
+	Pass Pin Pinboard PipeCopy PoduleLoad Podules PoduleSave Pointer Print
+	PS
+	QSound Quit
+	Ram Remove RemoveTinyDir Rename RMClear RMFaster RMInsert
+	RMKill RMLoad RMReInit RMRun RMTidy ROMModules Run
+	Save SaveFontCache SChose SCopy ScreenLoad ScreenSave SCSI SDelete
+	SDisc Set SetEval SetMacro SetPS SetType SFlipX SFlipY SGet Shadow
+	ShellCLI ShellCLI_Task ShellCLI_TaskQuit Show ShowFree ShowRegs Shut
+	ShutDown SInfo SList SLoad SMerge
+	SNew Sound Speaker Spool SpoolOn SRename SSave Stamp Status Stereo
+	TaskWindow Tempo Territories Time ToolSprites Tuning TV Type
+	Unplug Unset Up URD
+	Verify Voices Volume vrmload vrmrun
+	WimpKillSprite WimpMode WimpPalette WimpSlot WimpTask WimpWriteDir Wipe
+End
+
+# Execution-control statements
+SyntaxWords Group2 nocase EndNonID
+	If Then Else IfThere Repeat RMEnsure
+End
+
+# Error
+SyntaxWords Group3 nocase EndNonID
+	Error
+End
+
+# Eval operators...
+SyntaxWords Group4 case EndAlways
+	STR VAL
+	AND OR EOR NOT
+	RIGHT LEFT LEN
+	= <> ( )
+	<< >> >>> + MOD
+	"< " " >"
+End
+
+# Colouring pathnames; RAM::RamDisc0.$.xxxx.yyyy.zzzz
+# All these bits will be coloured in the same colour, and look like one.
+SyntaxWords Group5 nocase EndOfID
+	.
+	ADFS:: CDFS:: IDEFS:: SCSI:: SCSIFS:: IZipFS:: RAM::
+	Pipe: Resources: devices: devices# Net: Net#
+	Boot: BootResources: System: Choices: Inet: InetDBase:
+End
+
+# GSTrans'ed strings
+SyntaxWords Group6 nocase EndOfID
+	<
+	>
+End
+
+# Command options; -xxxx
+SyntaxWords Group7 nocase EndOfID
+	-
+End
+
+# Common *Set variable names
+SyntaxWords Group8 nocase EndOfID
+	Alias$@EditType_
+	Alias$@LoadType_
+	Alias$@PrintType_
+	Alias$@RunType_
+	Alias$TaskWindow
+	File$Type_
+	OLEServer$Type_
+	TaskWindow$Server
+End

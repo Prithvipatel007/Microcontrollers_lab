@@ -1,0 +1,19 @@
+# Messages for DrWimp mode
+# © StrongED Developers
+
+HBa_lof:Click to list all Functions and Procedures.|MShift-click to list all assembly labels.|M\Slook in this file only.|M\Alook in all open files.
+HBa_updn:\Sgo to next function or procedure.|M\Ago to previous function or procedure.|MShift-\Sgo to next assembly label.|MShift-\Ago to previous assembly label.
+HBa_run:\Stokenise program and run it.|M\Arun it in a taskwindow.|MIf you hold down Shift the file will be saved before being run.
+HBa_go:Click to go to definition of Procedure or Function at caret.|MShift-click to go to definition of assembly label at caret.|M\Slook in this file only.|M\Alook in all open files.
+
+# Syntax colouring groups
+Group1:Misc 1
+Group2:Misc 2
+Group3:FN & PROC
+Group4:Graphics
+Group5:Input/Output
+Group6:Sound
+Group7:Arithmetic
+Group8:Logical
+Group9:User FNs & PROCs
+Group10:DrWimp FNs & PROCs

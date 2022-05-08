@@ -1,0 +1,6 @@
+#! awk
+# Number all lines
+{
+  printf( "%8d ",  ++line );
+  print;
+}

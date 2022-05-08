@@ -1,0 +1,238 @@
+#-------------------------------------------------------------------------------
+#
+# Name    : Ada
+# Purpose : StrongED mode file for Ada source code (both ads and adb)
+# Author  : Bent Bracke bbracke@web.de
+# Licence : Public Domain
+# Version : 3.3, 12-11-2011
+#
+#-------------------------------------------------------------------------------
+# 20.07.2001 BB Syntax check, semantic check functions
+# 19.07.2001 BB Added funcproc search and FoldParm2 taken from thr Pascal modefile
+# 25.01.2002 BB Added shortcuts for procedure and function specifications
+#            BB Miscallaneous changes to shortcuts
+#            BB 'tagged' and 'abstract' added to SyntaxWords
+# 05.08.2002 BB 'aliased' added to SyntaxWords
+# 26.08.2002 BB pragmas added to Syntaxwords
+# 29.08.2002 BB Attributes, exceptions  and some standard types added to syntaxwords
+# 30.08.2002 BB ooops...forgot 'address attribute - added.
+# 12.11.2011 FG Replace old Tmp$* variables with new StrongED$Tmp_* ones
+#            FG Minor tidy up, SyntaxComment, key definitions
+#-------------------------------------------------------------------------------
+
+HelpPath Ada95-RM,
+FoldParm1 (fold_start,fold_end,startofline, nocase)
+
+#--------------------------------
+
+Search
+	_spctcr		{" " | "\t" | NL}+
+	id		Alpha | '_' {AlphaNum | '_'}
+	Func		[_spct] ("accept"|"procedure"|"function" _spct @0 Alpha {Alphanum|"_"}) | ("function" _spct @0 '\"' {'=<>/*+-'|A} '\"')
+	Func2		[_spct] ("accept"|"procedure"|"function") _spctcr @0 CW [([_spctcr] "("**")")] [(_spctcr "return" _spctcr {AlphaNum|"_"})] _spctcr "is"
+	Func3		[_spct] ("type")_spctcr @0 CW _spctcr "is"
+	With_Use	[_spct] ("with"|"use") [_spct Alpha {Alphanum|"_"} [_spct] ','] _spct @0 Alpha {Alphanum|"_"}
+	funcproc	{' '|'\t'} ( "procedure" | "function" ) {' '|'\t'} @0 id
+	fold_start	{' '|'\t'} ("function" | "procedure") {' '|'\t'} id ** "is" {' '|'\t'} NL
+	fold_end	{' '|'\t'} "end" {' '|'\t'} ~ ("if"|"loop"|"case"|"record") id {' '|'\t'} ";" {' '|'\t'} NL
+End
+
+#--------------------------------
+
+ClickList Select2
+	With_Use	SetTmp() LoadOne ("<StrongED$Tmp_FilePath>.^.ads.<StrongED$Tmp_MarkWord>")
+End
+
+#--------------------------------
+
+ID_FirstChar	'A-Za-z
+ID_Middle	A-Za-z_0-9
+ID_LastChar	A-Za-z0-9
+
+#--------------------------------
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteQuote	Yes
+	SplitString	Yes
+	HexPrefix	16#
+	BinPrefix	2#
+End
+
+SyntaxComment
+	CommentType	OneLine
+	StartWith	--
+End
+
+
+SyntaxWords Group1 EndNonID nocase
+	exception raise pragma
+End
+
+SyntaxWords Group2 EndNonID nocase
+	abort accept delay entry exit terminate
+	abs and mod new not or rem xor true false
+End
+
+SyntaxWords Group3 EndNonID nocase
+	Class First Image Last Length Pos
+	Position Pred Round Rounding Size Succ Tag
+	Unchecked_Access Val Value Wide_Image Wide_Value
+	Wide_Width Width
+End
+
+SyntaxWords Group4 EndNonId nocase
+	begin body case declare else elsif end for function generic goto protected
+	if in loop null out package procedure renames return reverse task is
+	then use when while with
+End
+
+SyntaxWords Group5 EndNonID nocase
+	aliased access all constant delta digits limited of private
+	range record subtype type abstract tagged array
+End
+
+SyntaxWords Group6 EndNonID nocase
+# pragmas
+	Atomic_Components Attach_Handler Controlled Convention Discard_Names
+	Elaborate Elaborate_All Elaborate_Body Export Import Inline Inspection_Point
+	Interface Interrupt_Handler Interrupt_Priority Linker_Options List
+	Locking_Policies Memory_Size Normalize_Scalars Optimize Pack Page
+	Preelaborate Priority Pure Queuing_Policy Remote_Call_Interface
+	Remote_Types Restrictions Reviewable Shared Shared_Passive Storage_Size
+	Storage_Unit Suppress System_Name Task_Dispatching_Policy Volatile
+	Volatile_Components
+# Standard exceptions
+	argument_Error communications_error constraint_error conversion_error
+	data_error dereference_error device_error end_error layout_error length_error
+	mode_error name_error numeric_error picture_error pointer_error program_error
+	status_error storage_error tag_error tasking_error teminator_error time_error
+	translation_error update_error use_error
+# Standard types
+	boolean integer natural positive float character wide_character string
+	wide_string duration unsigned unbounded_string address
+	short_integer short_short_integer long_integer long_long_integer
+	short_float short_short_float long_float long_long_float
+End
+
+SyntaxWords Group7 EndAlways nocase
+# attributes
+	"'Copy_Sign" "'Count" "'Definite" "'Delta" "'Denorm" "'Digits" "'Exponent" "'External_Tag"
+	"'First" "'First_Bit" "'Floor" "'Fore" "'Fraction" "'Identity" "'Image" "'Input"
+	"'Last" "'Last_Bit" "'Leading_Part" "'Length" "'Machine" "'Machine_EMax" "'Machine_EMin"
+	"'Machine_Mantissa" "'Mschine_Overflows" "'Machine_Radix" "'Machine_Rounds" "'Max"
+	"'Max_Size_In_Storage_Elements" "'Min 'Model" "'Model_EMin" "'Model_Epsilon"
+	"'Model_Mantissa" "'Model_Small" "'Modulus" "'Output" "'Partition" "'Pos" "'Position"
+	"'Pred" "'Range" "'Read" "'Remainder" "'Round" "'Rounding" "'Safe_First" "'Safe_Last" "'Scale"
+	"'Scaling" "'Signed_Zeros" "'Size" "'Small" "'Storage_Pool" "'Storage_Size" "'Succ" "'Tag"
+	"'Terminated" "'Truncation" "'Unbiased_Rounding" "'Unchecked_Access" "'Val" "'Valid"
+	"'Value" "'Version" "'Wide_Image" "'Wide_Value" "'Width" "'Write" "'address"
+End
+
+#--------------------------------
+
+#KeyList
+#	‹F1	Run ("Obey <StrongED$Tmp_ModePath>.!Help")
+#end
+
+Functions
+	Key	‹F2
+	Menu	List of functions ‹F2
+	Icon	LoF
+	Select	ListOfFound (Func,All,Whole,Line,NoCase,Sort)
+	Help	Hada_lof
+
+	Key	‹PgUp
+	Icon	up
+	Select	GotoPrev (Func,All,NoLine,NoCase)
+	Help	Hada_prev
+
+	Adjust	GotoNext (Func,All,NoLine,NoCase)
+
+	Key	‹PgDown
+	Icon	down
+	Select	GotoNext (Func,All,NoLine,NoCase)
+	Help	Hada_next
+
+	Adjust	GotoPrev (Func,All,NoLine,NoCase)
+
+	Key	^G 1
+	Menu	Goto definition ^G
+	Icon	ada_fndef
+	Select	Push GotoFound (Func2,All,Whole,Line,NoCase)
+	Help	Hada_def
+
+	Key	^G 2
+	‹Select	Pop
+
+	Key	^‹S 1
+	Menu	Find type ^‹S
+	Icon	ada_type
+	Help	Hada_goto
+	Select	Push GotoFound(Func3,All,Whole,Line,NoCase)
+
+	Key	^‹S 2
+	‹Select	Pop
+
+	Key	^D
+	Menu	Load .ads ^D
+	Icon	ada_ads
+	Help	Hada_spec
+	Select	SetTmp() LoadOne ("<StrongED$Tmp_FilePath>.^.ads.<StrongED$Tmp_FileLeaf>")
+
+	Key	F10
+	Menu	make RunImage      F10
+	Icon	brick
+	Help	Hada_make
+	Select	SetTmp() Run ("taskwindow \"gnatmake runimage -cargs -mthrowback -largs -mstubs -lgnat_cc\" -name \"GNAT\" -wimpslot 6000K")
+
+	Adjust	SetTmp() SaveRun ("taskwindow \"gnatmake runimage -cargs -mthrowback -largs -mstubs -lgnat_cc\" -name \"GNAT\" -wimpslot 6000K")
+
+	Key	‹F10
+	Menu	Syntax check ‹F10
+	Icon	ada_syntax
+	Help	Hada_stx
+	Select	SetTmp() Run ("taskwindow \"gcc -c -mthrowback -gnats <StrongED$Tmp_FileName> \" -name \"GNAT syntax check\" -wimpslot 6000K")
+
+	Adjust	SetTmp() SaveRun ("taskwindow \"gcc -c -mthrowback -gnats <StrongED$Tmp_FileName> \" -name \"GNAT syntax check\" -wimpslot 6000K")
+
+	Key	^F10
+	Menu	Semantic check ^F10
+	Icon	ada_semantic
+	Help	Hada_smt
+	Select	SetTmp() Run ("taskwindow \"gcc -c -mthrowback -gnatc <StrongED$Tmp_FileName> \" -name \"GNAT semantic check\" -wimpslot 6000K")
+
+	Adjust	SetTmp() SaveRun ("taskwindow \"gcc -c -mthrowback -gnatc <StrongED$Tmp_FileName> \" -name \"GNAT semantic check\" -wimpslot 6000K")
+
+	Menu	View Ada mode manual
+	Help	Hada_man
+	Select	Run ("Obey <StrongED$Tmp_ModePath>.!Help")
+End
+
+#--------------------------------
+
+Shortcuts
+	p(	procedure \@ (\@) is\n\n\ibegin\n\i   ;\n\iend \@;
+	f(	function \@ (\@) return \@ is\n   \n\ibegin\n\i   ;\n\iend \@;
+	p[	procedure \@ (\@);\n\n\i\@
+	f[	function \@ (\@) return \@;\n\n\i\@
+	body.	package body \@ is\n\i\n\i  \n\iend \@;
+	spec.	package \@ is\n\i\n\i   \n\iprivate\n\iend \@;
+	case.	case \@ is\n\iwhen \@ \T\T=> \@;\n\iwhen others\T=> ;\@\n\iend case;  -- \@
+	decl.	\i\@:\n\ideclare\n\i\n\i-- \@\n\i   \@\n\ibegin\n\i   \@;\n\iend \@;
+	for.	\i\@:\n\ifor \@ in \@ loop\n\i   \@;\n\iend loop \@;
+	if.	if \@ then\n\i   \@;\n\i\@\n\iend if;
+	else.	else\n\i   \@;
+	elsif.	elsif \@ then\n\i   \@;\n\i\@
+	loop.	\i\@:\n\iloop\n\i   \@;\n\iend loop \@;
+	while.	\i\@:\n\iwhile \@ loop\n\i   \@;\n\iend loop \@;
+	rep(	Reporter.Report("\@");\n\i\@
+	beg.	begin\n\i\@\n\i   \@\n\iend;
+	acc.	accept \@ do\n\i   \n\iend \@;
+	sep.	seperate (\@)\n\i\@\n\iend \@;
+	type.	type \@ is new \@ with\n\i   record\n\i\T  \@\n\i   end record;
+	tag.	type \@ is tagged\n\i   record\n\i   \@\n\iend record;
+	with.	with \@;\Tuse \@;\n\i\@
+End
+

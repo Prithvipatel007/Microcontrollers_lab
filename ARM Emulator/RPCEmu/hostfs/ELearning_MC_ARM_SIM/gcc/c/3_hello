@@ -1,0 +1,13 @@
+#define SWI_OS_Write0 "0x00002"
+void OS_Write0(int r0)
+{
+  __asm__ ("swi " SWI_OS_Write0);
+}
+
+char str[] = "Hello\n";
+
+int main (void)
+{
+  OS_Write0((int) str);
+  return 0;
+}

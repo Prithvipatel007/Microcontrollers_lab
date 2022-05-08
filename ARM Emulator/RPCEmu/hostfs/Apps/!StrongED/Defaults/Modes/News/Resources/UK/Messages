@@ -1,0 +1,16 @@
+Hnws_list:Lists all Subject lines in a LoF window.|MOnly useful if the file contain multiple articles.
+Hnws_next:Select moves caret to next Subject line|MAdjust moves caret to previous Subject line.
+Hnws_join:Wraps the current paragraph or the selected text.
+Hnws_splt:Unwraps the current paragraph or the selected text.
+Hnws_snd:Formats the selected text to 70 chars, saves it and kills the window.
+Hnws_snp:Select replaces the selected block with: [snip].|mAdjust replaces the selected with an empty line.
+Hnws_sig:Select will remove a quoted sig.|MAdjust will replace quoted sig with sig file.|MCtrl-Select will remove normal sig.|MCtrl-Adjust will replace normal sig with sig file.
+Hnws_tidy:Replace top-bit set characters and control codes by a space.
+
+Group2:Main header lines
+Group3:Other header lines
+Group4:URLs
+Group5:Quote >
+Group6:Quote >>
+Group7:Quote >>>
+Group8:Quote >>>>

@@ -1,0 +1,15 @@
+DIM CODE% (&100)
+P% = CODE%
+[
+.main
+  MOV   R1, #%111
+  ; MOV   R1, #%101
+
+  TSTS  R1, #%010
+
+  MOVNE R0, #1  ; bit =1
+  MOVEQ R0, #0  ; bit =0
+
+  MOV   PC, LR  ; return
+]
+PRINT "R0 = " USR(main)

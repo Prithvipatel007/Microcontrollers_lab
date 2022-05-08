@@ -1,0 +1,20 @@
+# Messages for Lua Mode
+# GCW
+
+HLua_lof:Click to list all Functions.|M\Slook in this file only.|M\Alook in all open files.
+HLua_go:Click to go to definition of Function at caret.|M\Slook in this file only.|M\Alook in all open files.
+HLua_run:Save and run (Adjust- in Taskwindow)
+HLua_compile:SELECT shows disassembly of VM instructions.|MADJUST compiles to VM code.
+HLua_assign:SELECT lists assignments from caret.|MADJUST lists all assignments.
+HLua_here:SELECT lists word at caret from caret.|MADJUST lists word at caret everywhere.
+HLua_label:SELECT list labels from caret.|MADJUST lists all labels.
+
+# Syntax colouring groups
+Group1:Control structs
+Group2:Libraries
+Group3:Keywords
+Group4:Line comments
+Group5:Comparisons
+Group6:Arithmetic
+Group7:Logical
+Group8:Block ops

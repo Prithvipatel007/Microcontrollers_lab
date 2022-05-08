@@ -1,0 +1,7 @@
+#! lua
+n = 1
+for line in io.lines(arg[1]) do
+--    print(n.." "..line)
+    print(n,""," ",line)
+    n = n + 1
+end -- for

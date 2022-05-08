@@ -1,0 +1,307 @@
+&44EC6,,object%,0,component%,Tick%  : REM Menu_SetTick
+&44EC6,,object%,1,component% TO Tick%  : REM Menu_GetTick
+&44EC6,,object%,2,component%,Fade%  : REM Menu_SetFade
+&44EC6,,object%,3,component% TO Fade%  : REM Menu_GetFade
+&44EC6,,object%,4,component%,Text$  : REM Menu_SetEntryText
+&44EC6,,object%,5,component%,buffer%,buffersize%  : REM Menu_GetEntryText
+&44EC6,,object%,6,component%,Sprite$  : REM Menu_SetEntrySprite
+&44EC6,,object%,7,component%,buffer%,buffersize%  : REM Menu_GetEntrySprite
+&44EC6,,object%,8,component%,subshow_id%  : REM Menu_SetSubmenuShow
+&44EC6,,object%,9,component% TO subshow_id% : REM Menu_GetSubmenuShow
+&44EC6,,object%,10,component%,event%  : REM Menu_SetSubMenuEvent
+&44EC6,,object%,11,component% TO ,,,,event%  : REM Menu_GetSubMenuEvent
+&44EC6,,object%,12,component%,object%  : REM Menu_SetClickShow
+&44EC6,,object%,13,component% TO object%  : REM Menu_GetClickShow
+&44EC6,,object%,14,component%,event%  : REM Menu_SetClickEvent
+&44EC6,,object%,15,component% TO ,,,,event%   : REM Menu_GetClickEvent
+&44EC6,,object%,18,component%,Text$  : REM Menu_SetEntryHelpMessage
+&44EC6,,object%,19,component%,buffer%,buffersize%  : REM Menu_GetEntryHelpMessage
+&44EC6,,object%,16,Text$  : REM Menu_SetHelpMessage
+&44EC6,,object%,17,buffer%,buffersize%  : REM Menu_GetHelpMessage
+&44EC6,,object%,20,location%,template%  : REM Menu_AddEntry
+&44EC6,,object%,21,component%  : REM Menu_RemoveEntry
+&44EC6,,object%,22 TO Height%  : REM Menu_GetHeight
+&44EC6,,object%,23 TO Width%  : REM Menu_GetWidth
+&44EC6,,object%,24,Title$  : REM Menu_SetTitle
+&44EC6,,object%,25,buffer%,buffersize%  : REM Menu_GetTitle
+&44EC6,,object%,128,component%,Text$ : REM ActionButton_SetText
+&44EC6,,object%,129,component%,buffer%,buffersize% : REM ActionButton_GetText
+&44EC6,,object%,130,component%,event% : REM ActionButton_SetEvent
+&44EC6,,object%,131,component% TO event% : REM ActionButton_GetEvent
+&44EC6,,object%,132,component%,object_id%,showflags% : REM ActionButton_SetClickShow
+&44EC6,,object%,133,component% TO object_id%,showflags% : REM ActionButton_GetClickShow
+&44EC6,,object%,961,component%,clearword%,setword% : REM Button_SetFlags
+&44EC6,,object%,960,component% TO flags% : REM Button_GetFlags
+&44EC6,,object%,962,component%,value$ : REM Button_SetValue
+&44EC6,,object%,963,component%,buffer%,buffersize% : REM Button_GetValue
+&44EC6,,object%,964,component%,Valid$ TO : REM Button_SetValidation
+&44EC6,,object%,965,component%,buffer%,buffersize% : REM Button_GetValidation
+&44EC6,,object%,966,component%,fontname$,width%<<4,height%<<4 : REM Button_SetFont
+&44EC6,,object%,0 TO WimpHandle% : REM ColourDbox_GetWimpHandle
+&44EC6,,object%,1 TO DialogueHandle% : REM ColourDbox_GetDialogueHandle
+&44EC6,,object%,2,buffer% : REM ColourDbox_SetColour
+&44EC6,1,object%,2,buffer% : REM ColourDbox_SetColour
+&64EC6,,object%,3,buffer%,buffersize% TO none%   : REM ColourDbox_GetColour
+&44EC6,,object%,4,buffer%  : REM ColourDbox_SetColourModel
+&44EC6,,object%,5,buffer%,buffersize%  : REM ColourDbox_GetColourModel
+&44EC6,,object%,6,none%  : REM ColourDbox_SetNoneAvailable
+&44EC6,,object%,7 TO none% : REM ColourDbox_GetNoneAvailable
+&44EC6,,object%,0,Colour%  : REM ColourMenu_SetColour
+&44EC6,,object%,1 TO Colour%  : REM ColourMenu_GetColour
+&44EC6,,object%,2,none% : REM ColourMenu_SetNoneAvailable
+&44EC6,,object%,3 TO none% : REM ColourMenu_GetNoneAvailable
+&44EC6,,object%,4,Title$  : REM ColourMenu_SetTitle
+&44EC6,,object%,5,buffer%,buffersize% : REM ColourMenu_GetTitle
+&44EC6,,object%,0 TO WindowID%  : REM DCS_GetWindowID
+&44EC6,,object%,1,Message$ : REM DCS_SetMessage
+&44EC6,,object%,2,buffer%,buffersize%  : REM DCS_GetMessage
+&44EC6,,object%,3,Title$ : REM DCS_SetTitle
+&44EC6,,object%,4,buffer%,buffersize% : REM DCS_GetTitle
+&44EC6,,object%,448,component%,Text$ : REM DisplayField_SetValue
+&44EC6,,object%,449,component%,buffer%,buffersize% : REM DisplayField_GetValue
+&44EC6,,object%,450,component%,fontname$,width%<<4,height%<<4 : REM DisplayField_SetFont
+&44EC6,,object%,640,component%,Sprite$ : REM Draggable_SetSprite
+&44EC6,,object%,641,component%,buffer%,buffersize% : REM Draggable_GetSprite
+&44EC6,,object%,642,component%,Text$ : REM Draggable_SetText
+&44EC6,,object%,643,component%,buffer%,buffersize% : REM Draggable_GetText
+&44EC6,,object%,644,component%,state% : REM Draggable_SetState
+&44EC6,,object%,645,component% TO state% : REM Draggable_GetState
+&44EC6,,object%,0 TO WindowID% : REM FileInfo_GetWindowID
+&44EC6,,object%,1,Modified%  : REM FileInfo_SetModified
+&44EC6,,object%,2 TO Modified%  : REM FileInfo_GetModified
+&44EC6,,object%,3,FileType%  : REM FileInfo_SetFileType
+&44EC6,,object%,4 TO FileType%  : REM FileInfo_GetFileType
+&44EC6,,object%,5,FileName$  : REM FileInfo_SetFileName
+&44EC6,,object%,6,buffer%,buffersize% : REM FileInfo_GetFileName
+&44EC6,,object%,7,FileSize%  : REM FileInfo_SetFileSize
+&44EC6,,object%,8 TO FileSize%  : REM FileInfo_GetFileSize
+&44EC6,,object%,9,Date%  : REM FileInfo_SetDate
+&44EC6,,object%,10,Date%  : REM FileInfo_GetDate
+&44EC6,,object%,11,Title$  : REM FileInfo_SetTitle
+&44EC6,,object%,12,buffer%,buffersize% : REM FileInfo_GetTitle
+&44EC6,,object%,0 TO WindowID%  : REM FontDbox_GetWindowID
+&44EC6,,object%,1,Font$  : REM FontDbox_SetFont
+&44EC6,,object%,2,buffer%,buffersize% : REM FontDbox_GetFont
+&44EC6,3,object%,3,height%,aspect%  : REM FontDbox_SetSize
+&44EC6,,object%,4 TO height%,aspect%  : REM FontDbox_GetSize
+&44EC6,,object%,5,TryString$  : REM FontDbox_SetTryString
+&44EC6,,object%,6,buffer%,buffersize%  : REM FontDbox_GetTryString
+&44EC6,,object%,7,Title$  : REM FontDbox_SetTitle
+&44EC6,,object%,8,buffer%,buffersize% : REM FontDbox_GetTitle
+&44EC6,,object%,0,Font$  : REM FontMenu_SetFont
+&44EC6,,object%,1,buffer%,buffersize% : REM FontMenu_GetFont
+&44EC6,,object%,65,component%,state% : REM Gadget_SetFlags/Gadget_SetFade
+&44EC6,,object%,64,component% TO state%: REM Gadget_GetFlags/Gadget_GetFade
+&44EC6,,object%,66,component%,Text$ : REM Gadget_SetHelpMessage
+&44EC6,,object%,67,component%,WIMP%+256,256 : REM Gadget_GetHelpMessage
+&44EC6,,object%,68,component%,WIMP%+256,256 : REM Gadget_GetIconList
+&44EC6,,object%,69,component% : REM Gadget_SetFocus
+&44EC6,,object%,70,component% TO type% : REM Gadget_GetType
+&44EC6,,object%,71,component%,WIMP%+256 : REM Gadget_MoveGadget
+&44EC6,,object%,72,component%,WIMP%+256 : REM Gadget_GetBBox
+&44EC6,,object%,0 TO IconHandle%  : REM Iconbar_GetIconHandle
+&44EC6,,object%,1,Menu%  : REM Iconbar_SetMenu
+&44EC6,,object%,2 TO Menu%  : REM Iconbar_GetMenu
+&44EC6,`f%,object%,3,Select_Event%,Adjust_Event%  : REM Iconbar_SetEvent
+&44EC6,3,object%,4 TO Select%,Adjust%  : REM Iconbar_GetEvent
+&44EC6,`f%,object%,5,Select%,Adjust%  : REM Iconbar_SetShow
+&44EC6,3,object%,6 TO Select%,Adjust%  : REM Iconbar_GetShow
+&44EC6,,object%,7,HelpMessage$  : REM Iconbar_SetHelpMessage
+&44EC6,,object%,8,buffer%,buffersize%  : REM Iconbar_GetHelpMessage
+&44EC6,,object%,9,Text$  : REM Iconbar_SetText
+&44EC6,,object%,10,buffer%,buffersize%  : REM Iconbar_GetText
+&44EC6,,object%,11,Sprite$  : REM Iconbar_SetSprite
+&44EC6,,object%,12,buffer%,buffersize% : REM Iconbar_GetSprite
+&44EC6,8,object%,835,component% TO ,,,precision%
+&44EC6,,object%,832,component%,value% : REM NumberRange_SetValue
+&44EC6,8,object%,835,component% TO ,,,precision%
+&44EC6,,object%,833,component% TO value% : REM NumberRange_GetValue
+&44EC6,15,object%,834,component%,lower%,upper%,stepsize%,precision% : REM NumberRange_SetBounds
+&44EC6,15,object%,835,component% TO lower%,upper%,stepsize%,precision% : REM NumberRange_GetBounds
+&44EC6,15,object%,836,component% TO numeric%,left%,right%,slider% : REM NumberRange_GetComponents
+&44EC6,,object%,192,component%,Text$ : REM OptionButton_SetLabel
+&44EC6,,object%,193,component%,buffer%,buffersize% : REM OptionButton_GetLabel
+&44EC6,,object%,194,component%,event% : REM OptionButton_SetEvent
+&44EC6,,object%,195,component% TO event% : REM OptionButton_GetEvent
+&44EC6,,object%,196,component%,state% : REM OptionButton_SetState
+&44EC6,,object%,197,component% TO state% : REM OptionButton_GetState
+&44EC6,,object%,704,component%,menu_id% : REM Popup_SetMenu
+&44EC6,,object%,705,component% TO menu_id% : REM Popup_GetMenu
+&44EC6,,object%,0 TO WindowID%  : REM PrintDbox_GetWindowID
+&44EC6,,object%,1,start%,end%   : REM PrintDbox_SetPageRange
+&44EC6,,object%,2 TO start%,end% : REM PrintDbox_GetPageRange
+&44EC6,,object%,3,Copies%  : REM PrintDbox_SetCopies
+&44EC6,,object%,4 TO Copies%  : REM PrintDbox_GetCopies
+&44EC6,,object%,5,Scale%  : REM PrintDbox_SetScale
+&44EC6,,object%,6 TO Scale%  : REM PrintDbox_GetScale
+&44EC6,,object%,7,Orientation%  : REM PrintDbox_SetOrientation
+&44EC6,,object%,8 TO Orientation%  : REM PrintDbox_GetOrientation
+&44EC6,,object%,9,buffer%,buffersize%  : REM PrintDbox_GetTitle
+&44EC6,,object%,10,Draft%  : REM PrintDbox_SetDraft
+&44EC6,,object%,11 TO Draft% : REM PrintDbox_GetDraft
+&44EC6,,object%,0 TO WindowID% : REM ProgInfo_GetWindowID
+&44EC6,,object%,1,Version$ : REM ProgInfo_SetVersion
+&44EC6,,object%,2,buffer%,buffersize% : REM ProgInfo_GetVersion
+&44EC6,,object%,3,LicenceType% : REM ProgInfo_SetLicenceType
+&44EC6,,object%,4 TO LicenceType% : REM ProgInfo_GetLicenceType
+&44EC6,,object%,5,Title$ : REM ProgInfo_SetTitle
+&44EC6,,object%,6,buffer%,buffersize% : REM ProgInfo_GetTitle
+&44EC6,,object%,7,uri$ : REM ProgInfo_SetUri
+&44EC6,,object%,8,buffer%,buffersize% : REM ProgInfo_GetUri
+&44EC6,,object%,0 TO WindowID% : REM Quit_GetWindowID
+&44EC6,,object%,1,Message$ : REM Quit_SetMessage
+&44EC6,,object%,2,buffer%,buffersize% : REM Quit_GetMessage
+&44EC6,,object%,3,Title$ : REM Quit_SetTitle
+&44EC6,,object%,4,buffer%,buffersize% : REM Quit_GetTitle
+&44EC6,,object%,384,component%,Text$ : REM RadioButton_SetLabel
+&44EC6,,object%,385,component%,buffer%,buffersize% : REM RadioButton_GetLabel
+&44EC6,,object%,386,component%,event% : REM RadioButton_SetEvent
+&44EC6,,object%,387,component% TO event% : REM RadioButton_GetEvent
+&44EC6,,object%,388,component%,state% : REM RadioButton_SetState
+&44EC6,,object%,389,component% TO state%,on_button% : REM RadioButton_GetState
+&44EC6,,object%,0 TO WindowID% : REM SaveAs_GetWindowID
+&44EC6,,object%,1,Title$ : REM SaveAs_SetTitle
+&44EC6,,object%,2,buffer%,buffersize% : REM SaveAs_GetTitle
+&44EC6,,object%,3,FileName$ : REM SaveAs_SetFileName
+&44EC6,,object%,4,buffer%,buffersize% : REM SaveAs_GetFileName
+&44EC6,,object%,5,FileType% : REM SaveAs_SetFileType
+&44EC6,,object%,6 TO FileType% : REM SaveAs_GetFileType
+&44EC6,,object%,7,FileSize% : REM SaveAs_SetFileSize
+&44EC6,,object%,8 TO FileSize% : REM SaveAs_GetFileSize
+&44EC6,,object%,9,selection% : REM SaveAs_SelectionAvailable
+&44EC6,,object%,10,data%,size%,selection%,size% : REM SaveAs_SetDataAddress
+&44EC6,,object%,11,buffer%,size% : REM SaveAs_BufferFilled
+&44EC6,1,object%,12,filename$ : REM SaveAs_FileSaveCompleted
+&44EC6,,object%,0 TO WindowID% : REM Scale_GetWindowID
+&44EC6,,object%,1,Value% : REM Scale_SetValue
+&44EC6,,object%,2 TO Value% : REM Scale_GetValue
+&44EC6,7,object%,3,lower_bound%,upper_bound%,stepsize% : REM Scale_SetBounds
+&44EC6,7,object%,4 TO lower_bound%,upper_bound%,stepsize% : REM Scale_GetBounds
+&44EC6,,object%,5,Title$ : REM Scale_SetTitle
+&44EC6,,object%,6,buffer%,buffersize% : REM Scale_GetTitle
+&44EC6,,object%,16410,component% TO state% : REM ScrollList_GetState
+&44EC6,,object%,16411,component%,state% : REM ScrollList_SetState
+&44EC6,,object%,16421,component%,buffer%,buffersize% : REM ScrollList_GetItemText
+&44EC6,,object%,16423,component%,text$+CHR$0,index% : REM ScrollList_SetItemText
+&44EC6,flags%,object%,16412,component%,text$,spritearea%,sprite_name$,index% : REM ScrollList_AddItem
+&44EC6,,object%,16413,component%,start%,end% : REM ScrollList_DeleteItems
+&44EC6,1,object%,16416,component%,offset% TO offset% : REM ScrollList_GetSelected
+&44EC6,,object%,16414,component%,index% : REM ScrollList_SelectItem
+&44EC6,,object%,16415,component%,index% : REM ScrollList_DeselectItem
+&44EC6,,object%,16417,component%,index% : REM ScrollList_MakeVisible
+&44EC6,,object%,16420,component%,font$,width%*16,height%*16 : REM ScrollList_SetFont
+&44EC6,,object%,16418,component%,colour%,bgcolour% : REM ScrollList_SetColour
+&44EC6,,object%,16419,component% TO colour%,bgcolour% : REM ScrollList_GetColour
+&44EC6,,object%,16422,component% TO n% : REM ScrollList_CountItems
+&44EC6,,object%,576,component%,value% : REM Slider_SetValue
+&44EC6,,object%,577,component% TO value% : REM Slider_GetValue
+&44EC6,7,object%,578,component%,min%,max%,stepsize% : REM Slider_SetBounds
+&44EC6,7,object%,579,component% TO min%,max%,stepsize% : REM Slider_GetBounds
+&44EC6,,object%,580,component%,barcolour%,bgcolour% : REM Slider_SetColour
+&44EC6,,object%,581,component% TO barcolour%,bgcolour% : REM Slider_GetColour
+
+&44EC6,,object%,896,component%,stringblock$ : REM StringSet_SetAvailable
+&44EC6,,object%,898,component%,string$ : REM StringSet_SetSelected
+&44EC6,1,object%,898,component%,index% : REM StringSet_SetSelected/StringSet_SetIndexSelected
+&44EC6,,object%,899,component%,buffer%,buffersize% : REM StringSet_GetSelected
+&44EC6,1,object%,899,component% TO index% : REM StringSet_GetSelected/StringSet_GetIndexSelected
+&44EC6,,object%,900,component%,allowable$ : REM StringSet_SetAllowable
+&44EC6,,object%,902,component% TO alpha%,popup% : REM StringSet_GetComponents
+
+&44EC6,,object%,&4018,component% TO ,state% : REM TextArea_GetState
+&44EC6,,object%,&4019,component%,state% : REM TextArea_SetState
+&44EC6,,object%,&401A,component%,text% : REM TextArea_SetText
+&44EC6,,object%,&401B,component% TO ,,,,,size%
+&44EC6,,object%,&401B,component%,buffer%,size% : REM TextArea_GetText
+&44EC6,,object%,&401C,component%,index%,text% : REM TextArea_InsertText
+&44EC6,,object%,&401D,component%,start%,end%,text% : REM TextArea_ReplaceText
+&44EC6,,object%,&401E,component% TO ,,,,start%,end% : REM TextArea_GetSelection
+&44EC6,,object%,&401F,component%,start%,end% : REM TextArea_SetSelection
+&44EC6,,object%,&4020,component%,font$,width%,height% : REM TextArea_SetFont
+&44EC6,,object%,&4021,component%,colour%,bgcolour% : REM TextArea_SetColour
+&44EC6,,object%,&4022,component% TO colour%,bgcolour% : REM TextArea_GetColour
+&44EC6,,object%,&4023,component%,index% : REM TextArea_SetCursorPosition
+&44EC6,,object%,&4024,component%,index% : REM TextArea_GetCursorPosition
+&44EC6,,object%,1311040,component%,Text$ : REM ToolAction_SetIdent
+&44EC6,,object%,1311041,component%,buffer%,buffersize% : REM ToolAction_GetIdent
+&44EC6,,object%,1311042,component%,select_event%,adjust_event% : REM ToolAction_SetAction
+&44EC6,,object%,1311043,component% TO select_event%,adjust_event% : REM ToolAction_GetAction
+&44EC6,,object%,1311044,component%,select_id%,adjust_id% : REM ToolAction_SetClickShow
+&44EC6,,object%,1311045,component% TO select_id%,adjust_id% : REM ToolAction_GetClickShow
+&44EC6,,object%,1311046,component%,state% : REM ToolAction_SetState
+&44EC6,,object%,1311047,component% TO state% : REM ToolAction_GetState
+&44EC0,,object$ TO object_id% : REM Toolbox_CreateObject
+&44EC1,,object% : REM Toolbox_DeleteObject
+&44EC3,,object%,showtype% : REM Toolbox_ShowObject
+&44EC4,,object% : REM Toolbox_HideObject
+&44ECA,,object%,component% : REM Toolbox_GetParent
+&44ECB,,object%,component% : REM Toolbox_GetAncestor
+&44EC9,,object% TO class% : REM Toolbox_GetObjectClass
+&44ECC,,object%,buffer%,buffersize% : REM Toolbox_GetTemplateName
+&44EC5,,object% TO state% : REM Toolbox_GetObjectInfo
+&44EC7,,object%,handle% : REM Toolbox_SetClientHandle
+&44EC8,,object% TO handle% : REM Toolbox_GetClientHandle
+&44ED0,,pathname$ : REM Toolbox_LoadResources
+&44ECD,,object%,component%,events% : REM Toolbox_RaiseToolboxEvent
+&44ECE,,object%,buffersize% : REM Toolbox_GetSysInfo
+&44ECE,1,buffer%  : REM Toolbox_GetSysInfo (Toolbox_MessagesDescGetSysInfo)
+&44ECE,,object%,buffersize%  : REM Toolbox_GetSysInfo (Toolbox_TaskNameGetSysInfo)
+&44ECE,2,object%,buffersize%  : REM Toolbox_GetSysInfo (Toolbox_TaskDirectoryGetSysInfo)
+&44ECE,3 TO taskhandle% : REM Toolbox_GetSysInfo (Toolbox_TaskHandleGetSysInfo)
+&44ECE,4 TO spritearea% : REM Toolbox_GetSysInfo (Toolbox_SpritesAreaGetSysInfo)
+&44EC6,,object%,0 TO WimpHandle% : REM Window_GetWimpHandle
+&44EC6,,object%,1,component% TO component% : REM Window_AddGadget
+&44EC6,,object%,2,component%  : REM Window_RemoveGadget
+&44EC6,,object%,3,Menu% : REM Window_SetMenu
+&44EC6,,object%,4 TO Menu% : REM Window_GetMenu
+&44EC6,,object%,5,Sprite$  : REM Window_SetPointer
+&44EC6,,object%,6,buffer%,buffersize% : REM Window_GetPointer
+&44EC6,,object%,7,HelpMessage$ : REM Window_SetHelpMessage
+&44EC6,,object%,8,buffer%,buffersize% : REM Window_GetHelpMessage
+&44EC6,,object%,9,number%,block% : REM Window_AddKeyboardShortcuts
+&44EC6,,object%,10,number%,block% : REM Window_RemoveKeyboardShortcuts
+&44EC6,,object%,11,Title$ : REM Window_SetTitle
+&44EC6,,object%,12,buffer%,buffersize% : REM Window_GetTitle
+&44EC6,,object%,13,component% : REM Window_SetDefaultFocus
+&44EC6,,object%,14 TO component% : REM Window_GetDefaultFocus
+&44EC6,,object%,15,buffer% : REM Window_SetExtent
+&44EC6,,object%,16,buffer% : REM Window_GetExtent
+&44EC6,,object%,17,buffer% : REM Window_ForceRedraw
+&44EC6,`f%,object%,18,bl_int%,tl_int%,bl_ext%,tl_ext%  : REM Window_SetToolbars
+&44EC6,,object%,19 TO bl_int%,tl_int%,bl_ext%,tl_ext% : REM Window_GetToolbars
+&82883 TO x%,y%,object%,window%,component% : REM Window_GetPointerInfo
+&82884,,object%,icon% TO window%,icon% : REM Window_WimpToToolbox
+&828BE,window%,object%,size% : REM Window_ExtractGadgetInfo
+&44EC6,,object%,512,component%,Text$ : REM WritableField_SetValue
+&44EC6,,object%,513,component%,buffer%,buffersize% : REM WritableField_GetValue
+&44EC6,,object%,514,component%,String$ : REM WritableField_SetAllowable
+&44EC6,,object%,516,component%,fontname$,width%<<4,height%<<4 : REM WritableField_SetFont
+&44EC6,,object%,&402c,component%,state% : REM Tabs_SetState
+&44EC6,,object%,&402e,component%,index% : REM Tabs_SetSelected
+&44EC6,,object%,&4030,component%,window_id% TO index% : REM Tabs_TabFromWindow
+&44EC6,,object%,&4032,component%,index%,text$ : REM Tabs_SetLabel
+&44EC6,,object%,&4034,component%,index%,state% : REM Tabs_HideTab
+&44EC6,,object%,&402d,component%,state% : REM Tabs_GetState
+&44EC6,,object%,&402f,component% TO index% : REM Tabs_GetSelected
+&44EC6,,object%,&4031,component%,index% TO window_id% : REM Tabs_WindowFromTab
+&44EC6,,object%,&4033,component%,index%,WIMP%+256,256 : REM Tabs_GetLabel
+&44EC6,,object%,16424,component%,flags%  : REM TreeView_SetState
+&44EC6,,object%,16425,component% TO flags%  : REM TreeView_GetState
+&44EC6,flag%,object%,16426,component%,text$ TO node% : REM  TreeView_AddNode
+&44EC6,,object%,16427,component% TO node%  : REM TreeView_GetNodeID
+&44EC6,,object%,16428,component%,text$ : REM TreeView_SetNodeText
+&44EC6,,object%,16431,component%,buffer%,buffersize% : REM TreeView_GetNodeText
+&44EC6,,object%,16429,component%,spritearea%,sprite$,ex_sprite$ : REM  TreeView_SetNodeSprite
+&44EC6,,object%,16432,component%,buffer%,buffersize% : REM TreeView_GetNodeSprite
+&44EC6,,object%,16430,component%,word% : REM  TreeView_SetNodePrivateWord
+&44EC6,,object%,16433,component% TO word% : REM TreeView_GetNodePrivateWord
+&44EC6,,object%,16434,component%,node% : REM TreeView_MoveTo
+&44EC6,,object%,16435,component% TO node% : REM TreeView_MoveNext
+&44EC6,,object%,16436,component% TO node% : REM TreeView_MovePrevious
+&44EC6,,object%,16437,component% TO node% : REM TreeView_MoveChild
+&44EC6,,object%,16438,component% TO node% : REM TreeView_MoveParent
+&44EC6,,object%,16439,component% TO node% : REM TreeView_DeleteNode
+&44EC6,,object%,16440,component% : REM TreeView_DeleteAll
+&44EC6,,object%,16441,component% : REM TreeView_UpdateDisplay
+&44EC6,,object%,16442,component% TO node% : REM TreeView_MoveFirstSelected
+&44EC6,,object%,16443,component% TO node% : REM TreeView_MoveNextSelected

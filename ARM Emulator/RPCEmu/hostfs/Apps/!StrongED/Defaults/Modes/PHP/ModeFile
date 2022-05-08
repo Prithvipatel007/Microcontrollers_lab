@@ -1,0 +1,133 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : PHP
+#	Purpose : StrongED mode file for PHP files
+#	Author  : © Alex Waugh (alex@alexwaugh.com)
+#	Licence : Freeware
+#	Version : 0.04, 22-12-2011
+#
+#-------------------------------------------------------------------------------
+# 22-12-11 FG Replaced old Tmp$* variables with StrongED$Tmp_* ones
+#          FG Moved Help in Functions section in front of Select line
+#          FG Changed 'Type' to 'CommentType' in SyntaxComment
+#          FG Added some comment lines to separate different sections
+#-------------------------------------------------------------------------------
+
+
+HelpPath	PHP,
+
+
+ID_FirstChar	A-Za-z_
+ID_Middle	A-Za-z_0-9
+#ID_LastChar
+
+Search
+	_phpfunc	[_spct] "function" _spct   @0 { AD | "_" }+ @9
+	_endofphp	@0 * @9 ("?>" | "%>")
+	_endofline	@0 * (.>) @9
+	_endofcomment	_endofphp | _endofline
+	_endofhtmltag	* ">"
+End
+
+#-------------------------------------------------------------------------------
+
+SyntaxOptions
+	SingleQuote	Yes
+	DoubleQuote	Yes
+	QuoteChar	\
+	QuoteQuote	No
+	SplitString	Yes
+	HexPrefix	0x
+End
+
+SyntaxComment 1
+	CommentType	Multiline
+	StartWith	/*
+	EndWith		*/
+End
+
+SyntaxComment 2
+	CommentType	Multiline
+	StartWith	<!--
+	EndWith		-->
+End
+
+#More comments
+SyntaxWords Group1 NoCase EndOfExpr _endofcomment
+	//
+	#
+End
+
+#HTML tags
+SyntaxWords Group2 case EndOfExpr _endofhtmltag
+	<
+End
+
+#Changes between HTML and PHP
+SyntaxWords Group3 NoCase EndAlways
+	<? ?>
+	<?php
+	<% %>
+End
+
+#Variables
+SyntaxWords Group4 NoCase EndOfId
+	$
+End
+
+#Language constructs
+SyntaxWords Group5 NoCase StartSpace
+	if else elseif endif
+	do while endwhile
+	for endfor
+	break continue return
+	switch endswitch case default
+	echo
+End
+
+SyntaxWords Group6 StartSpace NoCase
+	function
+	require
+	include
+	require_once
+	include_once
+End
+
+KeyList
+	^F1	SetTmp() BroadcastURL("http://www.php.net/manual/en/function.<StrongED$Tmp_MarkWord>.php")
+End
+
+#-------------------------------------------------------------------------------
+
+Functions
+	Key	‹F2
+	Menu	List of functions F2
+	Icon	LoF
+	Help	Click to generate list of all functions.
+	Select	ListOfFound (_phpfunc,Text,Align,Line,Case)
+
+	Key	‹PgUp
+	Icon	up
+	Help	Click to go to previous function
+	Select	GotoPrev (_phpfunc,Text,Line,Case)
+
+	Key	‹PgDown
+	Icon	down
+	Help	Click to go to next function
+	Select	GotoNext (_phpfunc,Text,Line,Case)
+
+	Key	F10
+	Menu	Save & Run      F10
+	Icon	Run
+	Help	Click to save text and run.
+	Select	SetTmp() SaveDClick ("<StrongED$Tmp_FileName>")
+End
+
+#-------------------------------------------------------------------------------
+
+Shortcuts
+	w.	while (\@) {\n\i	\@\n\i}
+	d.	do {\n\i	\@\n\i} while ()
+	f.	for (\@;\@;\@) {\n\i	\@\n\i}
+End
+

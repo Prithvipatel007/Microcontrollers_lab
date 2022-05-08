@@ -1,0 +1,395 @@
+##############################################################################
+#  ___ _                     _  _ _____ __  __ _     _     _   __ ___  ___   #
+# / __| |_ _ _ ___ _ _  __ _| || |_   _|  \/  | |  _| |_  / | /  \_  )/ _ \  #
+# \__ \  _| '_/ _ \ ' \/ _` | __ | | | | |\/| | |_|_   _| | || () / /| |< <  #
+# |___/\__|_| \___/_||_\__, |_||_| |_| |_|  |_|____||_|   |_(_)__/___| ||_/  #
+#                      |___/                                         |_|     #
+##############################################################################
+# Extensions to HTML mode for StrongED by Joe Taylor <joe_taylor@jettons.co.uk>)
+# based on an original version written by Andrew Black <andrew@bach.demon.co.uk>
+# which had additional work by :
+# GV    Guttorm Vik <guttorm.vik@eunet.no>
+# PL    Philip Ludlam <pludlam@hotmail.com>
+#-------------------------------------------------------------------------------
+# 22-12-11 FG Replaced old Tmp$* variables with StrongED$Tmp_* ones
+#          FG Changed 'Type' to 'CommentType' in SyntaxComment
+#-------------------------------------------------------------------------------
+
+HelpPath	StrongHTML,
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteQuote	Yes
+	SplitString	No
+	HexPrefix	#
+End
+
+SyntaxComment 1
+	CommentType	Multiline
+	StartWith	<!--
+	EndWith		-->
+End
+
+
+# All HTML tags have the same colour:
+
+ID_FirstChar	<
+ID_Middle	A-Za-z_0-9./~+\-:;,?%@&#=*!"$^[]
+ID_LastChar	>
+
+#--- The 'outer level' tags + headings
+
+SyntaxWords Group1 EndAlways nocase
+	Write_here
+End
+
+
+Search
+	heading1	"<h"  AlphaNum   ">" @0 *  "</" @9
+	heading		"<h"  AlphaNum   ">" @0 * @9 "</"
+	tag		"<" ["\\"] { AlphaNum | "/" }+  ">"
+	_MarkWord	tag  | {AlphaNum}+   | {Punct}+
+	_SpellIgnore	("<" ? {'~<>'}+ ">") | "&nbsp;"
+
+	quote		"\""
+	anchor		"<a" {iswhite}+ * "href" {iswhite} "="  {iswhite}  quote @0 ** quote  ">" @9
+	anchor1		"<a" {iswhite}+ * "href" {iswhite} "="  {iswhite}  quote @0
+	selected_line	{any}+
+
+# match everything sensible but not ,
+#	textstr	 { AlphaNum | '\' _\-' }+
+
+	url		{AlphaNum}+ ":/" { ["~"] alphanum | '/_.' }+
+	url_text	@1 url @2 {iswhite} @3 {.} @4
+	text		@1 @2 @3 {.} @4
+	hotlist		url_text
+# removing tag
+	anch_st		"<a" {iswhite}+ * quote
+	anch_end	quote  {iswhite} ">"
+	remove_tag	anch_st | anch_end | tag
+End
+
+Replace
+	h1		"<H1>" @@ "</H1>"
+	h2		"<H2>" @@ "</H2>"
+	h3		"<H3>" @@  "</H3>"
+	h4		"<H4>" @@  "</H4>"
+#misc
+	ital		"<i>" @@ "</i>"
+	center		"<center>" @@  "</center>"
+	red		"<font color=#ff0000>" @@ "</font>"
+	blue		"<font color=#3a00aa>" @@ "</font>"
+	green		"<font color=#008000>" @@ "</font>"
+	bold		"<b>" @@ "</b>"
+	typewriter		"<tt>" @@ "</tt>"
+	strong		"<strong>" @@ "</strong>"
+	emphasis	"<em>" @@  "</em>"
+	bigger		"<big>" @@  "</big>"
+	smaller		"<small>" @@  "</small>"
+	underline	"<u>" @@  "</u>"
+
+	hotlist_r  "<a href=\"" @12  "\">" @34  "</a>"
+#	anch     "<A href=\"" @@  "\"> </A>"
+End
+
+ClickList Select2
+	http		BroadcastURL("<StrongED$Tmp_MarkWord>")
+End
+
+ClickList Adjust2
+	http		BroadcastURL("<StrongED$Tmp_MarkWord>")
+End
+
+KeyList
+	^D	1	"Last updated " DateAndTime ("%we %dy%st %mo %ce%yr")
+	^‹D	1	DateAndTime ("%we %dy%st of %mo %ce%yr")
+End
+
+Functions
+#************************************************************************
+#	Added by Joe Taylor 6/6/02
+#*************************************************************************
+
+	Key	‹F10
+	Menu	Save & Render      ‹F10
+	Icon	run
+	Help	Click to save text and launch viewer (‹F10)
+	Select	SetTmp() SaveDClick ("<StrongED$Tmp_FileName>")
+
+	Adjust	SetTmp() Run("<StrongED$Tmp_ModePath>.InitMode")
+
+	Icon	small_faf
+	Help	Select to open doctype dialogue box|MAdjust to write default document header
+	Select	InsertStr("") SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!HTMLdoc")
+
+	Adjust	SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.tag doc") InsertFile("Pipe:tag")
+
+	Icon	small_f91
+	Help	Select to open linker dialogue box|MAdjust to write default |<A|> tag
+	Select	InsertStr("") SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!HTMLlink")
+
+	Adjust	SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.dtag link") NoIndent() GotoBlock_Start()  InsertFile("Pipe:tag") GotoBlock_End() InsertFile("Pipe:endtag")
+
+	Icon	img
+	Help	Select to open image dialogue box|MAdjust to write default |<IMG|> tag
+	Select	InsertStr("") SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!HTMLIMG")
+
+	Adjust	SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.tag IMG") InsertFile("Pipe:tag")
+
+	Icon	text
+	Help	Select to popup text menu|MMenu button to popup ColourDbox (HTML colour numbers)|MAdjust to write |<B|> tags|MCtrl-select to write |<I|> tags
+	Select	InsertStr("") SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!HTMLtext")
+
+	Adjust	SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.dtag text") NoIndent() GotoBlock_Start() InsertFile("Pipe:tag") GotoBlock_End() InsertFile("Pipe:endtag")
+
+	^Select	 NoIndent() GotoBlock_Start() InsertStr("<I>") GotoBlock_End() InsertStr("</I>")
+
+	‹Select	 NoIndent() GotoBlock_Start() InsertStr("<I>") GotoBlock_End() InsertStr("</I>")
+
+	Icon	layout
+	Help	Select to popup layout menu|MAdjust to write |<BR|> (newline) tag|M‹-select to write |<P|> tag|MCtrl-select to write |<CENTER|> tags
+	Select	InsertStr("") SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!HTMLayout")
+
+	Adjust	SetTmp()  Run("<StrongED$Tmp_ModePath>.Tools.tag ayout") InsertFile("Pipe:tag")
+
+	‹Select	InsertStr("<P>")
+
+	^Select	NoIndent() GotoBlock_Start() InsertStr("<CENTER>") GotoBlock_End() InsertStr("</CENTER>")
+
+	Icon	list
+	Help	Select to popup list menu|MAdjust to write default unordered list|MSelect with menu (middle) button to popup bullet-list dialogue box
+	Select	InsertStr("") SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!HTMLlist")
+
+	Adjust	SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.tag list") InsertFile("Pipe:tag")
+
+	Icon	small_dfe
+	Help	Select to popup tables dialogue-box|MAdust writes a simple 3x3 table
+	Select	InsertStr("") SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!HTMLtable")
+
+	Adjust	SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.tag table") InsertFile("Pipe:tag")
+
+	Icon	forms
+	Help	Select to popup forms menu|MAdjust to write |<FORM|> tags|MSelect with middle button to popup dbox for turning images into action buttons
+	Select	InsertStr("") SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!HTMLform")
+
+	Adjust	SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.tag form")  InsertFile("Pipe:tag")
+
+	Icon	frames
+	Help	Select to popup frames dialogue box|MAdjust to write |<FRAMESET|> tags
+	Select	InsertStr("") SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!HTMLframe")
+
+	Adjust	SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.tag frame") InsertFile("Pipe:tag")
+
+	Icon	sm!help
+	Help	Select to run StrongHTML+ manual|MAdjust to run StrongHTML manual|MCtrl-select to run Apps !Help
+	Select	SetTmp() Run("Filer_run <StrongED$Tmp_ModePath>.Resources.UK.HTMLplus")
+
+	Adjust	Run("<StrongED$Dir>.Tools.ifthere <HelpData$Dir>.StrongHTML then Filer_Run <HelpData$Dir>.StrongHTML")
+
+	^Select	Run("Resources:$.Apps.!Help")
+
+#************************************************************************
+#	End of additions Joe Taylor 6/6/02
+#*************************************************************************
+
+
+	Icon		lof
+	Help		Select - list of headings|MAdjust - list of Anchors
+	Select		ListOfFound (heading1,All,Align,noLine,NoCase)
+	Menu		List Anchors
+
+	Adjust		ListOfFound (anchor,All,align,noLine,NoCase)
+End
+
+Shortcuts
+# start of document
+	``f	<HTML>\n<head>\n  <title>\@</title>\n</HEAD>\n\n<BODY>\n<H1>\@</H1>\n<hr>\n<address>My name </address>\n</BODY></HTML>
+# lists
+	``ul	<ul>\n\i  <li>\@\n\i</ul>
+	``ol	<ol>\n\i  <li>\@\n\i</ol>
+	``li	<li>\@\n\i<li>
+	<li>+	<li>\@</li>\n\i<li>\@
+
+	``dl	<dl>\n\i\t\@\n</dl>\@
+	``dt	<dt>\@</dt>\n\i\t<dd>\@</dd>\@
+
+# anchors
+	``ai	<A HREF="\@">\@</A>
+	``ae	<a href="http://\@/\@">\@</A>
+	``ha	<H1><a name="\@">\@</a></H1>
+
+# heads
+	``1	<H1>\@</H1>\n
+	``2	<H2>\@</H2>\n
+	``3	<H3>\@</H3>\n
+	``4	<H4>\@</H4>\n
+	``5	<H5>\@</H5>\n
+	``6	<H6>\@</H6>\n
+
+
+# comment :
+	``!	<!-- \@ -->
+
+# tables
+
+	``tab	<table\@>\n\i\t\@\n</table>\@\n
+	``tr	<tr\@>\n\i\t\@\n</tr>\n
+	``td	<td\@>\n\i\t\@\n</td>\n
+	``th	<th\@>\n\i\t\@\n</th>\n
+	``tf	<tf\@>\n\i\t\@\n</tf>\n
+
+# misc
+	``i	<i>\@</i>
+	``b	<b>\@</b>
+	``m	<IMG SRC="\@" ALT="\@">
+	``pp	<p>\@</p>
+
+# the same shortcuts as above, but now with '' instead of ``.
+
+
+	''f	<HTML>\n<head>\n  <title>\@</title>\n</head>\n\n<BODY>\n<H1>\@</H1>\n\@\n<hr>\n<address>My name </address>\n</BODY></HTML>
+	''ul	<ul>\n\i  <li>\@\n\i</ul>
+	''ol	<ol>\n\i  <li>\@\n\i</ol>
+	''li	<li>\@\n\i<li>
+	''dl	<dl>\n\i\t\@\n</dl>\@
+	''dt	<dt>\@</dt>\n\i\t<dd>\@</dd>\@
+	''ai	<a href="\@">\@</a>
+	''ae	<a href="http://\@/\@">\@</a>
+	''ha	<H1><a name="\@">\@</a></H1>
+	''1	<H1>\@</H1>\n
+	''2	<H2>\@</H2>\n
+	''3	<H3>\@</H3>\n
+	''4	<H4>\@</H4>\n
+	''5	<H5>\@</H5>\n
+	''6	<H6>\@</H6>\n
+	''!	<!-- \@ -->
+	''tab	<table\@>\n\i\t\@\n</table>\@\n
+	''tr	<tr\@>\n\i\t\@\n</tr>\n
+	''td	<td\@>\n\i\t\@\n</td>\n
+	''th	<th\@>\n\i\t\@\n</th>\n
+	''tf	<tf\@>\n\i\t\@\n</tf>\n
+	''i	<i>\@</i>
+	''b	<b>\@</b>
+	''m	<img src="\@" alt="[\@]">
+	''pp	<p>\@</p>
+
+# character shortcuts
+
+	Æ	&AElig;
+	Á	&Aacute;
+	Â	&Acirc;
+	À	&Agrave;
+	Å	&Aring;
+	Ã	&Atilde;
+	Ä	&Auml;
+	Ç	&Ccedil;
+	¸	&Cedilla;
+	Ð	&Eth;
+	É	&Eacute;
+	Ê	&Ecirc;
+	È	&Egrave;
+	Ë	&Euml;
+	Í	&Iacute;
+	Î	&Icirc;
+	Ì	&Igrave;
+	Ï	&Iuml;
+	Ñ	&Ntilde;
+	Ó	&Oacute;
+	Ô	&Ocirc;
+	Ò	&Ograve;
+	Ø	&Oslash;
+	Õ	&Otilde;
+	Ö	&Ouml;
+	Þ	&Thorn;
+	Ú	&Uacute;
+	Û	&Ucirc;
+	Ù	&Ugrave;
+	Ü	&Uuml;
+	Ý	&Yacute;
+
+	á	&aacute;
+	´	&acute;
+	â	&acirc;
+	æ	&aelig;
+	à	&agrave;
+	å	&aring;
+	ã	&atilde;
+	ä	&auml;
+	¦	&brvbar;
+	ç	&ccedil;
+	¢	&cent;
+	©	&copy;
+	¤	&curren;
+	°	&degree;
+	¨	&die;
+	÷	&divide;
+	é	&eacute;
+	ê	&ecirc;
+	è	&egrave;
+	ð	&eth;
+	ë	&euml;
+#	<><	&fish;
+	¼	&frac14;
+	½	&frac12;
+	¾	&frac34;
+	í	&iacute;
+	î	&icirc;
+	¡	&iexcl;
+	ì	&igrave;
+	¿	&iquest;
+	ï	&iuml;
+	«	&laquo;
+	¯	&macron;
+	˜	&mdash;
+	™	&ndash;
+	µ	&micro;
+	·	&middot;
+	 	&nbsp;
+	¬	&not;
+	ñ	&ntilde;
+	ó	&oacute;
+	ô	&ocirc;
+	ò	&ograve;
+	ª	&ordf;
+	º	&ordm;
+	ø	&oslash;
+	õ	&otilde;
+	ö	&ouml;
+	¶	&para;
+	±	&plusmn;
+	£	&pound;
+	»	&raquo;
+	®	&reg;
+	§	&sect;
+	­	&shy;
+	¹	&sup1;
+	²	&sup2;
+	³	&sup3;
+	ß	&szlig;
+	×	&times;
+		&trade;
+	ù	&ugrave;
+	ú	&uacute;
+	û	&ucirc;
+	¨	&uml;
+	ü	&uuml;
+	ý	&yacute;
+	¥	&yen;
+	þ	&thorn;
+	ÿ	&yuml;
+
+# HTML 4.0 quotes
+	”	&ldquo;
+	•	&rdquo;
+		&lsquo;
+	‘	&rsquo;
+
+#Common characters
+	''>	&lt;
+	''<	&rt;
+	''&	&amp;
+	(C)	&copy;
+	(c)	&copy;
+
+End

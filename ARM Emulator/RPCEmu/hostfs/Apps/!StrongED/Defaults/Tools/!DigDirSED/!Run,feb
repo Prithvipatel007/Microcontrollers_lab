@@ -1,0 +1,21 @@
+| Run file for DigDirSED
+| © StrongED Developers
+
+| Task directory
+Set DigDirSED$Dir <Obey$Dir>
+
+| Wimp pool sprites
+Iconsprites <DigDirSED$Dir>.!Sprites
+Set DigDirSED$Resources <DigDirSED$Dir>
+
+| Language resources
+IfThere <DigDirSED$Dir>.!Languages Then Run <DigDirSED$Dir>.!Languages DigDirSED
+
+| Toolbox modules
+IfThere <DigDirSED$Resources>.Modules Then Obey <DigDirSED$Resources>.Modules
+
+| Set wimpslot required
+WimpSlot -min 32K -max 32k
+
+| Run
+Run <DigDirSED$Dir>.!RunImage

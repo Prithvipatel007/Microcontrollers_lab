@@ -1,0 +1,5 @@
+| © StrongED developers
+
+If "<SideDiff$Dir>" = "" Then Error Unable to run SideDiff
+
+Do WimpTask <SideDiff$Dir> -noicon <StrongED$Tmp_FileName> <StrongED$ScrapDir>.out

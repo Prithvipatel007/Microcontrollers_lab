@@ -1,0 +1,4 @@
+protectFromDetectionUpdates=false
+label=EFM8LCK (LCK0062793)
+boardOverrides {
+}

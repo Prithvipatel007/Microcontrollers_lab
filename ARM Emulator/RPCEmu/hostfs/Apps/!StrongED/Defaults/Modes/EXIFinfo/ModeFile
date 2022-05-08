@@ -1,0 +1,90 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : EXIFinfo mode
+#	Purpose : A StrongED mode for displaying configuration files for EXIFinfo
+#	Author  : Chris Terran
+#	Licence :
+#	Version : 1.01, 22-12-2011
+#
+#-------------------------------------------------------------------------------
+# 22-12-11 FG Changed above header so it's in line with other modes
+#-------------------------------------------------------------------------------
+
+Search
+	_endoftag	*"}"
+End
+
+ID_FirstChar	!A-Za-z_
+ID_Middle	A-Za-z_0-9.
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	No
+	QuoteQuote	No
+	QuoteChar	\
+	SplitString	No
+End
+
+# Syntax colouring. Click adjust on StrongED's tick icon, and
+# set the colours for each group to your preference.
+
+
+# Special tags
+SyntaxWords Group1 nocase EndOfExpr _endoftag
+	{!
+End
+
+# Main tags
+SyntaxWords Group2 nocase EndOfExpr _endoftag
+	{Main.
+End
+
+# Thumbnail tags
+SyntaxWords Group3 nocase EndOfExpr _endoftag
+	{Thumbnail.
+End
+
+# EXIF tags
+SyntaxWords Group4 nocase EndOfExpr _endoftag
+	{
+End
+
+# Section markers
+SyntaxWords Group5 nocase StartOfLine EndOfLine
+	#!section=header
+	#!section=image
+	#!section=footer
+End
+
+# Directives
+SyntaxWords Group6 nocase StartOfLine EndOfLine
+	#!exifinfotemplateversion=
+	#!formatname=
+	#!outputleafname=
+	#!outputfiletype=
+	#!outputmode=
+	#!unknownstring=
+	#!comment1=
+	#!comment2=
+	#!comment3=
+	#!thumbnailfilename=
+	#!thumpkeywords=
+End
+
+# Comment
+SyntaxWords Group7 nocase StartOfLine EndOfLine
+	#
+End
+
+# Some shortcuts to make typing easier
+Shortcuts
+	``c	{Main.Model}
+	``d	{DateTimeOriginal}
+	``e	{ExposureTime}
+	``F	{Flash}
+	``f	{FNumber}
+	``i	{ISOSpeedRatings}
+	``w	{Main.Copyright}
+	``x	{ExifImageWidth}
+	``y	{ExifImageHeight}
+End

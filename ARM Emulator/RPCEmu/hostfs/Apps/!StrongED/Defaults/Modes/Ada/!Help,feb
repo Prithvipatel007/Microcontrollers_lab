@@ -1,0 +1,5 @@
+Set Dummy$Path <Obey$Dir>.Resources.
+Run Dummy:ResFind Ada
+Unset Dummy$Path
+|
+if "<StrongHelp$Dir>" = "" then Filer_Run AdaRes:ReadMe else *StrongHelp AdaRes:AdaMode !Root

@@ -1,0 +1,21 @@
+#!Lua
+
+local number = function()
+ local file = arg[1]
+ local infile = io.open(file, "r")
+ local line = {}
+-- if not infile then
+--    _ERRORMESSAGE("cannot open "..infile)
+--    end
+ local n=1
+ repeat
+ line=infile:read("*l")
+ if (line) then
+   print(n, line)
+   n=n+1
+ end
+ until not line
+ infile:close()
+end -- runscript 
+
+number()

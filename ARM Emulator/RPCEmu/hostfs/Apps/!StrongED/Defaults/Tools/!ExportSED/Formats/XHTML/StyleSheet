@@ -1,0 +1,414 @@
+# StrongED export format file
+# Format: XHTML with CSS
+# © StrongED developers
+
+# Start and end of document
+doc_Prologue:<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"\n"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n<html xmlns="http://www.w3.org/1999/xhtml">\n
+doc_Epilogue:\n</html>\n
+
+# Start and end of styles
+style_Prologue:<head>\n<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />\n<title></title>\n<style type="text/css">\n<!--\n
+style_Epilogue:-->\n</style>\n</head>\n
+
+# Style definitions
+def_Style_10:body { font-family: "Courier New", NewCourier, Courier, monospace; color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_11:.Text { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_12:.Caret { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_13:.Block { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_14:.Mark { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_15:.Ctrl { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_16:.Tabs { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_17:.Border { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_18:.Margins { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_19:.Brackets { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_1A:.Hardwrap { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_1B:.Linenos { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_1C:.Identifiers { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_1D:.Functions { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_1E:.Strings { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_1F:.Comments { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_20:.Numbers { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_21:.Punctuation { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_22:.Group1 { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_23:.Group2 { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_24:.Group3 { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_25:.Group4 { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_26:.Group5 { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_27:.Group6 { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_28:.Group7 { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_29:.Group8 { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_2A:.Group9 { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_2B:.Group10 { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_2C:.Group11 { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_2D:.Group12 { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_2E:.Group13 { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_2F:.Group14 { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_30:.Group15 { color: #%0; background-color: #%1; %2; %3;}\n
+def_Style_31:.Group16 { color: #%0; background-color: #%1; %2; %3;}\n
+
+# Start and end of actual text
+text_Prologue:\n<body>\n
+text_Epilogue:\n</body>\n
+
+# The BaseStyle
+add_Style_10:
+rem_Style_10:
+
+# The groups
+add_Style_11:<span class="Text">
+rem_Style_11:</span>
+
+add_Style_12:<span class="Caret">
+rem_Style_12:</span>
+
+add_Style_13:<span class="Block">
+rem_Style_13:</span>
+
+add_Style_14:<span class="Mark">
+rem_Style_14:</span>
+
+add_Style_15:<span class="Ctrl">
+rem_Style_15:</span>
+
+add_Style_16:<span class="Tabs">
+rem_Style_16:</span>
+
+add_Style_17:<span class="Border">
+rem_Style_17:</span>
+
+add_Style_18:<span class="Margins">
+rem_Style_18:</span>
+
+add_Style_19:<span class="Brackets">
+rem_Style_19:</span>
+
+add_Style_1A:<span class="Hardwrap">
+rem_Style_1A:</span>
+
+add_Style_1B:<span class="Linenos">
+rem_Style_1B:</span>
+
+add_Style_1C:<span class="Identifiers">
+rem_Style_1C:</span>
+
+add_Style_1D:<span class="Functions">
+rem_Style_1D:</span>
+
+add_Style_1E:<span class="Strings">
+rem_Style_1E:</span>
+
+add_Style_1F:<span class="Comments">
+rem_Style_1F:</span>
+
+add_Style_20:<span class="Numbers">
+rem_Style_20:</span>
+
+add_Style_21:<span class="Punctuation">
+rem_Style_21:</span>
+
+add_Style_22:<span class="Group1">
+rem_Style_22:</span>
+
+add_Style_23:<span class="Group2">
+rem_Style_23:</span>
+
+add_Style_24:<span class="Group3">
+rem_Style_24:</span>
+
+add_Style_25:<span class="Group4">
+rem_Style_25:</span>
+
+add_Style_26:<span class="Group5">
+rem_Style_26:</span>
+
+add_Style_27:<span class="Group6">
+rem_Style_27:</span>
+
+add_Style_28:<span class="Group7">
+rem_Style_28:</span>
+
+add_Style_29:<span class="Group8">
+rem_Style_29:</span>
+
+add_Style_2A:<span class="Group9">
+rem_Style_2A:</span>
+
+add_Style_2B:<span class="Group10">
+rem_Style_2B:</span>
+
+add_Style_2C:<span class="Group11">
+rem_Style_2C:</span>
+
+add_Style_2D:<span class="Group12">
+rem_Style_2D:</span>
+
+add_Style_2E:<span class="Group13">
+rem_Style_2E:</span>
+
+add_Style_2F:<span class="Group14">
+rem_Style_2F:</span>
+
+add_Style_30:<span class="Group15">
+rem_Style_30:</span>
+
+add_Style_31:<span class="Group16">
+rem_Style_31:</span>
+
+
+# Character translations
+Char0:@
+Char1:A
+Char2:B
+Char3:C
+Char4:D
+Char5:E
+Char6:F
+Char7:G
+Char8:H
+Char9:I
+Char10:J
+Char11:K
+Char12:L
+Char13:M
+Char14:N
+Char15:O
+Char16:P
+Char17:Q
+Char18:R
+Char19:S
+Char20:T
+Char21:U
+Char22:V
+Char23:W
+Char24:X
+Char25:Y
+Char26:Z
+Char27:[
+Char28:\
+Char29:]
+Char30:^
+Char31:_
+Char32:&nbsp;
+Char33:!
+Char34:&quot;
+Char35:#
+Char36:$
+Char37:%
+Char38:&amp;
+Char39:'
+Char40:(
+Char41:)
+Char42:*
+Char43:+
+Char44:,
+Char45:-
+Char46:.
+Char47:/
+Char48:0
+Char49:1
+Char50:2
+Char51:3
+Char52:4
+Char53:5
+Char54:6
+Char55:7
+Char56:8
+Char57:9
+Char58::
+Char59:;
+Char60:&lt;
+Char61:=
+Char62:&gt;
+Char63:?
+Char64:@
+Char65:A
+Char66:B
+Char67:C
+Char68:D
+Char69:E
+Char70:F
+Char71:G
+Char72:H
+Char73:I
+Char74:J
+Char75:K
+Char76:L
+Char77:M
+Char78:N
+Char79:O
+Char80:P
+Char81:Q
+Char82:R
+Char83:S
+Char84:T
+Char85:U
+Char86:V
+Char87:W
+Char88:X
+Char89:Y
+Char90:Z
+Char91:[
+Char92:\
+Char93:]
+Char94:^
+Char95:_
+Char96:`
+Char97:a
+Char98:b
+Char99:c
+Char100:d
+Char101:e
+Char102:f
+Char103:g
+Char104:h
+Char105:i
+Char106:j
+Char107:k
+Char108:l
+Char109:m
+Char110:n
+Char111:o
+Char112:p
+Char113:q
+Char114:r
+Char115:s
+Char116:t
+Char117:u
+Char118:v
+Char119:w
+Char120:x
+Char121:y
+Char122:z
+Char123:{
+Char124:|
+Char125:}
+Char126:~
+Char127:?
+Char128:&euro;
+Char129:&#129;
+Char130:&sbquo;
+Char131:&fnof;
+Char132:&bdquo;
+Char133:&hellip;
+Char134:&dagger;
+Char135:&Dagger;
+Char136:&circ;
+Char137:&permil;
+Char138:&Scaron;
+Char139:&lsaquo;
+Char140:&OElig;
+Char141:&#141;
+Char142:&#381;
+Char143:&#143;
+Char144:&#144;
+Char145:&lsquo;
+Char146:&rsquo;
+Char147:&ldquo;
+Char148:&rdquo;
+Char149:&bull;
+Char150:&ndash;
+Char151:&mdash;
+Char152:&tilde;
+Char153:&trade;
+Char154:&scaron;
+Char155:&rsaquo;
+Char156:&oelig;
+Char157:&#157;
+Char158:&#382;
+Char159:&Yuml;
+Char160:&nbsp;
+Char161:&iexcl;
+Char162:&cent;
+Char163:&pound;
+Char164:&curren;
+Char165:&yen;
+Char166:&brvbar;
+Char167:&sect;
+Char168:&uml;
+Char169:&copy;
+Char170:&ordf;
+Char171:&laquo;
+Char172:&not;
+Char173:&shy;
+Char174:&reg;
+Char175:&macr;
+Char176:&deg;
+Char177:&plusmn;
+Char178:&sup2;
+Char179:&sup3;
+Char180:&acute;
+Char181:&micro;
+Char182:&para;
+Char183:&middot;
+Char184:&cedil;
+Char185:&sup1;
+Char186:&ordm;
+Char187:&raquo;
+Char188:&frac14;
+Char189:&frac12;
+Char190:&frac34;
+Char191:&iquest;
+Char192:&Agrave;
+Char193:&Aacute;
+Char194:&Acirc;
+Char195:&Atilde;
+Char196:&Auml;
+Char197:&Aring;
+Char198:&AElig;
+Char199:&Ccedil;
+Char200:&Egrave;
+Char201:&Eacute;
+Char202:&Ecirc;
+Char203:&Euml;
+Char204:&Igrave;
+Char205:&Iacute;
+Char206:&Icirc;
+Char207:&Iuml;
+Char208:&ETH;
+Char209:&Ntilde;
+Char210:&Ograve;
+Char211:&Oacute;
+Char212:&Ocirc;
+Char213:&Otilde;
+Char214:&Ouml;
+Char215:&times;
+Char216:&Oslash;
+Char217:&Ugrave;
+Char218:&Uacute;
+Char219:&Ucirc;
+Char220:&Uuml;
+Char221:&Yacute;
+Char222:&THORN;
+Char223:&szlig;
+Char224:&agrave;
+Char225:&aacute;
+Char226:&acirc;
+Char227:&atilde;
+Char228:&auml;
+Char229:&aring;
+Char230:&aelig;
+Char231:&ccedil;
+Char232:&egrave;
+Char233:&eacute;
+Char234:&ecirc;
+Char235:&euml;
+Char236:&igrave;
+Char237:&iacute;
+Char238:&icirc;
+Char239:&iuml;
+Char240:&eth;
+Char241:&ntilde;
+Char242:&ograve;
+Char243:&oacute;
+Char244:&ocirc;
+Char245:&otilde;
+Char246:&ouml;
+Char247:&divide;
+Char248:&oslash;
+Char249:&ugrave;
+Char250:&uacute;
+Char251:&ucirc;
+Char252:&uuml;
+Char253:&yacute;
+Char254:&thorn;
+Char255:&yuml;

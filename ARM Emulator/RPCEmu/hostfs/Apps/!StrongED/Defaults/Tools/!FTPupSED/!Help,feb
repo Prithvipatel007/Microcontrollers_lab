@@ -1,0 +1,12 @@
+| Help file for FTPupSED
+| © StrongED Developers
+
+| Task directory
+Set FTPupSED$Dir <Obey$Dir>
+Set FTPupSED$Resources <FTPupSED$Dir>
+
+| Language resources
+IfThere <FTPupSED$Dir>.!Languages Then Run <FTPupSED$Dir>.!Languages FTPupSED
+
+| Run help file
+Filer_Run <FTPupSED$Resources>.Help

@@ -1,0 +1,3 @@
+Hpy_go:\Ssearch for the classname at the caret in this file.|M\Asearch for the classname at the caret in all files.|MShift-\Sreturn the caret to its previous position.
+Hpy_lof:Ctrl-\Slist all classes in this file.|MCtrl-\Alist all classes in all files.|MShift-\Slist all methods in this file.|MShift-\Alist all methods in all files.
+Hpy_run:\Ssave and compile this Python program.

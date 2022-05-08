@@ -1,0 +1,7 @@
+DEF PROCDealWith_FontDbox(event,object,component)
+CASE event OF
+ WHEN FontDbox_AboutToBeShown
+ WHEN FontDbox_DialogueCompleted
+ WHEN FontDbox_ApplyFont
+ENDCASE
+ENDPROC

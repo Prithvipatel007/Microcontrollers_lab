@@ -1,0 +1,8 @@
+| Boot file for DigDirSED
+| © StrongED Developers
+
+| Task directory
+Set DigDirSED$Dir <Obey$Dir>
+
+| Wimp pool sprites
+Iconsprites <DigDirSED$Dir>.!Sprites

@@ -1,0 +1,16 @@
+#! lua
+do
+io.input(arg[1])
+local text = io.read("*all")
+io.input()
+local match,P,R,V in lpeg
+local bra,ket = P "(",P ")"
+local var = R "az"
+local grammar = P { "E",
+E = var + V"B";
+B = bra*V"E"*V"E"*ket;
+}
+local ok = grammar:match(text)
+local fmt = "%s is OK"
+print(ok and fmt:format(text) or "FAIL")
+end

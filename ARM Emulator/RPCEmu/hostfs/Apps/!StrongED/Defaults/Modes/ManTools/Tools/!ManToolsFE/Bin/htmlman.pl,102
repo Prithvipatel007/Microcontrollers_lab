@@ -1,0 +1,269 @@
+#!/usr/bin/perl -w
+#
+# Copyright 2002-2012, Stephen Fryatt (info@stevefryatt.org.uk)
+#
+# This file is part of ManTools:
+#
+#   http://www.stevefryatt.org.uk/software/
+#
+# Licensed under the EUPL, Version 1.1 only (the "Licence");
+# You may not use this work except in compliance with the
+# Licence.
+#
+# You may obtain a copy of the Licence at:
+#
+#   http://joinup.ec.europa.eu/software/page/eupl
+#
+# Unless required by applicable law or agreed to in
+# writing, software distributed under the Licence is
+# distributed on an "AS IS" basis, WITHOUT WARRANTIES
+# OR CONDITIONS OF ANY KIND, either express or implied.
+#
+# See the Licence for the specific language governing
+# permissions and limitations under the Licence.
+
+# HTMLMan -- Convert help-markup into HTML files.
+#
+# Usage: HTMLMan -I<infile> -O<outfile> [-D<var>=<val> ...]
+
+use strict;
+
+use constant TRUE		=> 1;
+use constant FALSE		=> 0;
+
+use constant LIST_NONE		=> 0;
+use constant LIST_BULLET	=> 1;
+use constant LIST_NUMERIC	=> 2;
+use constant LIST_UPPER		=> 3;
+use constant LIST_LOWER		=> 4;
+
+# The output type for literals in the file.
+
+my $mode="HTML";
+
+# Formatting variables.
+
+my $output_preformatted = FALSE;
+
+my %defs = ("title", "");
+
+# Process the command line arguments.
+
+my $infile = undef;
+my $outfile = undef;
+
+if (scalar(@ARGV) > 2) {
+	# Too many arguments, so assume the new format.
+
+	foreach my $arg (@ARGV) {
+		if ($arg =~ /^-I(.+)/) {
+			$infile = $1;
+		} elsif ($arg =~ /^-O(.+)/) {
+			$outfile = $1;
+		} elsif ($arg =~ /^-D([^=]+)=(.*)/) {
+			$defs{$1} = $2;
+		}
+	}
+} else {
+	# Default to the parameters being <infile> <outfile> for backwards
+	# compatibility.
+
+	$infile = $ARGV[0];
+	$outfile = $ARGV[1];
+}
+
+if (!defined($infile) || !defined($outfile)) {
+	die "Missing input or output filename parameters.\n";
+}
+
+# Open the input and output files -- there is only one output file used.
+
+open(INPUT, $infile) || die "Can't open input file $infile: $!\n";
+open(OUTPUT, ">".$outfile) || die "Can't open output file $outfile: $!\n";
+
+# Read the lines in one at a time and process them.
+
+while (defined(my $line = <INPUT>)) {
+	chomp($line);
+
+	if ($line =~ /^\s*<([^<>]*)>\s*$/) {
+		my %params = parse_tag($1);
+
+		if ($params{'tag_name'} eq 'define') {
+			# If it's already defined, then either we've defined it twice in the file,
+			# or the file definition has been overridden by a command line definition.
+
+			if (defined($params{'name'}) && defined($params{'value'}) && !defined($defs{$params{'name'}})) {
+				$defs{$params{'name'}} = $params{'value'};
+			}
+		} elsif ($params{'tag_name'} eq 'chapter') {
+			if (!defined($params{'title'})) {
+				$params{'title'} = "Chapter";
+			}
+
+			print OUTPUT "\n<div class=\"chapter\">\n";
+			print OUTPUT "<h2><a name=\"".$params{'file'}."\">".$params{'title'}."</a></h2>\n";
+		} elsif ($params{'tag_name'} eq '/chapter') {
+			print OUTPUT "</div>\n";
+		} elsif ($params{'tag_name'} eq 'literal') {
+			my $literal_line = "";
+
+			if (!defined($params{'mode'})) {
+				$params{'mode'} = "";
+			}
+
+			while (defined ($literal_line = <INPUT>) && $literal_line !~ /^<\/literal>$/) {
+				if (uc($params{'mode'}) eq uc($mode)) {
+					while ($literal_line =~ /\$\$([a-z]+?)\$\$/) {
+						$literal_line = "$`$defs{$1}$'";
+					}
+
+					print OUTPUT $literal_line;
+				}
+			}
+		} elsif ($params{'tag_name'} eq 'subhead') {
+			if (!defined($params{'title'})) {
+				$params{'title'} = "Subheading";
+			}
+
+			print OUTPUT "\n<h3>".$params{'title'}."</h3>\n";
+		} elsif ($params{'tag_name'} eq 'codeblock') {
+			print OUTPUT "\n<blockquote><pre>\n";
+			$output_preformatted = TRUE;
+		} elsif ($params{'tag_name'} eq '/codeblock'){
+			print OUTPUT "</blockquote></pre>\n";
+			$output_preformatted = FALSE;
+		} elsif ($params{'tag_name'} eq 'box') {
+			print OUTPUT "<blockquote>\n";
+		} elsif ($params{'tag_name'} eq '/box') {
+			print OUTPUT "</blockquote>\n\n";
+		} elsif ($params{'tag_name'} eq 'list') {
+			print OUTPUT "\n<ul>";
+		} elsif ($params{'tag_name'} eq '/list') {
+			print OUTPUT "</ul>\n";
+		} elsif ($params{'tag_name'} eq 'definition') {
+			if (!defined($params{'target'})) {
+				$params{'target'} = "Definition";
+			}
+			print OUTPUT "\n<dl><dt><b>".$params{'target'}."</b></dt>\n<dd>\n";
+		} elsif ($params{'tag_name'} eq '/definition') {
+			print OUTPUT "</dd></dl>\n";
+		} elsif ($params{'tag_name'} eq 'comdef') {
+			my $command = "";
+			if (defined($params{'target'})) {
+				$command = "\n<dl><dt><b>".$params{'target'}."</b>";
+			} else {
+				$command = "\n<dl><dt><b>Command</b>";
+			}
+			if (defined($params{'params'})) {
+				$command .= " <i>".$params{'params'}."</i>";
+			}
+			$command .= "</dt>\n<dd>\n";
+			print OUTPUT $command;
+		} elsif ($params{'tag_name'} eq '/comdef') {
+			print OUTPUT "</dd></dl>\n";
+		}
+	} elsif ($line !~ /^\s*$/  || $output_preformatted) {
+		print OUTPUT output_line($line, $output_preformatted);
+	}
+}
+
+
+# -------------------------------------------------------------------------------------------------
+# Process a line of text from the file, parsing any in-line commands and formatting it for the
+# current file type.
+#
+# Param: $line			The line of text to be written.
+# Param: $preformatted		TRUE if the line is within <pre> tags; else FALSE.
+# Return: 			The formatted line.
+
+sub output_line
+{
+	my ($line, $preformatted) = @_;
+
+	# <cite>, <code>, <em> and <strong> just get left as-is.
+
+	$line =~ s/<command>(.*?)<\/command>/<code>$1<\/code>/g;	# Inline code - enclose in ""
+	$line =~ s/<entry>(.*?)<\/entry>/<tt>$1<\/tt>/g;		# User entry
+	$line =~ s/<file>(.*?)<\/file>/<i>$1<\/i>/g;			# Filename - no effect
+	$line =~ s/<icon>(.*?)<\/icon>/<b>$1<\/b>/g;			# Icon labels - enclose in ''
+	$line =~ s/<key>(.*?)<\/key>/ucfirst $1/eg;			# Key names - initial capital
+	$line =~ s/<menu>(.*?)<\/menu>/<b>$1<\/b>/g;			# Menu entries - enclose in ''
+	$line =~ s/<mouse>(.*?)<\/mouse>/ucfirst $1/eg;			# Mouse buttons - initial capital
+	$line =~ s/<param>(.*?)<\/param>/<tt>$1<\/tt>/g;
+	$line =~ s/<window>(.*?)<\/window>/<b>$1<\/b>/g;		# Window names - no effect
+
+	# Convert all the hyperlinks into HTML format.
+
+	while ($line =~ /<link ref="#url (.*?)">(.*?)<\/link>/) {
+		$line = "$`<a href=\"$1\">$2</a>$'";
+	}
+
+	while ($line =~ /<link ref="(.*?)">(.*?)<\/link>/) {
+		$line = "$`<a href=\"#$1\">$2</a>$'";
+	}
+
+	# Sort out any &msep; entities into something that's valid HTML.
+
+	while ($line =~ /&msep;/) {
+		$line = "$`&rarr;$'";
+	}
+
+	# If the line isn't preformatted, then enclose it in <p> tags.
+
+	if (!$preformatted) {
+		$line = "<p>".$line."</p>";
+	}
+
+	# If the start of the line is bulledted, swap the <li> and the <p>
+	# tags around.
+
+	if ($line =~ /^<p><li>/) {
+		$line =~ s/^<p><li>\s*/"<li><p>"/e;
+	}
+
+	# Remove any trailing whitespace from the line
+
+	$line =~ s/\s*$//;
+
+	# If the line isn't in a preformatted block, add some whitespace before it.
+
+	if (!$preformatted) {
+		$line = "\n".$line;
+	}
+
+	return $line."\n";
+}
+
+
+# -------------------------------------------------------------------------------------------------
+# Parse a teg, returning a hash containing a set of attribute/value pairs.
+# The tag is given an attribute name "tag_name".
+#
+# Param: $tag			The tag to be parsed (eg. "p name="value"").
+# Return:			A hash of tag name and attribute values.
+
+sub parse_tag
+{
+	my ($tag) = @_;
+	my (%attributes, @items, $item, $name, $value);
+
+	# Convert the spaces outside of quotes into \n and split on these.
+
+	$tag =~ s/\s+([^="]*?=)/\n$1/g;
+	@items = split(/\n/, $tag);
+
+	foreach $item (@items) {
+		($name, $value) = split(/=/, $item);
+
+		if (defined($value) && $value ne "") {
+			$value =~ s/^\s*"(.*)"\s*$/$1/; # Strip quotes and external whitespace.
+			$attributes{$name} = $value;
+		} else {
+			$attributes{'tag_name'} = $name;
+		}
+	}
+
+	return %attributes;
+}
+

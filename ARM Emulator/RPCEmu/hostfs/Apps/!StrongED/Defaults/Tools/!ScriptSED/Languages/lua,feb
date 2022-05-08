@@ -1,0 +1,4 @@
+| StrongED script binding for Lua
+| © StrongED developers
+
+lua <StrongED$Script_Script> <StrongED$Script_Infile> > <StrongED$Script_Outfile>

@@ -1,0 +1,6 @@
+# Pascal mode
+
+Hpas_lop:SELECT erzeugt eine Liste aller Prozeduren.
+Hpas_lof:SELECT erzeugt eine Liste aller Funktionen.
+Hpas_run:SELECT sendet den Text zum Pascal Compiler.
+Hpas_mak:SELECT speichert und startet Make.

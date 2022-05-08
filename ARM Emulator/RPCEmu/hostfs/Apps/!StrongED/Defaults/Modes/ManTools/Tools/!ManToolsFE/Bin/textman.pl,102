@@ -1,0 +1,427 @@
+#!/usr/bin/perl -w
+#
+# Copyright 2002-2012, Stephen Fryatt (info@stevefryatt.org.uk)
+#
+# This file is part of ManTools:
+#
+#   http://www.stevefryatt.org.uk/software/
+#
+# Licensed under the EUPL, Version 1.1 only (the "Licence");
+# You may not use this work except in compliance with the
+# Licence.
+#
+# You may obtain a copy of the Licence at:
+#
+#   http://joinup.ec.europa.eu/software/page/eupl
+#
+# Unless required by applicable law or agreed to in
+# writing, software distributed under the Licence is
+# distributed on an "AS IS" basis, WITHOUT WARRANTIES
+# OR CONDITIONS OF ANY KIND, either express or implied.
+#
+# See the Licence for the specific language governing
+# permissions and limitations under the Licence.
+
+# TextMan -- Convert help-markup into plain text files.
+#
+# Usage: TextMan -I<infile> -O<outfile> [-D<var>=<val> ...]
+
+use strict;
+
+use constant TRUE		=> 1;
+use constant FALSE		=> 0;
+
+use constant LIST_NONE		=> 0;
+use constant LIST_BULLET	=> 1;
+use constant LIST_NUMERIC	=> 2;
+use constant LIST_UPPER		=> 3;
+use constant LIST_LOWER		=> 4;
+
+# The output type for literals in the file.
+
+my $mode="Text";
+
+# Formatting variables.
+
+my $output_all_lines = FALSE;
+
+my %defs = ("title", "");
+
+my @indent = (2);
+my @line_spacing = (1);
+my @line_wrapping = (TRUE);
+my @list_value = (0);
+my @list_type = (LIST_NONE);
+
+my $bar_inset = -1;
+my $line_prefix = "";
+
+# Set the entities that we recognise.  NB: this list must contain them in a plain text form.
+
+my %entities = (
+	"lt",		"<",
+	"gt",		">",
+	"quot",		"\"",
+	"ndash",	"--",
+	"nbsp",		"\xa0",
+	"msep",		"--",
+	"amp",		"\e"	# & goes to ESC, then is converted back to &
+);
+
+# Process the command line arguments.
+
+my $infile = undef;
+my $outfile = undef;
+
+if (scalar(@ARGV) > 2) {
+	# Too many arguments, so assume the new format.
+
+	foreach my $arg (@ARGV) {
+		if ($arg =~ /^-I(.+)/) {
+			$infile = $1;
+		} elsif ($arg =~ /^-O(.+)/) {
+			$outfile = $1;
+		} elsif ($arg =~ /^-D([^=]+)=(.*)/) {
+			$defs{$1} = $2;
+		}
+	}
+} else {
+	# Default to the parameters being <infile> <outfile> for backwards
+	# compatibility.
+
+	$infile = $ARGV[0];
+	$outfile = $ARGV[1];
+}
+
+if (!defined($infile) || !defined($outfile)) {
+	die "Missing input or output filename parameters.\n";
+}
+
+# Open the input and output files -- there is only one output file used.
+
+open(INPUT, $infile) || die "Can't open input file $infile: $!\n";
+open(OUTPUT, ">".$outfile) || die "Can't open output file $outfile: $!\n";
+
+# Read the lines in one at a time and process them.
+
+while (defined(my $line = <INPUT>)) {
+	chomp($line);
+
+	if ($line =~ /^\s*<([^<>]*)>\s*$/) {
+		my %params = parse_tag($1);
+
+		if ($params{'tag_name'} eq 'define') {
+			# If it's already defined, then either we've defined it twice in the file,
+			# or the file definition has been overridden by a command line definition.
+			# In the latter case, we use the definition here to set field size and justification.
+
+			if (defined($params{'name'}) && defined($params{'value'})) {
+				my $defn = "";
+
+				if (defined($defs{$params{'name'}})) {
+					$defn = $defs{$params{'name'}};
+				} else {
+					$defn = $params{'value'};
+				}
+
+				if (defined($params{'length'})) {
+					if (uc($params{'align'}) eq "LEFT") {
+						$defn = sprintf "%-$params{'length'}s", $defn;
+					} elsif (uc($params{'align'}) eq "RIGHT") {
+						$defn = sprintf "%+$params{'length'}s", $defn;
+					}
+				}
+
+				$defs{$params{'name'}} = $defn;
+			}
+		} elsif ($params{'tag_name'} eq 'chapter') {
+			if (!defined($params{'title'})) {
+				$params{'title'} = "Chapter";
+			}
+
+			print OUTPUT "\n\n".$params{'title'}."\n";
+			print OUTPUT "-" x length($params{'title'}) . "\n\n";
+		} elsif ($params{'tag_name'} eq 'literal') {
+			my $literal_line;
+
+			if (!defined($params{'mode'})) {
+				$params{'mode'} = "";
+			}
+
+			while (defined($literal_line = <INPUT>) && $literal_line !~ /^<\/literal>$/) {
+				if (uc($params{'mode'}) eq uc($mode)) {
+					while ($literal_line =~ /\$\$([a-z]+?)\$\$/) {
+						$literal_line = "$`$defs{$1}$'";
+					}
+					print OUTPUT $literal_line;
+				}
+			}
+		} elsif ($params{'tag_name'} eq 'subhead') {
+			if (!defined($params{'title'})) {
+				$params{'title'} = "Subheading";
+			}
+
+			print OUTPUT "\n  ".$params{'title'}."\n";
+			print OUTPUT "  " . "-" x length ($params{'title'}) . "\n\n";
+		} elsif ($params{'tag_name'} eq 'codeblock') {
+			push(@indent, $indent[-1] + 2);
+			push(@line_spacing, 0);
+			push(@line_wrapping, FALSE);
+			$output_all_lines = TRUE;
+		} elsif ($params{'tag_name'} eq '/codeblock') {
+			pop(@indent);
+			pop(@line_spacing);
+			pop(@line_wrapping);
+			print OUTPUT "\n";
+			$output_all_lines = FALSE;
+		} elsif ($params{'tag_name'} eq 'box') {
+			if ($bar_inset == -1) {
+				$bar_inset = $indent[-1];
+			}
+			push(@indent, $indent[-1] + 2);
+
+			if (defined($params{'type'})) {
+				$indent[-1] = $indent[-1] + 4;
+
+				if ($params{'type'} eq 'info') {
+					$line_prefix = "(i) ";
+				} elsif ($params{'type'} eq 'warning') {
+					$line_prefix = "(!) ";
+				}
+			}
+		} elsif ($params{'tag_name'} eq '/box') {
+			pop(@indent);
+			if ($bar_inset == $indent[-1]) {
+				$bar_inset = -1;
+			}
+		} elsif ($params{'tag_name'} eq 'list') {
+			if (defined($params{'spacing'}) && $params{'spacing'} == 1) {
+				push(@line_spacing, 1);
+			} else {
+				push(@line_spacing, 0);
+			}
+
+			if (defined ($params{'type'})) {
+				if ($params{'type'} eq 'num') {
+					push(@list_type, LIST_NUMERIC);
+					push(@list_value, 1);
+					push(@indent, $indent[-1] + 4);
+				} elsif ($params{'type'} eq 'upper') {
+					push(@list_type, LIST_UPPER);
+					push(@list_value, 1);
+					push(@indent, $indent[-1] + 4);
+				} elsif ($params{'type'} eq 'lower') {
+					push(@list_type, LIST_LOWER);
+					push(@list_value, 1);
+					push(@indent, $indent[-1] + 4);
+				} else {
+					push(@list_type, LIST_BULLET);
+					push(@list_value, 0);
+					push(@indent, $indent[-1] + 4);
+				}
+			} else {
+				push(@list_type, LIST_BULLET);
+				push(@list_value, 0);
+				push(@indent, $indent[-1] + 2);
+			}
+		} elsif ($params{'tag_name'} eq '/list') {
+			if ($line_spacing[-1] == 0) {
+				print OUTPUT "\n";
+			}
+
+			pop(@indent);
+			pop(@line_spacing);
+			pop(@list_type);
+			pop(@list_value);
+		} elsif ($params{'tag_name'} eq 'definition') {
+			if (!defined($params{'target'})) {
+				$params{'target'} = "Definition";
+			}
+			print OUTPUT output_line($params{'target'}, $indent[-1], $line_spacing[-1], $line_wrapping[-1], $list_type[-1], \$list_value[-1], $bar_inset, "");
+			push(@indent, $indent[-1] + 2);
+		} elsif ($params{'tag_name'} eq '/definition') {
+			pop(@indent);
+		} elsif ($params{'tag_name'} eq 'comdef') {
+			my $command = "";
+			if (defined($params{'target'})) {
+				$command = $params{'target'};
+			} else {
+				$command = "Command";
+			}
+			if (defined($params{'params'})) {
+				$command .= " ".$params{'params'};
+			}
+			print OUTPUT output_line($command, $indent[-1], $line_spacing[-1], $line_wrapping[-1], $list_type[-1], \$list_value[-1], $bar_inset, "");
+			push(@indent, $indent[-1] + 2);
+		} elsif ($params{'tag_name'} eq '/comdef') {
+			pop(@indent);
+		}
+	} elsif ($line !~ /^\s*$/  || $output_all_lines) {
+		print OUTPUT output_line($line, $indent[-1], $line_spacing[-1], $line_wrapping[-1], $list_type[-1], \$list_value[-1], $bar_inset, $line_prefix);
+		$line_prefix = "";
+	}
+}
+
+
+# -------------------------------------------------------------------------------------------------
+# Process a line of text from the file, parsing any in-line commands and formatting it for the
+# current file type.
+#
+# Param: $line			The line of text to be written.
+# Param: $indent		The current indent value.
+# Param: $spacing		The current line spacing value.
+# Param: $wrapping		1 to wrap lines; 0 to leave unchanged.
+# Param: $list_type		The current list type.
+# Param: $list_value		Reference to the current list value, which could be updated.
+# Param: $bar			Indent at which to place a vertical bar, or -1
+# Param: $prefix		Prefix to place after the bar on the first line, or ""
+# Return: 			The formatted line.
+
+sub output_line
+{
+	my ($line, $indent, $spacing, $wrapping, $list_type, $list_value, $bar, $prefix) = @_;
+
+	my $first = FALSE;
+
+	$line =~ s/<cite>(.*?)<\/cite>/$1/g;		# Citation - no effect
+	$line =~ s/<code>(.*?)<\/code>/"$1"/g;		# Inline code - enclose in ""
+	$line =~ s/<command>(.*?)<\/command>/"$1"/g;	# Command line - no effect
+	$line =~ s/<em>(.*?)<\/em>/uc $1/eg;		# Emphasis - To Upper
+	$line =~ s/<entry>(.*?)<\/entry>/"$1"/g;	# User entry - enclose in ""
+	$line =~ s/<file>(.*?)<\/file>/$1/g;		# Filename - no effect
+	$line =~ s/<icon>(.*?)<\/icon>/'$1'/g;		# Icon labels - enclose in ''
+	$line =~ s/<key>(.*?)<\/key>/ucfirst $1/eg;	# Key names - initial capital
+	$line =~ s/<menu>(.*?)<\/menu>/'$1'/g;		# Menu entries - enclose in ''
+	$line =~ s/<mouse>(.*?)<\/mouse>/ucfirst $1/eg;	# Mouse buttons - initial capital
+	$line =~ s/<param>(.*?)<\/param>/$1/g;		# Command parameter - no effect
+	$line =~ s/<strong>(.*?)<\/strong>/uc $1/eg;	# Strong Emphasis - To Upper
+	$line =~ s/<window>(.*?)<\/window>/$1/g;	# Window names - no effect
+
+	# Hyperlinks are unsupported, so just remove them.
+
+	$line =~ s/<link.*?>(.*?)<\/link>/$1/g;
+
+	# Finally, expand all the entities out.
+
+	while ($line =~ /&(.*?);/) {
+		$line = "$`$entities{$1}$'";
+	}
+
+	$line =~ s/\e/&/g; # Restore the &s after the entities have gone.
+
+	# Indent the first line, using a bullet or number if necessary.
+
+	my $current_line = "";
+
+	if ($line =~ /^<li>/) {
+		if ($list_type != LIST_NONE) {
+			if ($list_type == LIST_BULLET) {
+				$current_line = " " x ($indent-2)."* ";
+			} elsif ($list_type == LIST_NUMERIC) {
+				$current_line = " " x ($indent-4).sprintf ("%2d. ", $$list_value++);
+				$first = TRUE; # Don't double-space the trailing dot...
+			} elsif ($list_type == LIST_UPPER) {
+				$current_line = " " x ($indent-4).sprintf ("%2c) ", 64 + $$list_value++);
+			} elsif ($list_type == LIST_LOWER) {
+				$current_line = " " x ($indent-4).sprintf ("%2c) ", 96 + $$list_value++);
+			}
+		} else {
+			$current_line = " " x ($indent);
+		}
+
+		$line =~ s/^<li>\s*//;
+	} else {
+		$current_line = " " x $indent;
+	}
+
+	if ($bar != -1 && $bar <= $indent) {
+		substr($current_line, $bar, 2 + length($prefix)) = '| '.$prefix;
+	}
+
+	# Perform the linewrap on the string, indenting as required.
+
+	$line .= " ";
+
+	my $word = "";
+	my $space = "";
+
+	my $new_line = "";
+	my $next_space = " ";
+	chop($current_line); # Assumes that the last character of indent is space, replaced by one below.
+
+	while ($line ne "") {
+		$line =~ /( +)/;
+		$word = $`;
+
+		if ($wrapping == TRUE) {
+			$space = ' ';
+		} else {
+			$space = $next_space;
+			$next_space = $1;
+		}
+
+		$line = $';
+
+		if ($wrapping == TRUE && $space eq ' ' && $current_line =~ /\.$/ && $word =~ /^[A-Z]/ && !$first) {
+			$space = '  '; # Double-space after '.' if the next letter is upper-case.
+		}
+
+		if (length ($current_line.$space.$word) <= 77) {
+			$current_line .= $space.$word;
+		} else {
+			$new_line .= $current_line."\n";
+			$current_line = (' ' x $indent).$word;
+
+			if ($bar != -1 && $bar <= $indent) {
+				substr($current_line, $bar, 1) = '|';
+			}
+		}
+
+		$first = FALSE;
+	}
+
+	$line = $new_line.$current_line;
+
+	$line =~ s/\xa0/ /g; # Replace hard spaces with spaces once linewrap is done.
+
+	# Remove any trailing whitespace from the line and then add in newlines
+	# for the required linespacing.
+
+	$line =~ s/\s*$//;
+	$line .= "\n" x $spacing;
+
+	return $line."\n";
+}
+
+
+# -------------------------------------------------------------------------------------------------
+# Parse a teg, returning a hash containing a set of attribute/value pairs.
+# The tag is given an attribute name "tag_name".
+#
+# Param: $tag			The tag to be parsed (eg. "p name="value"").
+# Return:			A hash of tag name and attribute values.
+
+sub parse_tag
+{
+	my ($tag) = @_;
+	my (%attributes, @items, $item, $name, $value);
+
+	# Convert the spaces outside of quotes into \n and split on these.
+
+	$tag =~ s/\s+([^="]*?=)/\n$1/g;
+	@items = split(/\n/, $tag);
+
+	foreach $item (@items) {
+		($name, $value) = split(/=/, $item);
+
+		if (defined($value) && $value ne "") {
+			$value =~ s/^\s*"(.*)"\s*$/$1/; # Strip quotes and external whitespace.
+			$attributes{$name} = $value;
+		} else {
+			$attributes{'tag_name'} = $name;
+		}
+	}
+
+	return %attributes;
+}
+

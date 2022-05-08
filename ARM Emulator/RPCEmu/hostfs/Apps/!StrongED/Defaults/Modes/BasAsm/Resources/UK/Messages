@@ -1,0 +1,18 @@
+# Messages for BasASM mode
+# © StrongED Developers
+
+HBa_lof:Click to list all assembly label definitions.|MShift-click to list all Procedure and Function definitions.|M\Slook in this file only.|M\Alook in all open files.
+HBa_updn:\Sgo to next assembly label.|M\Ago to previous assembly label.|MShift-\Sgo to next function.|MShift-\Ago to previous function.
+HBa_run:\Stokenise program and run it.|M\Arun it in a taskwindow.|MIf you hold down Shift the file will be saved before being run.
+HBa_go:Click to go to definition of assembly label at caret.|MShift-click to go to definition of Procedure or Function at caret.|M\Slook in this file only.|M\Alook in all open files.
+
+# Syntax colouring groups
+Group1:Integer instr
+Group2:LDM/STM
+Group3:Register names
+Group4:Branches
+Group5:Directives
+Group6:Shifts
+Group7:Float instr
+Group8:Labels
+Group9:LDR/STR

@@ -1,0 +1,113 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : BBCode
+#	Purpose : For editing BBCode pages
+#	Author  : © Fred Graute
+#	Licence : Freeware
+#	Version : 0.02 04-11-2011
+#
+# 04-11-11 FG Renamed StrongED_Scrap$Dir to StrongED$ScrapDir
+#-------------------------------------------------------------------------------
+
+Search
+	__Bold		* "[/b]"
+	__Italic	* "[/i]"
+	__Underline	* "[/u]"
+	__Color		* "[/color]"
+	__Size		* "[/size]"
+	__Code		* "[/code]"
+	__Img		* "[/img]"
+	__URL		* "[/url]"
+	__Email		* "[/email]"
+	__Quote		* "[/quote]"
+
+	QuoteName	"[quote=\"" {'A-Za-z '}+ "\"]"
+End
+
+SyntaxComment
+	CommentType	MultiLine
+	StartWith	[quote=
+	EndWith		[/quote]
+End
+
+SyntaxWords Group1 EndOfExpr __Bold
+	[b]
+End
+
+SyntaxWords Group2 EndOfExpr __Italic
+	[i]
+End
+
+SyntaxWords Group3 EndOfExpr __Underline
+	[u]
+End
+
+SyntaxWords Group4 EndOfExpr __Email
+	[email]
+End
+
+SyntaxWords Group5 EndOfExpr __Code
+	[code]
+End
+
+SyntaxWords Group6 EndOfExpr __URL
+	[url
+End
+
+SyntaxWords Group7 EndOfExpr __Img
+	[img
+End
+
+SyntaxWords Group8 EndOfExpr __Color
+	[color=
+End
+
+SyntaxWords Group9 EndOfExpr __Size
+	[size=
+End
+
+SyntaxWords Group10 EndOfLine
+	[*]
+	[list
+	[/list]
+End
+
+#SyntaxWords Group11 EndOfExpr Quote
+#	[quote=
+##	[/quote]
+#End
+
+KeyList
+#	cs-Return	InsertStr("[/quote]") NewLine() NewLine() NewLine() NewLine() Push GotoPrev(QuoteName,Backward,NoLine,NoCase) SetTmp(QuoteName,"StrongED$Tmp_QuoteName") Pop GSTrans("<StrongED$Tmp_QuoteName>") CaretUp CaretUp StartOfTLine
+#	cs-Return	InsertStr("[/quote]") NewLine() NewLine() NewLine() NewLine() Push InsertStr("[quote=\"\"]") CaretUp CaretUp StartOfTLine
+
+	cs-Return	SetTmp Push BlockClear BlockMark_Continuous StartOfText BlockMark_Continuous Pop EndOfWLine Push Process(Block,"Lua <StrongED$Tmp_ModePath>.Tools.BQv1 <StrongED$ScrapDir>.out > <StrongED$ScrapDir>.in") BlockClear Pop StartOfWLine
+#	cs-Return	SetTmp Push BlockClear BlockMark_Continuous StartOfText BlockMark_Continuous Pop Process(Block,"Lua <StrongED$Tmp_ModePath>.Tools.BQv2 <StrongED$ScrapDir>.out",,NoReplace) BlockClear
+
+# Do not uncomment the line below. The utility BQv3 requires 4.68. It's only shown here as an example.
+#	cs-Return	SetTmp Push BlockClear BlockMark_Continuous StartOfText BlockMark_Continuous Pop Process(Block,"Lua <StrongED$Tmp_ModePath>.Tools.BQv3 <StrongED$ScrapDir>.out",,NoReplace) BlockClear
+End
+
+Functions
+	Icon		text
+	Help		HlpText
+	Select		SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!PopUp")
+
+	Icon		list
+	Help		HlpLists
+	Select		SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!Lists")
+
+	Icon		smiley
+	Help		HlpSmilies
+	Select		SetTmp() Run("<StrongED$Tmp_ModePath>.Tools.!Smilies")
+End
+
+Shortcuts
+	``b	[b]\@[/b]
+	``i	[i]\@[/i]
+	``u	[u]\@[/u]
+	``c	[code]\@[/code]
+	``e	[email]\@[/email]
+	``k	[color=#\@]\@[/color]
+	``q	[quote]\@[/quote]
+End

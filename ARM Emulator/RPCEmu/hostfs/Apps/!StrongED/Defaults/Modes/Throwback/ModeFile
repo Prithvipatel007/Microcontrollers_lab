@@ -1,0 +1,35 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : Throwback
+#	Purpose : StrongED mode file for saved throwback windows
+#	Author  : © Fred Graute
+#	Licence : Freeware
+#	Version : 1.01, 11-11-2011
+#
+#-------------------------------------------------------------------------------
+# 11-11-11 FG Replaced all old Tmp$* variables with new StrongED$Tmp_* ones
+#-------------------------------------------------------------------------------
+
+SyntaxWords Group1 EndOfLine
+	Processing
+End
+
+SyntaxWords Group2 EndOfLine
+	"Errors in "
+End
+
+SyntaxWords Group3 EndOfLine
+	"Info for  "
+End
+
+#SyntaxWords Group4 EndOfLine
+#	":"
+#End
+
+Functions
+	Key	F10
+	Icon	Run
+	Menu	Recreate throwback
+	Help	Recreates the original throwback window
+	Select	SetTmp() Process(Text, "TaskWindow <StrongED$Tmp_ModePath>.Tools.ThrowAgain",,NoReplace)
+End

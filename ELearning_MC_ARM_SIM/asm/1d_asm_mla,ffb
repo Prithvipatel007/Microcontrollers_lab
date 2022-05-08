@@ -1,0 +1,12 @@
+DIM CODE% (&100)
+P% = CODE%
+[
+.main
+  MOV   R1, #2
+  MOV   R2, #3
+  MOV   R3, #1
+  MLA   R0, R1, R2, R3  ; R0 = R1*R2 + R3
+
+  MOV   PC, LR  ; return
+]
+PRINT "R0 = " USR(main)

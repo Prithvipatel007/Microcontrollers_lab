@@ -1,0 +1,21 @@
+#-------------------------------------------------------------------------------
+#
+#	Name    : External
+#	Purpose : Ease external edit-ing
+#	Author  : © StrongED Developers
+#	Licence : Freeware
+#	Version : 1.01, 01-10-2012
+#
+#-------------------------------------------------------------------------------
+# 22-12-11 FG Made up a version number to make it easier to signal changes
+# 01-10-12 FG Made up other header fields to make things a bit more clear
+#-------------------------------------------------------------------------------
+
+Functions
+
+	Key	F10
+	Menu	Send back
+	Icon	save
+	Select	ExtEdit_SendBack
+
+End

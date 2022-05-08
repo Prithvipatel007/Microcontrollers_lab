@@ -1,0 +1,675 @@
+#-------------------------------------------------------------------------------
+#
+#	Name      : HTML
+#	Purpose   : HTML StrongED mode file for HTML files
+#	Author    : Philip Ludlam
+#	Copyright : (C) Philip Ludlam, 2003
+#	Version   : 0.41 beta, 22-12-2011
+#
+#	Licence   : See accompanying Help file for licence conditions
+#
+#-------------------------------------------------------------------------------
+# 22-12-11 FG Replaced old Tmp$* variables with StrongED$Tmp_* ones
+#          FG Changed 'Type' to 'CommentType' in SyntaxComment
+#-------------------------------------------------------------------------------
+
+# With thanks to Andrew Black <andrew@bach.demon.co.uk>
+# and Guttorm Vik <guttorm.vik@eunet.no>
+
+HelpPath	StrongHTML,HTML,
+
+SyntaxOptions
+	SingleQuote	No
+	DoubleQuote	Yes
+	QuoteQuote	Yes
+	SplitString	Yes
+	HexPrefix	#
+End
+
+
+SyntaxComment
+	CommentType	Multiline
+	StartWith	<!--
+	EndWith		-->
+End
+
+
+# Id's are used to try and pick up all tags that don't have their
+# own colouring. It also picks out start of tags such as
+# <A (as part of <A HREF=""></A> )
+# Of course it will also pick out non-tags such as <ANDREW>
+
+ID_FirstChar	<
+ID_Middle	/A-Za-z_0-9
+ID_LastChar	A-Za-z_0-9>
+
+
+# colours for document structure, headers and frames
+SyntaxWords Group1 EndAlways nocase
+	<!doctype
+	<html> </html> <html
+	<head> </head> <head
+	<title> </title> <title
+	<meta <base <link
+	</style> <style
+	<body> </body> <body
+	<frame
+	<frameset> </frameset> <frameset
+	<noframes> </noframes> <noframes
+	<iframe
+#	<div> <isindex
+End
+
+# headings
+SyntaxWords Group2 EndAlways nocase
+	<h1> </h1> <h1
+	<h2> </h2> <h2
+	<h3> </h3> <h3
+	<h4> </h4> <h4
+	<h5> </h5> <h5
+	<h6> </h6> <h6
+	<address> </address> <address
+	<pre> </pre>
+	<blockquote> </blockquote>
+End
+
+# text style tags
+SyntaxWords Group3 EndAlways nocase
+	<b> </b>
+	<i> </i>
+	<u> </u>
+	<s> </s>
+	<strike> </strike>
+	<dfn> </dfn>
+	<blink> </blink>
+	<em> </em>
+	<strong> </strong>
+	<cite> </cite>
+	<code> </code>
+	<samp> </samp>
+	<kbd> </kbd>
+	<abbrev> </abbrev>
+	<acronym> </acronym>
+	<person> </person>
+	<q> </q>
+	<var> </var>
+	<font> </font> <font
+	<basefont
+End
+
+# formatting tags: lists, forms and tables
+SyntaxWords Group4 EndAlways nocase
+	<ul> </ul> <ul
+	<dl> </dl> <dl
+	<ol> </ol> <ol
+	<form> </form> <form
+	<table> </table> <table
+	<thead> </thead <thead
+	<tbody> </tbody> <tbody
+	<tfoot> </tfoot> <tfoot
+	<col
+	<colgroup
+End
+
+# entry tags: lists, forms and tables
+SyntaxWords Group5 EndAlways nocase
+	<li> </li> <li
+	<dt> </dt> <dt
+	<dd> </dd> <dd
+	<td> </td> <td
+	<tr> </tr> <tr
+	<th> </th> <th
+	<caption </caption>
+	<input
+	<select </select>
+	<option> </option> <option
+End
+
+# anchor links and object tags
+# recommended colour - blue (to look like an anchor in browers)
+SyntaxWords Group6 EndOfTag nocase
+	<img
+	"<a " </a
+	<embed </embed>
+	<object </object>
+	<applet </applet>
+End
+
+# colours for embedded scripts
+SyntaxWords Group7 EndAlways nocase
+	<? <?php ?>
+	<script> </script> <script
+End
+
+#--- Block presentational and miscellaneous elements
+# (was group2)
+SyntaxWords Group8 EndAlways
+	<hr
+	<tt> </tt>
+	<map> </map> <map
+	<area
+	<big </big>
+	<small </small>
+	<sup> </sup> <sup
+	<sub> </sub> <sub
+End
+
+# The rest of the stuff was:
+
+#####--- Block structural elements - including table elements
+####
+####SyntaxWords Group4 EndAlways
+####	<p> </p> <p
+####	<div> </div> <div
+####	<table> </table> <table
+####	<caption> </caption> <caption
+####	<colgroup> </colgroup <colgroup
+####	<col> </col <col
+####	<thead> </thead <thead
+####	<tfoot> </tfoot> <tfoot
+####	<tbody> </tbody> <tbody
+####	<td> </td> <td
+####	<tr> </tr> <tr
+####	<th> </th> <th
+####End
+####
+#####--- In-line phrasal elements
+####
+####SyntaxWords Group5 EndAlways
+####	<abbr> </abbr> <abbr
+####	<acronym> </acronym> <acronym
+####	<cite> </cite> <cite
+####	<code> </code> <code
+####	<dfn> </dfn> <dfn
+####	<kbd> </kbd> <kbd
+####	<q> </q> <q
+####	<samp> </samp> <samp
+####	<var> </var> <var
+####	<em> </em> <em
+####	<strong> </strong> <strong
+####
+#####---  The following are deprecated
+####
+####	<b> </b>
+####	<i> </i>
+####	<u> </u>
+####	<s> </s>
+####	<strike> </strike>
+####	<font> </font> <font
+####	<basefont
+####End
+####
+#####--- In-line structural elements (and ruby!)
+####
+####SyntaxWords Group6 EndAlways
+####	<br
+####	<span> </span> <span
+####	<bdo> </bdo> <bdo
+####	<ins> </ins>
+####	<del> </del>
+####	<ruby> </ruby> <ruby
+####	<rbc> </rbc> <rbc
+####	<rtc> </rtc> <rtc
+####	<rb> </rb> <rb
+####	<rt> </rt> <rt
+####	<rp> </rp> <rp
+####End
+####
+#####--- Anchor, form and other external elements
+####
+####SyntaxWords Group7 EndAlways
+####	<? ?>
+####	<script> </script> <script
+####	"<a href" "<a id" <a </a>
+####	<img src </img>
+####	<object </object>
+####	<form> </form> <form
+####	<label> </label> <label
+####	<optgroup> </optgroup> <optgroup
+####	<textarea> </textarea> <textarea
+####	<fieldset> </fieldset> <fieldset
+####	<legend> </legend> <legend
+####	<button> </button> <button
+####	<input
+####	<select </select>
+####	<option </option>
+####
+#####---  Decprecated elements
+####
+####	<embed </embed>
+####	<applet </applet>
+####
+####End
+####
+#####--- List elements
+####
+####SyntaxWords Group8 EndAlways
+####	<ul> </ul> <ul
+####	<dl> </dl> <dl
+####	<ol> </ol> <ol
+####	<li> </li> <li
+####	<dt> </dt> <dt
+####	<dd> </dd> <dd
+####
+####End
+
+#----------------------------------------------------------------------
+
+
+Search
+	entity		"&" {AlphaNum}+ ";"
+	heading1	"<h"  AlphaNum   ">" @0 *  "</" @9
+	heading		"<h"  AlphaNum   ">" @0 * @9 "</"
+	tag		"<" *  ">"
+	tag_mark	"<" ["\\"] { AlphaNum | "/" }+  ">"
+	_MarkWord	tag_mark | entity | {AlphaNum}+ | {Punct}+
+	_SpellIgnore	("<" ["/"] ? {'~<>'}+ ">") | ("&" {AlphaNum}+ ";")
+
+	quote		"\""
+	anchor		"<a" {iswhite}+ * "href" {iswhite} "="  {iswhite}  quote @0 ** quote  ">" @9
+	anchor1		"<a" {iswhite}+ * "href" {iswhite} "="  {iswhite}  quote @0
+	selected_line	{any}+
+
+# match everything sensible but not ","
+#	textstr	 { AlphaNum | '\' _\-' }+
+
+	url		{AlphaNum}+ ":/" { ["~"] alphanum | '/_.?=&' | "-" }+
+	url_text	@1 url @2 {iswhite} @3 {.} @4
+	text		@1 @2 @3 {.} @4
+#        hotlist	url_text  |  text
+	hotlist		url_text
+# removing tag
+	anch_start	"<a" {iswhite}+ * quote
+	anch_end	quote  {iswhite} ">"
+	remove_tag	anch_start | anch_end | tag
+
+	href_link	"href=\"" @0 * @9 "\""
+	src_link	"src=\"" @0 * @9 "\""
+	include_link	{"include"|"require"}+ ["_once"] [White] "(\"" @0 * @9 "\")"
+
+#	For 'Escape'
+	speech	&22
+End
+
+
+Replace
+	h1		"<h1>" @@ "</h1>"
+	h2		"<h2>" @@ "</h2>"
+	h3		"<h3>" @@ "</h3>"
+	h4		"<h4>" @@ "</h4>"
+#misc
+	strong		"<strong>" @@ "</strong>"
+	emphasis	"<em>" @@ "</em>"
+	comment		"<!-- " @@ " -->"
+
+	red		"<font color=#ff0000>" @@ "</font>"
+	blue		"<font color=#3a00aa>" @@ "</font>"
+	green		"<font color=#008000>" @@ "</font>"
+	quote		"\""
+
+	hotlist_r	"<a href=\"" @12  "\">" @34  "</a>" nl
+	anchor		"<a href=\"\">" @@ "</a>"
+	name		"<a name=\"\">" @@ "</a>"
+	para		"<p>" @@ "</p>"
+
+#---  Deprecated
+
+	italic		"<i>" @@ "</i>"
+	bold		"<b>" @@ "</b>"
+	font		"<font size= color=\"#\">" @@ "</font>"
+	center		"<center>" @@  "</center>"
+End
+
+# Actions on shift doubleclick to load the file into a suitable editor
+ClickList s-Select2
+	href_link	SetTmp (_MarkWord, "tmp$temp") Run ("<StrongED$Tmp_ModePath>.Tools.GetURL -edit")
+	src_link	SetTmp (_MarkWord, "tmp$temp") Run ("<StrongED$Tmp_ModePath>.Tools.GetURL -edit")
+	include_link	SetTmp (_MarkWord, "tmp$temp") Run ("<StrongED$Tmp_ModePath>.Tools.GetURL -edit")
+	http		SetTmp (_MarkWord, "tmp$temp") Run ("<StrongED$Tmp_ModePath>.Tools.GetURL -edit")
+End
+
+# Actions on ctrl doubleclick to load the file into a suitable viewer
+ClickList c-Select2
+	href_link	SetTmp (_MarkWord, "tmp$temp") Run ("<StrongED$Tmp_ModePath>.Tools.GetURL -view")
+	src_link	SetTmp (_MarkWord, "tmp$temp") Run ("<StrongED$Tmp_ModePath>.Tools.GetURL -view")
+	include_link	SetTmp (_MarkWord, "tmp$temp") Run ("<StrongED$Tmp_ModePath>.Tools.GetURL -view")
+	http		BroadcastURL ("<StrongED$Tmp_MarkWord>")
+End
+
+
+Functions
+
+	Icon	lof
+	Select 	ListOfFound (heading1, All, Align, noLine, NoCase)
+	Menu	List of headings
+	Help	Hhtml_loh
+#	Help	Select - list of headings|MAdjust - list of Anchors
+
+	Adjust	ListOfFound (anchor, All, align, noLine, NoCase)
+
+	Key	‹F3
+	Menu	Save & Render      ‹F3
+	Icon	run
+	Select	SetTmp () SaveDClick ("<StrongED$Tmp_FileName>")
+	Help	Hhtml_run
+#		Click to save text and launch viewer (‹F3)
+
+	Menu	Escape brackets
+	Key	‹^F4
+	Select	Replace ("<", "&lt;", block ) Replace (">", "&gt;", block ) Replace (speech, "&quot;", block )
+	Help	Hhtml_esc
+#		replaces  < with escape |M to embed an HTML example in HTML file
+
+#	Menu	Load selected file
+#	Help	Click to load the HTML file under cursor.
+#       Select  SetTmp () LoadOne ("<StrongED$Tmp_FilePath>.<StrongED$Tmp_MarkWord>", "<StrongED$Tmp_MarkWord>")
+#	Help	Hhtml_load
+#		Goes to selected file|MFor now must be in same directory as current file
+
+#	Key
+	Menu	Create <h1>
+	Icon	html_h1
+	Select	Replace (selected_line, h1, block, noline, nocase)
+	Help	Hhtml_h1
+
+	Menu	Create <h2>
+	Icon	html_h2
+	Select	Replace (selected_line, h2, block, noline, nocase)
+	Help	Hhtml_h2
+
+	Menu	Create <h3>
+	Icon	html_h3
+	Select	Replace (selected_line, h3, block, noline, nocase)
+	Help	Hhtml_h3
+
+#	Menu	Create <h4>
+#	Icon	html_h4
+#	Select	Replace (selected_line, h4, block, noline, nocase)
+#	Help	Hhtml_h4
+
+#	Menu	Create <h5>
+#	Icon	html_h5
+#	Select	Replace (selected_line, h5, block, noline, nocase)
+#	Help	Hhtml_h5
+
+#	Menu	Create <h6>
+#	Icon	html_h6
+#	Select	Replace (selected_line, h6, block, noline, nocase)
+#	Help	Hhtml_h6
+
+#	Menu	Add strong
+#	Icon	html_st
+#	Adjust	Replace (selected_line, strong, block, noline, nocase)
+#	Help	Hhtml_strong
+#		Makes selected text strong
+
+#	Menu	Add emphasis
+#	Icon	html_em
+#	Select	Replace (selected_line, emphasis, block, noline, nocase)
+#	Help	Hhtml_emph
+
+# bold/strong tags
+	Menu	Add bold
+	Icon	html_b
+	Select	Replace (selected_line, bold, block, noline, nocase)
+	Help	Hhtml_bold
+
+	Adjust	Replace (selected_line, strong, block, noline, nocase)
+
+# italic/emphasis tags
+	Menu	Add italic
+	Icon	html_i
+	Select	Replace (selected_line, italic, block, noline, nocase)
+	Help	Hhtml_italic
+
+	Adjust	Replace (selected_line, emphasis, block, noline, nocase)
+
+	Menu	Font
+	Icon	html_f
+	Select	Replace (selected_line, font, block, noline, nocase)
+	Help	Hhtml_font
+
+	Icon	html_p
+	Menu	Make para.
+	Select	Replace (selected_line, para, block, noline, nocase)
+	Help	Hhtml_para
+
+#	Menu	Add underline
+#	Icon	html_under
+#	Select	Replace (selected_line, under, block, noline, nocase)
+#	Help	Hhtml_under
+
+	Menu	Remove tags
+	Select	Replace (remove_tag, "", block, noline, nocase)
+	Help	Hhtml_rm
+
+	Menu	Comment section
+	Select	Replace (selected_line, comment, block, line)
+	Help	Hhtml_comm
+
+#	Menu	Insert Anchor
+	Icon	html_anchor
+	Select	Replace (selected_line, anchor, block, noline, nocase) GotoBlock_Start CaretRight CaretRight CaretRight CaretRight CaretRight CaretRight CaretRight CaretRight CaretRight
+	Help	Hhtml_anc
+
+	Adjust	Replace (selected_line, name, block, noline, nocase) GotoBlock_Start CaretRight CaretRight CaretRight CaretRight CaretRight CaretRight CaretRight CaretRight CaretRight
+#	Adjust	InsertStr ("<a href=\"\"></a>")
+
+#	Key f9
+#	Adjust	Replace (hotlist, hotlist_r, block )
+
+# This has been removed as it's nowhere near completion.
+#	Menu	Text to HTML
+#	Icon	file_faf
+#       Select  SetTmp () Process (, "*Run <StrongED$Tmp_ModePath>.Programs.Text->HTML", "<StrongED$ScrapDir>.outfile", "<StrongED$ScrapDir>.infile" )
+#	Help	Hhtml_tohtml
+
+#	Menu	HTML to Text
+#       Adjust  SetTmp () Process (, "*Run <StrongED$Tmp_ModePath>.Programs.HTML->Text", "<StrongED$ScrapDir>.outfile", "<StrongED$ScrapDir>.infile" )
+End
+
+
+KeyList
+	^D	1	"Last updated " DateAndTime ("%we the %zdy%st") DateAndTime (" of %mo, %ce%yr")
+	^‹D	1	DateAndTime ("%we the %zdy%st") DateAndTime (" of %mo, %ce%yr")
+
+#	The lines below setup the file loading definitions
+	^‹T	1	SetTmp () InsertFile ("<StrongED$Tmp_ModePath>.Files.Template")
+	^‹H	1	SetTmp () InsertFile ("<StrongED$Tmp_ModePath>.Files.Header")
+	^‹F	1	SetTmp () InsertFile ("<StrongED$Tmp_ModePath>.Files.Footer")
+End
+
+
+Shortcuts
+
+# structure
+#	``f	<html>\n<head>\n	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">\n	<meta name="Generator" content="StrongED">\n	<title>\@</title>\n</head>\n\n<body background="" bgcolor="000000" text="FFFFFF" link="00FF00" vlink="FF0000">\n\n<font color="#FFFF00"><h1>\@</h1></font>\n\n<p><b><a href="about.htm">&copy; 2001 Author</a></b></p>\n</body></html>
+#	``head	<head>\n	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">\n	<meta name="Generator" content="StrongED">\n	<title>\@</title>\n</head>
+
+# headings
+	``1	<h1>\@</h1>\n\@
+	``2	<h2>\@</h2>\n\@
+	``3	<h3>\@</h3>\n\@
+	``4	<h4>\@</h4>\n\@
+	``5	<h5>\@</h5>\n\@
+	``6	<h6>\@</h6>\n\@
+
+# anchors
+	``ai	<a href="\@">\@</a>\@
+	``ae	<a href="http://\@/\@">\@</a>\@
+	``an	<a name="\@">\@</a>\@
+	``ha	<h1><a name="\@">\@</a></h1>\@
+
+# text
+	``pp	<p>\@</p>\@
+	``i	<i>\@</i>\@
+	``b	<b>\@</b>\@
+
+# images/pictures
+	``pi	<img src="\@graphics/\@.gif">\@
+	``pa	<img src="\@graphics/\@.gif" alt="[\@]">\@
+	``pl	<img src="\@graphics/\@.gif" border=0>\@
+
+#  comment :
+	``!	<!-- \@ -->\@
+
+# lists
+	``ul	<ul>\n\i	<li>\@</li>\N\I</ul>\@
+	``ol	<ol>\n\i	<li>\@</li>\N\I</ol>\@
+	``li	<li>\@</li>\@\n
+	<li>+	<li>\@</li>\n\i<li>\@
+	</li>+	</li>\n\i<li>\@</li>\@
+
+	``dl	<dl>\n\i	<dt>\@</dt>\n\i		<dd>\@</dd>\@\n\i</dl>\@
+	``dt	<dt>\@</dt>\n\i	<dd>\@</dd>\@
+	<dt>+	<dt>\@</dt>\n\i	<dd>\@</dd>\n\i<dt>\@
+	</dt>+	</dt>\n\i	<dd>\@</dd>\n\i<dt>\@</dt>
+	<dd>+	<dd>\@</dd>\n\i<dt>\@</dt>\n\i<dd>\@
+	</dd>+	</dd>\n\i<dt>\@</dt>\n\i<dd>\@</dd>\@
+
+#Shortcuts for tables
+
+	``table	<table align="\@" width="\@" border=\@>\n\i	<tr>\@</tr>\n</table>\n
+	``tr	<tr>\@</tr>\@
+	``td	<td>\@</td>\@
+	``th	<th>\@</th>\@
+	``tf	<tf>\@</tf>\@
+	<tr>+	<tr>\@</tr>\n\i<tr>\@
+	</tr>+	</tr>\n\i<tr>\@</tr>
+	<td>+	<td>\@</td><td>\@
+	</td>+	</td><td>\@</td>\@
+#	</th>+	</th>\n\i<th>\@</th>\@
+#	</tf>+	</tf>\n\i<tf>\@</tf>\@
+
+# forms
+	``form	<form></form>
+	``fi	<input>
+	``fsub	<input type="submit" value="Submit\@"> \@
+	``fre	<input type="reset" value="Reset\@"> \@
+
+# misc
+	``<><	&fish;
+	``"	&quot;
+
+#characters
+	Æ	&AElig;
+	Á	&Aacute;
+	Â	&Acirc;
+	À	&Agrave;
+	Å	&Aring;
+	Ã	&Atilde;
+	Ä	&Auml;
+	Ç	&Ccedil;
+	¸	&Cedilla;
+	Ð	&Eth;
+	É	&Eacute;
+	Ê	&Ecirc;
+	È	&Egrave;
+	Ë	&Euml;
+	Í	&Iacute;
+	Î	&Icirc;
+	Ì	&Igrave;
+	Ï	&Iuml;
+	Ñ	&Ntilde;
+	Ó	&Oacute;
+	Ô	&Ocirc;
+	Ò	&Ograve;
+	Ø	&Oslash;
+	Õ	&Otilde;
+	Ö	&Ouml;
+	Þ	&Thorn;
+	Ú	&Uacute;
+	Û	&Ucirc;
+	Ù	&Ugrave;
+	Ü	&Uuml;
+	Ý	&Yacute;
+
+	á	&aacute;
+	´	&acute;
+	â	&acirc;
+	æ	&aelig;
+	à	&agrave;
+	å	&aring;
+	ã	&atilde;
+	ä	&auml;
+	¦	&brvbar;
+	ç	&ccedil;
+	¢	&cent;
+	©	&copy;
+	¤	&curren;
+	°	&deg;
+	¨	&die;
+	÷	&divide;
+	é	&eacute;
+	ê	&ecirc;
+	è	&egrave;
+	ð	&eth;
+	ë	&euml;
+	¼	&frac14;
+	½	&frac12;
+	¾	&frac34;
+	í	&iacute;
+	î	&icirc;
+	¡	&iexcl;
+	ì	&igrave;
+	¿	&iquest;
+	ï	&iuml;
+	«	&laquo;
+	¯	&macr;
+	˜	&mdash;
+	™	&ndash;
+	µ	&micro;
+	·	&middot;
+	 	&nbsp;
+	¬	&not;
+	ñ	&ntilde;
+	ó	&oacute;
+	ô	&ocirc;
+	ò	&ograve;
+	ª	&ordf;
+	º	&ordm;
+	ø	&oslash;
+	õ	&otilde;
+	ö	&ouml;
+	¶	&para;
+	±	&plusmn;
+	£	&pound;
+	»	&raquo;
+	®	&reg;
+	§	&sect;
+	­	&shy;
+	¹	&sup1;
+	²	&sup2;
+	³	&sup3;
+	ß	&szlig;
+	×	&times;
+		&trade;
+	ù	&ugrave;
+	ú	&uacute;
+	û	&ucirc;
+	¨	&uml;
+	ü	&uuml;
+	ý	&yacute;
+	¥	&yen;
+	þ	&thorn;
+	ÿ	&yuml;
+
+# HTML 4.0 quotes
+	”	&ldquo;
+	•	&rdquo;
+		&lsquo;
+	‘	&rsquo;
+
+# Common characters
+	``>	&gt;
+	``<	&lt;
+	``&	&amp;
+	(C)	&copy;
+	(c)	&copy;
+
+# Add your name here
+
+	``C	Copyright &copy; Me, 2003\n
+	``c	Copyright &copy; Me, 2003\n
+
+End

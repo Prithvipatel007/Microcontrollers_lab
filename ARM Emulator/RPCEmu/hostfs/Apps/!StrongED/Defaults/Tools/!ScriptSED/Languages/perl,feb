@@ -1,0 +1,4 @@
+| StrongED script binding for Perl
+| © StrongED developers
+
+perl -- <StrongED$Script_Script> <StrongED$Script_Infile> > <StrongED$Script_Outfile>

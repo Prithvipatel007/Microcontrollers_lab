@@ -1,0 +1,5 @@
+BASIC
+TEXTLOAD "<StrongED$ScrapDir>.Out"
+RENUMBER 10, 10
+TEXTSAVEO %00010,"<StrongED$ScrapDir>.In"
+QUIT

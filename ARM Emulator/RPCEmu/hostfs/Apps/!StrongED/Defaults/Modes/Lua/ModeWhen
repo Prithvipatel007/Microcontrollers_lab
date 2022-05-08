@@ -1,0 +1,10 @@
+Rules Include
+! 18c,**
+! 18d,**
+  fff,**/lua
+> fff,** ; _lua
+End
+
+Match
+	_lua		< "#!" {White} "lua"
+End

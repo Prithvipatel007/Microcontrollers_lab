@@ -1,0 +1,3 @@
+Iconsprites <Obey$Dir>.!Sprites
+if "<boot$osversion>"<500 then Obey <Obey$Dir>.RMEnsure
+Run <Obey$Dir>.!RunImage

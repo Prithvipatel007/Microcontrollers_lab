@@ -1,0 +1,20 @@
+Hhtml_loh:AUSWAHL erzeugt eine Liste aller Überschriften (headings)|MSPEZIAL erzeugt eine Liste aller Anker (Anchors).
+Hhtml_run:AUSWAHL speichert den Text und startet einen Browser (‹F3).
+Hhtml_esc:Ersetzt < und > durch &lt; und &gt;, nur im ausgewähltem Text
+Hhtml_load:Geht zur ausgewählten Datei|MMuss im Moment im gleichen Verzeichnis wie der aktuelle Text sein.
+Hhtml_h1:Markiert ausgewählten Text als H1.
+Hhtml_h2:Markiert ausgewählten Text als H2.
+Hhtml_h3:Markiert ausgewählten Text als H3.
+Hhtml_h4:Markiert ausgewählten Text als H4.
+Hhtml_h5:Markiert ausgewählten Text als H5.
+Hhtml_h6:Markiert ausgewählten Text als H6.
+Hhtml_strong:Markiert ausgewählten Text als 'strong'.
+Hhtml_emph:Markiert ausgewählten Text als 'betont'.
+Hhtml_italic:Markiert ausgewählten Text als 'kursiv'.
+Hhtml_bold:Markiert ausgewählten Text als 'fett'.
+Hhtml_rm:Entfernt alle Markierungen aus dem ausgewählten Text|M(URL von Ankern bleiben).
+Hhtml_anc:AUSWAHL fügt einen Anker ein|MSPEZIAL konvertiert URL + Text in einen Anker.
+
+Hhtml_font:Add fonts tags to selected text
+Hhtml_para:Makes selected text into a paragraph
+#Hhtml_under:Underlines selected text

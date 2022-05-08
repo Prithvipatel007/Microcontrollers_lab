@@ -1,0 +1,23 @@
+| Boot file for StrongED
+| © StrongED Developers
+
+| Set up directory Path
+Set StrongED$Dir <Obey$Dir>
+
+| Set up variables describing ourselves
+Obey <StrongED$Dir>.StartUp.AppVars
+
+| Set up a directory to store settings
+Obey <StrongED$Dir>.StartUp.ConfigDir
+
+| Set up StrongED's read and write paths
+Obey <StrongED$Dir>.StartUp.SetupCfg
+
+| Find version of operating system
+Obey <StrongED$Dir>.StartUp.OSversion
+
+| Load our (theme dependent) sprites
+Obey <StrongED$Dir>.StartUp.ThemeInit
+
+| Claim filetypes and actions not yet claimed
+Obey <StrongED$Dir>.StartUp.ClaimFiles

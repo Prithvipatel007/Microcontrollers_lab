@@ -1,0 +1,84 @@
+DIM CODE% (&100)
+P% = CODE%
+[
+.base
+  EQUD  &00008000  ; task base address
+
+.toggle
+  EQUD  0  ; timer toggle
+
+  ; timer irq handler, base address passed in R12
+  ; CAUTION supervisor mode
+.timer
+  STMDB SP!, {R0-R1}  ; push to (supervisor) stack
+
+  ADR   R1, toggle
+  LDR   R0, [R1]
+  RSB   R0, R0, #1    ; toggle = 1 - toggle
+  STR   R0, [R1]
+
+  LDMIA SP!, {R0-R1}  ; pop from (supervisor) stack
+  MOV   PC, LR        ; return
+
+  ; procedure disc (for LED)
+.disc
+  STMDB SP!, {R0-R2}
+
+  MOV   R0, #(152+4)
+  MOV   R1, #20
+  MOV   R2, #20
+  SWI   "OS_Plot"       ; disc xk1 yk1
+  MOV   R0, #(152+5)
+  MOV   R1, #30
+  MOV   R2, #30
+  SWI   "OS_Plot"       ; disc xk2 yk2
+
+  LDMIA SP!, {R0-R2}
+  MOV   PC, LR          ; return
+
+  ; function colour (parameter passed in R0)
+.colour
+  STMDB SP!, {R1}
+
+  MOV   R1, R0
+  MOV   R0, #18
+  SWI   "OS_WriteC"
+  MOV   R0, #0
+  SWI   "OS_WriteC"
+  MOV   R0, R1
+  SWI   "OS_WriteC"     ; gcol colour
+
+  LDMIA SP!, {R1}
+  MOV   PC, LR          ; return
+
+.main
+  STMDB SP!, {LR}  ; push return address to stack
+
+  MOV   R0, #50         ; timer 0.5 sec
+  ADR   R1, timer
+  LDR   R2, base        ; base address
+  SWI   "OS_CallEvery"  ; timer start
+
+.main_loop
+  ; wait for irq
+
+  ADR   R1, toggle
+  LDR   R0, [R1]
+  MOVS  R0, R0          ; move toggle to check =0 (and set flags)
+  ; toggle = 1 LED red
+  MOVNE R0, #3
+  ; toggle = 0 LED black
+  MOVEQ R0, #0
+  BL    colour
+  BL    disc            ; show
+
+  SWI   "OS_ReadEscapeState"  ; if ESC pressed then break
+  BCC   main_loop
+
+  ADR   R0, timer
+  LDR   R1, base                ; base address
+  SWI   "OS_RemoveTickerEvent"  ; timer stop
+
+  LDMIA SP!, {PC}  ; pop return address from stack (PC = LR return)
+]
+CALL main

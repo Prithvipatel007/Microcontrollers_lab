@@ -1,0 +1,8 @@
+DEF PROCDealWith_Quit(event,object,component)
+CASE event OF
+ WHEN Quit_AboutToBeShown
+ WHEN Quit_Quit
+ WHEN Quit_DialogueCompleted
+ WHEN Quit_Cancel
+ENDCASE
+ENDPROC

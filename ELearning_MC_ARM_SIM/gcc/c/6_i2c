@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <time.h>
+
+void delay(int val)
+{
+  int cnt = clock();
+
+  while (1)
+  {
+    if (clock() > (cnt + val))
+      return;
+  }
+}
+
+#define SWI_IIC_Control "0x00240"
+void IIC_Control(int r0, int r1, int r2)
+{
+  __asm__ ("swi " SWI_IIC_Control);
+}
+
+int main (void)
+{
+  unsigned char buffer[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+  int cnt = 0;
+
+  while (1)
+  {
+    // RTC PCF8583 address &50 + write : register address &00
+    buffer[0] = 0x00;
+    IIC_Control((0x50 << 1) + 0, (int) buffer, 1);
+
+    // RTC PCF8583 address &50 + read  : 8 bytes auto-increment
+    IIC_Control((0x50 << 1) + 1, (int) buffer, 8);
+
+    printf("%d\n", cnt);
+    printf("status   = 0x%02x\n", buffer[0]);
+    printf("centisec = 0x%02x\n", buffer[1]);
+    printf("sec      = 0x%02x\n", buffer[2]);
+    printf("min      = 0x%02x\n", buffer[3]);
+    printf("hour     = 0x%02x\n", buffer[4]);
+    printf("year     = 0x%02x\n", buffer[5]);
+    printf("month    = 0x%02x\n", buffer[6]);
+    printf("timer    = 0x%02x\n", buffer[7]);
+    printf("\n");
+
+    cnt++;
+    delay(50);
+  }
+
+  return 0;
+}
